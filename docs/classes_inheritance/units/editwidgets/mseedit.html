@@ -1,0 +1,425 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#teditframe" name="teditframe">teditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomcaptionframe">tcustomcaptionframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscrolleditframe" name="tscrolleditframe">tscrolleditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomthumbtrackscrollframe">tcustomthumbtrackscrollframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iscrollframe; const scrollintf: iscrollbar);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscroll;
+        <span style="color:navy"><b>PROPERTY</b></span> dragbuttons;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+        <span style="color:navy"><b>PROPERTY</b></span> sbhorz;
+        <span style="color:navy"><b>PROPERTY</b></span> sbvert;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscrollboxeditframe" name="tscrollboxeditframe">tscrollboxeditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomscrollboxframe">tcustomscrollboxframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iscrollframe; const owner: twidget);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> sbhorz;
+        <span style="color:navy"><b>PROPERTY</b></span> sbvert;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tframebutton" name="tframebutton">tframebutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistent">townedeventpersistent</a>,iframe,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createface;
+        <span style="color:navy"><b>PROCEDURE</b></span> createframe;
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatewidgetstate (const awidget: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> left: boolean <span style="color:navy"><b>READ</b></span> getleft <span style="color:navy"><b>WRITE</b></span> setleft <span style="color:navy"><b>DEFAULT</b></span> false;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fbuttonwidth <span style="color:navy"><b>WRITE</b></span> setbuttonwidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> finfo.color <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> finfo.ca.colorglyph
+                                  <span style="color:navy"><b>WRITE</b></span> setcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> face: tface <span style="color:navy"><b>READ</b></span> getface <span style="color:navy"><b>WRITE</b></span> setface;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> finfo.ca.imagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> finfo.ca.imagenr <span style="color:navy"><b>WRITE</b></span> setimagenr
+                                                                       <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled: imagenrty <span style="color:navy"><b>READ</b></span> finfo.imagenrdisabled
+                                      <span style="color:navy"><b>WRITE</b></span> setimagenrdisabled <span style="color:navy"><b>DEFAULT</b></span> -2; //grayed
+        <span style="color:navy"><b>PROPERTY</b></span> options: framebuttonoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                 <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> fshortcut <span style="color:navy"><b>WRITE</b></span> fshortcut
+                                                         <span style="color:navy"><b>DEFAULT</b></span> ord (key_none) ;
+        <span style="color:navy"><b>PROPERTY</b></span> action: taction <span style="color:navy"><b>READ</b></span> faction <span style="color:navy"><b>WRITE</b></span> setaction;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: notifyeventty <span style="color:navy"><b>READ</b></span> fonexecute <span style="color:navy"><b>WRITE</b></span> fonexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstockglyphframebutton" name="tstockglyphframebutton">tstockglyphframebutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tframebutton">tframebutton</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist <span style="color:navy"><b>READ</b></span> finfo.ca.imagelist <span style="color:navy"><b>WRITE</b></span> setimagelist
+                                                          stored isimageliststored;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tframebuttons" name="tframebuttons">tframebuttons</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistentarrayprop">townedeventpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustombuttonsframe;
+                         const buttonclass: framebuttonclassty);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatewidgetstate;
+        <span style="color:navy"><b>FUNCTION</b></span> wantmouseevent (const apos: pointty): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var info: keyeventinfoty);
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tframebutton <span style="color:navy"><b>READ</b></span> getitems1; default;
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombuttonsframe" name="tcustombuttonsframe">tcustombuttonsframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teditframe">teditframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe; const buttonintf: ibutton);
+                                                        <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> buttonframe: framety;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatemousestate (const sender: twidget;
+                                      const info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatewidgetstate; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseevent (var info: mouseeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridframe; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> buttons: tframebuttons <span style="color:navy"><b>READ</b></span> fbuttons <span style="color:navy"><b>WRITE</b></span> setbuttons;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbuttonsframe" name="tbuttonsframe">tbuttonsframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombuttonsframe">tcustombuttonsframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> buttons;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombuttonframe" name="tcustombuttonframe">tcustombuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombuttonsframe">tcustombuttonsframe</a>) //has at least one button
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe; const buttonintf: ibutton);
+                                                                          <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> activebutton: integer <span style="color:navy"><b>READ</b></span> factivebutton <span style="color:navy"><b>WRITE</b></span> setactivebutton
+                                                                         <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> button: tframebutton <span style="color:navy"><b>READ</b></span> getbutton <span style="color:navy"><b>WRITE</b></span> setbutton;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbuttonframe" name="tbuttonframe">tbuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombuttonframe">tcustombuttonframe</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmultibuttonframe" name="tmultibuttonframe">tmultibuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombuttonframe">tcustombuttonframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> activebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> buttons;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomedit" name="tcustomedit">tcustomedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,iedit)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> changed;
+        <span style="color:navy"><b>PROCEDURE</b></span> initfocus;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcursor (const apos: pointty): cursorshapety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> editor: tinplaceedit <span style="color:navy"><b>READ</b></span> feditor;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit: optionseditty <span style="color:navy"><b>READ</b></span> getoptionsedit <span style="color:navy"><b>WRITE</b></span> setoptionsedit
+                                                          <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> getoptionsedit1
+                                  <span style="color:navy"><b>WRITE</b></span> setoptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar: msechar <span style="color:navy"><b>READ</b></span> getpasswordchar
+                          <span style="color:navy"><b>WRITE</b></span> setpasswordchar stored false <span style="color:navy"><b>DEFAULT</b></span> #0;
+        <span style="color:navy"><b>PROPERTY</b></span> cursor<span style="color:navy"><b>READ</b></span>only: cursorshapety read fcursorreadonly
+                                     <span style="color:navy"><b>WRITE</b></span> setcursorreadonly <span style="color:navy"><b>DEFAULT</b></span> cr_default;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength: integer <span style="color:navy"><b>READ</b></span> getmaxlength <span style="color:navy"><b>WRITE</b></span> setmaxlength
+                          <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> text: msestring <span style="color:navy"><b>READ</b></span> gettext <span style="color:navy"><b>WRITE</b></span> settext;
+        <span style="color:navy"><b>PROPERTY</b></span> oldtext: msestring <span style="color:navy"><b>READ</b></span> getoldtext;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags
+                               <span style="color:navy"><b>DEFAULT</b></span> defaulttextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive: textflagsty <span style="color:navy"><b>READ</b></span> ftextflagsactive
+                       <span style="color:navy"><b>WRITE</b></span> settextflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth: integer <span style="color:navy"><b>READ</b></span> getcaretwidth <span style="color:navy"><b>WRITE</b></span> setcaretwidth
+                                                         <span style="color:navy"><b>DEFAULT</b></span> defaultcaretwidth;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> empty_options: emptyoptionsty <span style="color:navy"><b>READ</b></span> fempty_options
+                                                <span style="color:navy"><b>WRITE</b></span> fempty_options <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> empty_color: colorty <span style="color:navy"><b>READ</b></span> fempty_color <span style="color:navy"><b>WRITE</b></span> setempty_color
+                                                <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_font: twidgetfontempty <span style="color:navy"><b>READ</b></span> getfontempty <span style="color:navy"><b>WRITE</b></span> setfontempty
+                                                       stored isfontemptystored;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_fontstyle: fontstylesty <span style="color:navy"><b>READ</b></span> fempty_fontstyle
+                         <span style="color:navy"><b>WRITE</b></span> setempty_fontstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textflags: textflagsty <span style="color:navy"><b>READ</b></span> fempty_textflags
+                         <span style="color:navy"><b>WRITE</b></span> setempty_textflags <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagsempty;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_text: msestring <span style="color:navy"><b>READ</b></span> fempty_text <span style="color:navy"><b>WRITE</b></span> setempty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolor: colorty <span style="color:navy"><b>READ</b></span> fempty_textcolor
+                                        <span style="color:navy"><b>WRITE</b></span> setempty_textcolor <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolorbackground: colorty <span style="color:navy"><b>READ</b></span> fempty_textcolorbackground
+                               <span style="color:navy"><b>WRITE</b></span> setempty_textcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextedited: texteditedeventty <span style="color:navy"><b>READ</b></span> fontextedited
+                                                                <span style="color:navy"><b>WRITE</b></span> fontextedited;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard: updatestringeventty <span style="color:navy"><b>READ</b></span> foncopytoclipboard
+                       <span style="color:navy"><b>WRITE</b></span> foncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard: updatestringeventty
+                     <span style="color:navy"><b>READ</b></span> fonpastefromclipboard <span style="color:navy"><b>WRITE</b></span> fonpastefromclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintimage: painteventty <span style="color:navy"><b>READ</b></span> fonpaintimage <span style="color:navy"><b>WRITE</b></span> fonpaintimage;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetoptions1; //first!
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetoptions;   //first!
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetheight;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tedit" name="tedit">tedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomedit">tcustomedit</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> delay: integer <span style="color:navy"><b>READ</b></span> getdelay <span style="color:navy"><b>WRITE</b></span> setdelay <span style="color:navy"><b>DEFAULT</b></span> 0; //ms
+        <span style="color:navy"><b>PROPERTY</b></span> ontextediteddelayed: texteditedeventty <span style="color:navy"><b>READ</b></span> fontextediteddelayed
+                                                        <span style="color:navy"><b>WRITE</b></span> fontextediteddelayed;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> empty_options;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_color;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_font;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_fontstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolorbackground;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> cursorreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> text;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

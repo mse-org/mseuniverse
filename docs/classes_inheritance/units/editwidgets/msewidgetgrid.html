@@ -1,0 +1,248 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msewidgetgrid;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetcol" name="twidgetcol">twidgetcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacol">tdatacol</a>,iwidgetgrid,idatalistclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                          const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sourcenamechanged (const atag: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecellzone (const row: integer; const pos: pointty;
+                                                  var result: cellzonety); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualfont: tfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> editwidget: twidget <span style="color:navy"><b>READ</b></span> geteditwidget <span style="color:navy"><b>WRITE</b></span> seteditwidget;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrowwidgets[aindex: integer]: twidget <span style="color:navy"><b>READ</b></span> getfixrowwidgets
+                                                           <span style="color:navy"><b>WRITE</b></span> setfixrowwidgets;
+        <span style="color:navy"><b>PROPERTY</b></span> grid: tcustomwidgetgrid <span style="color:navy"><b>READ</b></span> getgrid;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalist stored false; //stored by defineproperties
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawcell: drawcelleventty <span style="color:navy"><b>READ</b></span> fondrawcell <span style="color:navy"><b>WRITE</b></span> fondrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfixrow" name="twidgetfixrow">twidgetfixrow</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixrow">tfixrow</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfixrows" name="twidgetfixrows">twidgetfixrows</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixrows">tfixrows</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: tcustomwidgetgrid);
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const curindex,newindex: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> rows[const index: integer]: twidgetfixrow <span style="color:navy"><b>READ</b></span> getrows; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetcols" name="twidgetcols">twidgetcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacols">tdatacols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomwidgetgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> datasourcechanged; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: twidgetcol <span style="color:navy"><b>READ</b></span> getcols; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfixcol" name="twidgetfixcol">twidgetfixcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixcol">tfixcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                                 const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrowwidgets[aindex: integer]: twidget <span style="color:navy"><b>READ</b></span> getfixrowwidgets
+                                                           <span style="color:navy"><b>WRITE</b></span> setfixrowwidgets;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfixcols" name="twidgetfixcols">twidgetfixcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixcols">tfixcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomwidgetgrid);
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: twidgetfixcol <span style="color:navy"><b>READ</b></span> getcols; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdummywidget" name="tdummywidget">tdummywidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidget">twidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> setfocus (aactivate: boolean = true): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomwidgetgrid" name="tcustomwidgetgrid">tcustomwidgetgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomgrid">tcustomgrid</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writestate (writer: twriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget; const apos: pointty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> childrencount: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getlogicalchildren: widgetarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> focuslock; //beginupdate + no cell widget focus/defocus
+        <span style="color:navy"><b>PROCEDURE</b></span> focusunlock;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> seteditfocus;
+        <span style="color:navy"><b>PROCEDURE</b></span> setcellclientclick (const awidget: twidget);
+        <span style="color:navy"><b>FUNCTION</b></span> editwidgetatpos (const apos: pointty; out cell: gridcoordty): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetcell (const awidget: twidget): gridcoordty;
+        <span style="color:navy"><b>FUNCTION</b></span> cellwidget (const acell: gridcoordty): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> copyselection: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> pasteselection: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: twidgetcols <span style="color:navy"><b>READ</b></span> getdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols: twidgetfixcols <span style="color:navy"><b>READ</b></span> getfixcols <span style="color:navy"><b>WRITE</b></span> setfixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows: twidgetfixrows <span style="color:navy"><b>READ</b></span> getfixrows <span style="color:navy"><b>WRITE</b></span> setfixrows;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetgrid" name="twidgetgrid">twidgetgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomwidgetgrid">tcustomwidgetgrid</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsfold;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstatelist;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcountmax;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        $endif}
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmodified;
+        <span style="color:navy"><b>PROPERTY</b></span> onedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrollrows;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetmorerows;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onsort;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridmsestringdatalist" name="tgridmsestringdatalist">tgridmsestringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridansistringdatalist" name="tgridansistringdatalist">tgridansistringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tansistringdatalist">tansistringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridbinarystringdatalist" name="tgridbinarystringdatalist">tgridbinarystringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridansistringdatalist">tgridansistringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridpointerdatalist" name="tgridpointerdatalist">tgridpointerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerdatalist">tpointerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridintegerdatalist" name="tgridintegerdatalist">tgridintegerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerdatalist">tintegerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridint64datalist" name="tgridint64datalist">tgridint64datalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tint64datalist">tint64datalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridenumdatalist" name="tgridenumdatalist">tgridenumdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenumdatalist">tenumdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridenum64datalist" name="tgridenum64datalist">tgridenum64datalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenum64datalist">tenum64datalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridrealdatalist" name="tgridrealdatalist">tgridrealdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealdatalist">trealdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>PROCEDURE</b></span> updateeditoptions (const aoptions: optionseditty);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

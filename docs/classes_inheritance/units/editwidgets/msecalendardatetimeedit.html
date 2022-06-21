@@ -1,0 +1,51 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msecalendardatetimeedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomcalendardatetimeedit" name="tcustomcalendardatetimeedit">tcustomcalendardatetimeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatetimeedit">tcustomdatetimeedit</a>,idropdowncalendar)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tcalendarcontroller <span style="color:navy"><b>READ</b></span> fdropdown <span style="color:navy"><b>WRITE</b></span> fdropdown;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tdropdownmultibuttonframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcalendardatetimeedit" name="tcalendardatetimeedit">tcalendardatetimeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomcalendardatetimeedit">tcustomcalendardatetimeedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

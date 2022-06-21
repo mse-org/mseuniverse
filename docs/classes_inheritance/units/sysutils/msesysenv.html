@@ -1,0 +1,83 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory sysutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesysenv;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ehalt" name="ehalt">ehalt</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">exception</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsysenvmanager" name="tsysenvmanager">tsysenvmanager</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> init (const arguments: array of argumentdefty;
+                                       const values: msestringarty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> init (const arguments: array of argumentdefty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> init (const values: msestringarty): boolean; //use defs
+        <span style="color:navy"><b>FUNCTION</b></span> init (): boolean; //use defs and commandline values
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> processinfo (index: integer; value: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> errormessage (const mess: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> printmessage (value: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> printhelp;
+        <span style="color:navy"><b>FUNCTION</b></span> getcommandlinemacros (const macrodef: integer;
+                 const firstenvvarmacro: integer = -1;
+                 const lastenvvarmacro: integer = -1;
+                                   prepend: macroinfoarty = nil): macroinfoarty;
+        <span style="color:navy"><b>PROPERTY</b></span> errorcount: int32 <span style="color:navy"><b>READ</b></span> ferrorcount;
+        <span style="color:navy"><b>PROPERTY</b></span> defined[index: integer]: boolean <span style="color:navy"><b>READ</b></span> getdefined
+                                                       <span style="color:navy"><b>WRITE</b></span> setdefined; default;
+        <span style="color:navy"><b>PROPERTY</b></span> objectlinker: tobjectlinker <span style="color:navy"><b>READ</b></span> getobjectlinker
+                          {$ifdef msehasimplements}implements istatfile{$endif};
+        <span style="color:navy"><b>PROPERTY</b></span> values[index: integer]: msestringarty
+                                                   <span style="color:navy"><b>READ</b></span> getvalues <span style="color:navy"><b>WRITE</b></span> setvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> value[index: integer]: msestring <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> integervalue[index: integer]: integer <span style="color:navy"><b>READ</b></span> getintegervalue1
+                             <span style="color:navy"><b>WRITE</b></span> setintegervalue;
+        <span style="color:navy"><b>FUNCTION</b></span> getintegervalue (var avalue: integer; const index: integer;
+                        const min: integer = minint;
+                                             const max: integer = maxint): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> findfirstfile (filename: filenamety;
+                                        searchinvars: array of integer): filenamety;
+        <span style="color:navy"><b>FUNCTION</b></span> findlastfile (filename: filenamety;
+                                        searchinvars: array of integer): filenamety;
+        <span style="color:navy"><b>PROPERTY</b></span> defs: sysenvdefarty <span style="color:navy"><b>READ</b></span> fdefs <span style="color:navy"><b>WRITE</b></span> setdefs;
+        <span style="color:navy"><b>PROPERTY</b></span> defcount: int32 <span style="color:navy"><b>READ</b></span> getdefcount;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: sysenvoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                              <span style="color:navy"><b>DEFAULT</b></span> defaultsysenvmanageroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> errorcode: integer <span style="color:navy"><b>READ</b></span> ferrorcode <span style="color:navy"><b>WRITE</b></span> ferrorcode
+                                                        <span style="color:navy"><b>DEFAULT</b></span> defaulterrorcode;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> helpheader: msestring <span style="color:navy"><b>READ</b></span> fhelpheader <span style="color:navy"><b>WRITE</b></span> fhelpheader;
+        <span style="color:navy"><b>PROPERTY</b></span> helpfooter: msestring <span style="color:navy"><b>READ</b></span> fhelpfooter <span style="color:navy"><b>WRITE</b></span> fhelpfooter;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onvalue<span style="color:navy"><b>READ</b></span>: sysenvmanagervalueeventty read fonvalueread
+                                                              <span style="color:navy"><b>WRITE</b></span> fonvalueread;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit: sysenvmanagereventty <span style="color:navy"><b>READ</b></span> foninit <span style="color:navy"><b>WRITE</b></span> setoninit;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterinit: sysenvmanagereventty <span style="color:navy"><b>READ</b></span> fonafterinit
+                                                                <span style="color:navy"><b>WRITE</b></span> fonafterinit;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

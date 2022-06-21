@@ -1,0 +1,68 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcSqLite;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsqlitedriver" name="tzsqlitedriver">TZSQLiteDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractdriver">TZAbstractDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Connect (const Url: TZURL): IZConnection; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMajorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMinorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetTokenizer: IZTokenizer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetStatementAnalyser: IZStatementAnalyser; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsqliteconnection" name="tzsqliteconnection">TZSQLiteConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractconnection">TZAbstractConnection</a>, IZSQLiteConnection)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> CreateRegularStatement (Info: TStrings): IZStatement; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CreatePreparedStatement (const SQL: string; Info: TStrings):
+           IZPreparedStatement; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Commit; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Rollback; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Open; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> InternalClose; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetAutoCommit (Value: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetCatalog (const Catalog: string); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalog: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetTransactionIsolation (Level: TZTransactIsolationLevel); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetHostVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetPlainDriver: IZSQLitePlainDriver;
+         <span style="color:navy"><b>FUNCTION</b></span> GetConnectionHandle: Psqlite;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> ReKey (const Key: string): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Key (const Key: string): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerProvider: TZServerProvider; <span style="color:teal"><b>OVERRIDE</b></span>;	
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

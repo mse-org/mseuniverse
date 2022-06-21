@@ -1,0 +1,181 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory serialcomm</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msecommport;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrs232" name="tcustomrs232">tcustomrs232</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent;  //aowner can be nil
+                           const aoncheckabort: checkeventty = nil);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> open: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> close;
+        <span style="color:navy"><b>FUNCTION</b></span> opened: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> reset;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetinput;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetoutput;
+        <span style="color:navy"><b>PROCEDURE</b></span> setrts (active: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> setdtr (active: boolean);
+        <span style="color:navy"><b>FUNCTION</b></span> writestring (const dat: string; timeout: longword = 0;
+                     waitforeot: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readbuffer (anzahl: integer; out dat;
+                            timeout: longword = 0): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> readstring (anzahl: integer; out dat: string;
+                            timeout: longword = infinitemse): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readavailbuffer (const maxcount: integer; out dat): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> readavailstring (const maxcount: integer): string;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> transmissiontime (const acount: integer): longword; //bringt uebertragungszeit in us
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> opened <span style="color:navy"><b>WRITE</b></span> setactive;
+        <span style="color:navy"><b>PROPERTY</b></span> openerror: int32 <span style="color:navy"><b>READ</b></span> fopenerror;
+        <span style="color:navy"><b>PROPERTY</b></span> handle: ptruint <span style="color:navy"><b>READ</b></span> fhandle;
+        <span style="color:navy"><b>PROPERTY</b></span> commnr: commnrty <span style="color:navy"><b>READ</b></span> Fcommnr <span style="color:navy"><b>WRITE</b></span> Setcommnr <span style="color:navy"><b>DEFAULT</b></span> cnr_1;
+        <span style="color:navy"><b>PROPERTY</b></span> commname: filenamety <span style="color:navy"><b>READ</b></span> fcommname <span style="color:navy"><b>WRITE</b></span> setcommname;
+        <span style="color:navy"><b>FUNCTION</b></span> commpath (): filenamety;
+        <span style="color:navy"><b>PROPERTY</b></span> baud: commbaudratety <span style="color:navy"><b>READ</b></span> Fbaud <span style="color:navy"><b>WRITE</b></span> Setbaud <span style="color:navy"><b>DEFAULT</b></span> cbr_9600;
+        <span style="color:navy"><b>PROPERTY</b></span> databits: commdatabitsty <span style="color:navy"><b>READ</b></span> fdatabits <span style="color:navy"><b>WRITE</b></span> setdatabits <span style="color:navy"><b>DEFAULT</b></span> cdb_8;
+        <span style="color:navy"><b>PROPERTY</b></span> stopbit: commstopbitty <span style="color:navy"><b>READ</b></span> Fstopbit <span style="color:navy"><b>WRITE</b></span> Setstopbit <span style="color:navy"><b>DEFAULT</b></span> csb_1;
+        <span style="color:navy"><b>PROPERTY</b></span> parity: commparityty <span style="color:navy"><b>READ</b></span> Faparity <span style="color:navy"><b>WRITE</b></span> Setparity <span style="color:navy"><b>DEFAULT</b></span> cpa_none;
+        <span style="color:navy"><b>PROPERTY</b></span> halfduplex: boolean <span style="color:navy"><b>READ</b></span> fhalfduplex <span style="color:navy"><b>WRITE</b></span> fhalfduplex <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckabort: checkeventty <span style="color:navy"><b>READ</b></span> foncheckabort;
+        <span style="color:navy"><b>PROPERTY</b></span> rtstimevor: integer <span style="color:navy"><b>READ</b></span> frtstimevor <span style="color:navy"><b>WRITE</b></span> frtstimevor; //in us
+        <span style="color:navy"><b>PROPERTY</b></span> rtstimenach: integer <span style="color:navy"><b>READ</b></span> frtstimenach <span style="color:navy"><b>WRITE</b></span> frtstimenach; //in us
+        <span style="color:navy"><b>PROPERTY</b></span> byteus: integer <span style="color:navy"><b>READ</b></span> fbyteus;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trs232" name="trs232">trs232</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrs232">tcustomrs232</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcommevent" name="tcommevent">tcommevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseevent">tmseevent</a>)
+      PUBLIC
+        onerror: commeventty;   //synchronized with maineventloop
+        onsuccess: commeventty; //synchronized with maineventloop
+        timeout: integer; //us
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (persistent: boolean; atimeout: integer = 200000); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> state: commstatety;
+        <span style="color:navy"><b>FUNCTION</b></span> waitfordata: boolean; //true if no error
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcommthread" name="tcommthread">tcommthread</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventthread">teventthread</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); //owner can be nil
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> writestring (const dat: string; timeout: integer = 0): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readstring (anzahl: integer; out dat: string;
+                                              timeout: integer = 0): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> abort;  //alle laufende auftraege werden mit timeout abgebrochen
+        <span style="color:navy"><b>PROCEDURE</b></span> postevent (event: tcommevent);
+        <span style="color:navy"><b>PROCEDURE</b></span> reset; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> port: trs232 <span style="color:navy"><b>READ</b></span> fport;
+        <span style="color:navy"><b>PROPERTY</b></span> sendretries: integer <span style="color:navy"><b>READ</b></span> fsendretries <span style="color:navy"><b>WRITE</b></span> fsendretries <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcommport" name="tcommport">tcommport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> openport (raiseexception: boolean = false): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> closeport;
+        <span style="color:navy"><b>PROCEDURE</b></span> abort;
+        <span style="color:navy"><b>FUNCTION</b></span> geterrortext (error: integer): msestring;  <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getlastresulttext: msestring;
+        <span style="color:navy"><b>PROPERTY</b></span> th<span style="color:navy"><b>READ</b></span>: tcommthread read fthread;
+        <span style="color:navy"><b>PROPERTY</b></span> opened: boolean <span style="color:navy"><b>READ</b></span> getopened;
+        <span style="color:navy"><b>PROPERTY</b></span> busy: boolean <span style="color:navy"><b>READ</b></span> getbusy;
+        <span style="color:navy"><b>PROPERTY</b></span> halfduplex: boolean <span style="color:navy"><b>READ</b></span> gethalfduplex <span style="color:navy"><b>WRITE</b></span> sethalfduplex <span style="color:navy"><b>DEFAULT</b></span> false;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> objectlinker: tobjectlinker <span style="color:navy"><b>READ</b></span> getobjectlinker
+                     {$ifdef msehasimplements}implements istatfile{$endif};
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onportchange: notifyeventty <span style="color:navy"><b>READ</b></span> Fonportchange
+             <span style="color:navy"><b>WRITE</b></span> fonportchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onconnectchanged: booleanchangedeventty <span style="color:navy"><b>READ</b></span> Fonconnectedchange
+             <span style="color:navy"><b>WRITE</b></span> fonconnectedchange;
+        <span style="color:navy"><b>PROPERTY</b></span> sendretries: integer <span style="color:navy"><b>READ</b></span> getsendretries <span style="color:navy"><b>WRITE</b></span> setsendretries <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> port: commnrty <span style="color:navy"><b>READ</b></span> getport <span style="color:navy"><b>WRITE</b></span> setport <span style="color:navy"><b>DEFAULT</b></span> cnr_1;
+        <span style="color:navy"><b>PROPERTY</b></span> portname: filenamety <span style="color:navy"><b>READ</b></span> getportname <span style="color:navy"><b>WRITE</b></span> setportname;
+        <span style="color:navy"><b>PROPERTY</b></span> baudrate: commbaudratety <span style="color:navy"><b>READ</b></span> getbaudrate <span style="color:navy"><b>WRITE</b></span> Setbaudrate <span style="color:navy"><b>DEFAULT</b></span> cbr_9600;
+        <span style="color:navy"><b>PROPERTY</b></span> stopbit: commstopbitty <span style="color:navy"><b>READ</b></span> getstopbit <span style="color:navy"><b>WRITE</b></span> Setstopbit <span style="color:navy"><b>DEFAULT</b></span> csb_1;
+        <span style="color:navy"><b>PROPERTY</b></span> parity: commparityty <span style="color:navy"><b>READ</b></span> getparity <span style="color:navy"><b>WRITE</b></span> Setparity <span style="color:navy"><b>DEFAULT</b></span> cpa_none;
+        <span style="color:navy"><b>PROPERTY</b></span> databits: commdatabitsty <span style="color:navy"><b>READ</b></span> getdatabits <span style="color:navy"><b>WRITE</b></span> setdatabits <span style="color:navy"><b>DEFAULT</b></span> cdb_8;
+        <span style="color:navy"><b>PROPERTY</b></span> rtstimevor: integer <span style="color:navy"><b>READ</b></span> getrtstimevor <span style="color:navy"><b>WRITE</b></span> setrtstimevor <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> rtstimenach: integer <span style="color:navy"><b>READ</b></span> getrtstimenach <span style="color:navy"><b>WRITE</b></span> setrtstimenach <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> timeout: integer <span style="color:navy"><b>READ</b></span> ftimeout <span style="color:navy"><b>WRITE</b></span> ftimeout <span style="color:navy"><b>DEFAULT</b></span> 200000;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasciicommevent" name="tasciicommevent">tasciicommevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcommevent">tcommevent</a>)
+      PUBLIC
+        commandstring: string;
+        resultstring: string;
+        resultcode: integer; //cpf_...
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasciicommthread" name="tasciicommthread">tasciicommthread</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcommthread">tcommthread</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> reset; <span style="color:teal"><b>OVERRIDE</b></span>;       //setzt commport zurueck
+        <span style="color:navy"><b>FUNCTION</b></span> readln (timeout: integer; out dat: string): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> sendstring (const data: string; out antwort: string;
+           timeout: integer): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> sendstring (const data: string): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> eorchar: char <span style="color:navy"><b>READ</b></span> feorchar <span style="color:navy"><b>WRITE</b></span> feorchar <span style="color:navy"><b>DEFAULT</b></span> defaulteorchar;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasciicommport" name="tasciicommport">tasciicommport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcommport">tcommport</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> send (const commandstring: string; out answer: string;
+                 atimeout: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> send (const commandstrings: array of string): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> th<span style="color:navy"><b>READ</b></span>: tasciicommthread read getthread;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> halfduplex;
+        <span style="color:navy"><b>PROPERTY</b></span> eorchar: char <span style="color:navy"><b>READ</b></span> geteorchar <span style="color:navy"><b>WRITE</b></span> seteorchar <span style="color:navy"><b>DEFAULT</b></span> defaulteorchar;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasciiprotevent" name="tasciiprotevent">tasciiprotevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tasciicommevent">tasciicommevent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (persistent: boolean; atimeout: integer = 200000); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasciiprotport" name="tasciiprotport">tasciiprotport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tasciicommport">tasciicommport</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> send (const commandstring: string; out answer: string;
+                 atimeout: integer = 0; aadress: integer = -1): integer;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

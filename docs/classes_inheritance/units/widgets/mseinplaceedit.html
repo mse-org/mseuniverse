@@ -1,0 +1,171 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseinplaceedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tinplaceedit" name="tinplaceedit">tinplaceedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">tobject</a>,iassistiveclientedit)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: twidget; editintf: iedit;
+                                              istextedit: boolean = false);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setup (const text: msestring; cursorindex: integer; shift: boolean;
+                   const atextrect,aclientrect: rectty;
+                   const format: formatinfoarty = nil;
+                   const tabulators: tcustomtabulators = nil;
+                   const font: tfont = nil; noinvalidate: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatepos (const atextrect,aclientrect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> movepos (const adist: pointty); //shifts textrects
+        <span style="color:navy"><b>PROCEDURE</b></span> setscrollvalue (const avalue: real; const horz: boolean);
+        <span style="color:navy"><b>PROPERTY</b></span> font: tfont <span style="color:navy"><b>READ</b></span> ffont <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> fontstyle: fontstylesty <span style="color:navy"><b>READ</b></span> ffontstyle <span style="color:navy"><b>WRITE</b></span> ffontstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> fontcolor: colorty <span style="color:navy"><b>READ</b></span> ffontcolor <span style="color:navy"><b>WRITE</b></span> ffontcolor <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> fontcolorbackground: colorty <span style="color:navy"><b>READ</b></span> ffontcolor write
+                                          ffontcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> widget: twidget <span style="color:navy"><b>READ</b></span> fwidget;
+        <span style="color:navy"><b>FUNCTION</b></span> getfontcanvas: tcanvas;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> beforechange: boolean; //true if not aborted
+        <span style="color:navy"><b>PROCEDURE</b></span> begingroup; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endgroup; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> scroll (const dist: pointty; const scrollcaret: boolean = true);
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate; //no caret update by index change
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>FUNCTION</b></span> updating: boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecaret;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var kinfo: keyeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseevent (var minfo: mouseeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatepopupmenu (var amenu: tpopupmenu; const popupmenu: tpopupmenu;
+                          var mouseinfo: mouseeventinfoty;
+                          const hasselection: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> setfirstclick (var ainfo: mouseeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> doactivate;
+        <span style="color:navy"><b>PROCEDURE</b></span> dodeactivate;
+        <span style="color:navy"><b>PROCEDURE</b></span> dofocus;
+        <span style="color:navy"><b>PROCEDURE</b></span> dodefocus;
+        <span style="color:navy"><b>PROCEDURE</b></span> dopaint (const canvas: tcanvas);
+        <span style="color:navy"><b>PROCEDURE</b></span> poschanged;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragstarted; //kills repeater
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initfocus;
+        <span style="color:navy"><b>PROCEDURE</b></span> moveindex (newindex: integer; shift: boolean = false;
+                                        donotify: boolean = true); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> inserttext (const text: msestring; nooverwrite: boolean = true);
+        <span style="color:navy"><b>FUNCTION</b></span> copytoclipboard: boolean;           //true if copied
+        <span style="color:navy"><b>FUNCTION</b></span> cuttoclipboard: boolean;            //true if cut
+        <span style="color:navy"><b>FUNCTION</b></span> pastefromclipboard: boolean;        //true if pasted
+        <span style="color:navy"><b>PROCEDURE</b></span> deleteselection;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearundo;
+        <span style="color:navy"><b>PROCEDURE</b></span> undo; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> selectall;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearselection;
+        <span style="color:navy"><b>PROPERTY</b></span> forcecaret: boolean <span style="color:navy"><b>READ</b></span> getforcecaret <span style="color:navy"><b>WRITE</b></span> setforcecaret;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> optionsedit: optionseditty;
+        <span style="color:navy"><b>FUNCTION</b></span> canedit: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canundo: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> cancopy: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canpaste: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getinsertcaretwidth (const canvas: tcanvas;
+                                                   const afont: tfont): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> insertstate: boolean <span style="color:navy"><b>READ</b></span> getinsertstate <span style="color:navy"><b>WRITE</b></span> setinsertstate;
+        <span style="color:navy"><b>PROPERTY</b></span> selstart: integer <span style="color:navy"><b>READ</b></span> fselstart <span style="color:navy"><b>WRITE</b></span> setselstart;
+        <span style="color:navy"><b>PROPERTY</b></span> sellength: halfinteger <span style="color:navy"><b>READ</b></span> fsellength <span style="color:navy"><b>WRITE</b></span> setsellength;
+        <span style="color:navy"><b>FUNCTION</b></span> selectedtext: msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> hasselection: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> curindex: integer <span style="color:navy"><b>READ</b></span> fcurindex <span style="color:navy"><b>WRITE</b></span> setcurindex;
+        <span style="color:navy"><b>PROPERTY</b></span> caretpos: pointty <span style="color:navy"><b>READ</b></span> getcaretpos;
+        <span style="color:navy"><b>FUNCTION</b></span> lasttextclipped: boolean; //result of last drawing
+        <span style="color:navy"><b>FUNCTION</b></span> lasttextclipped (const acliprect: rectty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> mousepostotextindex (const apos: pointty): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> textindextomousepos (const aindex: integer): pointty;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1
+                             <span style="color:navy"><b>WRITE</b></span> foptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive: textflagsty <span style="color:navy"><b>READ</b></span> ftextflagsactive
+                                                      <span style="color:navy"><b>WRITE</b></span> settextflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar: msechar <span style="color:navy"><b>READ</b></span> fpasswordchar
+                                              <span style="color:navy"><b>WRITE</b></span> setpasswordchar <span style="color:navy"><b>DEFAULT</b></span> #0;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength: integer <span style="color:navy"><b>READ</b></span> fmaxlength <span style="color:navy"><b>WRITE</b></span> setmaxlength <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth: integer <span style="color:navy"><b>READ</b></span> fcaretwidth <span style="color:navy"><b>WRITE</b></span> setcaretwidth
+                                                        <span style="color:navy"><b>DEFAULT</b></span> defaultcaretwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> text: msestring <span style="color:navy"><b>READ</b></span> finfo.text.text <span style="color:navy"><b>WRITE</b></span> settext;
+        <span style="color:navy"><b>PROPERTY</b></span> oldtext: msestring <span style="color:navy"><b>READ</b></span> foldtext <span style="color:navy"><b>WRITE</b></span> foldtext;
+        <span style="color:navy"><b>PROPERTY</b></span> richtext: richstringty <span style="color:navy"><b>READ</b></span> finfo.text <span style="color:navy"><b>WRITE</b></span> setrichtext;
+        <span style="color:navy"><b>PROPERTY</b></span> format: formatinfoarty <span style="color:navy"><b>READ</b></span> finfo.text.format <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> destrect: rectty <span style="color:navy"><b>READ</b></span> finfo.dest;
+        <span style="color:navy"><b>PROPERTY</b></span> cliprect: rectty <span style="color:navy"><b>READ</b></span> finfo.clip;
+        <span style="color:navy"><b>PROPERTY</b></span> textrect: rectty <span style="color:navy"><b>READ</b></span> gettextrect;
+        <span style="color:navy"><b>PROPERTY</b></span> filtertext: msestring <span style="color:navy"><b>READ</b></span> ffiltertext <span style="color:navy"><b>WRITE</b></span> setfiltertext;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextundolist" name="ttextundolist">ttextundolist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicdatalist">tdynamicdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (intf: iundo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginlink (linkto: undotypety; forcenew: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> endlink (forcenew: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> setpos (const endpos: gridcoordty; selected: boolean;
+              alink: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> inserttext (const startpos,endpos: gridcoordty;
+                 const atext: msestring;
+                 selected: boolean; backwards: boolean; alink: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> overwritetext (const startpos,endpos: gridcoordty;
+                const atext,atextbefore: msestring; selected: boolean;
+                alink: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> deletetext (const startpos,endpos: gridcoordty;
+            const atext: msestring; selected: boolean;
+            backwards: boolean; alink: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> undo;
+        <span style="color:navy"><b>PROCEDURE</b></span> redo;
+        <span style="color:navy"><b>PROPERTY</b></span> canundo: boolean <span style="color:navy"><b>READ</b></span> getcanundo;
+        <span style="color:navy"><b>PROPERTY</b></span> canredo: boolean <span style="color:navy"><b>READ</b></span> getcanredo;
+        <span style="color:navy"><b>PROPERTY</b></span> maxcount <span style="color:navy"><b>DEFAULT</b></span> defaultundomaxcount;
+        <span style="color:navy"><b>PROPERTY</b></span> maxsize: integer <span style="color:navy"><b>READ</b></span> fmaxsize <span style="color:navy"><b>WRITE</b></span> fmaxsize <span style="color:navy"><b>DEFAULT</b></span> defaultundobuffermaxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> locked: boolean <span style="color:navy"><b>READ</b></span> getlocked;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tundoinplaceedit" name="tundoinplaceedit">tundoinplaceedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinplaceedit">tinplaceedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: twidget; editintf: iedit; undointf: iundo;
+                           istextedit: boolean);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> begingroup; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endgroup; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canundo: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canredo: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> undo; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> redo; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> moveindex (newindex: integer; shift: boolean = false;
+                 donotify: boolean = true); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> undolist: ttextundolist <span style="color:navy"><b>READ</b></span> fundolist;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

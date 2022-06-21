@@ -1,0 +1,309 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory graphics</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msebitmap;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbitmap" name="tbitmap">tbitmap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsimplebitmap">tsimplebitmap</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akind: bitmapkindty;
+                                   const agdifuncs: pgdifunctionaty = nil);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> savetoimage (out aimage: imagety);
+        <span style="color:navy"><b>PROCEDURE</b></span> loadfromimage (const aimage: imagety);
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> change;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> loaddata (const asize: sizety; const data: pbyte;
+                  const msbitfirst: boolean = false; const dwordaligned: boolean = false;
+                  const bottomup: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>; //calls change
+        <span style="color:navy"><b>FUNCTION</b></span> hasimage: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const dest: rectty;
+                        const asource: rectty; aalignment: alignmentsty = [];
+                              const acolorforeground: colorty = cl_default;
+                              const acolorbackground: colorty = cl_default;
+                              const aopacity: colorty = cl_default
+                        );
+                                <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const dest: pointty;
+                              const acolorforeground: colorty = cl_default;
+                              const acolorbackground: colorty = cl_default;
+                              const aopacity: colorty = cl_default
+                              ); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const dest: pointty;
+                               const aalignment: alignmentsty;
+                               const acolorforeground: colorty = cl_default;
+                               const acolorbackground: colorty = cl_default;
+                               const aopacity: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const dest: rectty;
+                              const acolorforeground: colorty = cl_default;
+                              const acolorbackground: colorty = cl_default;
+                              const aopacity: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const dest: rectty;
+                               const aalignment: alignmentsty;
+                               const acolorforeground: colorty = cl_default;
+                               const acolorbackground: colorty = cl_default;
+                               const aopacity: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> init (const acolor: colorty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> compressdata: longwordarty;
+        <span style="color:navy"><b>PROCEDURE</b></span> decompressdata (const asize: sizety; const adata: longwordarty);
+        <span style="color:navy"><b>PROPERTY</b></span> pixel[const index: pointty]: colorty <span style="color:navy"><b>READ</b></span> getpixel <span style="color:navy"><b>WRITE</b></span> setpixel;
+        <span style="color:navy"><b>PROPERTY</b></span> pixels[const x,y: integer]: colorty <span style="color:navy"><b>READ</b></span> getpixels <span style="color:navy"><b>WRITE</b></span> setpixels;
+        <span style="color:navy"><b>PROPERTY</b></span> scanline[index: integer]: pointer <span style="color:navy"><b>READ</b></span> getscanline;
+        <span style="color:navy"><b>PROPERTY</b></span> scanhigh: integer <span style="color:navy"><b>READ</b></span> fscanhigh;
+        <span style="color:navy"><b>PROPERTY</b></span> scanlinestep: integer <span style="color:navy"><b>READ</b></span> fscanlinestep; //bytes
+        <span style="color:navy"><b>PROPERTY</b></span> colorforeground: colorty <span style="color:navy"><b>READ</b></span> fcolorforeground <span style="color:navy"><b>WRITE</b></span> setcolorforeground <span style="color:navy"><b>DEFAULT</b></span> cl_black;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> fcolorbackground <span style="color:navy"><b>WRITE</b></span> setcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_white;
+        <span style="color:navy"><b>PROPERTY</b></span> alignment: alignmentsty <span style="color:navy"><b>READ</b></span> falignment <span style="color:navy"><b>WRITE</b></span> setalignment <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> opacity: colorty <span style="color:navy"><b>READ</b></span> fopacity <span style="color:navy"><b>WRITE</b></span> setopacity <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbitmapcanvas" name="tbitmapcanvas">tbitmapcanvas</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcanvas">tcanvas</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const user: tbitmap);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#townedbitmap" name="townedbitmap">townedbitmap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbitmap">tbitmap</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tbitmap; const akind: bitmapkindty;
+                                   const agdifuncs: pgdifunctionaty = nil);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmaskedbitmap" name="tmaskedbitmap">tmaskedbitmap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbitmap">tbitmap</a>,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akind: bitmapkindty;
+                          const agdifuncs: pgdifunctionaty = nil);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> loadfrommaskedimage (const aimage: maskedimagety);
+        <span style="color:navy"><b>PROCEDURE</b></span> savetomaskedimage (out aimage: maskedimagety);
+        <span style="color:navy"><b>FUNCTION</b></span> bitmap: tmaskedbitmap; //self if source = nil
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> releasehandle; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> acquirehandle; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initmask;
+        <span style="color:navy"><b>PROCEDURE</b></span> stretch (const dest: tmaskedbitmap;
+                                const aalignment: alignmentsty =
+                                     [al_stretchx,al_stretchy,al_intpol]); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> stretch (const source: rectty; const dest: tmaskedbitmap;
+                          const aalignment: alignmentsty =
+                                    [al_stretchx,al_stretchy,al_intpol]); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> remask; //recalc mask
+        <span style="color:navy"><b>PROCEDURE</b></span> automask; //transparentcolor is bottomright pixel
+        
+        
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromstring (const avalue: string; const format: string;
+                                             const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromstring (const avalue: string): string;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromstream (const stream: tstream; const format: string;
+                                            const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromstream (const stream: tstream): string;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromfile (const filename: filenamety; const format: string;
+                                            const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromfile (const filename: filenamety): string;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromstring (const avalue: string; const format: string;
+                                             const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromstring (const avalue: string): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromstream (const stream: tstream; const format: string;
+                                            const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromstream (const stream: tstream): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromfile (const filename: filenamety; const format: string;
+                                            const params: array of const): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tryloadfromfile (const filename: filenamety): string;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writetostring (out avalue: string; const format: string;
+                                       const params: array of const); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> writetostring (const format: string;
+                                const params: array of const): string; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writetostream (const stream: tstream; const format: string;
+                                    const params: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> writetofile (const filename: filenamety; const format: string;
+                                    const params: array of const);
+        <span style="color:navy"><b>PROPERTY</b></span> mask: tbitmap <span style="color:navy"><b>READ</b></span> getmask1 <span style="color:navy"><b>WRITE</b></span> setmask;
+        <span style="color:navy"><b>PROPERTY</b></span> maskkind: bitmapkindty <span style="color:navy"><b>READ</b></span> getmaskkind
+                                      <span style="color:navy"><b>WRITE</b></span> setmaskkind <span style="color:navy"><b>DEFAULT</b></span> bmk_mono;
+        <span style="color:navy"><b>PROPERTY</b></span> masked: boolean <span style="color:navy"><b>READ</b></span> getmasked <span style="color:navy"><b>WRITE</b></span> setmasked <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> graymask: boolean <span style="color:navy"><b>READ</b></span> getgraymask <span style="color:navy"><b>WRITE</b></span> setgraymask <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> colormask: boolean <span style="color:navy"><b>READ</b></span> getcolormask <span style="color:navy"><b>WRITE</b></span> setcolormask <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> maskcolorforeground: colorty <span style="color:navy"><b>READ</b></span> fmaskcolorforeground
+                         <span style="color:navy"><b>WRITE</b></span> fmaskcolorforeground <span style="color:navy"><b>DEFAULT</b></span> $ffffff;
+        <span style="color:navy"><b>PROPERTY</b></span> maskcolorbackground: colorty <span style="color:navy"><b>READ</b></span> fmaskcolorbackground
+                         <span style="color:navy"><b>WRITE</b></span> fmaskcolorbackground <span style="color:navy"><b>DEFAULT</b></span> $000000; //max transparent
+        <span style="color:navy"><b>PROPERTY</b></span> mask_pos: pointty <span style="color:navy"><b>READ</b></span> fmask_pos <span style="color:navy"><b>WRITE</b></span> setmaskpos;
+        <span style="color:navy"><b>PROPERTY</b></span> origformatdata: string <span style="color:navy"><b>READ</b></span> forigformatdata <span style="color:navy"><b>WRITE</b></span> setorigformatdata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> transparentcolor: colorty <span style="color:navy"><b>READ</b></span> ftransparentcolor
+                                   <span style="color:navy"><b>WRITE</b></span> settransparentcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> options: bitmapoptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> source: tbitmapcomp <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> mask_source: tbitmapcomp <span style="color:navy"><b>READ</b></span> fmask_source <span style="color:navy"><b>WRITE</b></span> setmask_source;
+        <span style="color:navy"><b>PROPERTY</b></span> mask_x: int32 <span style="color:navy"><b>READ</b></span> fmask_pos.x <span style="color:navy"><b>WRITE</b></span> setmask_x <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> mask_y: int32 <span style="color:navy"><b>READ</b></span> fmask_pos.y <span style="color:navy"><b>WRITE</b></span> setmask_y <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> origformat: string <span style="color:navy"><b>READ</b></span> forigformat <span style="color:navy"><b>WRITE</b></span> forigformat;
+        <span style="color:navy"><b>PROPERTY</b></span> colorforeground;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> alignment;
+        <span style="color:navy"><b>PROPERTY</b></span> opacity;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcenteredbitmap" name="tcenteredbitmap">tcenteredbitmap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmaskedbitmap">tmaskedbitmap</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akind: bitmapkindty;
+                          const agdifuncs: pgdifunctionaty = nil);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> alignment <span style="color:navy"><b>DEFAULT</b></span> [al_xcentered,al_ycentered];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbitmapcomp" name="tbitmapcomp">tbitmapcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> bitmap: tmaskedbitmap <span style="color:navy"><b>READ</b></span> fbitmap <span style="color:navy"><b>WRITE</b></span> setbitmap;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#timagelist" name="timagelist">timagelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>PROCEDURE</b></span> deleteimage (const index: integer);
+        
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> moveimage (const fromindex: integer; const toindex: integer;
+                                                            aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> setimage (index: integer; image: tmaskedbitmap;
+              const source: rectty; aalignment: alignmentsty = [];
+                                                            aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> setimage (index: integer; image: tmaskedbitmap;
+                       const aalignment: alignmentsty = []; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> getimage (const index: integer; const dest: tmaskedbitmap;
+                                                            aversion: int32 = -1);
+        <span style="color:navy"><b>FUNCTION</b></span> addimage (const image: tmaskedbitmap; //nil -> empty item
+                                   const aalignment: alignmentsty = []{;
+        ): integer;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clipcornermask (const canvas: tcanvas;
+                           const arect: rectty; const ahiddenedges: edgesty);
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const index: integer;
+                        const dest: pointty; const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const index: integer;
+                        const dest: rectty; const alignment: alignmentsty = [];
+                        const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas; const index: integer;
+                        const dest: rectty; source: rectty;
+                        const alignment: alignmentsty = [];
+                        const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintlookup (const acanvas: tcanvas; const index: integer;
+                        const dest: pointty; const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintlookup (const acanvas: tcanvas; const index: integer;
+                        const dest: rectty; const alignment: alignmentsty = [];
+                        const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintlookup (const acanvas: tcanvas; const index: integer;
+                        const dest: rectty; source: rectty;
+                        const alignment: alignmentsty = [];
+                        const acolor: colorty = cl_default;
+                        const acolorbackground: colorty = cl_default;
+                        const aopacity: colorty = cl_default; aversion: int32 = -1);
+        <span style="color:navy"><b>FUNCTION</b></span> lookup (const aindex: int32): int32;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (sender: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> size: sizety <span style="color:navy"><b>READ</b></span> fsize <span style="color:navy"><b>WRITE</b></span> setsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bitmap: tmaskedbitmap <span style="color:navy"><b>READ</b></span> getbitmap;
+        <span style="color:navy"><b>PROPERTY</b></span> bitmaps[const aindex: int32]: tmaskedbitmap <span style="color:navy"><b>READ</b></span> getbitmaps;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> kind: bitmapkindty <span style="color:navy"><b>READ</b></span> getkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> bmk_rgb;
+        <span style="color:navy"><b>PROPERTY</b></span> maskkind: bitmapkindty <span style="color:navy"><b>READ</b></span> getmaskkind
+                                         <span style="color:navy"><b>WRITE</b></span> setmaskkind <span style="color:navy"><b>DEFAULT</b></span> bmk_mono;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> monochrome: boolean <span style="color:navy"><b>READ</b></span> getmonochrome
+                     <span style="color:navy"><b>WRITE</b></span> setmonochrome <span style="color:navy"><b>DEFAULT</b></span> false;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> masked: boolean <span style="color:navy"><b>READ</b></span> getmasked <span style="color:navy"><b>WRITE</b></span> setmasked <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> graymask: boolean <span style="color:navy"><b>READ</b></span> getgraymask <span style="color:navy"><b>WRITE</b></span> setgraymask <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> colormask: boolean <span style="color:navy"><b>READ</b></span> getcolormask
+                                                   <span style="color:navy"><b>WRITE</b></span> setcolormask <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> hascornermask: boolean <span style="color:navy"><b>READ</b></span> fhascornermask;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> versioncount: int32 <span style="color:navy"><b>READ</b></span> getversioncount
+                                     <span style="color:navy"><b>WRITE</b></span> setversioncount <span style="color:navy"><b>DEFAULT</b></span> 1; //first!
+        <span style="color:navy"><b>PROPERTY</b></span> versiondefault: int32 <span style="color:navy"><b>READ</b></span> fversiondefault
+                                     <span style="color:navy"><b>WRITE</b></span> setversion<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fsize.cx
+                      <span style="color:navy"><b>WRITE</b></span> setwidth <span style="color:navy"><b>DEFAULT</b></span> defaultimagelistwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> fsize.cy
+                        <span style="color:navy"><b>WRITE</b></span> setheight <span style="color:navy"><b>DEFAULT</b></span> defaultimagelistheight;
+        <span style="color:navy"><b>PROPERTY</b></span> options: bitmapoptionsty <span style="color:navy"><b>READ</b></span> getoptions
+                                           <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [bmo_masked];
+        <span style="color:navy"><b>PROPERTY</b></span> transparentcolor: colorty <span style="color:navy"><b>READ</b></span> gettransparentcolor
+                              <span style="color:navy"><b>WRITE</b></span> settransparentcolor <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount <span style="color:navy"><b>WRITE</b></span> setcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> indexlookup: msestring <span style="color:navy"><b>READ</b></span> findexlookup <span style="color:navy"><b>WRITE</b></span> setindexlookup;
+        <span style="color:navy"><b>PROPERTY</b></span> cornermask_topleft: msestring <span style="color:navy"><b>READ</b></span> fcornermask_topleft
+                                                      <span style="color:navy"><b>WRITE</b></span> setcornermask_topleft;
+        <span style="color:navy"><b>PROPERTY</b></span> cornermask_bottomleft: msestring <span style="color:navy"><b>READ</b></span> fcornermask_bottomleft
+                                                      <span style="color:navy"><b>WRITE</b></span> setcornermask_bottomleft;
+        <span style="color:navy"><b>PROPERTY</b></span> cornermask_bottomright: msestring <span style="color:navy"><b>READ</b></span> fcornermask_bottomright
+                                                     <span style="color:navy"><b>WRITE</b></span> setcornermask_bottomright;
+        <span style="color:navy"><b>PROPERTY</b></span> cornermask_topright: msestring <span style="color:navy"><b>READ</b></span> fcornermask_topright
+                                                      <span style="color:navy"><b>WRITE</b></span> setcornermask_topright;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tformatstream" name="tformatstream">tformatstream</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (stream: tstream; formatname: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> formaterror;
+        <span style="color:navy"><b>PROCEDURE</b></span> read (var dest; count: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> seek (count: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> resetpos (apos: integer = 0);
+        <span style="color:navy"><b>PROPERTY</b></span> pos: integer <span style="color:navy"><b>READ</b></span> fseekpos <span style="color:navy"><b>WRITE</b></span> setpos;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

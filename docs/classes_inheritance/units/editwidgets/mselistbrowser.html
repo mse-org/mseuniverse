@@ -1,0 +1,634 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mselistbrowser;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistedititem" name="tlistedititem">tlistedititem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistitem">tlistitem</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichlistedititem" name="trichlistedititem">trichlistedititem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistedititem">tlistedititem</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecaption (const acanvas: tcanvas;
+                          var alayoutinfo: listitemlayoutinfoty;
+                                             var ainfo: drawtextinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> richcaption: richstringty <span style="color:navy"><b>READ</b></span> getrichcaption <span style="color:navy"><b>WRITE</b></span> setrichcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionformat: formatinfoarty <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setcaptionformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlisteditvalueitem" name="tlisteditvalueitem">tlisteditvalueitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistitem">tlistitem</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreelistedititem" name="ttreelistedititem">ttreelistedititem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttreelistitem">ttreelistitem</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomitemlist = nil;
+                   const aparent: ttreelistitem = nil); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: ttreeitemeditlist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const aitem: ttreelistedititem): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const aitems: treelistedititemarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const itemclass: treelistedititemclassty = nil):
+                                                  ttreelistedititem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const acount: integer;
+                    const itemclass: treelistedititemclassty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const captions: array of msestring;
+                    const itemclass: treelistedititemclassty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> activeindex: integer <span style="color:navy"><b>READ</b></span> getactiveindex;
+        <span style="color:navy"><b>FUNCTION</b></span> endtreerow: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> editwidget: ttreeitemedit;
+        <span style="color:navy"><b>PROCEDURE</b></span> activate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdirtreenode" name="tdirtreenode">tdirtreenode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttreelistedititem">ttreelistedititem</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> loaddirtree (const apath: filenamety); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> path (const astart: integer = 0): filenamety;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#titemviewlist" name="titemviewlist">titemviewlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemlist">tcustomitemlist</a>,iitemlist)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const alistview: tcustomlistview);
+        <span style="color:navy"><b>PROPERTY</b></span> listview: tcustomlistview <span style="color:navy"><b>READ</b></span> flistview;
+        <span style="color:navy"><b>PROPERTY</b></span> layoutinfo: listitemlayoutinfoty <span style="color:navy"><b>READ</b></span> flayoutinfo;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> oncreateitem: createlistitemeventty <span style="color:navy"><b>READ</b></span> getoncreateitem
+                                               <span style="color:navy"><b>WRITE</b></span> setoncreateitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintitem: paintlistitemeventty <span style="color:navy"><b>READ</b></span> fonpaintitem
+                                                          <span style="color:navy"><b>WRITE</b></span> fonpaintitem;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> fonts;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_base;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> imageheight;
+        <span style="color:navy"><b>PROPERTY</b></span> imagealignment;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistcol" name="tlistcol">tlistcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacol">tdatacol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                              const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecellzone (const row: integer; const pos: pointty;
+                                 var result: cellzonety); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const aindex: integer]: tlistitem <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems;
+                         default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistcols" name="tlistcols">tlistcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacols">tdatacols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomlistview);
+        <span style="color:navy"><b>PROCEDURE</b></span> setselectedrange (const start,stop: gridcoordty;
+                       const value: boolean;
+                       const calldoselectcell: boolean = false;
+                       const checkmultiselect: boolean = false); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistitemdragobject" name="tlistitemdragobject">tlistitemdragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobjectdragobject">tobjectdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: tobject; var instance: tdragobject;
+                               const apickpos: pointty; const aitem: tlistitem);
+        <span style="color:navy"><b>FUNCTION</b></span> item: tlistitem;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistitemsdragobject" name="tlistitemsdragobject">tlistitemsdragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdragobject">tdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: tobject; var instance: tdragobject;
+                      const apickpos: pointty; const aitems: array of tlistitem);
+        <span style="color:navy"><b>PROPERTY</b></span> items: listitemarty <span style="color:navy"><b>READ</b></span> fitems;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomlistview" name="tcustomlistview">tcustomlistview</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcellgrid">tcellgrid</a>,iedit)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> internaldragevent (var info: draginfoty): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> moveitem (const source,dest: tlistitem; focus: boolean);
+        <span style="color:navy"><b>FUNCTION</b></span> indextocell (const index: integer): gridcoordty;
+        <span style="color:navy"><b>FUNCTION</b></span> celltoindex (const cell: gridcoordty; limit: boolean): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> itematpos (const apos: pointty): tlistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> focuseditem: tlistitem;
+        <span style="color:navy"><b>PROPERTY</b></span> focusedindex: integer <span style="color:navy"><b>READ</b></span> getfocusedindex <span style="color:navy"><b>WRITE</b></span> setfocusedindex;
+        <span style="color:navy"><b>FUNCTION</b></span> celltoitem (const acell: gridcoordty): tlistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> finditembycaption (const acaption: msestring): tlistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> findcellbycaption (const acaption: msestring;
+                                                    var cell: gridcoordty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getselecteditems: listitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getselectedindexes: integerarty;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tlistitem <span style="color:navy"><b>READ</b></span> getitems
+                                                       <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> editing: boolean <span style="color:navy"><b>READ</b></span> fediting <span style="color:navy"><b>WRITE</b></span> setediting;
+        <span style="color:navy"><b>PROPERTY</b></span> editor: tinplaceedit <span style="color:navy"><b>READ</b></span> feditor;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> getcolorselect
+                                         <span style="color:navy"><b>WRITE</b></span> setcolorselect <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> fcolorglyph
+                                         <span style="color:navy"><b>WRITE</b></span> setcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyphactive: colorty <span style="color:navy"><b>READ</b></span> fcolorglyphactive
+                                 <span style="color:navy"><b>WRITE</b></span> setcolorglyphactive <span style="color:navy"><b>DEFAULT</b></span> cl_glyphactive;
+        <span style="color:navy"><b>PROPERTY</b></span> glyphversionactive: int32 <span style="color:navy"><b>READ</b></span> fglyphversionactive write
+                                                setglyphversionactive <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidth: integer <span style="color:navy"><b>READ</b></span> fcellwidth <span style="color:navy"><b>WRITE</b></span> setcellwidth
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultcellwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheight: integer <span style="color:navy"><b>READ</b></span> getcellheight <span style="color:navy"><b>WRITE</b></span> setcellheight
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultcellheight;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheightmin: integer <span style="color:navy"><b>READ</b></span> getcellheightmin <span style="color:navy"><b>WRITE</b></span> setcellheightmin
+                        <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheightmax: integer <span style="color:navy"><b>READ</b></span> getcellheightmax <span style="color:navy"><b>WRITE</b></span> setcellheightmax
+                        <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidthmin: integer <span style="color:navy"><b>READ</b></span> fcellwidthmin
+                              <span style="color:navy"><b>WRITE</b></span> setcellwidthmin <span style="color:navy"><b>DEFAULT</b></span> defaultcellwidthmin;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidthmax: integer <span style="color:navy"><b>READ</b></span> fcellwidthmax
+                              <span style="color:navy"><b>WRITE</b></span> setcellwidthmax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> cellsize: sizety <span style="color:navy"><b>READ</b></span> getcellsize <span style="color:navy"><b>WRITE</b></span> setcellsize;
+        <span style="color:navy"><b>PROPERTY</b></span> cellframe: tcellframe <span style="color:navy"><b>READ</b></span> getcellframe <span style="color:navy"><b>WRITE</b></span> setcellframe;
+        <span style="color:navy"><b>PROPERTY</b></span> cellcursor: cursorshapety <span style="color:navy"><b>READ</b></span> fcellcursor <span style="color:navy"><b>WRITE</b></span> setcellcursor
+                                                                <span style="color:navy"><b>DEFAULT</b></span> cr_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist: titemviewlist <span style="color:navy"><b>READ</b></span> fitemlist <span style="color:navy"><b>WRITE</b></span> setitemlist;
+        <span style="color:navy"><b>PROPERTY</b></span> options: listviewoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                 <span style="color:navy"><b>DEFAULT</b></span> defaultlistviewoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> cellfocusrectdist: integer <span style="color:navy"><b>READ</b></span> getcellfocusrectdist
+                                             <span style="color:navy"><b>WRITE</b></span> setcellfocusrectdist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> datacollinewidth: integer <span style="color:navy"><b>READ</b></span> getdatacollinewidth
+                         <span style="color:navy"><b>WRITE</b></span> setdatacollinewidth <span style="color:navy"><b>DEFAULT</b></span> defaultgridlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datacollinecolor: colorty <span style="color:navy"><b>READ</b></span> getdatacollinecolor
+                         <span style="color:navy"><b>WRITE</b></span> setdatacollinecolor <span style="color:navy"><b>DEFAULT</b></span> defaultdatalinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemevent: itemeventty <span style="color:navy"><b>READ</b></span> fonitemevent <span style="color:navy"><b>WRITE</b></span> fonitemevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onitemsmoved: gridblockmovedeventty <span style="color:navy"><b>READ</b></span> fonitemsmoved
+                   <span style="color:navy"><b>WRITE</b></span> fonitemsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid <span style="color:navy"><b>DEFAULT</b></span> defaultlistviewoptionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged: listvieweventty <span style="color:navy"><b>READ</b></span> getonselectionchanged
+                                     <span style="color:navy"><b>WRITE</b></span> setonselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout: listvieweventty <span style="color:navy"><b>READ</b></span> getonbeforeupdatelayout
+                                     <span style="color:navy"><b>WRITE</b></span> setonbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged: listvieweventty <span style="color:navy"><b>READ</b></span> getonlayoutchanged
+                                     <span style="color:navy"><b>WRITE</b></span> setonlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard: updatestringeventty <span style="color:navy"><b>READ</b></span> foncopytoclipboard
+                       <span style="color:navy"><b>WRITE</b></span> foncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard: updatestringeventty <span style="color:navy"><b>READ</b></span> fonpastefromclipboard
+                       <span style="color:navy"><b>WRITE</b></span> fonpastefromclipboard;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlistview" name="tlistview">tlistview</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlistview">tcustomlistview</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datacollinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datacollinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheight;
+        <span style="color:navy"><b>PROPERTY</b></span> cellframe;
+        <span style="color:navy"><b>PROPERTY</b></span> cellcursor;
+        <span style="color:navy"><b>PROPERTY</b></span> cellfocusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidthmin;
+        <span style="color:navy"><b>PROPERTY</b></span> cellwidthmax;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> cellheightmax;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemevent;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomitemeditlist" name="tcustomitemeditlist">tcustomitemeditlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemlist">tcustomitemlist</a>,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iitemlist;
+                              const owner: tcustomitemedit); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (const aitems: listitemarty); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const aindex: integer; const anode: tlistitem);
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const anode: tlistitem);
+        <span style="color:navy"><b>PROCEDURE</b></span> refreshitemvalues (aindex: integer = 0; //-1 = current grid row
+                                    acount: integer = -1); //-1 = all
+        <span style="color:navy"><b>PROPERTY</b></span> owner: tcustomitemedit <span style="color:navy"><b>READ</b></span> fowner;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> fcolorglyph
+                                         <span style="color:navy"><b>WRITE</b></span> setcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyphactive: colorty <span style="color:navy"><b>READ</b></span> fcolorglyphactive
+                                  <span style="color:navy"><b>WRITE</b></span> setcolorglyphactive <span style="color:navy"><b>DEFAULT</b></span> cl_glyphactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_versionactive: int32 <span style="color:navy"><b>READ</b></span> fboxglyph_versionactive write
+                                                setboxglyph_versionactive <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkbox: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyph_checkbox
+                                    <span style="color:navy"><b>WRITE</b></span> setboxglyph_checkbox <span style="color:navy"><b>DEFAULT</b></span> stg_checkbox;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchecked: stockglyphty
+                              <span style="color:navy"><b>READ</b></span> getboxglyph_checkboxchecked
+                      <span style="color:navy"><b>WRITE</b></span> setboxglyph_checkboxchecked <span style="color:navy"><b>DEFAULT</b></span> stg_checkboxchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxparentnotchecked: stockglyphty
+                  <span style="color:navy"><b>READ</b></span> getboxglyph_checkboxparentnotchecked
+                        <span style="color:navy"><b>WRITE</b></span> setboxglyph_checkboxparentnotchecked
+                                        <span style="color:navy"><b>DEFAULT</b></span> stg_checkboxparentnotchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchildchecked: stockglyphty
+                               <span style="color:navy"><b>READ</b></span> getboxglyph_checkboxchildchecked
+             <span style="color:navy"><b>WRITE</b></span> setboxglyph_checkboxchildchecked <span style="color:navy"><b>DEFAULT</b></span> stg_checkboxchildchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchildnotchecked: stockglyphty
+                               <span style="color:navy"><b>READ</b></span> getboxglyph_checkboxchildnotchecked
+                               <span style="color:navy"><b>WRITE</b></span> setboxglyph_checkboxchildnotchecked
+                                               <span style="color:navy"><b>DEFAULT</b></span> stg_checkboxchildnotchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemnotification: nodenotificationeventty
+                      <span style="color:navy"><b>READ</b></span> fonitemnotification <span style="color:navy"><b>WRITE</b></span> fonitemnotification;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#titemeditlist" name="titemeditlist">titemeditlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemeditlist">tcustomitemeditlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> item<span style="color:navy"><b>CLASS</b></span>: listedititemclassty <span style="color:navy"><b>READ</b></span> getitemclass <span style="color:navy"><b>WRITE</b></span> setitemclass;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyphactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_versionactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkbox;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxparentnotchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchildchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_base;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_expanded;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_selected;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_readonly;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_checked;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_subitems;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_focused;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_active;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> imageheight;
+        <span style="color:navy"><b>PROPERTY</b></span> imagealignment;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultnodestate;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> fonts;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemnotification;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreateitem: createlistitemeventty <span style="color:navy"><b>READ</b></span> getoncreateitem
+                                                         <span style="color:navy"><b>WRITE</b></span> setoncreateitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatreaditem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatread;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordfielditem" name="trecordfielditem">trecordfielditem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistedititem">tlistedititem</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordfielditemeditlist" name="trecordfielditemeditlist">trecordfielditemeditlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#titemeditlist">titemeditlist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvalueedititem" name="tvalueedititem">tvalueedititem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistent">townedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valueindex: int32 <span style="color:navy"><b>READ</b></span> finfo.valueindex write
+                                             setvalueindex <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> editwidget: twidget <span style="color:navy"><b>READ</b></span> finfo.editwidget <span style="color:navy"><b>WRITE</b></span> seteditwidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvalueedits" name="tvalueedits">tvalueedits</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomitemedit); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomitemedit" name="tcustomitemedit">tcustomitemedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataedit">tdataedit</a>,iitemlist,ibutton)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget;
+                                                 const apos: pointty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped (const arow: integer;
+                            out acellrect: rectty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvaluetext: msestring;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvaluetext (var avalue: msestring);
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> item: tlistedititem;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tlistitem <span style="color:navy"><b>READ</b></span> getitems
+                                                         <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>FUNCTION</b></span> selecteditems: listedititemarty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beginedit;
+        <span style="color:navy"><b>PROCEDURE</b></span> endedit;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateitemvalues (const index: integer;
+                                            const count: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateitemvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> activerow: integer <span style="color:navy"><b>READ</b></span> factiverow;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist: titemeditlist <span style="color:navy"><b>READ</b></span> getitemlist
+                                            <span style="color:navy"><b>WRITE</b></span> setitemlist stored false;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifistringlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setstringeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent: mouseeventty <span style="color:navy"><b>READ</b></span> fonclientmouseevent
+                                <span style="color:navy"><b>WRITE</b></span> fonclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags <span style="color:navy"><b>DEFAULT</b></span> defaultitemedittextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaultitemedittextflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tbuttonsframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> valueedits: tvalueedits <span style="color:navy"><b>READ</b></span> fvalueedits <span style="color:navy"><b>WRITE</b></span> setvalueedits;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintimage;
+        <span style="color:navy"><b>PROPERTY</b></span> onextendimage: extendimageeventty <span style="color:navy"><b>READ</b></span> fonextendimage
+                                                          <span style="color:navy"><b>WRITE</b></span> fonextendimage;
+        <span style="color:navy"><b>PROPERTY</b></span> onbuttonaction: buttoneventty <span style="color:navy"><b>READ</b></span> fonbuttonaction
+                                                        <span style="color:navy"><b>WRITE</b></span> fonbuttonaction;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdaterowvalues: itemindexeventty <span style="color:navy"><b>READ</b></span> fonupdaterowvalues
+                                            <span style="color:navy"><b>WRITE</b></span> fonupdaterowvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent: celleventty <span style="color:navy"><b>READ</b></span> foncellevent <span style="color:navy"><b>WRITE</b></span> foncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckcanedit: itemcanediteventty <span style="color:navy"><b>READ</b></span> foncheckcanedit
+                                                              <span style="color:navy"><b>WRITE</b></span> foncheckcanedit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#titemclientcontroller" name="titemclientcontroller">titemclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> item: tlistedititem <span style="color:navy"><b>READ</b></span> getlistitem;
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist: titemeditlist <span style="color:navy"><b>READ</b></span> getitemlist;
+        <span style="color:navy"><b>PROPERTY</b></span> itemedit: titemedit <span style="color:navy"><b>READ</b></span> getitemedit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiitemlinkcomp" name="tifiitemlinkcomp">tifiitemlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: titemclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: titemclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#titemedit" name="titemedit">titemedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemedit">tcustomitemedit</a>)
+      PUBLISHED
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifiitemlink: tifiitemlinkcomp <span style="color:navy"><b>READ</b></span> getifiitemlink
+                                                           <span style="color:navy"><b>WRITE</b></span> setifiitemlink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownitemedit" name="tdropdownitemedit">tdropdownitemedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#titemedit">titemedit</a>,idropdownlist)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tdropdownmultibuttonframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tcustomdropdownlistcontroller <span style="color:navy"><b>READ</b></span> fdropdown
+                                                         <span style="color:navy"><b>WRITE</b></span> setdropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforedropdown
+                                                         <span style="color:navy"><b>WRITE</b></span> fonbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown: notifyeventty <span style="color:navy"><b>READ</b></span> fonafterclosedropdown
+                       <span style="color:navy"><b>WRITE</b></span> fonafterclosedropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmbdropdownitemedit" name="tmbdropdownitemedit">tmbdropdownitemedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownitemedit">tdropdownitemedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tdropdownmultibuttonframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreeeditnode" name="ttreeeditnode">ttreeeditnode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttreenode">ttreenode</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> converttotreelistitem (flat: boolean = false;
+                     withrootnode: boolean =  false;
+                     filterfunc: treenodefilterfuncty = nil): ttreelistedititem;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreeitemdragobject" name="ttreeitemdragobject">ttreeitemdragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdragobject">tdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: tobject; var instance: tdragobject;
+                               const apickpos: pointty; const aitem: ttreelistitem);
+        <span style="color:navy"><b>PROPERTY</b></span> item: ttreelistitem <span style="color:navy"><b>READ</b></span> fitem;
+        <span style="color:navy"><b>PROPERTY</b></span> destrow: integer <span style="color:navy"><b>READ</b></span> fdestrow;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreeitemeditlist" name="ttreeitemeditlist">ttreeitemeditlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemeditlist">tcustomitemeditlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iitemlist; const aowner: ttreeitemedit);
+                                          <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> change (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> deleteitems (index,acount: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertitems (index,acount: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (const root: ttreelistedititem;
+                           const freeroot: boolean = true); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (const aitems: treelistedititemarty); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const anode: ttreelistedititem;
+                                      const freeroot: boolean = true); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const anodes: treelistedititemarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const acount: integer;
+                               aitemclass: treelistedititemclassty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> addchildren (const anode: ttreelistedititem);
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const aindex: integer;const anode: ttreelistedititem;
+                                                  const freeroot: boolean = true);
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const aindex: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> readnode (const aname: msestring; const reader: tstatreader;
+                                                 const anode: ttreelistitem);
+        <span style="color:navy"><b>PROCEDURE</b></span> writenode (const aname: msestring; const writer: tstatwriter;
+                                                 const anode: ttreelistitem);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatenode (const aname: msestring; const filer: tstatfiler;
+                                                 const anode: ttreelistitem);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> toplevelnodes: treelistedititemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getnodes (const must: nodestatesty; const mustnot: nodestatesty;
+                      const amode: getnodemodety = gno_matching): treelistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getselectednodes (const amode: getnodemodety =
+                                                   gno_matching): treelistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckednodes (const amode: getnodemodety =
+                                                   gno_matching): treelistitemarty;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildcheckedtree; //slow!
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildnotcheckedtree; //slow!
+        <span style="color:navy"><b>PROCEDURE</b></span> updateparentnotcheckedtree; //slow!
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> expandall;
+        <span style="color:navy"><b>PROCEDURE</b></span> collapseall;
+        <span style="color:navy"><b>PROCEDURE</b></span> moverow (const source,dest: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> itemclass: treelistedititemclassty <span style="color:navy"><b>READ</b></span> getitemclass
+                                                               <span style="color:navy"><b>WRITE</b></span> setitemclass;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ttreelistedititem <span style="color:navy"><b>READ</b></span> getitems1
+                                               <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> expandedstate: expandedinfoarty <span style="color:navy"><b>READ</b></span> getexpandedstate
+                                                     <span style="color:navy"><b>WRITE</b></span> setexpandedstate;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rootnode: ttreelistedititem <span style="color:navy"><b>READ</b></span> frootnode <span style="color:navy"><b>WRITE</b></span> setrootnode;
+        <span style="color:navy"><b>PROPERTY</b></span> insertparent: ttreelistedititem <span style="color:navy"><b>READ</b></span> finsertparent;
+        <span style="color:navy"><b>PROPERTY</b></span> insertparentindex: integer <span style="color:navy"><b>READ</b></span> finsertparentindex;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyphactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_versionactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkbox;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxparentnotchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_checkboxchildchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_base;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_expanded;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_selected;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_readonly;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_checked;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_subitems;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_focused;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_active;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> imageheight;
+        <span style="color:navy"><b>PROPERTY</b></span> imagealignment;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultnodestate;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> fonts;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemnotification;
+        <span style="color:navy"><b>PROPERTY</b></span> colorline: colorty <span style="color:navy"><b>READ</b></span> fcolorline <span style="color:navy"><b>WRITE</b></span> setcolorline
+                                                             <span style="color:navy"><b>DEFAULT</b></span> cl_treeline;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlineactive: colorty <span style="color:navy"><b>READ</b></span> fcolorlineactive
+                               <span style="color:navy"><b>WRITE</b></span> setcolorlineactive <span style="color:navy"><b>DEFAULT</b></span> cl_treelineactive;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_empty: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyph_empty
+                                    <span style="color:navy"><b>WRITE</b></span> setboxglyph_empty <span style="color:navy"><b>DEFAULT</b></span> stg_box;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_expand: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyph_expand
+                                    <span style="color:navy"><b>WRITE</b></span> setboxglyph_expand <span style="color:navy"><b>DEFAULT</b></span> stg_boxexpand;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyph_expanded: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyph_expanded
+                                  <span style="color:navy"><b>WRITE</b></span> setboxglyph_expanded <span style="color:navy"><b>DEFAULT</b></span> stg_boxexpanded;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyphactive_empty: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyphactive_empty
+                                    <span style="color:navy"><b>WRITE</b></span> setboxglyphactive_empty <span style="color:navy"><b>DEFAULT</b></span> stg_box;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyphactive_expand: stockglyphty <span style="color:navy"><b>READ</b></span> getboxglyphactive_expand
+                                <span style="color:navy"><b>WRITE</b></span> setboxglyphactive_expand <span style="color:navy"><b>DEFAULT</b></span> stg_boxexpand;
+        <span style="color:navy"><b>PROPERTY</b></span> boxglyphactive_expanded: stockglyphty
+                                 <span style="color:navy"><b>READ</b></span> getboxglyphactive_expanded
+                         <span style="color:navy"><b>WRITE</b></span> setboxglyphactive_expanded <span style="color:navy"><b>DEFAULT</b></span> stg_boxexpanded;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncreateitem: createtreelistitemeventty <span style="color:navy"><b>READ</b></span> getoncreateitem
+                           <span style="color:navy"><b>WRITE</b></span> setoncreateitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwriteitem: statwritetreeitemeventty <span style="color:navy"><b>READ</b></span> getonstatwriteitem
+                           <span style="color:navy"><b>WRITE</b></span> setonstatwriteitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>READ</b></span>item: statreadtreeitemeventty read getonstatreaditem
+                           <span style="color:navy"><b>WRITE</b></span> setonstatreaditem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> ondragbegin: treeitemdragbegineventty <span style="color:navy"><b>READ</b></span> fondragbegin
+                                               <span style="color:navy"><b>WRITE</b></span> fondragbegin;
+        <span style="color:navy"><b>PROPERTY</b></span> ondragover: treeitemdragovereventty <span style="color:navy"><b>READ</b></span> fondragover
+                                               <span style="color:navy"><b>WRITE</b></span> fondragover;
+        <span style="color:navy"><b>PROPERTY</b></span> ondragdrop: treeitemdragdropeventty <span style="color:navy"><b>READ</b></span> fondragdrop
+                                               <span style="color:navy"><b>WRITE</b></span> fondragdrop;
+        <span style="color:navy"><b>PROPERTY</b></span> levelstep;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordfieldedit" name="trecordfieldedit">trecordfieldedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmbdropdownitemedit">tmbdropdownitemedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreeitemclientcontroller" name="ttreeitemclientcontroller">ttreeitemclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#titemclientcontroller">titemclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> item: ttreelistedititem <span style="color:navy"><b>READ</b></span> getlistitem;
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist: ttreeitemeditlist <span style="color:navy"><b>READ</b></span> getitemlist;
+        <span style="color:navy"><b>PROPERTY</b></span> itemedit: ttreeitemedit <span style="color:navy"><b>READ</b></span> getitemedit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifitreeitemlinkcomp" name="tifitreeitemlinkcomp">tifitreeitemlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: ttreeitemclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: ttreeitemclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreeitemedit" name="ttreeitemedit">ttreeitemedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomitemedit">tcustomitemedit</a>,idragcontroller)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> item: ttreelistedititem;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ttreelistedititem <span style="color:navy"><b>READ</b></span> getitems
+                                                      <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>FUNCTION</b></span> selecteditems: treelistedititemarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> candragsource (const apos: pointty): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragdrop (const adragobject: ttreeitemdragobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> comparerow (const lindex,rindex: integer; var aresult: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> updateitemvalues (const index: integer;
+                                         const count: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateitemvalues ();
+        <span style="color:navy"><b>PROCEDURE</b></span> updateparentvalues (const index: integer);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> itemlist: ttreeitemeditlist <span style="color:navy"><b>READ</b></span> getitemlist
+                                             <span style="color:navy"><b>WRITE</b></span> setitemlist stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldedit: trecordfieldedit <span style="color:navy"><b>READ</b></span> ffieldedit <span style="color:navy"><b>WRITE</b></span> setfieldedit;
+        <span style="color:navy"><b>PROPERTY</b></span> options: treeitemeditoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                         <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifiitemlink: tifitreeitemlinkcomp <span style="color:navy"><b>READ</b></span> getifiitemlink
+                                                           <span style="color:navy"><b>WRITE</b></span> setifiitemlink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckrowmove: checkmoveeventty <span style="color:navy"><b>READ</b></span> foncheckrowmove
+                                                             <span style="color:navy"><b>WRITE</b></span> foncheckrowmove;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

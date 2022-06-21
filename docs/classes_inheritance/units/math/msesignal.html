@@ -1,0 +1,390 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory math</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesignal;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsigcomp" name="tcustomsigcomp">tcustomsigcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigcomp" name="tsigcomp">tsigcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsigcomp">tcustomsigcomp</a>)
+      PUBLIC
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublesigcomp" name="tdoublesigcomp">tdoublesigcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigcomp">tsigcomp</a>,isigclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lockapplication;  //releases controller lock, can not be nested,
+        <span style="color:navy"><b>PROCEDURE</b></span> unlockapplication;//acquires controller lock
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tsigcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigconn" name="tsigconn">tsigconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleconn" name="tdoubleconn">tdoubleconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigconn">tsigconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                          const asigintf: isigclient); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tsigcontroller <span style="color:navy"><b>READ</b></span> getcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleoutputconn" name="tdoubleoutputconn">tdoubleoutputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleconn">tdoubleconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+              const asigintf: isigclient; const aeventdriven: boolean);
+                                                            <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: double <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleinputconn" name="tdoubleinputconn">tdoubleinputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleconn">tdoubleconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                          const asigintf: isigclient); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> source: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> offset: double <span style="color:navy"><b>READ</b></span> foffset <span style="color:navy"><b>WRITE</b></span> setoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> gain: double <span style="color:navy"><b>READ</b></span> fgain <span style="color:navy"><b>WRITE</b></span> setgain;
+        <span style="color:navy"><b>PROPERTY</b></span> min: realty <span style="color:navy"><b>READ</b></span> fmin <span style="color:navy"><b>WRITE</b></span> setmin;
+        <span style="color:navy"><b>PROPERTY</b></span> max: realty <span style="color:navy"><b>READ</b></span> fmax <span style="color:navy"><b>WRITE</b></span> setmax;
+        <span style="color:navy"><b>PROPERTY</b></span> expstart: realty <span style="color:navy"><b>READ</b></span> fexpstart <span style="color:navy"><b>WRITE</b></span> setexpstart;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlimitinputconn" name="tlimitinputconn">tlimitinputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleinputconn">tdoubleinputconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                          const asigintf: isigclient); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tchangedoubleinputconn" name="tchangedoubleinputconn">tchangedoubleinputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleinputconn">tdoubleinputconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const asigintf: isigclient;
+                           const aonchange: notifyeventty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigconnection" name="tsigconnection">tsigconnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigin" name="tsigin">tsigin</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigconnection">tsigconnection</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> siginput (const asource: doublearty);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: double <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> oninput: sigineventty <span style="color:navy"><b>READ</b></span> foninput <span style="color:navy"><b>WRITE</b></span> foninput;
+        <span style="color:navy"><b>PROPERTY</b></span> oninputburst: siginbursteventty <span style="color:navy"><b>READ</b></span> foninputburst <span style="color:navy"><b>WRITE</b></span> foninputburst;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigout" name="tsigout">tsigout</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigconnection">tsigconnection</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sigoutput1 (var adest: doublearty); //returns a data copy
+        <span style="color:navy"><b>FUNCTION</b></span> sigoutput: doublearty;
+        <span style="color:navy"><b>PROPERTY</b></span> value: double <span style="color:navy"><b>READ</b></span> getvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> input: tdoubleinputconn <span style="color:navy"><b>READ</b></span> getinput <span style="color:navy"><b>WRITE</b></span> setinput;
+        <span style="color:navy"><b>PROPERTY</b></span> buffersize: integer <span style="color:navy"><b>READ</b></span> fbuffersize
+                                                   <span style="color:navy"><b>WRITE</b></span> setbuffersize <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onoutput: sigouteventty <span style="color:navy"><b>READ</b></span> fonoutput <span style="color:navy"><b>WRITE</b></span> fonoutput;
+        <span style="color:navy"><b>PROPERTY</b></span> onoutputburst: sigoutbursteventty <span style="color:navy"><b>READ</b></span> fonoutputburst
+                                                   <span style="color:navy"><b>WRITE</b></span> fonoutputburst;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealcoeff" name="trealcoeff">trealcoeff</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealdatalist">trealdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomsigcomp); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcomplexcoeff" name="tcomplexcoeff">tcomplexcoeff</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomplexdatalist">tcomplexdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomsigcomp); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublezcomp" name="tdoublezcomp">tdoublezcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>) //single input, single output
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> zcount: integer <span style="color:navy"><b>READ</b></span> getzcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> input: tdoubleinputconn <span style="color:navy"><b>READ</b></span> finput <span style="color:navy"><b>WRITE</b></span> setinput;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleinpconnarrayprop" name="tdoubleinpconnarrayprop">tdoubleinpconnarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asigintf: isigclient); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdoubleinputconn <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleoutconnarrayprop" name="tdoubleoutconnarrayprop">tdoubleoutconnarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const aname: string;
+                const asigintf: isigclient; const aeventdriven: boolean); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmultiinp" name="tsigmultiinp">tsigmultiinp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> inputs: tdoubleinpconnarrayprop <span style="color:navy"><b>READ</b></span> finputs <span style="color:navy"><b>WRITE</b></span> setinputs;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigsampler" name="tsigsampler">tsigsampler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigmultiinp">tsigmultiinp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> start;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> bufferlength: integer <span style="color:navy"><b>READ</b></span> fbufferlength
+                               <span style="color:navy"><b>WRITE</b></span> setbufferlength <span style="color:navy"><b>DEFAULT</b></span> defaultsamplecount;
+        <span style="color:navy"><b>PROPERTY</b></span> trigger: tchangedoubleinputconn <span style="color:navy"><b>READ</b></span> ftrigger <span style="color:navy"><b>WRITE</b></span> settrigger;
+        <span style="color:navy"><b>PROPERTY</b></span> triggerlevel: tchangedoubleinputconn <span style="color:navy"><b>READ</b></span> ftriggerlevel
+                                                   <span style="color:navy"><b>WRITE</b></span> settriggerlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigsampleroptionsty <span style="color:navy"><b>READ</b></span> foptions
+                               <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> defaultsigsampleroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> onbufferfull: samplerbufferfulleventty <span style="color:navy"><b>READ</b></span> fonbufferfull
+                                                              <span style="color:navy"><b>WRITE</b></span> fonbufferfull;
+        <span style="color:navy"><b>PROPERTY</b></span> refreshus: integer <span style="color:navy"><b>READ</b></span> frefreshus <span style="color:navy"><b>WRITE</b></span> setrefreshus <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmultiinpout" name="tsigmultiinpout">tsigmultiinpout</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigmultiinp">tsigmultiinp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigadd" name="tsigadd">tsigadd</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigmultiinpout">tsigmultiinpout</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigdelay" name="tsigdelay">tsigdelay</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigadd">tsigadd</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsigdelay" name="tcustomsigdelay">tcustomsigdelay</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigadd">tsigadd</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigdelayn" name="tsigdelayn">tsigdelayn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsigdelay">tcustomsigdelay</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigdelayvar" name="tsigdelayvar">tsigdelayvar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsigdelay">tcustomsigdelay</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> delaymax: integer <span style="color:navy"><b>READ</b></span> getdelaymax <span style="color:navy"><b>WRITE</b></span> setdelaymax <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> delay: tdoubleinputconn <span style="color:navy"><b>READ</b></span> fdelayinp <span style="color:navy"><b>WRITE</b></span> setdelayinp;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublesigoutcomp" name="tdoublesigoutcomp">tdoublesigoutcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublesiginoutcomp" name="tdoublesiginoutcomp">tdoublesiginoutcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigoutcomp">tdoublesigoutcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> input: tdoubleinputconn <span style="color:navy"><b>READ</b></span> finput <span style="color:navy"><b>WRITE</b></span> setinput;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigconnector" name="tsigconnector">tsigconnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesiginoutcomp">tdoublesiginoutcomp</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttrigconnector" name="ttrigconnector">ttrigconnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigconnector">tsigconnector</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigeventconnector" name="tsigeventconnector">tsigeventconnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigwavetable" name="tsigwavetable">tsigwavetable</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigoutcomp">tdoublesigoutcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> table: doublearty <span style="color:navy"><b>READ</b></span> ftable <span style="color:navy"><b>WRITE</b></span> settable;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> master: tsigwavetable <span style="color:navy"><b>READ</b></span> fmaster <span style="color:navy"><b>WRITE</b></span> setmaster;
+        <span style="color:navy"><b>PROPERTY</b></span> frequency: tdoubleinputconn <span style="color:navy"><b>READ</b></span> ffrequency <span style="color:navy"><b>WRITE</b></span> setfrequency;
+        <span style="color:navy"><b>PROPERTY</b></span> frequfact: tdoubleinputconn <span style="color:navy"><b>READ</b></span> ffrequfact <span style="color:navy"><b>WRITE</b></span> setfrequfact;
+        <span style="color:navy"><b>PROPERTY</b></span> phase: tdoubleinputconn <span style="color:navy"><b>READ</b></span> fphase <span style="color:navy"><b>WRITE</b></span> setphase;
+        <span style="color:navy"><b>PROPERTY</b></span> amplitude: tdoubleinputconn <span style="color:navy"><b>READ</b></span> famplitude <span style="color:navy"><b>WRITE</b></span> setamplitude;
+        <span style="color:navy"><b>PROPERTY</b></span> oninittable: siginbursteventty <span style="color:navy"><b>READ</b></span> foninittable <span style="color:navy"><b>WRITE</b></span> foninittable;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigwavetableoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigfuncttable" name="tsigfuncttable">tsigfuncttable</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigmultiinpout">tsigmultiinpout</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> table: complexarty <span style="color:navy"><b>READ</b></span> ftable <span style="color:navy"><b>WRITE</b></span> settable;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> master: tsigfuncttable <span style="color:navy"><b>READ</b></span> fmaster <span style="color:navy"><b>WRITE</b></span> setmaster;
+        <span style="color:navy"><b>PROPERTY</b></span> amplitude: tdoubleinputconn <span style="color:navy"><b>READ</b></span> famplitude <span style="color:navy"><b>WRITE</b></span> setamplitude;
+        <span style="color:navy"><b>PROPERTY</b></span> oninittable: sigincomplexbursteventty <span style="color:navy"><b>READ</b></span> foninittable
+                                                             <span style="color:navy"><b>WRITE</b></span> foninittable;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmult" name="tsigmult">tsigmult</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigmultiinpout">tsigmultiinpout</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigenvelope" name="tsigenvelope">tsigenvelope</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigoutcomp">tdoublesigoutcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> start;
+        <span style="color:navy"><b>PROCEDURE</b></span> stop;
+        <span style="color:navy"><b>PROPERTY</b></span> attack_values[const index: integer]: complexarty
+                             <span style="color:navy"><b>READ</b></span> getattack_values  <span style="color:navy"><b>WRITE</b></span> setattack_values;
+        <span style="color:navy"><b>PROPERTY</b></span> decay_values[const index: integer]: complexarty
+                             <span style="color:navy"><b>READ</b></span> getdecay_values <span style="color:navy"><b>WRITE</b></span> setdecay_values;
+        <span style="color:navy"><b>PROPERTY</b></span> release_values[const index: integer]: complexarty
+                             <span style="color:navy"><b>READ</b></span> getrelease_values <span style="color:navy"><b>WRITE</b></span> setrelease_values;
+        <span style="color:navy"><b>PROPERTY</b></span> loopstart[const index: integer]: real
+                             <span style="color:navy"><b>READ</b></span> getloopstart <span style="color:navy"><b>WRITE</b></span> setloopstart;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> master: tsigenvelope <span style="color:navy"><b>READ</b></span> fmaster <span style="color:navy"><b>WRITE</b></span> setmaster;
+        <span style="color:navy"><b>PROPERTY</b></span> trigger: tchangedoubleinputconn <span style="color:navy"><b>READ</b></span> ftrigger <span style="color:navy"><b>WRITE</b></span> settrigger;
+        <span style="color:navy"><b>PROPERTY</b></span> amplitude: tdoubleinputconn <span style="color:navy"><b>READ</b></span> famplitude <span style="color:navy"><b>WRITE</b></span> setamplitude;
+        <span style="color:navy"><b>PROPERTY</b></span> mix: tlimitinputconn <span style="color:navy"><b>READ</b></span> fmix <span style="color:navy"><b>WRITE</b></span> setmix;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigenvelopeoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                     <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> timescale: real <span style="color:navy"><b>READ</b></span> ftimescale <span style="color:navy"><b>WRITE</b></span> ftimescale; //<span style="color:navy"><b>DEFAULT</b></span> 1s
+        <span style="color:navy"><b>PROPERTY</b></span> subsampling: integer <span style="color:navy"><b>READ</b></span> fsubsampling <span style="color:navy"><b>WRITE</b></span> setsubsampling
+                                               <span style="color:navy"><b>DEFAULT</b></span> defaultenvelopesubsampling;
+        <span style="color:navy"><b>PROPERTY</b></span> min: real <span style="color:navy"><b>READ</b></span> fmin <span style="color:navy"><b>WRITE</b></span> setmin;
+        <span style="color:navy"><b>PROPERTY</b></span> max: real <span style="color:navy"><b>READ</b></span> fmax <span style="color:navy"><b>WRITE</b></span> setmax;
+        <span style="color:navy"><b>PROPERTY</b></span> eventthreshold: real <span style="color:navy"><b>READ</b></span> feventthreshold <span style="color:navy"><b>WRITE</b></span> feventthreshold;
+        <span style="color:navy"><b>PROPERTY</b></span> attack_options: sigenveloperangeoptionsty <span style="color:navy"><b>READ</b></span> fattack_options
+                                              <span style="color:navy"><b>WRITE</b></span> setattack_options <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> attack_maxeventtime: real <span style="color:navy"><b>READ</b></span> fattack_maxeventtime
+                                      <span style="color:navy"><b>WRITE</b></span> fattack_maxeventtime; //<span style="color:navy"><b>DEFAULT</b></span> 0
+        <span style="color:navy"><b>PROPERTY</b></span> decay_options: sigenveloperangeoptionsty <span style="color:navy"><b>READ</b></span> fdecay_options
+                                      <span style="color:navy"><b>WRITE</b></span> setdecay_options <span style="color:navy"><b>DEFAULT</b></span> [sero_exp];
+        <span style="color:navy"><b>PROPERTY</b></span> decay_maxeventtime: real <span style="color:navy"><b>READ</b></span> fdecay_maxeventtime
+                                      <span style="color:navy"><b>WRITE</b></span> fdecay_maxeventtime; //<span style="color:navy"><b>DEFAULT</b></span> 0
+        <span style="color:navy"><b>PROPERTY</b></span> release_options: sigenveloperangeoptionsty <span style="color:navy"><b>READ</b></span> frelease_options
+                                      <span style="color:navy"><b>WRITE</b></span> setrelease_options <span style="color:navy"><b>DEFAULT</b></span> [sero_exp];
+        <span style="color:navy"><b>PROPERTY</b></span> release_maxeventtime: real <span style="color:navy"><b>READ</b></span> frelease_maxeventtime
+                                      <span style="color:navy"><b>WRITE</b></span> frelease_maxeventtime; //<span style="color:navy"><b>DEFAULT</b></span> 0
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsiginfohash" name="tsiginfohash">tsiginfohash</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerptruinthashdatalist">tpointerptruinthashdatalist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigcontroller" name="tsigcontroller">tsigcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lockapplication;  //releases controller lock, can not be nested
+        <span style="color:navy"><b>PROCEDURE</b></span> unlockapplication;//acquires controller lock
+        <span style="color:navy"><b>PROCEDURE</b></span> modelchange;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkmodel;
+        <span style="color:navy"><b>PROCEDURE</b></span> step (acount: integer=1);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>PROCEDURE</b></span> lock;
+        <span style="color:navy"><b>PROCEDURE</b></span> unlock;
+        <span style="color:navy"><b>PROPERTY</b></span> freerun: boolean <span style="color:navy"><b>READ</b></span> getfreerun <span style="color:navy"><b>WRITE</b></span> setfreerun;
+        <span style="color:navy"><b>PROPERTY</b></span> autorun: boolean <span style="color:navy"><b>READ</b></span> getautorun <span style="color:navy"><b>WRITE</b></span> setautorun;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigcontrolleroptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> stepcount: integer <span style="color:navy"><b>READ</b></span> fstepcount
+                                     <span style="color:navy"><b>WRITE</b></span> setstepcount <span style="color:navy"><b>DEFAULT</b></span> defaultstepcount;
+        <span style="color:navy"><b>PROPERTY</b></span> samplefrequ: real <span style="color:navy"><b>READ</b></span> fsamplefrequ <span style="color:navy"><b>WRITE</b></span> setsamplefrequ;
+        <span style="color:navy"><b>PROPERTY</b></span> tickdiv: integer <span style="color:navy"><b>READ</b></span> ftickdiv <span style="color:navy"><b>WRITE</b></span> settickdiv
+                                                 <span style="color:navy"><b>DEFAULT</b></span> defaulttickdiv;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforetick: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforetick
+                                                           <span style="color:navy"><b>WRITE</b></span> setonbeforetick;
+        <span style="color:navy"><b>PROPERTY</b></span> onaftertick: notifyeventty <span style="color:navy"><b>READ</b></span> fonaftertick
+                                                           <span style="color:navy"><b>WRITE</b></span> setonaftertick;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforestep: beforestepeventty <span style="color:navy"><b>READ</b></span> fonbeforestep
+                                                              <span style="color:navy"><b>WRITE</b></span> fonbeforestep;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterstep: afterstepeventty <span style="color:navy"><b>READ</b></span> fonafterstep
+                                                              <span style="color:navy"><b>WRITE</b></span> fonafterstep;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatemodel: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforeupdatemodel
+                                    <span style="color:navy"><b>WRITE</b></span> fonbeforeupdatemodel; //application.locked
+        <span style="color:navy"><b>PROPERTY</b></span> onafterupdatemodel: notifyeventty <span style="color:navy"><b>READ</b></span> fonafterupdatemodel
+                                    <span style="color:navy"><b>WRITE</b></span> fonafterupdatemodel;  //application.locked
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

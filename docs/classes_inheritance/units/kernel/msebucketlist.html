@@ -1,0 +1,98 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msebucketlist;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbucketlist" name="tbucketlist">tbucketlist</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (recordsize: integer; abucketcount: integer = defaultbucketcount);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const key: ptruint): boolean; //true if found
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thashedstrings" name="thashedstrings">thashedstrings</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const key: string; data: pointer = pointer($ffffffff)); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const keys: array of string;
+                        startindex: pointer = pointer ($00000001)); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const key: lstringty); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const key: string); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: string): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;     //casesensitive
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: lstringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;  //casesensitive
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: string): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;    //caseinsensitive
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: lstringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>; //caseinsensitive
+        <span style="color:navy"><b>PROPERTY</b></span> bucketcount: integer <span style="color:navy"><b>READ</b></span> getbucketcount <span style="color:navy"><b>WRITE</b></span> setbucketcount <span style="color:navy"><b>DEFAULT</b></span> defaultbucketcount;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pdatastringty;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thashedmsestrings" name="thashedmsestrings">thashedmsestrings</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const key: msestring; data: pointer = pointer($ffffffff)); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const keys: array of msestring;
+                            startindex:  pointer = pointer ($00000001));
+                    <span style="color:teal"><b>OVERLOAD</b></span>; //data = arrayindex + startindex
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const key: msestring); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: msestring): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: lmsestringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: msestring): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: lmsestringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> bucketcount: integer <span style="color:navy"><b>READ</b></span> getbucketcount <span style="color:navy"><b>WRITE</b></span> setbucketcount <span style="color:navy"><b>DEFAULT</b></span> defaultbucketcount;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pmsedatastringty;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thashedmsestringobjects" name="thashedmsestringobjects">thashedmsestringobjects</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashedmsestrings">thashedmsestrings</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const key: msestring; aobject: tobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const key: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: msestring): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: lmsestringty): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: msestring): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: lmsestringty): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thashedstringobjects" name="thashedstringobjects">thashedstringobjects</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashedstrings">thashedstrings</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const key: string; aobject: tobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const key: lstringty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: string): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const key: lstringty): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: string): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findi (const key: lstringty): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

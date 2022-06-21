@@ -1,0 +1,144 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory ifi</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseifi;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twaitingclient" name="twaitingclient">twaitingclient</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegeravlnode">tintegeravlnode</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asequence: sequencety);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> answered;
+        <span style="color:navy"><b>FUNCTION</b></span> wait (const awaitus: integer): boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tiosynchronizer" name="tiosynchronizer">tiosynchronizer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventthread">teventthread</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aondatareceived: stringdataprocty);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> answerreceived (const asequence: sequencety);
+        <span style="color:navy"><b>FUNCTION</b></span> preparewait (const asequence: sequencety): twaitingclient;
+        <span style="color:navy"><b>FUNCTION</b></span> waitforanswer (const aclient: twaitingclient;
+                        const waitus: integer): boolean; //false on timeout
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomiochannel" name="tcustomiochannel">tcustomiochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkconnection: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> senddata (const adata: ansistring);
+        <span style="color:navy"><b>FUNCTION</b></span> sequence: sequencety;
+        <span style="color:navy"><b>PROCEDURE</b></span> asyncrx; //posts current rxdata to application queue
+        <span style="color:navy"><b>PROPERTY</b></span> synchronizer: tiosynchronizer <span style="color:navy"><b>READ</b></span> fsynchronizer;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> rxdata: string <span style="color:navy"><b>READ</b></span> frxdata <span style="color:navy"><b>WRITE</b></span> frxdata;
+        <span style="color:navy"><b>PROPERTY</b></span> localconn: tcustomiochannel <span style="color:navy"><b>READ</b></span> flocalconn <span style="color:navy"><b>WRITE</b></span> setlocalconn;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsio: optionsiochty <span style="color:navy"><b>READ</b></span> foptionsio <span style="color:navy"><b>WRITE</b></span> foptionsio <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect: iochanneleventty <span style="color:navy"><b>READ</b></span> fonbeforeconnect
+                                                   <span style="color:navy"><b>WRITE</b></span> fonbeforeconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterconnect: iochanneleventty <span style="color:navy"><b>READ</b></span> fonafterconnect
+                                                   <span style="color:navy"><b>WRITE</b></span> fonafterconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedisconnect: iochanneleventty <span style="color:navy"><b>READ</b></span> fonbeforedisconnect
+                                                   <span style="color:navy"><b>WRITE</b></span> fonbeforedisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdisconnect: iochanneleventty <span style="color:navy"><b>READ</b></span> fonafterdisconnect
+                                                   <span style="color:navy"><b>WRITE</b></span> fonafterdisconnect;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstuffediochannel" name="tstuffediochannel">tstuffediochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomiochannel">tcustomiochannel</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustompipeiochannel" name="tcustompipeiochannel">tcustompipeiochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstuffediochannel">tstuffediochannel</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipeiochannel" name="tpipeiochannel">tpipeiochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustompipeiochannel">tcustompipeiochannel</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+        <span style="color:navy"><b>PROPERTY</b></span> serverapp: msestring <span style="color:navy"><b>READ</b></span> fserverapp <span style="color:navy"><b>WRITE</b></span> fserverapp;
+        <span style="color:navy"><b>PROPERTY</b></span> localconn;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsocketstdiochannel" name="tsocketstdiochannel">tsocketstdiochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustompipeiochannel">tcustompipeiochannel</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptoio: tcryptoio <span style="color:navy"><b>READ</b></span> fcryptoio <span style="color:navy"><b>WRITE</b></span> setcryptoio;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptoiokindt: cryptoiokindty <span style="color:navy"><b>READ</b></span> fcryptoioinfo.kind
+                                    <span style="color:navy"><b>WRITE</b></span> fcryptoioinfo.kind;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifisocketclient" name="tifisocketclient">tifisocketclient</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsocketclient">tcustomsocketclient</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> pipes;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptoio;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> url;
+        <span style="color:navy"><b>PROPERTY</b></span> port;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsocketclientiochannel" name="tsocketclientiochannel">tsocketclientiochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstuffediochannel">tstuffediochannel</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+        <span style="color:navy"><b>PROPERTY</b></span> socket: tifisocketclient <span style="color:navy"><b>READ</b></span> fsocket <span style="color:navy"><b>WRITE</b></span> setsocket;
+        <span style="color:navy"><b>PROPERTY</b></span> localconn;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsocketserveriochannel" name="tcustomsocketserveriochannel">tcustomsocketserveriochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstuffediochannel">tstuffediochannel</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> link (const apipes: tcustomcommpipes);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsocketserveriochannel" name="tsocketserveriochannel">tsocketserveriochannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsocketserveriochannel">tcustomsocketserveriochannel</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> localconn;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiiolinkcomponent" name="tifiiolinkcomponent">tifiiolinkcomponent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> channel: tcustomiochannel <span style="color:navy"><b>READ</b></span> fchannel <span style="color:navy"><b>WRITE</b></span> setchannel;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

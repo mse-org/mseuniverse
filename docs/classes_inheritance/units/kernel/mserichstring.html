@@ -1,0 +1,61 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mserichstring;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichstringdatalist" name="trichstringdatalist">trichstringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestring): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const avalue: msestring;
+                         const anoparagraph: boolean): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> nextword (out value: lmsestringty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getformatpo (index: integer): pformatinfoarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getparagraph (const index: integer;
+                                    const aseparator: msestring = ''): msestring;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> formats[index: integer]: formatinfoarty <span style="color:navy"><b>READ</b></span> Getformats <span style="color:navy"><b>WRITE</b></span> Setformats;
+        <span style="color:navy"><b>PROPERTY</b></span> noparagraphs[index : integer]: boolean <span style="color:navy"><b>READ</b></span> getnoparagraphs
+                                                              <span style="color:navy"><b>WRITE</b></span> setnoparagraphs;
+        <span style="color:navy"><b>PROPERTY</b></span> richitems[index: integer]: richstringty <span style="color:navy"><b>READ</b></span> getrichitems <span style="color:navy"><b>WRITE</b></span> setrichitems;
+        <span style="color:navy"><b>PROPERTY</b></span> richitemspo[index: integer]: prichstringty <span style="color:navy"><b>READ</b></span> getrichitemspo;
+        <span style="color:navy"><b>PROPERTY</b></span> position: pointty <span style="color:navy"><b>READ</b></span> fposition <span style="color:navy"><b>WRITE</b></span> fposition;
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: richstringarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestringarray: msestringarty <span style="color:navy"><b>READ</b></span> getasmsestringarray
+                    <span style="color:navy"><b>WRITE</b></span> setasmsestringarray;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcharstyledatalist" name="tcharstyledatalist">tcharstyledatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: charstylety): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (style: fontstylesty = []; fontcolor: pcolorty = nil;
+                            colorbackground: pcolorty = nil): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: string): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: charstylety <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems;
+                                                                            default;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

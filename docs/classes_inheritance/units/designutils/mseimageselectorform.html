@@ -1,0 +1,35 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory designutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseimageselectorform;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#timageselectorfo" name="timageselectorfo">timageselectorfo</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseform">tmseform</a>)
+      PUBLIC
+        lv: tlistview;
+        tstatfile1: tstatfile;
+        <span style="color:navy"><b>PROCEDURE</b></span> itemev (const sender: tcustomlistview; const index: Integer;
+                        var info: celleventinfoty);
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const aimagelist: timagelist;
+                           var aimagenr: integer); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

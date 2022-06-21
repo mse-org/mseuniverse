@@ -1,0 +1,72 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcPooled;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tconnectiontimeoutthread" name="tconnectiontimeoutthread">TConnectionTimeoutThread</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tthread">TThread</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const ConnectionPool: TConnectionPool);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TConnectionPool" name="tconnectionpool">TConnectionPool</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const URL: string; const ConnectionTimeout: Integer = 0; const MaxConnections: Integer = 0; const Wait: Boolean = True);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Acquire: IZConnection;
+         <span style="color:navy"><b>PROCEDURE</b></span> ReturnToPool (const Connection: IZConnection);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdbcpooledconnection" name="tzdbcpooledconnection">TZDbcPooledConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzcodepagedobject">TZCodePagedObject</a>, IZConnection)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const ConnectionPool: TConnectionPool);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBinaryEscapeString (const Value: RawByteString): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBinaryEscapeString (const Value: TBytes): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEscapeString (const Value: ZWideString): ZWideString; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEscapeString (const Value: RawByteString): RawByteString; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEncoding: TZCharEncoding;
+         <span style="color:navy"><b>FUNCTION</b></span> GetConSettings: PZConSettings;
+         {$IFDEF ZEOS_TEST_ONLY}
+         <span style="color:navy"><b>FUNCTION</b></span> GetTestMode : Byte;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetTestMode (Mode: Byte);
+         {$ENDIF}
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerProvider: TZServerProvider;	
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdbcpooledconnectiondriver" name="tzdbcpooledconnectiondriver">TZDbcPooledConnectionDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractdriver">TZAbstractDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Connect (const URL: TZURL): IZConnection; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientVersion (const URL: string): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> AcceptsURL (const URL: string): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPropertyInfo (const URL: string; Info: TStrings): TStrings; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMajorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMinorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSubVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

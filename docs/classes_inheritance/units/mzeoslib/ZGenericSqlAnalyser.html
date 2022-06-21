@@ -1,0 +1,55 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZGenericSqlAnalyser;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzstatementsection" name="tzstatementsection">TZStatementSection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Name: string; {$IFDEF AUTOREFCOUNT}const{$ENDIF}Tokens: TStrings);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Clone: TZStatementSection;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Name: string <span style="color:navy"><b>READ</b></span> FName <span style="color:navy"><b>WRITE</b></span> FName;
+         <span style="color:navy"><b>PROPERTY</b></span> Tokens: TStrings <span style="color:navy"><b>READ</b></span> FTokens;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzgenericstatementanalyser" name="tzgenericstatementanalyser">TZGenericStatementAnalyser</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZStatementAnalyser)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TokenizeQuery (const Tokenizer: IZTokenizer; const SQL: string;
+           Cleanup: Boolean): TStrings;
+         <span style="color:navy"><b>FUNCTION</b></span> SplitSections ({$IFDEF AUTOREFCOUNT}const{$ENDIF} Tokens: TStrings): TObjectList;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> ComposeTokens ({$IFDEF AUTOREFCOUNT}const{$ENDIF}Tokens: TStrings): string;
+         <span style="color:navy"><b>FUNCTION</b></span> ComposeSections ({$IFDEF AUTOREFCOUNT}const{$ENDIF}Sections: TObjectList): string;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DefineSelectSchemaFromSections ({$IFDEF AUTOREFCOUNT}const{$ENDIF}
+           Sections: TObjectList): IZSelectSchema;
+         <span style="color:navy"><b>FUNCTION</b></span> DefineSelectSchemaFromQuery (const Tokenizer: IZTokenizer;
+           const SQL: string): IZSelectSchema;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

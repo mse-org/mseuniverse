@@ -1,0 +1,138 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory math</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesigmidi;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmidiconnector" name="tsigmidiconnector">tsigmidiconnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigeventconnector">tsigeventconnector</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> midievent (const ainfo: midieventinfoty);
+        <span style="color:navy"><b>PROPERTY</b></span> frequout: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> ffrequout <span style="color:navy"><b>WRITE</b></span> setfrequout;
+        <span style="color:navy"><b>PROPERTY</b></span> frequoutlin: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> ffrequoutlin
+                                                        <span style="color:navy"><b>WRITE</b></span> setfrequoutlin;
+        <span style="color:navy"><b>PROPERTY</b></span> trigout: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> ftrigout <span style="color:navy"><b>WRITE</b></span> settrigout;
+        <span style="color:navy"><b>PROPERTY</b></span> attackout: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> fattackout <span style="color:navy"><b>WRITE</b></span> setattackout;
+        <span style="color:navy"><b>PROPERTY</b></span> attackoutlin: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> fattackoutlin
+                                              <span style="color:navy"><b>WRITE</b></span> setattackoutlin;
+        <span style="color:navy"><b>PROPERTY</b></span> pressureout: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> fpressureout
+                                                     <span style="color:navy"><b>WRITE</b></span> setpressureout;
+        <span style="color:navy"><b>PROPERTY</b></span> pressureoutlin: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> fpressureoutlin
+                                                     <span style="color:navy"><b>WRITE</b></span> setpressureoutlin;
+        <span style="color:navy"><b>PROPERTY</b></span> releaseout: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> freleaseout <span style="color:navy"><b>WRITE</b></span> setreleaseout;
+        <span style="color:navy"><b>PROPERTY</b></span> releaseoutlin: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> freleaseoutlin
+                                                 <span style="color:navy"><b>WRITE</b></span> setreleaseoutlin;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frequ_min: double <span style="color:navy"><b>READ</b></span> ffrequ_min <span style="color:navy"><b>WRITE</b></span> ffrequ_min;
+        <span style="color:navy"><b>PROPERTY</b></span> attack_min: double <span style="color:navy"><b>READ</b></span> fattack.min <span style="color:navy"><b>WRITE</b></span> setattack_min;
+        <span style="color:navy"><b>PROPERTY</b></span> attack_max: double <span style="color:navy"><b>READ</b></span> fattack.max <span style="color:navy"><b>WRITE</b></span> setattack_max;
+        <span style="color:navy"><b>PROPERTY</b></span> attack_options: valuescaleoptionsty <span style="color:navy"><b>READ</b></span> fattack.options
+                   <span style="color:navy"><b>WRITE</b></span> setattack_options <span style="color:navy"><b>DEFAULT</b></span> defaultmidiattackvalueoptions;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> pressure_min: double <span style="color:navy"><b>READ</b></span> fpressure.min <span style="color:navy"><b>WRITE</b></span> setpressure_min;
+        <span style="color:navy"><b>PROPERTY</b></span> pressure_max: double <span style="color:navy"><b>READ</b></span> fpressure.max <span style="color:navy"><b>WRITE</b></span> setpressure_max;
+        <span style="color:navy"><b>PROPERTY</b></span> pressure_options: valuescaleoptionsty <span style="color:navy"><b>READ</b></span> fpressure.options
+                  <span style="color:navy"><b>WRITE</b></span> setpressure_options <span style="color:navy"><b>DEFAULT</b></span> defaultmidipressurevalueoptions;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> release_min: double <span style="color:navy"><b>READ</b></span> frelease.min <span style="color:navy"><b>WRITE</b></span> setrelease_min;
+        <span style="color:navy"><b>PROPERTY</b></span> release_max: double <span style="color:navy"><b>READ</b></span> frelease.max <span style="color:navy"><b>WRITE</b></span> setrelease_max;
+        <span style="color:navy"><b>PROPERTY</b></span> release_options: valuescaleoptionsty <span style="color:navy"><b>READ</b></span> frelease.options
+                 <span style="color:navy"><b>WRITE</b></span> setrelease_options <span style="color:navy"><b>DEFAULT</b></span> defaultmidireleasevalueoptions;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> source: tsigmidisource <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> channel: integer <span style="color:navy"><b>READ</b></span> fchannel <span style="color:navy"><b>WRITE</b></span> setchannel <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmidipatch" name="tmidipatch">tmidipatch</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistent">townedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> channel: integer <span style="color:navy"><b>READ</b></span> finfo.channel <span style="color:navy"><b>WRITE</b></span> setchannel <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> track: integer <span style="color:navy"><b>READ</b></span> finfo.track <span style="color:navy"><b>WRITE</b></span> settrack <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> midichannel: midichannelty <span style="color:navy"><b>READ</b></span> finfo.midichannel
+                                          <span style="color:navy"><b>WRITE</b></span> setmidichannel <span style="color:navy"><b>DEFAULT</b></span> mic_0;
+        <span style="color:navy"><b>PROPERTY</b></span> notemin: integer <span style="color:navy"><b>READ</b></span> finfo.notemin <span style="color:navy"><b>WRITE</b></span> setnotemin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> notemax: integer <span style="color:navy"><b>READ</b></span> finfo.notemax <span style="color:navy"><b>WRITE</b></span> setnotemax <span style="color:navy"><b>DEFAULT</b></span> 127;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmidipatches" name="tmidipatches">tmidipatches</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tsigmidisource); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpatchinfolist" name="tpatchinfolist">tpatchinfolist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tptruinthashdatalist">tptruinthashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const apatch: tmidipatch): ppatchhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> geteventindex (const aevent: midieventinfoty): integer;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmidisource" name="tsigmidisource">tsigmidisource</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmidisource">tmidisource</a>,icommclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (avalue: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> patches: tmidipatches <span style="color:navy"><b>READ</b></span> fpatches <span style="color:navy"><b>WRITE</b></span> setpatches;
+        <span style="color:navy"><b>PROPERTY</b></span> sercomm: tcustomcommcomp <span style="color:navy"><b>READ</b></span> fsercomm <span style="color:navy"><b>WRITE</b></span> setsercomm;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleoutmultiinpconn" name="tdoubleoutmultiinpconn">tdoubleoutmultiinpconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleoutputconn">tdoubleoutputconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+              const asigintf: isigclient; const aeventdriven: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> inputs: tdoubleinpconnarrayprop <span style="color:navy"><b>READ</b></span> finputs;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmidiconnoutputarrayprop" name="tmidiconnoutputarrayprop">tmidiconnoutputarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleoutconnarrayprop">tdoubleoutconnarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdoubleoutmultiinpconn
+                                                   <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigmidimulticonnector" name="tsigmidimulticonnector">tsigmidimulticonnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>,isigclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tmsedatamodule <span style="color:navy"><b>READ</b></span> getitems
+                                                          <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> outputs: tmidiconnoutputarrayprop <span style="color:navy"><b>READ</b></span> foutputs;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> inputcount: integer <span style="color:navy"><b>READ</b></span> finputcount <span style="color:navy"><b>WRITE</b></span> setinputcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> outputcount: integer <span style="color:navy"><b>READ</b></span> getoutputcount
+                                                  <span style="color:navy"><b>WRITE</b></span> setoutputcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> source: tsigmidisource <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> channel: integer <span style="color:navy"><b>READ</b></span> fchannel <span style="color:navy"><b>WRITE</b></span> setchannel <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> connectorname: string <span style="color:navy"><b>READ</b></span> fconnectorname <span style="color:navy"><b>WRITE</b></span> fconnectorname;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetvoiceclass: getvoiceclasseventty <span style="color:navy"><b>READ</b></span> fongetvoiceclass
+                                                       <span style="color:navy"><b>WRITE</b></span> fongetvoiceclass;
+        <span style="color:navy"><b>PROPERTY</b></span> oninitvoice: initvoiceeventty <span style="color:navy"><b>READ</b></span> foninitvoice <span style="color:navy"><b>WRITE</b></span> foninitvoice;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,1190 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedbedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnavigdatalink" name="tnavigdatalink">tnavigdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsedatalink">tmsedatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idbnaviglink);
+        <span style="color:navy"><b>PROCEDURE</b></span> execbutton (const abutton: dbnavigbuttonty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbnavigbutton" name="tdbnavigbutton">tdbnavigbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstockglyphtoolbutton">tcustomstockglyphtoolbutton</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> imagecheckedoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> hint;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> state;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbnavigbuttons" name="tdbnavigbuttons">tdbnavigbuttons</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstockglyphtoolbuttons">tstockglyphtoolbuttons</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbnavigator" name="tdbnavigator">tdbnavigator</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomtoolbar">tcustomtoolbar</a>,idbnaviglink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>; 
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget = nil): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit ();
+        <span style="color:navy"><b>FUNCTION</b></span> canautoedit (): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatereadonly (const force: boolean = false);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visiblebuttons: dbnavigbuttonsty <span style="color:navy"><b>READ</b></span> fvisiblebuttons 
+                      <span style="color:navy"><b>WRITE</b></span> setvisiblebuttons <span style="color:navy"><b>DEFAULT</b></span> defaultvisibledbnavigbuttons;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> getcolorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                                                                  <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonface: tface <span style="color:navy"><b>READ</b></span> getbuttonface <span style="color:navy"><b>WRITE</b></span> setbuttonface;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonwidth: integer <span style="color:navy"><b>READ</b></span> getbuttonwidth <span style="color:navy"><b>WRITE</b></span> setbuttonwidth
+                                                                          <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonheight: integer <span style="color:navy"><b>READ</b></span> getbuttonheight <span style="color:navy"><b>WRITE</b></span> setbuttonheight
+                                                                          <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultdbnavigatorwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultdbnavigatorheight;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_first: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_first] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_first] <span style="color:navy"><b>DEFAULT</b></span> key_modctrl + ord (key_pageup);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_prior: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_prior] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_prior] <span style="color:navy"><b>DEFAULT</b></span> ord (key_pageup);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_next: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_next] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_next] <span style="color:navy"><b>DEFAULT</b></span> ord (key_pagedown);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_last: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_last] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_last] <span style="color:navy"><b>DEFAULT</b></span> key_modctrl + ord (key_pagedown);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_insert: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_insert] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_insert] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_delete: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_delete] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_delete] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_copyrecord: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_copyrecord] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_copyrecord] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_edit: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_edit]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_edit] <span style="color:navy"><b>DEFAULT</b></span> ord (key_f2);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_post: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_post] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_post] <span style="color:navy"><b>DEFAULT</b></span> ord (key_f2);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_cancel: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_cancel] 
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_cancel] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_refresh: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_refresh]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_refresh] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_filter: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_filter]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_filter] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_filtermin: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_filtermax]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_filtermin] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_filtermax: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_filtermax]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_filtermax] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_filteronoff: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_filteronoff]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_filteronoff] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_find: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_find]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_find] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut_autoedit: shortcutty <span style="color:navy"><b>READ</b></span> fshortcuts[dbnb_autoedit]
+                       <span style="color:navy"><b>WRITE</b></span> fshortcuts[dbnb_autoedit] <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> options: dbnavigatoroptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions 
+                       <span style="color:navy"><b>DEFAULT</b></span> defaultdbnavigatoroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> autoedit: boolean <span style="color:navy"><b>READ</b></span> getautoedit <span style="color:navy"><b>WRITE</b></span> setautoedit <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> dialogbutton: tdbnavigbutton <span style="color:navy"><b>READ</b></span> gettoolbutton <span style="color:navy"><b>WRITE</b></span> settoolbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> ondialogexecute: notifyeventty <span style="color:navy"><b>READ</b></span> fondialogexecute 
+                                <span style="color:navy"><b>WRITE</b></span> fondialogexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> on<span style="color:navy"><b>READ</b></span>onlychange: booleanchangedeventty read fonreadonlychange 
+                                                           <span style="color:navy"><b>WRITE</b></span> fonreadonlychange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomeditwidgetdatalink" name="tcustomeditwidgetdatalink">tcustomeditwidgetdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddatalink">tfielddatalink</a>,idbeditinfo,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idbeditfieldlink);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fixupproperties (filer: tfiler); //<span style="color:navy"><b>READ</b></span> moved properties
+        <span style="color:navy"><b>PROCEDURE</b></span> recordchanged (afield: tfield); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> datasetscrolled (distance: integer) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> nullcheckneeded (var avalue: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> setwidgetdatasource (const avalue: tdatasource);
+        <span style="color:navy"><b>PROCEDURE</b></span> griddatasourcechanged;
+        <span style="color:navy"><b>FUNCTION</b></span> edit: Boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> modified;
+        <span style="color:navy"><b>PROCEDURE</b></span> doshortcut (var info: keyeventinfoty; const sender: twidget);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> cuttext (const atext: msestring; out maxlength: integer): boolean; 
+        <span style="color:navy"><b>PROPERTY</b></span> options: optionseditdbty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions 
+                              <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetdatalinkoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> asnullmsestring: msestring <span style="color:navy"><b>READ</b></span> getasnullmsestring 
+                                                   <span style="color:navy"><b>WRITE</b></span> setasnullmsestring;
+        <span style="color:navy"><b>PROPERTY</b></span> navigator: tdbnavigator <span style="color:navy"><b>READ</b></span> fnavigator <span style="color:navy"><b>WRITE</b></span> setnavigator;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeginedit: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeginedit <span style="color:navy"><b>WRITE</b></span> fonbeginedit;
+        <span style="color:navy"><b>PROPERTY</b></span> onendedit: notifyeventty <span style="color:navy"><b>READ</b></span> fonendedit <span style="color:navy"><b>WRITE</b></span> fonendedit;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered 
+                                          <span style="color:navy"><b>WRITE</b></span> fondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> owner: twidget <span style="color:navy"><b>READ</b></span> getownerwidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#teditwidgetdatalink" name="teditwidgetdatalink">teditwidgetdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomeditwidgetdatalink">tcustomeditwidgetdatalink</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource1 
+                                              <span style="color:navy"><b>WRITE</b></span> setwidgetdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> navigator;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeginedit;
+        <span style="color:navy"><b>PROPERTY</b></span> onendedit;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupeditdatalink" name="tlookupeditdatalink">tlookupeditdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teditwidgetdatalink">teditwidgetdatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdataedit;
+                           const adatatype: lookupdatatypety;
+                           const intf: idbeditfieldlink);
+        <span style="color:navy"><b>FUNCTION</b></span> msedisplaytext (const aformat: msestring = '';
+                               const aedit: boolean = false): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> fieldnametext: string <span style="color:navy"><b>READ</b></span> ffieldnametext <span style="color:navy"><b>WRITE</b></span> setfieldnametext;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringeditwidgetdatalink" name="tstringeditwidgetdatalink">tstringeditwidgetdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teditwidgetdatalink">teditwidgetdatalink</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> nullsymbol;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringlookupeditdatalink" name="tstringlookupeditdatalink">tstringlookupeditdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupeditdatalink">tlookupeditdatalink</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> nullsymbol;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringedit" name="tdbstringedit">tdbstringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringedit">tcustomstringedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringeditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdialogstringedit" name="tdbdialogstringedit">tdbdialogstringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdialogstringedit">tcustomdialogstringedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringeditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdbdropdownlistedit" name="tcustomdbdropdownlistedit">tcustomdbdropdownlistedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>,idbeditfieldlink,
+                                      ireccontrol,idbifidropdownlistdatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringeditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownifilink: tifidropdownlistlinkcomp <span style="color:navy"><b>READ</b></span> getdropdownifilink 
+                                    <span style="color:navy"><b>WRITE</b></span> setdropdownifilink;  //for dropdownlist
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownlistedit" name="tdbdropdownlistedit">tdbdropdownlistedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbdropdownlistedit">tcustomdbdropdownlistedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownifilink;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownlisteditdb" name="tdbdropdownlisteditdb">tdbdropdownlisteditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbdropdownlistedit">tdbdropdownlistedit</a>,idbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownlistcontrollerdb <span style="color:navy"><b>READ</b></span> getdropdown 
+                                                             <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownlisteditlb" name="tdbdropdownlisteditlb">tdbdropdownlisteditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbdropdownlistedit">tdbdropdownlistedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownlistcontrollerlb <span style="color:navy"><b>READ</b></span> getdropdown
+                                                            <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlisteditdb" name="tdropdownlisteditdb">tdropdownlisteditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlistedit">tdropdownlistedit</a>,idbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownlistcontrollerdb <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlisteditlb" name="tdropdownlisteditlb">tdropdownlisteditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlistedit">tdropdownlistedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownlistcontrollerlb <span style="color:navy"><b>READ</b></span> getdropdown
+                                                            <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbkeystringedit" name="tdbkeystringedit">tdbkeystringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomkeystringedit">tcustomkeystringedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringlookupeditdatalink <span style="color:navy"><b>READ</b></span> fdatalink
+                                                               <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbmemoedit" name="tdbmemoedit">tdbmemoedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemoedit">tcustommemoedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringeditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> frame;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegeredit" name="tdbintegeredit">tdbintegeredit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomintegeredit">tcustomintegeredit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> isnull: boolean <span style="color:navy"><b>READ</b></span> fisnull;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbbooleanedit" name="tdbbooleanedit">tdbbooleanedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleanedit">tcustombooleanedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdataicon" name="tdbdataicon">tdbdataicon</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdataicon">tcustomdataicon</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink; 
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin; 
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatabutton" name="tdbdatabutton">tdbdatabutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatabutton">tcustomdatabutton</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefaces;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecaptions;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefonts;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin; 
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedisabled;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbbooleaneditradio" name="tdbbooleaneditradio">tdbbooleaneditradio</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleaneditradio">tcustombooleaneditradio</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbrealedit" name="tdbrealedit">tdbrealedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealedit">tcustomrealedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetintvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbrealspinedit" name="tdbrealspinedit">tdbrealspinedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealspinedit">tcustomrealspinedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> step;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbslider" name="tdbslider">tdbslider</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomslider">tcustomslider</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean; <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> fvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> fvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> scrollbar;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbprogressbar" name="tdbprogressbar">tdbprogressbar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomprogressbar">tcustomprogressbar</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimeedit" name="tdbdatetimeedit">tdbdatetimeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatetimeedit">tcustomdatetimeedit</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: teditwidgetdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdbenumedit" name="tcustomdbenumedit">tcustomdbenumedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenumedit">tcustomenumedit</a>,idbeditfieldlink,ireccontrol,
+                                                 idbifidropdownlistdatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookupeditdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownifilink: tifienumlinkcomp <span style="color:navy"><b>READ</b></span> getdropdownifilink 
+                                      <span style="color:navy"><b>WRITE</b></span> setdropdownifilink;  //for dropdownlist
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbenumedit" name="tdbenumedit">tdbenumedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbenumedit">tcustomdbenumedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valueoffset; //before value
+        <span style="color:navy"><b>PROPERTY</b></span> datalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownifilink;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valueempty;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbbooleantextedit" name="tdbbooleantextedit">tdbbooleantextedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbenumedit">tcustomdbenumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: boolean <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> text_false: msestring <span style="color:navy"><b>READ</b></span> ftext_false <span style="color:navy"><b>WRITE</b></span> settext_false;
+        <span style="color:navy"><b>PROPERTY</b></span> text_true: msestring <span style="color:navy"><b>READ</b></span> ftext_true <span style="color:navy"><b>WRITE</b></span> settext_true;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnolistdropdowncol" name="tnolistdropdowncol">tnolistdropdowncol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowncol">tdropdowncol</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnolistdropdowncols" name="tnolistdropdowncols">tnolistdropdowncols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowncols">tdropdowncols</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdowncol" name="tdbdropdowncol">tdbdropdowncol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnolistdropdowncol">tnolistdropdowncol</a>,idbeditinfo)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datafield: string <span style="color:navy"><b>READ</b></span> fdatafield <span style="color:navy"><b>WRITE</b></span> setdatafield;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdowncols" name="tdbdropdowncols">tdbdropdowncols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnolistdropdowncols">tnolistdropdowncols</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdbdropdowncol <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowndatalink" name="tdropdowndatalink">tdropdowndatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsedatalink">tmsedatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdbdropdownlistcontroller);
+        <span style="color:navy"><b>FUNCTION</b></span> getlookuptext (const key: integer): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getlookuptext (const key: int64): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getlookuptext (const key: msestring): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefieldName: string <span style="color:navy"><b>READ</b></span> fvaluefieldname <span style="color:navy"><b>WRITE</b></span> setvaluefieldname;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefield: tfield <span style="color:navy"><b>READ</b></span> fvaluefield;
+        <span style="color:navy"><b>PROPERTY</b></span> valueasmsestring: msestring <span style="color:navy"><b>READ</b></span> getvalueasmsestring;
+        <span style="color:navy"><b>PROPERTY</b></span> valueasinteger: integer <span style="color:navy"><b>READ</b></span> getvalueasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> valueaslargeint: int64 <span style="color:navy"><b>READ</b></span> getvalueaslargeint;
+        <span style="color:navy"><b>PROPERTY</b></span> textfield: tfield <span style="color:navy"><b>READ</b></span> ftextfield;
+        <span style="color:navy"><b>PROPERTY</b></span> textasmsestring: msestring <span style="color:navy"><b>READ</b></span> gettextasmsestring;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownstringcol" name="tdbdropdownstringcol">tdbdropdownstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownstringcol">tdropdownstringcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid; 
+                                       const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgriddatalink" name="tgriddatalink">tgriddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfieldsdatalink">tfieldsdatalink</a>,ievent,idbeditinfo,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomgrid; const aintf: igriddatalink);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> firstrecord: integer <span style="color:navy"><b>READ</b></span> getfirstrecord;
+        <span style="color:navy"><b>FUNCTION</b></span> getdummystringbuffer: pansistring;
+        <span style="color:navy"><b>FUNCTION</b></span> getrowfieldisnull (const afield: tfield; const row: integer): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getansistringbuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getstringbuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getdisplaystringbuffer (const afield: tfield; const row: integer{;
+        ): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getbooleanbuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getintegerbuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getint64buffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getrealtybuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getdatetimebuffer (const afield: tfield; const row: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> painted;
+        <span style="color:navy"><b>PROCEDURE</b></span> loaded;
+        <span style="color:navy"><b>PROCEDURE</b></span> doshortcut (var info: keyeventinfoty; const sender: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> setselected (const cell: gridcoordty;
+                                            const avalue: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> beforefocuscell (const cell: gridcoordty;
+                                  const selectaction: focuscellactionty);
+        <span style="color:navy"><b>FUNCTION</b></span> domoveby (const distance: integer): integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> moveby (distance: integer): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> rowtorecnozerobased (const row: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstrow: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islastrow: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> owner: tcustomgrid <span style="color:navy"><b>READ</b></span> fgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> field_state: tfield <span style="color:navy"><b>READ</b></span> ffield_state;
+        <span style="color:navy"><b>PROPERTY</b></span> field_color: tfield <span style="color:navy"><b>READ</b></span> ffield_color;
+        <span style="color:navy"><b>PROPERTY</b></span> field_font: tfield <span style="color:navy"><b>READ</b></span> ffield_font;
+        <span style="color:navy"><b>PROPERTY</b></span> field_<span style="color:navy"><b>READ</b></span>only: tfield read ffield_readonly;
+        <span style="color:navy"><b>PROPERTY</b></span> field_merged: tfield <span style="color:navy"><b>READ</b></span> ffield_merged;
+        <span style="color:navy"><b>PROPERTY</b></span> field_selected: tfield <span style="color:navy"><b>READ</b></span> ffield_selected;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: griddatalinkoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions 
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultgriddatalinkoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdaterowdata: updaterowdataeventty <span style="color:navy"><b>READ</b></span> fonupdaterowdata 
+                                     <span style="color:navy"><b>WRITE</b></span> fonupdaterowdata;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource1 <span style="color:navy"><b>WRITE</b></span> settadasource1;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_state: string <span style="color:navy"><b>READ</b></span> ffieldname_state 
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_state;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_color: string <span style="color:navy"><b>READ</b></span> ffieldname_color 
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_color;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_font: string <span style="color:navy"><b>READ</b></span> ffieldname_font
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_font;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_<span style="color:navy"><b>READ</b></span>only: string read ffieldname_readonly 
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_readonly;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_merged: string <span style="color:navy"><b>READ</b></span> ffieldname_merged 
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_merged;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname_selected: string <span style="color:navy"><b>READ</b></span> ffieldname_selected
+                                            <span style="color:navy"><b>WRITE</b></span> setfieldname_selected;
+        <span style="color:navy"><b>PROPERTY</b></span> navigator: tdbnavigator <span style="color:navy"><b>READ</b></span> fnavigator <span style="color:navy"><b>WRITE</b></span> setnavigator;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeginedit: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeginedit <span style="color:navy"><b>WRITE</b></span> fonbeginedit;
+        <span style="color:navy"><b>PROPERTY</b></span> onendedit: notifyeventty <span style="color:navy"><b>READ</b></span> fonendedit <span style="color:navy"><b>WRITE</b></span> fonendedit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistdatalink" name="tdropdownlistdatalink">tdropdownlistdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgriddatalink">tgriddatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomgrid; const aintf: igriddatalink;
+                       const adatalink: tdropdowndatalink);
+        <span style="color:navy"><b>FUNCTION</b></span> domoveby (const distance: integer): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownlist" name="tdbdropdownlist">tdbdropdownlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlist">tdropdownlist</a>,igriddatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const acontroller: tcustomdbdropdownlistcontroller;
+                                  acols: tdropdowncols);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowup (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdown (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pageup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pagedown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheelup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheeldown (const action: focuscellactionty = fca_focusin);  <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdbdropdownlistcontroller" name="tcustomdbdropdownlistcontroller">tcustomdbdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#
+                                 tcustomdropdownlistcontroller">
+                                 tcustomdropdownlistcontroller</a>,idbeditinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idbdropdownlist; const aisstringkey: boolean);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dropdown; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdropdowndatalink <span style="color:navy"><b>READ</b></span> fdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> keyfield: string <span style="color:navy"><b>READ</b></span> getkeyfield <span style="color:navy"><b>WRITE</b></span> setkeyfield;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultdbdropdownoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdatalink: griddatalinkoptionsty <span style="color:navy"><b>READ</b></span> foptionsdatalink 
+                <span style="color:navy"><b>WRITE</b></span> foptionsdatalink <span style="color:navy"><b>DEFAULT</b></span> defaultdropdowndatalinkoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb: optionsdbty <span style="color:navy"><b>READ</b></span> foptionsdb <span style="color:navy"><b>WRITE</b></span> setoptionsdb <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> cols: tdbdropdowncols <span style="color:navy"><b>READ</b></span> getcols <span style="color:navy"><b>WRITE</b></span> setcols;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdropdownlistcontroller" name="tdbdropdownlistcontroller">tdbdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbdropdownlistcontroller">tcustomdbdropdownlistcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> keyfield;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb;   
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistcontrollerdb" name="tdropdownlistcontrollerdb">tdropdownlistcontrollerdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbdropdownlistcontroller">tcustomdbdropdownlistcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb;   
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbenumeditdb" name="tdbenumeditdb">tdbenumeditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbenumedit">tdbenumedit</a>,idbdropdownlist,ireccontrol)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumeditdb" name="tenumeditdb">tenumeditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenumedit">tenumedit</a>,idbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbkeystringeditdb" name="tdbkeystringeditdb">tdbkeystringeditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbkeystringedit">tdbkeystringedit</a>,idbdropdownlist,ireccontrol)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeystringeditdb" name="tkeystringeditdb">tkeystringeditdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tkeystringedit">tkeystringedit</a>,idbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbwidgetindicatorcol" name="tdbwidgetindicatorcol">tdbwidgetindicatorcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetfixcol">twidgetfixcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                            const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colorindicator: colorty <span style="color:navy"><b>READ</b></span> fcolorindicator 
+                        <span style="color:navy"><b>WRITE</b></span> setcolorindicator <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultindicatorcoloptions;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbwidgetfixcols" name="tdbwidgetfixcols">tdbwidgetfixcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetfixcols">twidgetfixcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomwidgetgrid;
+                            const adatalink: tgriddatalink);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dbindicatorcol: integer <span style="color:navy"><b>READ</b></span> getdbindicatorcol 
+                         <span style="color:navy"><b>WRITE</b></span> setdbindicatorcol <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbscrollbar" name="tdbscrollbar">tdbscrollbar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tthumbtrackscrollbar">tthumbtrackscrollbar</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (intf: iscrollbar; org: originty = org_client;
+                   ondimchanged: proceventty = nil); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultdbscrollbaroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbgridframe" name="tdbgridframe">tdbgridframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridframe">tgridframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iscrollframe; const owner: twidget;
+                                  const autoscrollintf: iautoscrollframe);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbwidgetcol" name="tdbwidgetcol">tdbwidgetcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetcol">twidgetcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbwidgetcols" name="tdbwidgetcols">tdbwidgetcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetcols">twidgetcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tdbwidgetcol <span style="color:navy"><b>READ</b></span> getcols; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdbwidgetgrid" name="tcustomdbwidgetgrid">tcustomdbwidgetgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomwidgetgrid">tcustomwidgetgrid</a>,igriddatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> focuscell (cell: gridcoordty;
+                selectaction: focuscellactionty = fca_focusin;
+              const selectmode: selectcellmodety = scm_cell;
+              const ashowcell: cellpositionty = cep_nearest): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowup (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdown (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pageup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pagedown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheelup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheeldown (const action: focuscellactionty = fca_focusin);  <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lastrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> firstrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tgriddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols: tdbwidgetfixcols <span style="color:navy"><b>READ</b></span> getfixcols <span style="color:navy"><b>WRITE</b></span> setfixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tdbwidgetcols <span style="color:navy"><b>READ</b></span> getdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbwidgetgrid" name="tdbwidgetgrid">tdbwidgetgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbwidgetgrid">tcustomdbwidgetgrid</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcoldatalink" name="tstringcoldatalink">tstringcoldatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomeditwidgetdatalink">tcustomeditwidgetdatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringcol" name="tdbstringcol">tdbstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringcol">tcustomstringcol</a>,idbeditfieldlink,
+                                          idbeditinfo,iificlient,iifidatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid; 
+                              const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringcoldatalink <span style="color:navy"><b>READ</b></span> fdatalink;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datafield: string <span style="color:navy"><b>READ</b></span> getdatafield <span style="color:navy"><b>WRITE</b></span> setdatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb: optionseditdbty <span style="color:navy"><b>READ</b></span> getoptionsdb <span style="color:navy"><b>WRITE</b></span> setoptionsdb <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> nullsymbol: msestring <span style="color:navy"><b>READ</b></span> getnullsymbol <span style="color:navy"><b>WRITE</b></span> setnullsymbol;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringcols" name="tdbstringcols">tdbstringcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringcols">tstringcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tdbstringcol <span style="color:navy"><b>READ</b></span> getcols; default; //last!
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb: optionseditdbty <span style="color:navy"><b>READ</b></span> foptionsdb <span style="color:navy"><b>WRITE</b></span> setoptionsdb <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringindicatorcol" name="tdbstringindicatorcol">tdbstringindicatorcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixcol">tfixcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                            const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colorindicator: colorty <span style="color:navy"><b>READ</b></span> fcolorindicator 
+                     <span style="color:navy"><b>WRITE</b></span> setcolorindicator <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultindicatorcoloptions;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringfixcols" name="tdbstringfixcols">tdbstringfixcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixcols">tfixcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomgrid;
+                            const adatalink: tgriddatalink);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dbindicatorcol: integer <span style="color:navy"><b>READ</b></span> getdbindicatorcol
+                                      <span style="color:navy"><b>WRITE</b></span> setdbindicatorcol <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringgriddatalink" name="tstringgriddatalink">tstringgriddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgriddatalink">tgriddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdbstringgrid" name="tcustomdbstringgrid">tcustomdbstringgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringgrid">tcustomstringgrid</a>,iwidgetgrid,igriddatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> focuscell (cell: gridcoordty;
+                selectaction: focuscellactionty = fca_focusin;
+              const selectmode: selectcellmodety = scm_cell;
+              const ashowcell: cellpositionty = cep_nearest): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> docellevent (var info: celleventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowup (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdown (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pageup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pagedown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheelup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheeldown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lastrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> firstrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tdbstringcols <span style="color:navy"><b>READ</b></span> getdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tstringgriddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> options: dbstringgridoptionsty <span style="color:navy"><b>READ</b></span> foptions 
+                                <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> fieldnamedisplayfixrow: integer <span style="color:navy"><b>READ</b></span> ffieldnamedisplayfixrow write
+                         setfieldnamedisplayfixrow <span style="color:navy"><b>DEFAULT</b></span> -1; 
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols: tdbstringfixcols <span style="color:navy"><b>READ</b></span> getfixcols <span style="color:navy"><b>WRITE</b></span> setfixcols;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringgrid" name="tdbstringgrid">tdbstringgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdbstringgrid">tcustomdbstringgrid</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldnamedisplayfixrow;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols;
+        <span style="color:navy"><b>PROPERTY</b></span> datalink;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlbdropdownstringcol" name="tlbdropdownstringcol">tlbdropdownstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownstringcol">tdropdownstringcol</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcopydropdownlist" name="tcopydropdownlist">tcopydropdownlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlist">tdropdownlist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#texterndatadropdownlist" name="texterndatadropdownlist">texterndatadropdownlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlist">tdropdownlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const acontroller: texterndatadropdownlistcontroller;
+                                  acols: tdropdowncols);
+        <span style="color:navy"><b>PROCEDURE</b></span> rowup (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdown (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pageup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pagedown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheelup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheeldown (const action: focuscellactionty = fca_focusin);  <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlbdropdownlist" name="tlbdropdownlist">tlbdropdownlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#texterndatadropdownlist">texterndatadropdownlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const acontroller: tcustomlbdropdownlistcontroller;
+                                  acols: tdropdowncols);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlbdropdowncol" name="tlbdropdowncol">tlbdropdowncol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowncol">tdropdowncol</a>,ilookupbufferfieldinfo)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> fieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> ffieldno <span style="color:navy"><b>WRITE</b></span> setfieldno
+                                                              <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlbdropdowncols" name="tlbdropdowncols">tlbdropdowncols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnolistdropdowncols">tnolistdropdowncols</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tlbdropdowncol <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#texterndatadropdownlistcontroller" name="texterndatadropdownlistcontroller">texterndatadropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistcontroller">tcustomdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: ilbdropdownlist);
+        <span style="color:navy"><b>PROCEDURE</b></span> dropdown; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaulteddropdownoptions;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomlbdropdownlistcontroller" name="tcustomlbdropdownlistcontroller">tcustomlbdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#texterndatadropdownlistcontroller">texterndatadropdownlistcontroller</a>,
+                                        ilookupbufferfieldinfo)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> optionslb: optionslbty <span style="color:navy"><b>READ</b></span> foptionslb <span style="color:navy"><b>WRITE</b></span> foptionslb <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> cols: tlbdropdowncols <span style="color:navy"><b>READ</b></span> getcols <span style="color:navy"><b>WRITE</b></span> setcols;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> keyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> fkeyfieldno <span style="color:navy"><b>WRITE</b></span> fkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onfilter: lbfiltereventty <span style="color:navy"><b>READ</b></span> fonfilter <span style="color:navy"><b>WRITE</b></span> fonfilter;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforefilter: dataediteventty <span style="color:navy"><b>READ</b></span> fonbeforefilter 
+                                                             <span style="color:navy"><b>WRITE</b></span> fonbeforefilter;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlbdropdownlistcontroller" name="tlbdropdownlistcontroller">tlbdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlbdropdownlistcontroller">tcustomlbdropdownlistcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> keyfieldno;
+        <span style="color:navy"><b>PROPERTY</b></span> optionslb;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforefilter;
+        <span style="color:navy"><b>PROPERTY</b></span> onfilter;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistcontrollerlb" name="tdropdownlistcontrollerlb">tdropdownlistcontrollerlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlbdropdownlistcontroller">tcustomlbdropdownlistcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> optionslb;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforefilter;
+        <span style="color:navy"><b>PROPERTY</b></span> onfilter;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbenumeditlb" name="tdbenumeditlb">tdbenumeditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbenumedit">tdbenumedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tlbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumeditlb" name="tenumeditlb">tenumeditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenumedit">tenumedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tlbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink1;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomenum64edit" name="tcustomenum64edit">tcustomenum64edit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: int64
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: int64arty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> value: int64 <span style="color:navy"><b>READ</b></span> fvalue1 <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> -1;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiint64linkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink1;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: int64 <span style="color:navy"><b>READ</b></span> fvaluedefault1 <span style="color:navy"><b>WRITE</b></span> fvaluedefault1 default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setint64eventty <span style="color:navy"><b>READ</b></span> fonsetvalue1 <span style="color:navy"><b>WRITE</b></span> fonsetvalue1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomenum64editlb" name="tcustomenum64editlb">tcustomenum64editlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64edit">tcustomenum64edit</a>,ilbdropdownlist)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tlbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenum64editlb" name="tenum64editlb">tenum64editlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64editlb">tcustomenum64editlb</a>)
+      PUBLISHED
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbenum64editlb" name="tdbenum64editlb">tdbenum64editlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64editlb">tcustomenum64editlb</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookupeditdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomenum64editdb" name="tcustomenum64editdb">tcustomenum64editdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64edit">tcustomenum64edit</a>,idbdropdownlist)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenum64editdb" name="tenum64editdb">tenum64editdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64editdb">tcustomenum64editdb</a>)
+      PUBLISHED
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbenum64editdb" name="tdbenum64editdb">tdbenum64editdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenum64editdb">tcustomenum64editdb</a>,idbeditfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookupeditdatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbkeystringeditlb" name="tdbkeystringeditlb">tdbkeystringeditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbkeystringedit">tdbkeystringedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tlbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeystringeditlb" name="tkeystringeditlb">tkeystringeditlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tkeystringedit">tkeystringedit</a>,ilbdropdownlist)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tlbdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

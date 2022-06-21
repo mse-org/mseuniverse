@@ -1,0 +1,121 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msebintree;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tavlnode" name="tavlnode">tavlnode</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> balance: integer <span style="color:navy"><b>READ</b></span> fbalance;
+        <span style="color:navy"><b>PROPERTY</b></span> up: tavlnode <span style="color:navy"><b>READ</b></span> fup;
+        <span style="color:navy"><b>PROPERTY</b></span> left: tavlnode <span style="color:navy"><b>READ</b></span> fleft;
+        <span style="color:navy"><b>PROPERTY</b></span> right: tavlnode <span style="color:navy"><b>READ</b></span> fright;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegeravlnode" name="tintegeravlnode">tintegeravlnode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tavlnode">tavlnode</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akey: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> key: integer <span style="color:navy"><b>READ</b></span> fkey;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64avlnode" name="tint64avlnode">tint64avlnode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tavlnode">tavlnode</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akey: int64); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> key: int64 <span style="color:navy"><b>READ</b></span> fkey;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tavltree" name="tavltree">tavltree</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;//frees the nodes
+        <span style="color:navy"><b>PROCEDURE</b></span> removenode (const anode: tavlnode); //does not free node
+        <span style="color:navy"><b>PROCEDURE</b></span> traverse (const aproc: nodeprocty);
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>PROPERTY</b></span> root: tavlnode <span style="color:navy"><b>READ</b></span> froot;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegeravltree" name="tintegeravltree">tintegeravltree</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tavltree">tavltree</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>FUNCTION</b></span> addnode (const akey: integer): tintegeravlnode; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> addnode (const anode: tintegeravlnode); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: integer; out anode: tintegeravlnode): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> traverse (const aproc: integernodeprocty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64avltree" name="tint64avltree">tint64avltree</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tavltree">tavltree</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>FUNCTION</b></span> addnode (const akey: int64): tint64avlnode; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: int64; out anode: tint64avlnode): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> traverse (const aproc: int64nodeprocty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcachenode" name="tcachenode">tcachenode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tint64avlnode">tint64avlnode</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacachenode" name="tdatacachenode">tdatacachenode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcachenode">tcachenode</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akey: int64; const adata: pointer; const asize: integer);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> data: pointer <span style="color:navy"><b>READ</b></span> fdata;
+        <span style="color:navy"><b>PROPERTY</b></span> size: integer <span style="color:navy"><b>READ</b></span> fsize;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcacheavltree" name="tcacheavltree">tcacheavltree</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tint64avltree">tint64avltree</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> removenode (const anode: tcachenode); //does not free node
+        <span style="color:navy"><b>PROPERTY</b></span> maxsize: integer <span style="color:navy"><b>READ</b></span> fmaxsize <span style="color:navy"><b>WRITE</b></span> setmaxsize; //0 -> no limit
+        <span style="color:navy"><b>PROPERTY</b></span> size: integer <span style="color:navy"><b>READ</b></span> fsize;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacacheavltree" name="tdatacacheavltree">tdatacacheavltree</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcacheavltree">tcacheavltree</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> addnode (const akey: int64; const adata: pointer;
+                                const asize: integer): tdatacachenode;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcachenode" name="tstringcachenode">tstringcachenode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcachenode">tcachenode</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const akey: int64; const adata: string); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> data: string <span style="color:navy"><b>READ</b></span> fdata;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcacheavltree" name="tstringcacheavltree">tstringcacheavltree</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcacheavltree">tcacheavltree</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> addnode (const akey: int64;
+                             const adata: string): tstringcachenode; <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

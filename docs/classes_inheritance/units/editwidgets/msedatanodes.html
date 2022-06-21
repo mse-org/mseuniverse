@@ -1,0 +1,230 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedatanodes;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreelistitem" name="ttreelistitem">ttreelistitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistitem">tlistitem</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomitemlist = nil;
+                   const aparent: ttreelistitem = nil); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>PROCEDURE</b></span> calcitemlayout (const asize: sizety;
+                     const ainnerframe: framety; const list: tcustomitemlist;
+                                          var info: listitemlayoutinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> releaseowner; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> releasechildren ();
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildcheckedstate ();   //updates ancestors
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildcheckedtree ();    //updates self and descendents
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildnotcheckedtree (); //updates self and descendents
+        <span style="color:navy"><b>PROCEDURE</b></span> updatechildnotcheckedstate (); //updates ancestors
+        <span style="color:navy"><b>PROCEDURE</b></span> updateparentnotcheckedstate (); //updates affected descendents
+        <span style="color:navy"><b>PROCEDURE</b></span> updateparentnotcheckedtree (); //updates all descendents
+        <span style="color:navy"><b>PROPERTY</b></span> parent: ttreelistitem <span style="color:navy"><b>READ</b></span> fparent;
+        <span style="color:navy"><b>FUNCTION</b></span> parentorself: ttreelistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> parentindex: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> treelevel: integer <span style="color:navy"><b>READ</b></span> ftreelevel;
+        <span style="color:navy"><b>FUNCTION</b></span> levelshift: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> treeheight: integer;     //total hight of children
+        <span style="color:navy"><b>FUNCTION</b></span> rowheight: integer;      //toatal needed grid rows
+        <span style="color:navy"><b>FUNCTION</b></span> isroot: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> issinglerootrow: boolean; //keyrowmove can be used
+        <span style="color:navy"><b>FUNCTION</b></span> islastnode: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> subitems: boolean <span style="color:navy"><b>READ</b></span> getsubitems <span style="color:navy"><b>WRITE</b></span> setsubitems;
+        <span style="color:navy"><b>FUNCTION</b></span> findsibling (const asibling: ttreelistitem): ttreelistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> nextnode: ttreelistitem;       //node of next row
+        <span style="color:navy"><b>FUNCTION</b></span> nextnodeparent: ttreelistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> checkdescendent (node: ttreelistitem): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> checkancestor (node: ttreelistitem): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isstatechanged: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> candrag: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> candrop (const source: ttreelistitem): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> finditembycaption (const acaption: msestring;
+                                       var dest: ttreelistitem): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> finditembycaption (const acaption: msestring;
+                  const acasesensitive: boolean = false;
+                  const aexpand: boolean = false): ttreelistitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> finditembycaption (const acaption: lmsestringty;
+                            const aexpand: boolean = false): ttreelistitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> finditembycaption (const acaptions: msestringarty;
+                 const acasesensitive: boolean = false;
+                 const aexpand: boolean = false;
+                 const apartial: boolean = false): ttreelistitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> rootnode: ttreelistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> rootpath: treelistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> rootcaptions: msestringarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> rootcaptions (const aowner: tcustomitemlist): msestringarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkitems (const checkdelete: checktreelistitemprocty);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecellzone (const pos: pointty; var zone: cellzonety); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseevent (var info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawimage (const acanvas: tcanvas;
+                           var alayoutinfo: listitemlayoutinfoty) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> addchildren (const aitem: ttreelistitem);
+        <span style="color:navy"><b>FUNCTION</b></span> add (const aitem: ttreelistitem): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const aitems: treelistitemarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const itemclass: treelistitemclassty = nil):
+                                                      ttreelistitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const acount: integer;
+                                 const itemclass: treelistitemclassty = nil;
+                                 const defaultstate: nodestatesty = []); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (aindex: integer; const aitem: ttreelistitem);
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const aitem: ttreelistitem; aindex: integer); deprecated;
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const source,dest: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> swap (const a,b: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getnodes (const must: nodestatesty;
+                             const mustnot: nodestatesty;
+                             const amode: getnodemodety = gno_matching;
+                             const addself: boolean = false): treelistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getselectednodes (const amode: getnodemodety = gno_matching;
+                             const addself: boolean = false): treelistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckednodes (const amode: getnodemodety = gno_matching;
+                             const addself: boolean = false): treelistitemarty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> expandall;
+        <span style="color:navy"><b>PROCEDURE</b></span> collapseall;
+        <span style="color:navy"><b>PROCEDURE</b></span> expandtoroot (const afocusrow: boolean = true);
+        <span style="color:navy"><b>PROCEDURE</b></span> collapsetoroot;
+        <span style="color:navy"><b>FUNCTION</b></span> remove (const aindex: integer): ttreelistitem;
+        <span style="color:navy"><b>PROCEDURE</b></span> sort (const casesensitive: boolean;
+                                const recursive: boolean = false); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sort (const sortfunc: arraysortcomparety;
+                                const recursive: boolean = false); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>PROCEDURE</b></span> setupeditor (const editor: tinplaceedit;
+                               const font: tfont; const notext: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> rootexpanded: boolean <span style="color:navy"><b>READ</b></span> getrootexpanded <span style="color:navy"><b>WRITE</b></span> setrootexpanded;
+        <span style="color:navy"><b>PROPERTY</b></span> expanded: boolean <span style="color:navy"><b>READ</b></span> getexpanded <span style="color:navy"><b>WRITE</b></span> setexpanded;
+        <span style="color:navy"><b>FUNCTION</b></span> treechecked: boolean; //true if checked and not parentnotchecked
+        <span style="color:navy"><b>PROPERTY</b></span> items[const aindex: integer]: ttreelistitem <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfontarrayprop" name="tfontarrayprop">tfontarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tfont <span style="color:navy"><b>READ</b></span> getitems
+                                                        <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomitemlist" name="tcustomitemlist">tcustomitemlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobjectdatalist">tobjectdatalist</a>,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iitemlist); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> registerobject (const aobject: iobjectlink);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisterobject (const aobject: iobjectlink);
+        <span style="color:navy"><b>FUNCTION</b></span> layoutinfopo: plistitemlayoutinfoty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> add (const aitem: tlistitem): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const aitem: msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const aitems: listitemarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const aitems: msestringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const aitems: array of msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const aitem: tlistitem): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> nodezone (const point: pointty): cellzonety;
+        <span style="color:navy"><b>FUNCTION</b></span> getitems (const must: nodestatesty;
+                             const mustnot: nodestatesty): listitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getindexes (const must: nodestatesty;
+                             const mustnot: nodestatesty): integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getselecteditems: listitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getselectedindexes: integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckeditems: listitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckedindexes: integerarty;
+        <span style="color:navy"><b>PROPERTY</b></span> itemlistintf: iitemlist <span style="color:navy"><b>READ</b></span> fintf;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tlistitem <span style="color:navy"><b>READ</b></span> getitems1 <span style="color:navy"><b>WRITE</b></span> setitems;
+                         default;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_base: integer <span style="color:navy"><b>READ</b></span> fimnr_base <span style="color:navy"><b>WRITE</b></span> setimnr_base <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_expanded: integer <span style="color:navy"><b>READ</b></span> fimnr_expanded
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_expanded <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_selected: integer <span style="color:navy"><b>READ</b></span> fimnr_selected
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_selected <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_<span style="color:navy"><b>READ</b></span>only: integer read fimnr_readonly
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_readonly <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_checked: integer <span style="color:navy"><b>READ</b></span> fimnr_checked
+                                                    <span style="color:navy"><b>WRITE</b></span> setimnr_checked <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_subitems: integer <span style="color:navy"><b>READ</b></span> fimnr_subitems
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_subitems <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_focused: integer <span style="color:navy"><b>READ</b></span> fimnr_focused
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_focused <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_active: integer <span style="color:navy"><b>READ</b></span> fimnr_active
+                                                   <span style="color:navy"><b>WRITE</b></span> setimnr_active <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagewidth: integer <span style="color:navy"><b>READ</b></span> fimagesize.cx
+                                                      <span style="color:navy"><b>WRITE</b></span> setimagewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageheight: integer <span style="color:navy"><b>READ</b></span> fimagesize.cy
+                                                     <span style="color:navy"><b>WRITE</b></span> setimageheight <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagesize: sizety <span style="color:navy"><b>READ</b></span> fimagesize <span style="color:navy"><b>WRITE</b></span> setimagesize;
+        <span style="color:navy"><b>PROPERTY</b></span> imagealignment: alignmentsty <span style="color:navy"><b>READ</b></span> fimagealignment
+                        <span style="color:navy"><b>WRITE</b></span> setimagealignment <span style="color:navy"><b>DEFAULT</b></span> [al_xcentered,al_ycentered];
+        <span style="color:navy"><b>PROPERTY</b></span> options: nodeoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos: captionposty <span style="color:navy"><b>READ</b></span> fcaptionpos <span style="color:navy"><b>WRITE</b></span> setcaptionpos
+                                                                   <span style="color:navy"><b>DEFAULT</b></span> cp_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fonts: tfontarrayprop <span style="color:navy"><b>READ</b></span> ffonts <span style="color:navy"><b>WRITE</b></span> setfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> levelstep: integer <span style="color:navy"><b>READ</b></span> flevelstep <span style="color:navy"><b>WRITE</b></span> setlevelstep
+                                                         <span style="color:navy"><b>DEFAULT</b></span> defaultlevelstep;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultnodestate: nodestatesty <span style="color:navy"><b>READ</b></span> fdefaultnodestate
+                                                 <span style="color:navy"><b>WRITE</b></span> f<span style="color:navy"><b>DEFAULT</b></span>nodestate default [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>READ</b></span>item: statreaditemeventty read fonstatreaditem
+                                 <span style="color:navy"><b>WRITE</b></span> fonstatreaditem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatreadtreeitem: statreadtreeitemeventty
+                                 <span style="color:navy"><b>READ</b></span> fonstatreadtreeitem <span style="color:navy"><b>WRITE</b></span> fonstatreadtreeitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwriteitem: statwriteitemeventty <span style="color:navy"><b>READ</b></span> fonstatwriteitem
+                                 <span style="color:navy"><b>WRITE</b></span> fonstatwriteitem;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwritetreeitem: statwritetreeitemeventty
+                                <span style="color:navy"><b>READ</b></span> fonstat<span style="color:navy"><b>WRITE</b></span>treeitem write fonstatwritetreeitem;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite: statwriteitemlisteventty <span style="color:navy"><b>READ</b></span> fonstatwrite
+                                     <span style="color:navy"><b>WRITE</b></span> fonstatwrite; //called before items
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>READ</b></span>: statreaditemlisteventty read fonstatread
+                                     <span style="color:navy"><b>WRITE</b></span> fonstatread; //called before items
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttreenode" name="ttreenode">ttreenode</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const anode: ttreenode): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const event: nodeeventty);
+        <span style="color:navy"><b>FUNCTION</b></span> converttotreelistitem (flat: boolean = false;
+                                             withrootnode: boolean =  false;
+                     filterfunc: treenodefilterfuncty = nil): ttreelistitem;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ttreenode <span style="color:navy"><b>READ</b></span> getitems
+                                                         <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> parent: ttreenode <span style="color:navy"><b>READ</b></span> fparent;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,611 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory ifi</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseificomp;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomificlientcontroller" name="tcustomificlientcontroller">tcustomificlientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>,iifidataserver,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent; const akind: ttypekind);
+                                   <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canconnect (const acomponent: tcomponent): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> msestringprop[const aname: string]: msestring <span style="color:navy"><b>READ</b></span> getmsestringpro
+                                                            <span style="color:navy"><b>WRITE</b></span> setmsestringpro;
+        <span style="color:navy"><b>PROPERTY</b></span> integerprop[const aname: string]: integer <span style="color:navy"><b>READ</b></span> getintegerpro
+                                                            <span style="color:navy"><b>WRITE</b></span> setintegerpro;
+        <span style="color:navy"><b>PROPERTY</b></span> booleanprop[const aname: string]: boolean <span style="color:navy"><b>READ</b></span> getbooleanpro
+                                                            <span style="color:navy"><b>WRITE</b></span> setbooleanpro;
+        <span style="color:navy"><b>PROPERTY</b></span> realtyprop[const aname: string]: realty <span style="color:navy"><b>READ</b></span> getrealtypro
+                                                            <span style="color:navy"><b>WRITE</b></span> setrealtypro;
+        <span style="color:navy"><b>PROPERTY</b></span> datetimeprop[const aname: string]: tdatetime <span style="color:navy"><b>READ</b></span> getdatetimepro
+                                                            <span style="color:navy"><b>WRITE</b></span> setdatetimepro;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> fstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onchangebefore: ifieventty <span style="color:navy"><b>READ</b></span> fonchangebefore
+                                                          <span style="color:navy"><b>WRITE</b></span> fonchangebefore;
+        <span style="color:navy"><b>PROPERTY</b></span> onchangeafter: ifieventty <span style="color:navy"><b>READ</b></span> fonchangeafter <span style="color:navy"><b>WRITE</b></span> fonchangeafter;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ificlienteventty <span style="color:navy"><b>READ</b></span> fonclientvaluechanged
+                                                         <span style="color:navy"><b>WRITE</b></span> fonclientvaluechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientstatechanged: ificlientstateeventty
+                          <span style="color:navy"><b>READ</b></span> fonclientstatechanged <span style="color:navy"><b>WRITE</b></span> fonclientstatechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientclosequery: ificlientclosequeryeventty
+                          <span style="color:navy"><b>READ</b></span> fonclientclosequery <span style="color:navy"><b>WRITE</b></span> fonclientclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmodalresult: ificlientmodalresulteventty
+                          <span style="color:navy"><b>READ</b></span> fonclientmodalresult <span style="color:navy"><b>WRITE</b></span> fonclientmodalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientexecute: ificlienteventty <span style="color:navy"><b>READ</b></span> fonclientexecute
+                          <span style="color:navy"><b>WRITE</b></span> fonclientexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tificlientcontroller" name="tificlientcontroller">tificlientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomificlientcontroller">tcustomificlientcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> onchangebefore;
+        <span style="color:navy"><b>PROPERTY</b></span> onchangeafter;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onclientstatechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmodalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#texecclientcontroller" name="texecclientcontroller">texecclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificlientcontroller">tificlientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canconnect (const acomponent: tcomponent): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> execute; <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsvalue: valueclientoptionsty <span style="color:navy"><b>READ</b></span> foptionsvalue
+                                                <span style="color:navy"><b>WRITE</b></span> foptionsvalue <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> fenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tformclientcontroller" name="tformclientcontroller">tformclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificlientcontroller">tificlientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult: modalresultty <span style="color:navy"><b>READ</b></span> fmodalresult <span style="color:navy"><b>WRITE</b></span> setmodalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvalueclientcontroller" name="tvalueclientcontroller">tvalueclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificlientcontroller">tificlientcontroller</a>,
+                                         iififieldinfo,iifidatasourceclient)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canconnect (const acomponent: tcomponent): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalist: tdatalist <span style="color:navy"><b>READ</b></span> fdatalist;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onclientdataentered: indexeventty <span style="color:navy"><b>READ</b></span> fonclientdataentered
+                                       <span style="color:navy"><b>WRITE</b></span> fonclientdataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsvalue: valueclientoptionsty <span style="color:navy"><b>READ</b></span> foptionsvalue
+                                                <span style="color:navy"><b>WRITE</b></span> setoptionsvalue <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tifidatasource <span style="color:navy"><b>READ</b></span> fdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname: ififieldnamety <span style="color:navy"><b>READ</b></span> ffieldname <span style="color:navy"><b>WRITE</b></span> setfieldname;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringclientcontroller" name="tstringclientcontroller">tstringclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifimsestringdatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: msestring <span style="color:navy"><b>READ</b></span> fvaluedefault <span style="color:navy"><b>WRITE</b></span> fvaluedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setstringclienteventty
+                     <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifistringclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidropdowncol" name="tifidropdowncol">tifidropdowncol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>,iififieldinfo,iifidatasourceclient)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tifidatasource <span style="color:navy"><b>READ</b></span> fdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> datafield: ififieldnamety <span style="color:navy"><b>READ</b></span> fdatafield <span style="color:navy"><b>WRITE</b></span> setdatafield;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidropdowncols" name="tifidropdowncols">tifidropdowncols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tifidropdownlistcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tifidropdowncol <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidropdownlistcontroller" name="tifidropdownlistcontroller">tifidropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventpersistent">teventpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tvalueclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> cols: tifidropdowncols <span style="color:navy"><b>READ</b></span> fcols <span style="color:navy"><b>WRITE</b></span> setcols;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistclientcontroller" name="tdropdownlistclientcontroller">tdropdownlistclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringclientcontroller">tstringclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tifidropdownlistcontroller <span style="color:navy"><b>READ</b></span> fdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerclientcontroller" name="tintegerclientcontroller">tintegerclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifiintegerdatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: integer <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                             <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: integer <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: integer <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setintegerclienteventty
+                     <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifiintegerclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64clientcontroller" name="tint64clientcontroller">tint64clientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifiint64datalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: int64 <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: int64 <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                             <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: int64 <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: int64 <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setint64clienteventty
+                     <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifiint64clienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerclientcontroller" name="tpointerclientcontroller">tpointerclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifipointerdatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+        <span style="color:navy"><b>PROPERTY</b></span> value: pointer <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 <span style="color:navy"><b>DEFAULT</b></span> nil;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setpointerclienteventty
+                        <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifipointerclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumclientcontroller" name="tenumclientcontroller">tenumclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerclientcontroller">tintegerclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tifidropdownlistcontroller <span style="color:navy"><b>READ</b></span> fdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> value <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span> default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleanclientcontroller" name="tbooleanclientcontroller">tbooleanclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifibooleandatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: boolean <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: boolean <span style="color:navy"><b>READ</b></span> getvaluedefault <span style="color:navy"><b>WRITE</b></span> setvaluedefault
+                                                                     <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setbooleanclienteventty
+                     <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifibooleanclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealclientcontroller" name="trealclientcontroller">trealclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifirealdatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: realty <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: realty <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                               <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: realty <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: realty <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setrealclienteventty
+                            <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifirealclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimeclientcontroller" name="tdatetimeclientcontroller">tdatetimeclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvalueclientcontroller">tvalueclientcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> griddata: tifidatetimedatalist <span style="color:navy"><b>READ</b></span> getgriddata;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue1 {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: tdatetime <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                                  <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: tdatetime <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: tdatetime <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> onclientsetvalue: setdatetimeclienteventty
+                            <span style="color:navy"><b>READ</b></span> fonclientsetvalue <span style="color:navy"><b>WRITE</b></span> fonclientsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientvaluechanged: ifidatetimeclienteventty
+                        <span style="color:navy"><b>READ</b></span> getonclientvaluechanged <span style="color:navy"><b>WRITE</b></span> setonclientvaluechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tificolitem" name="tificolitem">tificolitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponentlinkitem">tmsecomponentlinkitem</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> link: tifivaluelinkcomp <span style="color:navy"><b>READ</b></span> getlink <span style="color:navy"><b>WRITE</b></span> setlink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifilinkcomparrayprop" name="tifilinkcomparrayprop">tifilinkcomparrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponentlinkarrayprop">tmsecomponentlinkarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tificolitem <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatehandler" name="trowstatehandler">trowstatehandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>,iifidatalink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tgridclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> listdestroyed (const sender: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sourcechange (const sender: tdatalist;
+                                              const aindex: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canlink (const asource: tdatalist;
+                                          const atag: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstateintegerhandler" name="trowstateintegerhandler">trowstateintegerhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstatehandler">trowstatehandler</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatebooleanhandler" name="trowstatebooleanhandler">trowstatebooleanhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstatehandler">trowstatehandler</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifibooleanlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatecolorhandler" name="trowstatecolorhandler">trowstatecolorhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstateintegerhandler">trowstateintegerhandler</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatefonthandler" name="trowstatefonthandler">trowstatefonthandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstateintegerhandler">trowstateintegerhandler</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatefoldlevelhandler" name="trowstatefoldlevelhandler">trowstatefoldlevelhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstateintegerhandler">trowstateintegerhandler</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatehiddenhandler" name="trowstatehiddenhandler">trowstatehiddenhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstatebooleanhandler">trowstatebooleanhandler</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatefoldissumhandler" name="trowstatefoldissumhandler">trowstatefoldissumhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trowstatebooleanhandler">trowstatebooleanhandler</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridclientcontroller" name="tgridclientcontroller">tgridclientcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificlientcontroller">tificlientcontroller</a>,idatalistclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> docellevent (var info: ificelleventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> dorowsinserting (var index,count: integer;
+                                                    const userinput: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> dorowsinserted (const index,count: integer;
+                                                    const userinput: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> dorowsdeleting (var index,count: integer;
+                                                    const userinput: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> dorowsdeleted (const index,count: integer;
+                                                    const userinput: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> appendrow (const avalues: array of const;
+                              const checkautoappend: boolean = false);
+        <span style="color:navy"><b>FUNCTION</b></span> canclose: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> rowempty (const arow: integer): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate: tcustomrowstatelist <span style="color:navy"><b>READ</b></span> getrowstate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount: integer <span style="color:navy"><b>READ</b></span> frowcount <span style="color:navy"><b>WRITE</b></span> setrowcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent: ificelleventty <span style="color:navy"><b>READ</b></span> foncellevent <span style="color:navy"><b>WRITE</b></span> foncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserting: ifibeforeblockeventty <span style="color:navy"><b>READ</b></span> fonrowsinserting
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsinserting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted: ifiafterblockeventty <span style="color:navy"><b>READ</b></span> fonrowsinserted
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsinserted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleting: ifibeforeblockeventty <span style="color:navy"><b>READ</b></span> fonrowsdeleting
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsdeleting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted: ifiafterblockeventty <span style="color:navy"><b>READ</b></span> fonrowsdeleted
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tifilinkcomparrayprop <span style="color:navy"><b>READ</b></span> fdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate_color: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getrowstate_color
+                                                         <span style="color:navy"><b>WRITE</b></span> setrowstate_color;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate_font: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getrowstate_font
+                                                         <span style="color:navy"><b>WRITE</b></span> setrowstate_font;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate_foldlevel: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getrowstate_foldlevel
+                                                         <span style="color:navy"><b>WRITE</b></span> setrowstate_foldlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate_hidden: tifibooleanlinkcomp <span style="color:navy"><b>READ</b></span> getrowstate_hidden
+                                                         <span style="color:navy"><b>WRITE</b></span> setrowstate_hidden;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate_foldissum: tifibooleanlinkcomp <span style="color:navy"><b>READ</b></span> getrowstate_foldissum
+                                                         <span style="color:navy"><b>WRITE</b></span> setrowstate_foldissum;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifilinkcomp" name="tifilinkcomp">tifilinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> c: tcustomificlientcontroller <span style="color:navy"><b>READ</b></span> fcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tcustomificlientcontroller <span style="color:navy"><b>READ</b></span> fcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifivaluelinkcomp" name="tifivaluelinkcomp">tifivaluelinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifilinkcomp">tifilinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tvalueclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tvalueclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifistringlinkcomp" name="tifistringlinkcomp">tifistringlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tstringclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tstringclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidropdownlistlinkcomp" name="tifidropdownlistlinkcomp">tifidropdownlistlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifistringlinkcomp">tifistringlinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tdropdownlistclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdropdownlistclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiintegerlinkcomp" name="tifiintegerlinkcomp">tifiintegerlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tintegerclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tintegerclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiint64linkcomp" name="tifiint64linkcomp">tifiint64linkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tint64clientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tint64clientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifipointerlinkcomp" name="tifipointerlinkcomp">tifipointerlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tpointerclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tpointerclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifienumlinkcomp" name="tifienumlinkcomp">tifienumlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifiintegerlinkcomp">tifiintegerlinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tenumclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tenumclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifibooleanlinkcomp" name="tifibooleanlinkcomp">tifibooleanlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tbooleanclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tbooleanclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifireallinkcomp" name="tifireallinkcomp">tifireallinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: trealclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: trealclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidatetimelinkcomp" name="tifidatetimelinkcomp">tifidatetimelinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifivaluelinkcomp">tifivaluelinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tdatetimeclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdatetimeclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiactionlinkcomp" name="tifiactionlinkcomp">tifiactionlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifilinkcomp">tifilinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: texecclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: texecclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tififormlinkcomp" name="tififormlinkcomp">tififormlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifilinkcomp">tifilinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tformclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tformclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifigridlinkcomp" name="tifigridlinkcomp">tifigridlinkcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifilinkcomp">tifilinkcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> c: tgridclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tgridclientcontroller <span style="color:navy"><b>READ</b></span> getcontroller
+                                                              <span style="color:navy"><b>WRITE</b></span> setcontroller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tififield" name="tififield">tififield</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvirtualpersistent">tvirtualpersistent</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname: ansistring <span style="color:navy"><b>READ</b></span> ffieldname <span style="color:navy"><b>WRITE</b></span> ffieldname;
+        <span style="color:navy"><b>PROPERTY</b></span> datatype: listdatatypety <span style="color:navy"><b>READ</b></span> fdatatype <span style="color:navy"><b>WRITE</b></span> fdatatype;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tififields" name="tififields">tififields</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>,iififieldsource)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getfieldnames (const atypes: listdatatypesty): msestringarty;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tififieldlink" name="tififieldlink">tififieldlink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tififield">tififield</a>,iififieldlinksource)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sourcefieldname: ifisourcefieldnamety <span style="color:navy"><b>READ</b></span> fsourcefieldname
+                                                          <span style="color:navy"><b>WRITE</b></span> fsourcefieldname;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tififieldlinks" name="tififieldlinks">tififieldlinks</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tififields">tififields</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> sourcefieldnames: stringarty;
+        <span style="color:navy"><b>FUNCTION</b></span> sourcefieldtype (const afieldname: string): listdatatypety <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidatasource" name="tifidatasource">tifidatasource</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>,iififieldsource)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> refresh (const delayus: integer = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> checkrefresh (); //makes pending delayed refresh
+        <span style="color:navy"><b>PROPERTY</b></span> refreshing: boolean <span style="color:navy"><b>READ</b></span> frefreshing;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> fields: tififields <span style="color:navy"><b>READ</b></span> ffields <span style="color:navy"><b>WRITE</b></span> setfields;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeopen: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforeopen <span style="color:navy"><b>WRITE</b></span> fonbeforeopen;
+        <span style="color:navy"><b>PROPERTY</b></span> onafteropen: notifyeventty <span style="color:navy"><b>READ</b></span> fonafteropen <span style="color:navy"><b>WRITE</b></span> fonafteropen;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tificonnectedfields" name="tificonnectedfields">tificonnectedfields</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tififieldlinks">tififieldlinks</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tconnectedifidatasource);
+        <span style="color:navy"><b>FUNCTION</b></span> sourcefieldtype (const afieldname: string): listdatatypety <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tconnectedifidatasource" name="tconnectedifidatasource">tconnectedifidatasource</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifidatasource">tifidatasource</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> connection: tmsecomponent <span style="color:navy"><b>READ</b></span> fconnection <span style="color:navy"><b>WRITE</b></span> setconnection;
+        <span style="color:navy"><b>PROPERTY</b></span> fields: tificonnectedfields <span style="color:navy"><b>READ</b></span> getfields <span style="color:navy"><b>WRITE</b></span> setfields;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiintegerdatalist" name="tifiintegerdatalist">tifiintegerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerdatalist">tintegerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tintegerclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifiint64datalist" name="tifiint64datalist">tifiint64datalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tint64datalist">tint64datalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tint64clientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifipointerdatalist" name="tifipointerdatalist">tifipointerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerdatalist">tpointerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tpointerclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifibooleandatalist" name="tifibooleandatalist">tifibooleandatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbooleandatalist">tbooleandatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tbooleanclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifirealdatalist" name="tifirealdatalist">tifirealdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealdatalist">trealdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: trealclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidatetimedatalist" name="tifidatetimedatalist">tifidatetimedatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatetimedatalist">tdatetimedatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tdatetimeclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifimsestringdatalist" name="tifimsestringdatalist">tifimsestringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tstringclientcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

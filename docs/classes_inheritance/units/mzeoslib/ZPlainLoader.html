@@ -1,0 +1,43 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainLoader;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tznativelibraryloader" name="tznativelibraryloader">TZNativeLibraryLoader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Locations: array of string);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearLocations;
+         <span style="color:navy"><b>PROCEDURE</b></span> AddLocation (const Location: String);
+         <span style="color:navy"><b>FUNCTION</b></span> Load: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> LoadNativeLibrary: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> LoadNativeLibraryStrict (const Location: String): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadIfNeeded; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Loaded: Boolean <span style="color:navy"><b>READ</b></span> FLoaded <span style="color:navy"><b>WRITE</b></span> FLoaded;
+         <span style="color:navy"><b>PROPERTY</b></span> Handle: THandle { M.A. LongWord} <span style="color:navy"><b>READ</b></span> FHandle <span style="color:navy"><b>WRITE</b></span> FHandle;
+         <span style="color:navy"><b>PROPERTY</b></span> CurrentLocation: String <span style="color:navy"><b>READ</b></span> FCurrentLocation <span style="color:navy"><b>WRITE</b></span> FCurrentLocation;
+         <span style="color:navy"><b>FUNCTION</b></span> GetAddress (ProcName: {$IFDEF HAVE_GetProcAddressW}PWideChar{$ELSE}PAnsiChar{$ENDIF}): Pointer;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

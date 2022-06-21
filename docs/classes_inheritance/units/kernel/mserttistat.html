@@ -1,0 +1,88 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mserttistat;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#toptions" name="toptions">toptions</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">tobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> readstat (const reader: tstatreader; const prefix: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestat (const writer: tstatwriter; const prefix: string);
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROCEDURE</b></span> storevalues (const asource: tmsecomponent;
+                                    const prefix: string = '') <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> loadvalues (const adest: tmsecomponent;
+                                    const prefix: string = '') <span style="color:teal"><b>VIRTUAL</b></span>;
+        $endif}
+        <span style="color:navy"><b>PROCEDURE</b></span> expandmacros (const amacrolist: tmacrolist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> expandmacros (const macros: macroinfoarty;
+                           const options: macrooptionsty =
+                                    [mao_caseinsensitive]); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> expandmacros (const anames,avalues: array of msestring;
+                                   const options: macrooptionsty =
+                                             [mao_caseinsensitive]); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrttistat" name="tcustomrttistat">tcustomrttistat</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> readstat (const areader: tstatreader);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestat (const awriter: tstatwriter);
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROCEDURE</b></span> valuestoobj (const sourceroot: tcomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> objtovalues (const destroot: tcomponent);
+        $endif}
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> fstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetobject: getobjecteventty <span style="color:navy"><b>READ</b></span> fongetobject <span style="color:navy"><b>WRITE</b></span> fongetobject;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetobjects: getobjectseventty <span style="color:navy"><b>READ</b></span> fongetobjects
+                                                             <span style="color:navy"><b>WRITE</b></span> fongetobjects;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatupdate: statupdateeventty <span style="color:navy"><b>READ</b></span> fonstatupdate
+                                                             <span style="color:navy"><b>WRITE</b></span> fonstatupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>READ</b></span>: statreadeventty read fonstatread
+                                                             <span style="color:navy"><b>WRITE</b></span> fonstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite: statwriteeventty <span style="color:navy"><b>READ</b></span> fonstatwrite
+                                                             <span style="color:navy"><b>WRITE</b></span> fonstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbefore<span style="color:navy"><b>READ</b></span>: notifyeventty read fonstatbeforeread
+                                                             <span style="color:navy"><b>WRITE</b></span> fonstatbeforeread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafter<span style="color:navy"><b>READ</b></span>: notifyeventty read fonstatafterread
+                                                             <span style="color:navy"><b>WRITE</b></span> fonstatafterread;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trttistat" name="trttistat">trttistat</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrttistat">tcustomrttistat</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetobject;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetobjects;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforeread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterread;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

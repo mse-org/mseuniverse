@@ -1,0 +1,78 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory container</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesumlist;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsumprop" name="tsumprop">tsumprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistent">tindexpersistent</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsumarrayprop" name="tsumarrayprop">tsumarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistentarrayprop">tindexpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tdatalist); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsumuparrayprop" name="tsumuparrayprop">tsumuparrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsumarrayprop">tsumarrayprop</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsumdownarrayprop" name="tsumdownarrayprop">tsumdownarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsumarrayprop">tsumarrayprop</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealsumlist" name="trealsumlist">trealsumlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealintdatalist">trealintdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> listdestroyed (const sender: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clean (const start,stop: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> change (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sourcechange (const sender: tdatalist;
+                                              const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourcecount: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourceinfo (const atag: integer): plistlinkinfoty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> linksource (const source: tdatalist; const atag: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clearmemberitem (const subitem: integer;
+                                         const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setmemberitem (const subitem: integer;
+                              const index: integer; const avalue: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> sumlevel[index: integer]: integer <span style="color:navy"><b>READ</b></span> getsumlevel
+                                 <span style="color:navy"><b>WRITE</b></span> setsumlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> isfoldsum[index: integer]: boolean <span style="color:navy"><b>READ</b></span> getisfoldsum
+                                 <span style="color:navy"><b>WRITE</b></span> setisfoldsum;
+        <span style="color:navy"><b>PROPERTY</b></span> sourcevalue: string <span style="color:navy"><b>READ</b></span> flinkvalue.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourcevalue;
+        <span style="color:navy"><b>PROPERTY</b></span> sourcelevel: string <span style="color:navy"><b>READ</b></span> flinklevel.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourcelevel;
+        <span style="color:navy"><b>PROPERTY</b></span> sourceissum: string <span style="color:navy"><b>READ</b></span> flinkissum.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourceissum;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sumsup: tsumuparrayprop <span style="color:navy"><b>READ</b></span> fsumsup <span style="color:navy"><b>WRITE</b></span> setsumsup;
+        <span style="color:navy"><b>PROPERTY</b></span> sumsdown: tsumdownarrayprop <span style="color:navy"><b>READ</b></span> fsumsdown <span style="color:navy"><b>WRITE</b></span> setsumsdown;
+        <span style="color:navy"><b>PROPERTY</b></span> options: optionssumty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                          <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

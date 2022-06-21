@@ -1,0 +1,320 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedropdownlist;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowncolfont" name="tdropdowncolfont">tdropdowncolfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowncolfontselect" name="tdropdowncolfontselect">tdropdowncolfontselect</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowndata" name="tdropdowndata">tdropdowndata</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowndatacols" name="tdropdowndatacols">tdropdowndatacols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdropdownlistcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>FUNCTION</b></span> addrow (const aitems: array of msestring): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertrow (const aindex: integer; const aitems: array of msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> deleterow (const aindex: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> getrow (const aindex: integer): msestringarty;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount: integer <span style="color:navy"><b>READ</b></span> maxrowcount <span style="color:navy"><b>WRITE</b></span> setrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdropdowndata <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowncol" name="tdropdowncol">tdropdowncol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowndata">tdropdowndata</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdropdownlistcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont ();
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontselect ();
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth <span style="color:navy"><b>WRITE</b></span> fwidth <span style="color:navy"><b>DEFAULT</b></span> griddefaultcolwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> options: coloptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultdropdowncoloptions;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> ftextflags
+                                                <span style="color:navy"><b>DEFAULT</b></span> defaultdropdowncoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar: msechar <span style="color:navy"><b>READ</b></span> fpasswordchar <span style="color:navy"><b>WRITE</b></span> fpasswordchar
+                                                <span style="color:navy"><b>DEFAULT</b></span> #0;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> flinewidth <span style="color:navy"><b>WRITE</b></span> flinewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor: colorty <span style="color:navy"><b>READ</b></span> flinecolor <span style="color:navy"><b>WRITE</b></span> flinecolor <span style="color:navy"><b>DEFAULT</b></span> cl_gray;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> fcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> fcolorselect <span style="color:navy"><b>WRITE</b></span> fcolorselect
+                                                <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tdropdowncolfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect: tdropdowncolfontselect <span style="color:navy"><b>READ</b></span> getfontselect
+                                                            <span style="color:navy"><b>WRITE</b></span> setfontselect;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate: tframecomp <span style="color:navy"><b>READ</b></span> fframetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> ffacetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> fcaption <span style="color:navy"><b>WRITE</b></span> fcaption;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownfont" name="tdropdownfont">tdropdownfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownfontselect" name="tdropdownfontselect">tdropdownfontselect</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowncols" name="tdropdowncols">tdropdowncols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowndatacols">tdropdowndatacols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdropdownlistcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont ();
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontselect ();
+        <span style="color:navy"><b>PROPERTY</b></span> nostreaming: boolean <span style="color:navy"><b>READ</b></span> fnostreaming
+                                               <span style="color:navy"><b>WRITE</b></span> setnostreaming;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemchange: indexeventty <span style="color:navy"><b>READ</b></span> fonitemchange <span style="color:navy"><b>WRITE</b></span> fonitemchange;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdropdowncol <span style="color:navy"><b>READ</b></span> getitems; default;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth <span style="color:navy"><b>WRITE</b></span> setwidth <span style="color:navy"><b>DEFAULT</b></span> griddefaultcolwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> options: coloptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultdropdowncoloptions;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags
+                                                <span style="color:navy"><b>DEFAULT</b></span> defaultdropdowncoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> flinewidth <span style="color:navy"><b>WRITE</b></span> setlinewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor: colorty <span style="color:navy"><b>READ</b></span> flinecolor <span style="color:navy"><b>WRITE</b></span> setlinecolor <span style="color:navy"><b>DEFAULT</b></span> cl_gray;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> fcolorselect <span style="color:navy"><b>WRITE</b></span> setcolorselect
+                                                <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tdropdownfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect: tdropdownfontselect <span style="color:navy"><b>READ</b></span> getfontselect
+                                                            <span style="color:navy"><b>WRITE</b></span> setfontselect;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate: tframecomp <span style="color:navy"><b>READ</b></span> fframetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> ffacetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setfacetemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownstringcol" name="tdropdownstringcol">tdropdownstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringcol">tstringcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                                  const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#titemselectedevent" name="titemselectedevent">titemselectedevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentevent">tcomponentevent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const dest: tmsecomponent; const arow: integer);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownfixcol" name="tdropdownfixcol">tdropdownfixcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfixcol">tfixcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                   const aowner: tgridarrayprop;
+           const acontroller: tcustomdropdownlistcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlist" name="tdropdownlist">tdropdownlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringgrid">tcustomstringgrid</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const acontroller: tcustomdropdownlistcontroller;
+                   const acols: tdropdowncols;
+                        const afixcolclass: dropdownfixcolclassty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> show (awidth: integer; const arowcount: integer;
+                     var aitemindex: integer; afiltertext: msestring); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> filtertext: msestring <span style="color:navy"><b>READ</b></span> ffiltertext <span style="color:navy"><b>WRITE</b></span> setfiltertext;
+        <span style="color:navy"><b>PROPERTY</b></span> options: dropdownlistoptionsty <span style="color:navy"><b>READ</b></span> foptions1 <span style="color:navy"><b>WRITE</b></span> foptions1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownbutton" name="tdropdownbutton">tdropdownbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstockglyphframebutton">tstockglyphframebutton</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr <span style="color:navy"><b>DEFAULT</b></span> ord (stg_arrowdownsmall);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdownbuttonframe" name="tcustomdropdownbuttonframe">tcustomdropdownbuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombuttonframe">tcustombuttonframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe;
+                                              const buttonintf: ibutton); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatedropdownoptions (const avalue: dropdowneditoptionsty);
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read freadonly <span style="color:navy"><b>WRITE</b></span> setreadonly <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> button: tdropdownbutton <span style="color:navy"><b>READ</b></span> getbutton <span style="color:navy"><b>WRITE</b></span> setbutton;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownbuttonframe" name="tdropdownbuttonframe">tdropdownbuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownbuttonframe">tcustomdropdownbuttonframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> button;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownmultibuttonframe" name="tdropdownmultibuttonframe">tdropdownmultibuttonframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownbuttonframe">tdropdownbuttonframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> buttons;
+        <span style="color:navy"><b>PROPERTY</b></span> activebutton;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdowncontroller" name="tcustomdropdowncontroller">tcustomdropdowncontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventpersistent">teventpersistent</a>,ibutton,ievent,
+                                   idropdowncontroller,idataeditcontroller)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdown); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> hasdropdown (): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownwidget: twidget <span style="color:navy"><b>READ</b></span> getdropdownwidget;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dropdown; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> canceldropdown;
+        <span style="color:navy"><b>PROCEDURE</b></span> dropdownactivated;
+        <span style="color:navy"><b>PROCEDURE</b></span> dropdowndeactivated;
+        <span style="color:navy"><b>FUNCTION</b></span> dataselected: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> options: dropdowneditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                      <span style="color:navy"><b>DEFAULT</b></span> defaultdropdownoptionsedit;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> fcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient: colorty <span style="color:navy"><b>READ</b></span> fcolorclient <span style="color:navy"><b>WRITE</b></span> fcolorclient
+                                                            <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate: tframecomp <span style="color:navy"><b>READ</b></span> fframetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> ffacetemplate
+                                                       <span style="color:navy"><b>WRITE</b></span> setfacetemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdowncontroller" name="tdropdowncontroller">tdropdowncontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdowncontroller">tcustomdropdowncontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownwidgetcontroller" name="tdropdownwidgetcontroller">tdropdownwidgetcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdowncontroller">tdropdowncontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownwidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> editnotification (var info: editnotificationinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownwidget: twidget <span style="color:navy"><b>READ</b></span> fdropdownwidget;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx: integer <span style="color:navy"><b>READ</b></span> fbounds_cx <span style="color:navy"><b>WRITE</b></span> fbounds_cx <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy: integer <span style="color:navy"><b>READ</b></span> fbounds_cy <span style="color:navy"><b>WRITE</b></span> fbounds_cy <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> ondropdown: dropdownwidgeteventty <span style="color:navy"><b>READ</b></span> fondropdown
+                                                           <span style="color:navy"><b>WRITE</b></span> fondropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdownlistcontroller" name="tcustomdropdownlistcontroller">tcustomdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdowncontroller">tcustomdropdowncontroller</a>,
+                                                      idropdownlistcontroller)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> valuelist: tmsestringdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> cols: tdropdowncols <span style="color:navy"><b>READ</b></span> fcols <span style="color:navy"><b>WRITE</b></span> setcols;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol: integer <span style="color:navy"><b>READ</b></span> fvaluecol <span style="color:navy"><b>WRITE</b></span> setvaluecol <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> itemindex: integer <span style="color:navy"><b>READ</b></span> getitemindex <span style="color:navy"><b>WRITE</b></span> setitemindex <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> delay: integer <span style="color:navy"><b>READ</b></span> getdelay <span style="color:navy"><b>WRITE</b></span> setdelay <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount: integer <span style="color:navy"><b>READ</b></span> fdropdownrowcount
+                               <span style="color:navy"><b>WRITE</b></span> fdropdownrowcount <span style="color:navy"><b>DEFAULT</b></span> 8;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth <span style="color:navy"><b>WRITE</b></span> fwidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth: integer <span style="color:navy"><b>READ</b></span> fdatarowlinewidth
+                               <span style="color:navy"><b>WRITE</b></span> fdatarowlinewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor: colorty <span style="color:navy"><b>READ</b></span> fdatarowlinecolor
+                               <span style="color:navy"><b>WRITE</b></span> fdatarowlinecolor <span style="color:navy"><b>DEFAULT</b></span> defaultdatalinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength: integer <span style="color:navy"><b>READ</b></span> fbuttonlength
+                                           <span style="color:navy"><b>WRITE</b></span> fbuttonlength <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength: integer <span style="color:navy"><b>READ</b></span> fbuttonendlength
+                                           <span style="color:navy"><b>WRITE</b></span> fbuttonendlength <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength: integer <span style="color:navy"><b>READ</b></span> fbuttonminlength
+                         <span style="color:navy"><b>WRITE</b></span> fbuttonminlength <span style="color:navy"><b>DEFAULT</b></span> defaultbuttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe: framety <span style="color:navy"><b>READ</b></span> fimageframe <span style="color:navy"><b>WRITE</b></span> setimageframe;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_left: integer <span style="color:navy"><b>READ</b></span> fimageframe.left
+                                              <span style="color:navy"><b>WRITE</b></span> setimageframe_left <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_top: integer <span style="color:navy"><b>READ</b></span> fimageframe.top
+                                              <span style="color:navy"><b>WRITE</b></span> setimageframe_top <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_right: integer <span style="color:navy"><b>READ</b></span> fimageframe.right
+                                              <span style="color:navy"><b>WRITE</b></span> setimageframe_right <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_bottom: integer <span style="color:navy"><b>READ</b></span> fimageframe.bottom
+                                              <span style="color:navy"><b>WRITE</b></span> setimageframe_bottom <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> ondropdown: dropdownlisteventty <span style="color:navy"><b>READ</b></span> fondropdown
+                                                           <span style="color:navy"><b>WRITE</b></span> fondropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnocolsdropdownlistcontroller" name="tnocolsdropdownlistcontroller">tnocolsdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistcontroller">tcustomdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonminlength;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendlength;
+        <span style="color:navy"><b>PROPERTY</b></span> ondropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistcontroller" name="tdropdownlistcontroller">tdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnocolsdropdownlistcontroller">tnocolsdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol;
+        <span style="color:navy"><b>PROPERTY</b></span> itemindex;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmbdropdownlistcontroller" name="tmbdropdownlistcontroller">tmbdropdownlistcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlistcontroller">tdropdownlistcontroller</a>)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

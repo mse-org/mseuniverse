@@ -1,0 +1,199 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory math</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesiggui;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigslider" name="tsigslider">tsigslider</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tslider">tslider</a>,isigclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tsigcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> ontransformvalue: sigineventty <span style="color:navy"><b>READ</b></span> fontransformvalue
+                                                      <span style="color:navy"><b>WRITE</b></span> fontransformvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> min: real <span style="color:navy"><b>READ</b></span> fmin <span style="color:navy"><b>WRITE</b></span> setmin;
+        <span style="color:navy"><b>PROPERTY</b></span> max: real <span style="color:navy"><b>READ</b></span> fmax <span style="color:navy"><b>WRITE</b></span> setmax;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigeditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigrealedit" name="tsigrealedit">tsigrealedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealedit">trealedit</a>,isigclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tsigcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> ontransformvalue: sigineventty <span style="color:navy"><b>READ</b></span> fontransformvalue
+                                                      <span style="color:navy"><b>WRITE</b></span> fontransformvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> outmin: real <span style="color:navy"><b>READ</b></span> foutmin <span style="color:navy"><b>WRITE</b></span> setoutmin;
+        <span style="color:navy"><b>PROPERTY</b></span> outmax: real <span style="color:navy"><b>READ</b></span> foutmax <span style="color:navy"><b>WRITE</b></span> setoutmax;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigeditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigkeyboard" name="tsigkeyboard">tsigkeyboard</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealgraphdataedit">trealgraphdataedit</a>,isigclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tdoubleoutconnarrayprop <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+        <span style="color:navy"><b>PROPERTY</b></span> trigout: tdoubleoutconnarrayprop <span style="color:navy"><b>READ</b></span> ftrigout <span style="color:navy"><b>WRITE</b></span> settrigout;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> keywidth: integer <span style="color:navy"><b>READ</b></span> fkeywidth <span style="color:navy"><b>WRITE</b></span> setkeywidth <span style="color:navy"><b>DEFAULT</b></span> defaultkeywidth;
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tsigcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> ontransformvalue: sigineventty <span style="color:navy"><b>READ</b></span> fontransformvalue
+                                                      <span style="color:navy"><b>WRITE</b></span> fontransformvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> min: real <span style="color:navy"><b>READ</b></span> fmin <span style="color:navy"><b>WRITE</b></span> setmin;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sigeditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                         <span style="color:navy"><b>DEFAULT</b></span> defaultsigkeyboardoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> outputcount: integer <span style="color:navy"><b>READ</b></span> foutputcount <span style="color:navy"><b>WRITE</b></span> setoutputcount <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twavetableedit" name="twavetableedit">twavetableedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#torderedxychartedit">torderedxychartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> samplecount: integer <span style="color:navy"><b>READ</b></span> fsamplecount
+                                      <span style="color:navy"><b>WRITE</b></span> setsamplecount <span style="color:navy"><b>DEFAULT</b></span> defaultsamplecount;
+        <span style="color:navy"><b>PROPERTY</b></span> wave: tsigwavetable <span style="color:navy"><b>READ</b></span> fwave <span style="color:navy"><b>WRITE</b></span> setwave;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswave: optionswavetablety <span style="color:navy"><b>READ</b></span> foptionswave
+                                                 <span style="color:navy"><b>WRITE</b></span> setoptionswave <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfuncttableedit" name="tfuncttableedit">tfuncttableedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#torderedxychartedit">torderedxychartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> funct: tsigfuncttable <span style="color:navy"><b>READ</b></span> ffunct <span style="color:navy"><b>WRITE</b></span> setfunct;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsfunct: optionsfuncteditty <span style="color:navy"><b>READ</b></span> foptionsfunct
+                                                 <span style="color:navy"><b>WRITE</b></span> setoptionsfunct <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tffttableedit" name="tffttableedit">tffttableedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#txserieschartedit">txserieschartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> samplecount: integer <span style="color:navy"><b>READ</b></span> fsamplecount
+                                     <span style="color:navy"><b>WRITE</b></span> setsamplecount <span style="color:navy"><b>DEFAULT</b></span> defaultsamplecount;
+        <span style="color:navy"><b>PROPERTY</b></span> fft_harmonicscount: integer <span style="color:navy"><b>READ</b></span> ffft_harmonicscount
+                           <span style="color:navy"><b>WRITE</b></span> setfft_harmonicscount <span style="color:navy"><b>DEFAULT</b></span> defaultharmonicscount;
+        <span style="color:navy"><b>PROPERTY</b></span> fft_options: ffteditoptionsty <span style="color:navy"><b>READ</b></span> ffft_options
+                    <span style="color:navy"><b>WRITE</b></span> setfft_options <span style="color:navy"><b>DEFAULT</b></span> defaultffteditoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> fft_expmin: real <span style="color:navy"><b>READ</b></span> ffft_expmin <span style="color:navy"><b>WRITE</b></span> setfft_expmin;
+        <span style="color:navy"><b>PROPERTY</b></span> fft_max: real <span style="color:navy"><b>READ</b></span> ffft_max <span style="color:navy"><b>WRITE</b></span> setfft_max;
+        <span style="color:navy"><b>PROPERTY</b></span> wave: tsigwavetable <span style="color:navy"><b>READ</b></span> fwave <span style="color:navy"><b>WRITE</b></span> setwave;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultffttableeditoptions;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenvelopechartedit" name="tenvelopechartedit">tenvelopechartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomorderedxychartedit">tcustomorderedxychartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> traces;
+        <span style="color:navy"><b>PROPERTY</b></span> colorchart;
+        <span style="color:navy"><b>PROPERTY</b></span> xstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ystart;
+        <span style="color:navy"><b>PROPERTY</b></span> xrange;
+        <span style="color:navy"><b>PROPERTY</b></span> yrange;
+        <span style="color:navy"><b>PROPERTY</b></span> xdials;
+        <span style="color:navy"><b>PROPERTY</b></span> ydials;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> snapdist;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenvelopesplitter" name="tenvelopesplitter">tenvelopesplitter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsplitter">tcustomsplitter</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultenvsplitteroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> shrinkpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> grip;
+        <span style="color:navy"><b>PROPERTY</b></span> colorgrip;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdatelayout;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenvelopeedit" name="tenvelopeedit">tenvelopeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> attack: tenvelopechartedit <span style="color:navy"><b>READ</b></span> fattack <span style="color:navy"><b>WRITE</b></span> setattack;
+        <span style="color:navy"><b>PROPERTY</b></span> decay: tenvelopechartedit <span style="color:navy"><b>READ</b></span> fdecay <span style="color:navy"><b>WRITE</b></span> setdecay;
+        <span style="color:navy"><b>PROPERTY</b></span> release: tenvelopechartedit <span style="color:navy"><b>READ</b></span> frelease <span style="color:navy"><b>WRITE</b></span> setrelease;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter1: tenvelopesplitter <span style="color:navy"><b>READ</b></span> fsplitter1 <span style="color:navy"><b>WRITE</b></span> setsplitter1;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter2: tenvelopesplitter <span style="color:navy"><b>READ</b></span> fsplitter2 <span style="color:navy"><b>WRITE</b></span> setsplitter2;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> envelope: tsigenvelope <span style="color:navy"><b>READ</b></span> fenvelope <span style="color:navy"><b>WRITE</b></span> setenvelope;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetmousewheel;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace: integer <span style="color:navy"><b>READ</b></span> factivetrace
+                                           <span style="color:navy"><b>WRITE</b></span> setactivetrace <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenvelopeedit1" name="tenvelopeedit1">tenvelopeedit1</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#torderedxychartedit">torderedxychartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> envelope: tsigenvelope <span style="color:navy"><b>READ</b></span> fenvelope <span style="color:navy"><b>WRITE</b></span> setenvelope;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscopesampler" name="tscopesampler">tscopesampler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigsampler">tsigsampler</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tsigscope); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigscope" name="tsigscope">tsigscope</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tchart">tchart</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sampler: tscopesampler <span style="color:navy"><b>READ</b></span> fsampler <span style="color:navy"><b>WRITE</b></span> setsampler;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

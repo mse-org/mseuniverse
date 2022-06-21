@@ -1,0 +1,49 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZScriptParser;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TZSQLScriptParser" name="tzsqlscriptparser">TZSQLScriptParser</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithTokenizer (const Tokenizer: IZTokenizer);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearCompleted;
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearUncompleted;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> ParseText (const Text: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> ParseLine (const Line: string);
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Delimiter: string <span style="color:navy"><b>READ</b></span> FDelimiter <span style="color:navy"><b>WRITE</b></span> FDelimiter;
+         <span style="color:navy"><b>PROPERTY</b></span> DelimiterType: TZDelimiterType <span style="color:navy"><b>READ</b></span> FDelimiterType
+           <span style="color:navy"><b>WRITE</b></span> FDelimiterType <span style="color:navy"><b>DEFAULT</b></span> dtDefault;
+         <span style="color:navy"><b>PROPERTY</b></span> CleanupStatements: Boolean <span style="color:navy"><b>READ</b></span> FCleanupStatements
+           <span style="color:navy"><b>WRITE</b></span> FCleanupStatements <span style="color:navy"><b>DEFAULT</b></span> True;
+         <span style="color:navy"><b>PROPERTY</b></span> Tokenizer: IZTokenizer <span style="color:navy"><b>READ</b></span> FTokenizer <span style="color:navy"><b>WRITE</b></span> FTokenizer;
+         <span style="color:navy"><b>PROPERTY</b></span> UncompletedStatement: string <span style="color:navy"><b>READ</b></span> FUncompletedStatement;
+         <span style="color:navy"><b>PROPERTY</b></span> StatementCount: Integer <span style="color:navy"><b>READ</b></span> GetStatementCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Statements[Index: Integer]: string <span style="color:navy"><b>READ</b></span> GetStatement;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

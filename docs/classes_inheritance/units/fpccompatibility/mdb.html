@@ -1,0 +1,724 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory fpccompatibility</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mdb;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#edatabaseerror" name="edatabaseerror">EDatabaseError</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">Exception</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const msg: string; const comp: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#eupdateerror" name="eupdateerror">EUpdateError</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#edatabaseerror">EDatabaseError</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (NativeError, Context : String;
+           ErrCode, PrevError : integer; E: Exception);
+         Destructor Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Context : String <span style="color:navy"><b>READ</b></span> FContext;
+         <span style="color:navy"><b>PROPERTY</b></span> ErrorCode : integer <span style="color:navy"><b>READ</b></span> FErrorcode;
+         <span style="color:navy"><b>PROPERTY</b></span> OriginalException : Exception <span style="color:navy"><b>READ</b></span> FOriginalException;
+         <span style="color:navy"><b>PROPERTY</b></span> PreviousError : Integer <span style="color:navy"><b>READ</b></span> FPreviousError;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnameditem" name="tnameditem">TNamedItem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollectionitem">TCollectionItem</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Name : string <span style="color:navy"><b>READ</b></span> FName <span style="color:navy"><b>WRITE</b></span> SetDisplayName;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdefcollection" name="tdefcollection">TDefCollection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedcollection">TOwnedCollection</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ADataset: TDataset; AOwner: TPersistent; AClass: TCollectionItemClass);
+         <span style="color:navy"><b>FUNCTION</b></span> Find (const AName: string): TNamedItem;
+         <span style="color:navy"><b>PROCEDURE</b></span> GetItemNames (List: TStrings);
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (const AName: string): Longint;
+         <span style="color:navy"><b>PROPERTY</b></span> Dataset: TDataset <span style="color:navy"><b>READ</b></span> FDataset;
+         <span style="color:navy"><b>PROPERTY</b></span> Updated: boolean <span style="color:navy"><b>READ</b></span> FUpdated <span style="color:navy"><b>WRITE</b></span> FUpdated;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfielddef" name="tfielddef">TFieldDef</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnameditem">TNamedItem</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ACollection : TCollection); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TFieldDefs; const AName: string;
+           ADataType: TFieldType; ASize: Integer; ARequired: Boolean;
+                                               AFieldNo: Longint); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (APersistent: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CreateField (AOwner: TComponent): TField;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldClass: TFieldClass <span style="color:navy"><b>READ</b></span> GetFieldClass;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldNo: Longint <span style="color:navy"><b>READ</b></span> FFieldNo;
+         <span style="color:navy"><b>PROPERTY</b></span> InternalCalcField: Boolean <span style="color:navy"><b>READ</b></span> FInternalCalcField <span style="color:navy"><b>WRITE</b></span> FInternalCalcField;
+         <span style="color:navy"><b>PROPERTY</b></span> Required: Boolean <span style="color:navy"><b>READ</b></span> FRequired <span style="color:navy"><b>WRITE</b></span> SetRequired;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfielddefs" name="tfielddefs">TFieldDefs</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdefcollection">TDefCollection</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ADataSet: TDataSet);
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const AName: string; ADataType: TFieldType; ASize: Word; ARequired: Boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const AName: string; ADataType: TFieldType; ASize: Word); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const AName: string; ADataType: TFieldType); <span style="color:teal"><b>OVERLOAD</b></span>;
+         Function AddFieldDef : TFieldDef;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (FieldDefs: TFieldDefs); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Find (const AName: string): TFieldDef;
+         <span style="color:navy"><b>PROCEDURE</b></span> Update; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Function MakeNameUnique (const AName : String) : string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         Property HiddenFields : Boolean Read FHiddenFields Write FHiddenFields;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Longint]: TFieldDef <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookuplist" name="tlookuplist">TLookupList</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const AKey, AValue: Variant);
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>FUNCTION</b></span> FirstKeyByValue (const AValue: Variant): Variant;
+         <span style="color:navy"><b>FUNCTION</b></span> ValueOfKey (const AKey: Variant): Variant;
+         <span style="color:navy"><b>PROCEDURE</b></span> ValuesToStrings (AStrings: TStrings);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfield" name="tfield">TField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> AssignValue (const AValue: TVarRec);
+         <span style="color:navy"><b>FUNCTION</b></span> GetParentComponent: TComponent; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> HasParent: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> FocusControl;
+         <span style="color:navy"><b>FUNCTION</b></span> GetData (Buffer: Pointer): Boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetData (Buffer: Pointer;
+                                       NativeFormat : Boolean): Boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> IsBlob: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsValidChar (InputChar: Char): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> RefreshLookupList;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetData (Buffer: Pointer); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetData (Buffer: Pointer; NativeFormat : Boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldType (AValue: TFieldType); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Validate (Buffer: Pointer);
+         <span style="color:navy"><b>PROPERTY</b></span> AsBCD: TBCD <span style="color:navy"><b>READ</b></span> GetAsBCD <span style="color:navy"><b>WRITE</b></span> SetAsBCD;
+         <span style="color:navy"><b>PROPERTY</b></span> AsBoolean: Boolean <span style="color:navy"><b>READ</b></span> GetAsBoolean <span style="color:navy"><b>WRITE</b></span> SetAsBoolean;
+         <span style="color:navy"><b>PROPERTY</b></span> AsBytes: TBytes <span style="color:navy"><b>READ</b></span> GetAsBytes <span style="color:navy"><b>WRITE</b></span> SetAsBytes;
+         <span style="color:navy"><b>PROPERTY</b></span> AsCurrency: Currency <span style="color:navy"><b>READ</b></span> GetAsCurrency <span style="color:navy"><b>WRITE</b></span> SetAsCurrency;
+         <span style="color:navy"><b>PROPERTY</b></span> AsDateTime: TDateTime <span style="color:navy"><b>READ</b></span> GetAsDateTime <span style="color:navy"><b>WRITE</b></span> SetAsDateTime;
+         <span style="color:navy"><b>PROPERTY</b></span> asdate: tdatetime <span style="color:navy"><b>READ</b></span> getasdate <span style="color:navy"><b>WRITE</b></span> setasdate;
+         <span style="color:navy"><b>PROPERTY</b></span> astime: tdatetime <span style="color:navy"><b>READ</b></span> getastime <span style="color:navy"><b>WRITE</b></span> setastime;
+         <span style="color:navy"><b>PROPERTY</b></span> AsFloat: Double <span style="color:navy"><b>READ</b></span> GetAsFloat <span style="color:navy"><b>WRITE</b></span> SetAsFloat;
+         <span style="color:navy"><b>PROPERTY</b></span> asguid: tguid <span style="color:navy"><b>READ</b></span> getasguid <span style="color:navy"><b>WRITE</b></span> setasguid;
+         <span style="color:navy"><b>PROPERTY</b></span> AsLongint: Longint <span style="color:navy"><b>READ</b></span> GetAsLongint <span style="color:navy"><b>WRITE</b></span> SetAsLongint;
+         <span style="color:navy"><b>PROPERTY</b></span> AsLargeInt: LargeInt <span style="color:navy"><b>READ</b></span> GetAsLargeInt <span style="color:navy"><b>WRITE</b></span> SetAsLargeInt;
+         <span style="color:navy"><b>PROPERTY</b></span> asid: int64 <span style="color:navy"><b>READ</b></span> getasid <span style="color:navy"><b>WRITE</b></span> setasid; //-1 -> NULL
+         <span style="color:navy"><b>PROPERTY</b></span> AsInteger: Integer <span style="color:navy"><b>READ</b></span> GetAsInteger <span style="color:navy"><b>WRITE</b></span> SetAsInteger;
+         <span style="color:navy"><b>PROPERTY</b></span> AsString: string <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetAsString;
+         <span style="color:navy"><b>PROPERTY</b></span> AsWideString: WideString <span style="color:navy"><b>READ</b></span> GetAsWideString
+                                                             <span style="color:navy"><b>WRITE</b></span> SetAsWideString;
+         <span style="color:navy"><b>PROPERTY</b></span> asunicodestring: unicodestring <span style="color:navy"><b>READ</b></span> getasunicodestring
+                                                          <span style="color:navy"><b>WRITE</b></span> setasunicodestring;
+         <span style="color:navy"><b>PROPERTY</b></span> asmsestring: msestring <span style="color:navy"><b>READ</b></span> getasunicodestring
+                                                          <span style="color:navy"><b>WRITE</b></span> setasunicodestring;
+         <span style="color:navy"><b>PROPERTY</b></span> AsVariant: variant <span style="color:navy"><b>READ</b></span> GetAsVariant <span style="color:navy"><b>WRITE</b></span> SetAsVariant;
+         <span style="color:navy"><b>PROPERTY</b></span> AttributeSet: string <span style="color:navy"><b>READ</b></span> FAttributeSet <span style="color:navy"><b>WRITE</b></span> FAttributeSet;
+         <span style="color:navy"><b>PROPERTY</b></span> Calculated: Boolean <span style="color:navy"><b>READ</b></span> FCalculated <span style="color:navy"><b>WRITE</b></span> FCalculated;
+         <span style="color:navy"><b>PROPERTY</b></span> CanModify: Boolean <span style="color:navy"><b>READ</b></span> GetCanModify;
+         <span style="color:navy"><b>PROPERTY</b></span> CurValue: Variant <span style="color:navy"><b>READ</b></span> GetCurValue;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSet: TDataSet <span style="color:navy"><b>READ</b></span> FDataSet <span style="color:navy"><b>WRITE</b></span> SetDataSet;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSize: Integer <span style="color:navy"><b>READ</b></span> GetDataSize;
+         <span style="color:navy"><b>PROPERTY</b></span> DataType: TFieldType <span style="color:navy"><b>READ</b></span> FDataType;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayName: String Read GetDisplayName;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayText: String <span style="color:navy"><b>READ</b></span> GetDisplayText;
+         <span style="color:navy"><b>PROPERTY</b></span> EditMask: TEditMask <span style="color:navy"><b>READ</b></span> FEditMask <span style="color:navy"><b>WRITE</b></span> FEditMask;
+         <span style="color:navy"><b>PROPERTY</b></span> EditMaskPtr: TEditMask <span style="color:navy"><b>READ</b></span> FEditMask;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldNo: Longint <span style="color:navy"><b>READ</b></span> FFieldNo;
+         <span style="color:navy"><b>PROPERTY</b></span> IsIndexField: Boolean <span style="color:navy"><b>READ</b></span> FIsIndexField;
+         <span style="color:navy"><b>PROPERTY</b></span> IsNull: Boolean <span style="color:navy"><b>READ</b></span> GetIsNull;
+         <span style="color:navy"><b>PROPERTY</b></span> Lookup: Boolean <span style="color:navy"><b>READ</b></span> GetLookup <span style="color:navy"><b>WRITE</b></span> SetLookup;
+         <span style="color:navy"><b>PROPERTY</b></span> NewValue: Variant <span style="color:navy"><b>READ</b></span> GetNewValue <span style="color:navy"><b>WRITE</b></span> SetNewValue;
+         <span style="color:navy"><b>PROPERTY</b></span> Offset: word <span style="color:navy"><b>READ</b></span> FOffset;
+         <span style="color:navy"><b>PROPERTY</b></span> Size: Integer <span style="color:navy"><b>READ</b></span> FSize <span style="color:navy"><b>WRITE</b></span> SetSize;
+         <span style="color:navy"><b>PROPERTY</b></span> Text: string <span style="color:navy"><b>READ</b></span> GetEditText <span style="color:navy"><b>WRITE</b></span> SetEditText;
+         <span style="color:navy"><b>PROPERTY</b></span> ValidChars : TFieldChars <span style="color:navy"><b>READ</b></span> FValidChars <span style="color:navy"><b>WRITE</b></span> FValidChars;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: variant <span style="color:navy"><b>READ</b></span> GetAsVariant <span style="color:navy"><b>WRITE</b></span> SetAsVariant;
+         <span style="color:navy"><b>PROPERTY</b></span> buffervalue: variant <span style="color:navy"><b>READ</b></span> getbuffervalue;
+         <span style="color:navy"><b>PROPERTY</b></span> OldValue: variant <span style="color:navy"><b>READ</b></span> GetOldValue;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupList: TLookupList <span style="color:navy"><b>READ</b></span> GetLookupList;
+        ush}{$warnings off}
+         <span style="color:navy"><b>PROPERTY</b></span> ProviderFlags : TProviderFlags <span style="color:navy"><b>READ</b></span> getProviderFlags
+                                         <span style="color:navy"><b>WRITE</b></span> setProviderFlags; deprecated;
+        op}
+         <span style="color:navy"><b>PROPERTY</b></span> ReadOnly: Boolean <span style="color:navy"><b>READ</b></span> getReadOnly <span style="color:navy"><b>WRITE</b></span> SetReadOnly;
+         <span style="color:navy"><b>PROPERTY</b></span> Required: Boolean <span style="color:navy"><b>READ</b></span> getRequired <span style="color:navy"><b>WRITE</b></span> setRequired;
+         <span style="color:navy"><b>PROPERTY</b></span> Visible: Boolean <span style="color:navy"><b>READ</b></span> getVisible <span style="color:navy"><b>WRITE</b></span> SetVisible <span style="color:navy"><b>DEFAULT</b></span> True;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Alignment : TAlignment <span style="color:navy"><b>READ</b></span> FAlignment <span style="color:navy"><b>WRITE</b></span> SetAlignment
+                                                              <span style="color:navy"><b>DEFAULT</b></span> taLeftJustify;
+         <span style="color:navy"><b>PROPERTY</b></span> CustomConstraint: string <span style="color:navy"><b>READ</b></span> FCustomConstraint
+                                                            <span style="color:navy"><b>WRITE</b></span> FCustomConstraint;
+         <span style="color:navy"><b>PROPERTY</b></span> ConstraintErrorMessage: string <span style="color:navy"><b>READ</b></span> FConstraintErrorMessage
+                                                      <span style="color:navy"><b>WRITE</b></span> FConstraintErrorMessage;
+         <span style="color:navy"><b>PROPERTY</b></span> DefaultExpression: string <span style="color:navy"><b>READ</b></span> FDefaultExpression
+                                                           <span style="color:navy"><b>WRITE</b></span> FDefaultExpression;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayLabel : utf8string <span style="color:navy"><b>READ</b></span> GetDisplaylabel
+                                       <span style="color:navy"><b>WRITE</b></span> SetDisplayLabel stored IsDisplayStored;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayWidth: Longint <span style="color:navy"><b>READ</b></span> GetDisplayWidth <span style="color:navy"><b>WRITE</b></span> SetDisplayWidth;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldKind: TFieldKind <span style="color:navy"><b>READ</b></span> FFieldKind <span style="color:navy"><b>WRITE</b></span> FFieldKind;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldName: string <span style="color:navy"><b>READ</b></span> FFieldName <span style="color:navy"><b>WRITE</b></span> FFieldName;
+         <span style="color:navy"><b>PROPERTY</b></span> HasConstraints: Boolean <span style="color:navy"><b>READ</b></span> FHasConstraints;
+         <span style="color:navy"><b>PROPERTY</b></span> Index: Longint <span style="color:navy"><b>READ</b></span> GetIndex <span style="color:navy"><b>WRITE</b></span> SetIndex;
+         <span style="color:navy"><b>PROPERTY</b></span> ImportedConstraint: string <span style="color:navy"><b>READ</b></span> FImportedConstraint
+                                                        <span style="color:navy"><b>WRITE</b></span> FImportedConstraint;
+         <span style="color:navy"><b>PROPERTY</b></span> KeyFields: string <span style="color:navy"><b>READ</b></span> FKeyFields <span style="color:navy"><b>WRITE</b></span> FKeyFields;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupCache: Boolean <span style="color:navy"><b>READ</b></span> FLookupCache <span style="color:navy"><b>WRITE</b></span> FLookupCache;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupDataSet: TDataSet <span style="color:navy"><b>READ</b></span> FLookupDataSet <span style="color:navy"><b>WRITE</b></span> setLookupDataSet;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupKeyFields: string <span style="color:navy"><b>READ</b></span> FLookupKeyFields
+                                                         <span style="color:navy"><b>WRITE</b></span> FLookupKeyFields;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupResultField: string <span style="color:navy"><b>READ</b></span> FLookupResultField
+                                                       <span style="color:navy"><b>WRITE</b></span> FLookupResultField;
+         <span style="color:navy"><b>PROPERTY</b></span> Origin: string <span style="color:navy"><b>READ</b></span> FOrigin <span style="color:navy"><b>WRITE</b></span> FOrigin;
+         <span style="color:navy"><b>PROPERTY</b></span> optionsfield: optionsfieldty <span style="color:navy"><b>READ</b></span> foptionsfield
+                              <span style="color:navy"><b>WRITE</b></span> setoptionsfield <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsfield;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> OnChange: TFieldNotifyEvent <span style="color:navy"><b>READ</b></span> FOnChange <span style="color:navy"><b>WRITE</b></span> FOnChange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnGetText: TFieldGetTextEvent <span style="color:navy"><b>READ</b></span> FOnGetText <span style="color:navy"><b>WRITE</b></span> FOnGetText;
+         <span style="color:navy"><b>PROPERTY</b></span> OnSetText: TFieldSetTextEvent <span style="color:navy"><b>READ</b></span> FOnSetText <span style="color:navy"><b>WRITE</b></span> FOnSetText;
+         <span style="color:navy"><b>PROPERTY</b></span> OnValidate: TFieldNotifyEvent <span style="color:navy"><b>READ</b></span> FOnValidate <span style="color:navy"><b>WRITE</b></span> FOnValidate;
+         <span style="color:navy"><b>PROPERTY</b></span> ondataentered: fielddataenteredeventty <span style="color:navy"><b>READ</b></span> fondataentered write
+                                                                     fondataentered;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringfield" name="tstringfield">TStringField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldType (AValue: TFieldType); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> FixedChar : Boolean <span style="color:navy"><b>READ</b></span> FFixedChar <span style="color:navy"><b>WRITE</b></span> FFixedChar;
+         <span style="color:navy"><b>PROPERTY</b></span> Transliterate: Boolean <span style="color:navy"><b>READ</b></span> FTransliterate <span style="color:navy"><b>WRITE</b></span> FTransliterate;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: String <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetAsString;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> EditMask;
+         <span style="color:navy"><b>PROPERTY</b></span> Size <span style="color:navy"><b>DEFAULT</b></span> 20;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: ansistringfieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidestringfield" name="twidestringfield">TWideStringField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringfield">TStringField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldType (AValue: TFieldType); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: WideString <span style="color:navy"><b>READ</b></span> GetAsWideString <span style="color:navy"><b>WRITE</b></span> SetAsWideString;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnumericfield" name="tnumericfield">TNumericField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Alignment <span style="color:navy"><b>DEFAULT</b></span> taRightJustify;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayFormat: utf8string <span style="color:navy"><b>READ</b></span> FDisplayFormat <span style="color:navy"><b>WRITE</b></span> SetDisplayFormat;
+         <span style="color:navy"><b>PROPERTY</b></span> EditFormat: utf8string <span style="color:navy"><b>READ</b></span> FEditFormat <span style="color:navy"><b>WRITE</b></span> SetEditFormat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlongintfield" name="tlongintfield">TLongintField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericfield">TNumericField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         Function CheckRange (AValue : longint) : Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: Longint <span style="color:navy"><b>READ</b></span> GetAsLongint <span style="color:navy"><b>WRITE</b></span> SetAsLongint;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> MaxValue: Longint <span style="color:navy"><b>READ</b></span> FMaxValue <span style="color:navy"><b>WRITE</b></span> SetMaxValue <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> MinValue: Longint <span style="color:navy"><b>READ</b></span> FMinValue <span style="color:navy"><b>WRITE</b></span> SetMinValue <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: integerfieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerfield" name="tintegerfield">TIntegerField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlongintfield">TLongintField</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlargeintfield" name="tlargeintfield">TLargeintField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericfield">TNumericField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         Function CheckRange (AValue : largeint) : Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: Largeint <span style="color:navy"><b>READ</b></span> GetAsLargeint <span style="color:navy"><b>WRITE</b></span> SetAsLargeint;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> MaxValue: Largeint <span style="color:navy"><b>READ</b></span> FMaxValue <span style="color:navy"><b>WRITE</b></span> SetMaxValue <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> MinValue: Largeint <span style="color:navy"><b>READ</b></span> FMinValue <span style="color:navy"><b>WRITE</b></span> SetMinValue <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: int64fieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsmallintfield" name="tsmallintfield">TSmallintField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlongintfield">TLongintField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twordfield" name="twordfield">TWordField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlongintfield">TLongintField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tautoincfield" name="tautoincfield">TAutoIncField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlongintfield">TLongintField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfloatfield" name="tfloatfield">TFloatField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericfield">TNumericField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         Function CheckRange (AValue : Double) : Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: Double <span style="color:navy"><b>READ</b></span> GetAsFloat <span style="color:navy"><b>WRITE</b></span> SetAsFloat;
+        
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Currency: Boolean <span style="color:navy"><b>READ</b></span> FCurrency <span style="color:navy"><b>WRITE</b></span> SetCurrency <span style="color:navy"><b>DEFAULT</b></span> False;
+         <span style="color:navy"><b>PROPERTY</b></span> MaxValue: Double <span style="color:navy"><b>READ</b></span> FMaxValue <span style="color:navy"><b>WRITE</b></span> FMaxValue;
+         <span style="color:navy"><b>PROPERTY</b></span> MinValue: Double <span style="color:navy"><b>READ</b></span> FMinValue <span style="color:navy"><b>WRITE</b></span> FMinValue;
+         <span style="color:navy"><b>PROPERTY</b></span> Precision: Longint <span style="color:navy"><b>READ</b></span> FPrecision <span style="color:navy"><b>WRITE</b></span> SetPrecision <span style="color:navy"><b>DEFAULT</b></span> 15; // min 2 instellen, delphi compat
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: floatfieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcurrencyfield" name="tcurrencyfield">TCurrencyField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfloatfield">TFloatField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Currency <span style="color:navy"><b>DEFAULT</b></span> True;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleanfield" name="tbooleanfield">TBooleanField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: Boolean <span style="color:navy"><b>READ</b></span> GetAsBoolean <span style="color:navy"><b>WRITE</b></span> SetAsBoolean;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayValues: string <span style="color:navy"><b>READ</b></span> FDisplayValues <span style="color:navy"><b>WRITE</b></span> SetDisplayValues;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: booleanfieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimefield" name="tdatetimefield">TDateTimeField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: TDateTime <span style="color:navy"><b>READ</b></span> GetAsDateTime <span style="color:navy"><b>WRITE</b></span> SetAsDateTime;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayFormat: string <span style="color:navy"><b>READ</b></span> FDisplayFormat <span style="color:navy"><b>WRITE</b></span> SetDisplayFormat;
+         <span style="color:navy"><b>PROPERTY</b></span> EditMask;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: datetimefieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatefield" name="tdatefield">TDateField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatetimefield">TDateTimeField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttimefield" name="ttimefield">TTimeField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatetimefield">TDateTimeField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbinaryfield" name="tbinaryfield">TBinaryField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Size <span style="color:navy"><b>DEFAULT</b></span> 16;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbytesfield" name="tbytesfield">TBytesField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbinaryfield">TBinaryField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvarbytesfield" name="tvarbytesfield">TVarBytesField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbytesfield">TBytesField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbcdfield" name="tbcdfield">TBCDField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericfield">TNumericField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         Function CheckRange (AValue : Currency) : Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: Currency <span style="color:navy"><b>READ</b></span> GetAscurrency <span style="color:navy"><b>WRITE</b></span> SetAscurrency;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Precision: Longint <span style="color:navy"><b>READ</b></span> FPrecision <span style="color:navy"><b>WRITE</b></span> FPrecision;
+         <span style="color:navy"><b>PROPERTY</b></span> Currency: Boolean <span style="color:navy"><b>READ</b></span> FCurrency <span style="color:navy"><b>WRITE</b></span> FCurrency;
+         <span style="color:navy"><b>PROPERTY</b></span> MaxValue: Currency <span style="color:navy"><b>READ</b></span> FMaxValue <span style="color:navy"><b>WRITE</b></span> FMaxValue;
+         <span style="color:navy"><b>PROPERTY</b></span> MinValue: Currency <span style="color:navy"><b>READ</b></span> FMinValue <span style="color:navy"><b>WRITE</b></span> FMinValue;
+         <span style="color:navy"><b>PROPERTY</b></span> Size <span style="color:navy"><b>DEFAULT</b></span> 4;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: bcdfieldsetvalueeventty
+                                          <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfmtbcdfield" name="tfmtbcdfield">TFMTBCDField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericfield">TNumericField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CheckRange (AValue : TBCD) : Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: TBCD <span style="color:navy"><b>READ</b></span> GetAsBCD <span style="color:navy"><b>WRITE</b></span> SetAsBCD;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Precision: Longint <span style="color:navy"><b>READ</b></span> FPrecision <span style="color:navy"><b>WRITE</b></span> FPrecision <span style="color:navy"><b>DEFAULT</b></span> 15;
+         <span style="color:navy"><b>PROPERTY</b></span> Currency: Boolean <span style="color:navy"><b>READ</b></span> FCurrency <span style="color:navy"><b>WRITE</b></span> FCurrency;
+         <span style="color:navy"><b>PROPERTY</b></span> MaxValue: string <span style="color:navy"><b>READ</b></span> GetMaxValue <span style="color:navy"><b>WRITE</b></span> SetMaxValue;
+         <span style="color:navy"><b>PROPERTY</b></span> MinValue: string <span style="color:navy"><b>READ</b></span> GetMinValue <span style="color:navy"><b>WRITE</b></span> SetMinValue;
+         <span style="color:navy"><b>PROPERTY</b></span> Size <span style="color:navy"><b>DEFAULT</b></span> 4;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tblobfield" name="tblobfield">TBlobField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> IsBlob: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromFile (const FileName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromStream (Stream: TStream);
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToFile (const FileName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToStream (Stream: TStream);
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldType (AValue: TFieldType); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> BlobSize: Longint <span style="color:navy"><b>READ</b></span> GetBlobSize;
+         <span style="color:navy"><b>PROPERTY</b></span> Modified: Boolean <span style="color:navy"><b>READ</b></span> FModified <span style="color:navy"><b>WRITE</b></span> FModified;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: string <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetAsString;
+         <span style="color:navy"><b>PROPERTY</b></span> Transliterate: Boolean <span style="color:navy"><b>READ</b></span> FTransliterate <span style="color:navy"><b>WRITE</b></span> FTransliterate;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> BlobType: TBlobType <span style="color:navy"><b>READ</b></span> FBlobType <span style="color:navy"><b>WRITE</b></span> FBlobType;
+         <span style="color:navy"><b>PROPERTY</b></span> Size <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemofield" name="tmemofield">TMemoField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tblobfield">TBlobField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Transliterate <span style="color:navy"><b>DEFAULT</b></span> True;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidememofield" name="twidememofield">TWideMemoField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tblobfield">TBlobField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Value: WideString <span style="color:navy"><b>READ</b></span> GetAsWideString <span style="color:navy"><b>WRITE</b></span> SetAsWideString;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgraphicfield" name="tgraphicfield">TGraphicField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tblobfield">TBlobField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvariantfield" name="tvariantfield">TVariantField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfield">TField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tguidfield" name="tguidfield">TGuidField</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringfield">TStringField</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tindexdef" name="tindexdef">TIndexDef</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnameditem">TNamedItem</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Owner: TIndexDefs; const AName, TheFields: string;
+           TheOptions: TIndexOptions); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Expression: string <span style="color:navy"><b>READ</b></span> GetExpression <span style="color:navy"><b>WRITE</b></span> SetExpression;
+         <span style="color:navy"><b>PROPERTY</b></span> Fields: string <span style="color:navy"><b>READ</b></span> FFields <span style="color:navy"><b>WRITE</b></span> FFields;
+         <span style="color:navy"><b>PROPERTY</b></span> CaseInsFields: string <span style="color:navy"><b>READ</b></span> FCaseinsFields <span style="color:navy"><b>WRITE</b></span> SetCaseInsFields;
+         <span style="color:navy"><b>PROPERTY</b></span> DescFields: string <span style="color:navy"><b>READ</b></span> FDescFields <span style="color:navy"><b>WRITE</b></span> SetDescFields;
+         <span style="color:navy"><b>PROPERTY</b></span> Options: TIndexOptions <span style="color:navy"><b>READ</b></span> FOptions <span style="color:navy"><b>WRITE</b></span> FOptions;
+         <span style="color:navy"><b>PROPERTY</b></span> Source: string <span style="color:navy"><b>READ</b></span> FSource <span style="color:navy"><b>WRITE</b></span> FSource;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tindexdefs" name="tindexdefs">TIndexDefs</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdefcollection">TDefCollection</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ADataSet: TDataSet); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const Name, Fields: string; Options: TIndexOptions);
+         Function AddIndexDef: TIndexDef;
+         <span style="color:navy"><b>FUNCTION</b></span> Find (const IndexName: string): TIndexDef;
+         <span style="color:navy"><b>FUNCTION</b></span> FindIndexForFields (const Fields: string): TIndexDef;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIndexForFields (const Fields: string;
+           CaseInsensitive: Boolean): TIndexDef;
+         <span style="color:navy"><b>PROCEDURE</b></span> Update; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         Property Items[Index: Integer] : TIndexDef <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcheckconstraint" name="tcheckconstraint">TCheckConstraint</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollectionitem">TCollectionItem</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> CustomConstraint: string <span style="color:navy"><b>READ</b></span> FCustomConstraint <span style="color:navy"><b>WRITE</b></span> FCustomConstraint;
+         <span style="color:navy"><b>PROPERTY</b></span> ErrorMessage: string <span style="color:navy"><b>READ</b></span> FErrorMessage <span style="color:navy"><b>WRITE</b></span> FErrorMessage;
+         <span style="color:navy"><b>PROPERTY</b></span> FromDictionary: Boolean <span style="color:navy"><b>READ</b></span> FFromDictionary <span style="color:navy"><b>WRITE</b></span> FFromDictionary;
+         <span style="color:navy"><b>PROPERTY</b></span> ImportedConstraint: string <span style="color:navy"><b>READ</b></span> FImportedConstraint <span style="color:navy"><b>WRITE</b></span> FImportedConstraint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcheckconstraints" name="tcheckconstraints">TCheckConstraints</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollection">TCollection</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TPersistent);
+         <span style="color:navy"><b>FUNCTION</b></span> Add: TCheckConstraint;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Longint]: TCheckConstraint <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TFieldsEnumerator" name="tfieldsenumerator">TFieldsEnumerator</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AFields: TFields);
+         <span style="color:navy"><b>FUNCTION</b></span> MoveNext: Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Current: TField <span style="color:navy"><b>READ</b></span> GetCurrent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfields" name="tfields">Tfields</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tparam" name="tparam">TParam</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollectionitem">TCollectionItem</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ACollection: TCollection); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AParams: TParams; AParamType: TParamType); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Procedure Assign (Source: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         Procedure AssignField (Field: TField);
+         Procedure AssignToField (Field: TField);
+         Procedure AssignFieldValue (Field: TField; const AValue: Variant);
+         <span style="color:navy"><b>PROCEDURE</b></span> AssignFromField (Field : TField);
+         Procedure Clear;
+         Procedure GetData (Buffer: Pointer);
+         Function  GetDataSize: Integer;
+         Procedure LoadFromFile (const FileName: string; BlobType: TBlobType);
+         Procedure LoadFromStream (Stream: TStream; BlobType: TBlobType);
+         Procedure SetBlobData (Buffer: Pointer; ASize: Integer);
+         Procedure SetData (Buffer: Pointer);
+         Property AsBlob : TBlobData <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetAsBlob;
+         Property AsBoolean : Boolean <span style="color:navy"><b>READ</b></span> GetAsBoolean <span style="color:navy"><b>WRITE</b></span> SetAsBoolean;
+         Property AsCurrency : Currency <span style="color:navy"><b>READ</b></span> GetAsCurrency <span style="color:navy"><b>WRITE</b></span> SetAsCurrency;
+         Property AsDate : TDateTime <span style="color:navy"><b>READ</b></span> GetAsDateTime <span style="color:navy"><b>WRITE</b></span> SetAsDate;
+         Property AsDateTime : TDateTime <span style="color:navy"><b>READ</b></span> GetAsDateTime <span style="color:navy"><b>WRITE</b></span> SetAsDateTime;
+         Property AsFloat : Double <span style="color:navy"><b>READ</b></span> GetAsFloat <span style="color:navy"><b>WRITE</b></span> SetAsFloat;
+         Property AsInteger : LongInt <span style="color:navy"><b>READ</b></span> GetAsInteger <span style="color:navy"><b>WRITE</b></span> SetAsInteger;
+         Property AsLargeInt : LargeInt <span style="color:navy"><b>READ</b></span> GetAsLargeInt <span style="color:navy"><b>WRITE</b></span> SetAsLargeInt;
+         Property AsMemo : string <span style="color:navy"><b>READ</b></span> GetAsMemo <span style="color:navy"><b>WRITE</b></span> SetAsMemo;
+         Property AsSmallInt : LongInt <span style="color:navy"><b>READ</b></span> GetAsInteger <span style="color:navy"><b>WRITE</b></span> SetAsSmallInt;
+         Property AsString : string <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetAsString;
+         Property AsTime : TDateTime <span style="color:navy"><b>READ</b></span> GetAsDateTime <span style="color:navy"><b>WRITE</b></span> SetAsTime;
+         Property AsWord : LongInt <span style="color:navy"><b>READ</b></span> GetAsInteger <span style="color:navy"><b>WRITE</b></span> SetAsWord;
+         Property AsFMTBCD: TBCD <span style="color:navy"><b>READ</b></span> GetAsFMTBCD <span style="color:navy"><b>WRITE</b></span> SetAsFMTBCD;
+         Property Bound : Boolean <span style="color:navy"><b>READ</b></span> FBound <span style="color:navy"><b>WRITE</b></span> FBound;
+         Property Dataset : TDataset Read GetDataset;
+         Property IsNull : Boolean <span style="color:navy"><b>READ</b></span> GetIsNull;
+         Property NativeStr : string <span style="color:navy"><b>READ</b></span> FNativeStr <span style="color:navy"><b>WRITE</b></span> FNativeStr;
+         Property Text : string <span style="color:navy"><b>READ</b></span> GetAsString <span style="color:navy"><b>WRITE</b></span> SetText;
+         Property Value : Variant <span style="color:navy"><b>READ</b></span> GetAsVariant <span style="color:navy"><b>WRITE</b></span> SetAsVariant stored IsParamStored;
+         <span style="color:navy"><b>PROPERTY</b></span> AsWideString: WideString <span style="color:navy"><b>READ</b></span> GetAsWideString <span style="color:navy"><b>WRITE</b></span> SetAsWideString;
+         <span style="color:navy"><b>PROPERTY</b></span> asunicodestring: unicodestring <span style="color:navy"><b>READ</b></span> getasunicodestring
+                                                            <span style="color:navy"><b>WRITE</b></span> setasunicodestring;
+         <span style="color:navy"><b>PROPERTY</b></span> asmsestring: msestring <span style="color:navy"><b>READ</b></span> getasunicodestring
+                                                       <span style="color:navy"><b>WRITE</b></span> setasunicodestring;
+         <span style="color:navy"><b>PROPERTY</b></span> asnullmsestring: msestring <span style="color:navy"><b>READ</b></span> getasnullmsestring
+                                                       <span style="color:navy"><b>WRITE</b></span> setasnullmsestring;
+         <span style="color:navy"><b>PROPERTY</b></span> asid: int64 <span style="color:navy"><b>READ</b></span> getasid <span style="color:navy"><b>WRITE</b></span> setasid; //-1 -> null
+         <span style="color:navy"><b>PROPERTY</b></span> blobkind: blobkindty <span style="color:navy"><b>READ</b></span> fblobkind
+                                                <span style="color:navy"><b>WRITE</b></span> fblobkind <span style="color:navy"><b>DEFAULT</b></span> bk_none;
+      PUBLISHED
+         Property DataType : TFieldType <span style="color:navy"><b>READ</b></span> FDataType <span style="color:navy"><b>WRITE</b></span> SetDataType;
+         Property Name : string <span style="color:navy"><b>READ</b></span> FName <span style="color:navy"><b>WRITE</b></span> FName;
+         Property NumericScale : Integer <span style="color:navy"><b>READ</b></span> FNumericScale <span style="color:navy"><b>WRITE</b></span> FNumericScale <span style="color:navy"><b>DEFAULT</b></span> 0;
+         Property ParamType : TParamType <span style="color:navy"><b>READ</b></span> FParamType <span style="color:navy"><b>WRITE</b></span> FParamType;
+         Property Precision : Integer <span style="color:navy"><b>READ</b></span> FPrecision <span style="color:navy"><b>WRITE</b></span> FPrecision <span style="color:navy"><b>DEFAULT</b></span> 0;
+         Property Size : Integer <span style="color:navy"><b>READ</b></span> FSize <span style="color:navy"><b>WRITE</b></span> FSize <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tparams" name="tparams">TParams</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollection">TCollection</a>)
+      PUBLIC
+         Constructor Create (AOwner: TPersistent); <span style="color:teal"><b>OVERLOAD</b></span>;
+         Constructor Create; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Procedure AddParam (Value: TParam);
+         Procedure AssignValues (Value: TParams);
+         Function  CreateParam (FldType: TFieldType; const ParamName: string; ParamType: TParamType): TParam;
+         Function  FindParam (const Value: string): TParam;
+         Procedure GetParamList (List: TList; const ParamNames: string);
+         Function  IsEqual (Value: TParams): Boolean;
+         Function  ParamByName (const Value: string): TParam;
+         Function  ParseSQL (SQL: String; DoCreate: Boolean): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Function  ParseSQL (SQL: String; DoCreate, EscapeSlash, EscapeRepeat : Boolean; ParameterStyle : TParamStyle): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Function  ParseSQL (SQL: String; DoCreate, EscapeSlash, EscapeRepeat : Boolean; ParameterStyle : TParamStyle; var ParamBinding: TParambinding): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Function  ParseSQL (SQL: String; DoCreate, EscapeSlash, EscapeRepeat : Boolean; ParameterStyle : TParamStyle; var ParamBinding: TParambinding; var ReplaceString : string): String; <span style="color:teal"><b>OVERLOAD</b></span>;
+         Procedure RemoveParam (Value: TParam);
+         Procedure CopyParamValuesFromDataset (ADataset : TDataset; CopyBound : Boolean);
+         Property Dataset : TDataset Read GetDataset;
+         Property Items[Index: Integer] : TParam <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem; default;
+         Property ParamValues[const ParamName: string] : Variant <span style="color:navy"><b>READ</b></span> GetParamValue <span style="color:navy"><b>WRITE</b></span> SetParamValue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdataset" name="tdataset">TDataSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ActiveBuffer: TRecordBuffer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetFieldData (Field: TField; Buffer: Pointer): Boolean; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetFieldData (Field: TField; Buffer: Pointer; NativeFormat: Boolean): Boolean; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldData (Field: TField; Buffer: Pointer); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldData (Field: TField; Buffer: Pointer; NativeFormat: Boolean); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatalink" name="tdatalink">TDataLink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">TPersistent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span>  Edit: Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateRecord;
+         <span style="color:navy"><b>FUNCTION</b></span> ExecuteAction (Action: TBasicAction): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> UpdateAction (Action: TBasicAction): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Active: Boolean <span style="color:navy"><b>READ</b></span> getactive;
+         <span style="color:navy"><b>PROPERTY</b></span> ActiveRecord: Integer <span style="color:navy"><b>READ</b></span> GetActiveRecord <span style="color:navy"><b>WRITE</b></span> SetActiveRecord;
+         <span style="color:navy"><b>PROPERTY</b></span> BOF: Boolean <span style="color:navy"><b>READ</b></span> GetBOF;
+         <span style="color:navy"><b>PROPERTY</b></span> BufferCount: Integer <span style="color:navy"><b>READ</b></span> GetBufferCount <span style="color:navy"><b>WRITE</b></span> SetBufferCount;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSet: TDataSet <span style="color:navy"><b>READ</b></span> GetDataSet;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSource: TDataSource <span style="color:navy"><b>READ</b></span> FDataSource <span style="color:navy"><b>WRITE</b></span> SetDataSource;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSourceFixed: Boolean <span style="color:navy"><b>READ</b></span> FDataSourceFixed <span style="color:navy"><b>WRITE</b></span> FDataSourceFixed;
+         <span style="color:navy"><b>PROPERTY</b></span> Editing: Boolean <span style="color:navy"><b>READ</b></span> FEditing;
+         <span style="color:navy"><b>PROPERTY</b></span> Eof: Boolean <span style="color:navy"><b>READ</b></span> GetEOF;
+         <span style="color:navy"><b>PROPERTY</b></span> ReadOnly: Boolean <span style="color:navy"><b>READ</b></span> getreadonly <span style="color:navy"><b>WRITE</b></span> SetReadOnly;
+         <span style="color:navy"><b>PROPERTY</b></span> RecordCount: Integer <span style="color:navy"><b>READ</b></span> GetRecordCount;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdetaildatalink" name="tdetaildatalink">TDetailDataLink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalink">TDataLink</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROPERTY</b></span> DetailDataSet: TDataSet <span style="color:navy"><b>READ</b></span> GetDetailDataSet;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmasterdatalink" name="tmasterdatalink">TMasterDataLink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdetaildatalink">TDetailDataLink</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ADataSet: TDataSet);virtual;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldNames: string <span style="color:navy"><b>READ</b></span> FFieldNames <span style="color:navy"><b>WRITE</b></span> SetFieldNames;
+         <span style="color:navy"><b>PROPERTY</b></span> Fields: TList <span style="color:navy"><b>READ</b></span> FFields;
+         <span style="color:navy"><b>PROPERTY</b></span> OnMasterChange: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnMasterChange <span style="color:navy"><b>WRITE</b></span> FOnMasterChange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnMasterDisable: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnMasterDisable <span style="color:navy"><b>WRITE</b></span> FOnMasterDisable;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatasource" name="tdatasource">TDataSource</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Edit;
+         <span style="color:navy"><b>PROCEDURE</b></span> updaterecord ();
+         <span style="color:navy"><b>FUNCTION</b></span> IsLinkedTo (ADataSet: TDataSet): Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> State: TDataSetState <span style="color:navy"><b>READ</b></span> FState;
+         <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> getactive;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> AutoEdit: Boolean <span style="color:navy"><b>READ</b></span> FAutoEdit <span style="color:navy"><b>WRITE</b></span> FAutoEdit <span style="color:navy"><b>DEFAULT</b></span> True;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSet: TDataSet <span style="color:navy"><b>READ</b></span> FDataSet <span style="color:navy"><b>WRITE</b></span> SetDataSet;
+         <span style="color:navy"><b>PROPERTY</b></span> Enabled: Boolean <span style="color:navy"><b>READ</b></span> FEnabled <span style="color:navy"><b>WRITE</b></span> SetEnabled <span style="color:navy"><b>DEFAULT</b></span> True;
+         <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read freadonly <span style="color:navy"><b>WRITE</b></span> setreadonly <span style="color:navy"><b>DEFAULT</b></span> false;
+         <span style="color:navy"><b>PROPERTY</b></span> priority: int32 <span style="color:navy"><b>READ</b></span> fpriority <span style="color:navy"><b>WRITE</b></span> fpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> OnStateChange: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnStateChange
+                                                           <span style="color:navy"><b>WRITE</b></span> FOnStateChange;
+         <span style="color:navy"><b>PROPERTY</b></span> onenabledchange: tnotifyevent <span style="color:navy"><b>READ</b></span> fonenabledchange
+                                                           <span style="color:navy"><b>WRITE</b></span> fonenabledchange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnDataChange: TDataChangeEvent <span style="color:navy"><b>READ</b></span> FOnDataChange
+                                                               <span style="color:navy"><b>WRITE</b></span> FOnDataChange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnUpdateData: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnUpdateData <span style="color:navy"><b>WRITE</b></span> FOnUpdateData;
+         <span style="color:navy"><b>PROPERTY</b></span> onifistatechanged: ifistatechangedeventty
+                                <span style="color:navy"><b>READ</b></span> fonifistatechanged <span style="color:navy"><b>WRITE</b></span> fonifistatechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdataset" name="tdbdataset">TDBDataset</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataset">TDataset</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbtransaction" name="tdbtransaction">TDBTransaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Active : boolean <span style="color:navy"><b>READ</b></span> FActive <span style="color:navy"><b>WRITE</b></span> setactive;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomconnection" name="tcustomconnection">TCustomConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> Close;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Open;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSetCount: Longint <span style="color:navy"><b>READ</b></span> GetDataSetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> DataSets[Index: Longint]: TDataSet <span style="color:navy"><b>READ</b></span> GetDataSet;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Connected: Boolean <span style="color:navy"><b>READ</b></span> GetConnected <span style="color:navy"><b>WRITE</b></span> SetConnected;
+         <span style="color:navy"><b>PROPERTY</b></span> LoginPrompt: Boolean <span style="color:navy"><b>READ</b></span> FLoginPrompt <span style="color:navy"><b>WRITE</b></span> FLoginPrompt;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> AfterConnect : TNotifyEvent <span style="color:navy"><b>READ</b></span> FAfterConnect <span style="color:navy"><b>WRITE</b></span> SetAfterConnect;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterDisconnect : TNotifyEvent <span style="color:navy"><b>READ</b></span> FAfterDisconnect <span style="color:navy"><b>WRITE</b></span> SetAfterDisconnect;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeConnect : TNotifyEvent <span style="color:navy"><b>READ</b></span> FBeforeConnect <span style="color:navy"><b>WRITE</b></span> SetBeforeConnect;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeDisconnect : TNotifyEvent <span style="color:navy"><b>READ</b></span> FBeforeDisconnect <span style="color:navy"><b>WRITE</b></span> SetBeforeDisconnect;
+         <span style="color:navy"><b>PROPERTY</b></span> OnLogin: TLoginEvent <span style="color:navy"><b>READ</b></span> FOnLogin <span style="color:navy"><b>WRITE</b></span> FOnLogin;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatabase" name="tdatabase">TDatabase</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomconnection">TCustomConnection</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CloseDataSets;
+         <span style="color:navy"><b>PROCEDURE</b></span> CloseTransactions;
+         <span style="color:navy"><b>PROCEDURE</b></span> StartTransaction; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndTransaction; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> TransactionCount: Longint <span style="color:navy"><b>READ</b></span> GetTransactionCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Transactions[Index: Longint]: TDBTransaction <span style="color:navy"><b>READ</b></span> GetTransaction;
+         <span style="color:navy"><b>PROPERTY</b></span> Directory: string <span style="color:navy"><b>READ</b></span> FDirectory <span style="color:navy"><b>WRITE</b></span> FDirectory;
+         <span style="color:navy"><b>PROPERTY</b></span> IsSQLBased: Boolean <span style="color:navy"><b>READ</b></span> FSQLBased;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Connected: Boolean <span style="color:navy"><b>READ</b></span> FConnected <span style="color:navy"><b>WRITE</b></span> SetConnected;
+         <span style="color:navy"><b>PROPERTY</b></span> DatabaseName: string <span style="color:navy"><b>READ</b></span> FDatabaseName <span style="color:navy"><b>WRITE</b></span> FDatabaseName;
+         <span style="color:navy"><b>PROPERTY</b></span> KeepConnection: Boolean <span style="color:navy"><b>READ</b></span> FKeepConnection <span style="color:navy"><b>WRITE</b></span> FKeepConnection;
+         <span style="color:navy"><b>PROPERTY</b></span> Params : TStrings <span style="color:navy"><b>READ</b></span> FParams Write SetParams;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmasterparamsdatalink" name="tmasterparamsdatalink">TMasterParamsDataLink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmasterdatalink">TMasterDataLink</a>)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

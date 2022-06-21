@@ -1,0 +1,171 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcCachedResultSet;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractcachedresultset" name="tzabstractcachedresultset">TZAbstractCachedResultSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractresultset">TZAbstractResultSet</a>, IZCachedResultSet)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithStatement (const SQL: string; const Statement: IZStatement;
+           ConSettings: PZConSettings);
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithColumns (ColumnsInfo: TObjectList; const SQL: string;
+           ConSettings: PZConSettings); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithColumns (const Statement: IZStatement;
+           ColumnsInfo: TObjectList; const SQL: string; ConSettings: PZConSettings); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> AfterClose; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ResetCursor; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        
+         <span style="color:navy"><b>FUNCTION</b></span> IsNull (ColumnIndex: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPChar (ColumnIndex: Integer): PChar; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPAnsiChar (ColumnIndex: Integer; out Len: NativeUInt): PAnsiChar; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPWideChar (ColumnIndex: Integer; out Len: NativeUInt): PWideChar; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetString (ColumnIndex: Integer): String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$IFNDEF NO_ANSISTRING}
+         <span style="color:navy"><b>FUNCTION</b></span> GetAnsiString (ColumnIndex: Integer): AnsiString; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         {$IFNDEF NO_UTF8STRING}
+         <span style="color:navy"><b>FUNCTION</b></span> GetUTF8String (ColumnIndex: Integer): UTF8String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         <span style="color:navy"><b>FUNCTION</b></span> GetRawByteString (ColumnIndex: Integer): RawByteString; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUnicodeString (ColumnIndex: Integer): ZWidestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBoolean (ColumnIndex: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetByte (ColumnIndex: Integer): Byte; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetShort (ColumnIndex: Integer): ShortInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetWord (ColumnIndex: Integer): Word; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSmall (ColumnIndex: Integer): SmallInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUInt (ColumnIndex: Integer): Cardinal; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetInt (ColumnIndex: Integer): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetULong (ColumnIndex: Integer): UInt64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetLong (ColumnIndex: Integer): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetFloat (ColumnIndex: Integer): Single; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDouble (ColumnIndex: Integer): Double; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrency (ColumnIndex: Integer): Currency; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBigDecimal (ColumnIndex: Integer): Extended; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBytes (ColumnIndex: Integer): TBytes; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDate (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTime (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTimestamp (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBlob (ColumnIndex: Integer): IZBlob; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDefaultExpression (ColumnIndex: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        
+         <span style="color:navy"><b>FUNCTION</b></span> MoveAbsolute (Row: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        
+         <span style="color:navy"><b>FUNCTION</b></span> RowUpdated: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> RowInserted: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> RowDeleted: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateNull (ColumnIndex: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateBoolean (ColumnIndex: Integer; const Value: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateByte (ColumnIndex: Integer; const Value: Byte); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateShort (ColumnIndex: Integer; const Value: ShortInt); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateWord (ColumnIndex: Integer; const Value: Word); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateSmall (ColumnIndex: Integer; const Value: SmallInt); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateUInt (ColumnIndex: Integer; const Value: Cardinal); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateInt (ColumnIndex: Integer; const Value: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateULong (ColumnIndex: Integer; const Value: UInt64); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateLong (ColumnIndex: Integer; const Value: Int64); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateFloat (ColumnIndex: Integer; const Value: Single); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateDouble (ColumnIndex: Integer; const Value: Double); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateCurrency (ColumnIndex: Integer; const Value: Currency); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateBigDecimal (ColumnIndex: Integer; const Value: Extended); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdatePChar (ColumnIndex: Integer; const Value: PChar); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdatePAnsiChar (ColumnIndex: Integer; Value: PAnsiChar); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdatePAnsiChar (ColumnIndex: Integer; Value: PAnsiChar; Len: PNativeUint); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdatePWideChar (ColumnIndex: Integer; Value: PWideChar); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdatePWideChar (ColumnIndex: Integer; Value: PWideChar; Len: PNativeUint); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateString (ColumnIndex: Integer; const Value: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$IFNDEF NO_ANSISTRING}
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateAnsiString (ColumnIndex: Integer; const Value: AnsiString); <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         {$IFNDEF NO_UTF8STRING}
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateUTF8String (ColumnIndex: Integer; const Value: UTF8String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateRawByteString (ColumnIndex: Integer; const Value: RawByteString); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateUnicodeString (ColumnIndex: Integer; const Value: ZWideString); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateBytes (ColumnIndex: Integer; const Value: TBytes); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateDate (ColumnIndex: Integer; const Value: TDateTime); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateTime (ColumnIndex: Integer; const Value: TDateTime); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateTimestamp (ColumnIndex: Integer; const Value: TDateTime); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateAsciiStream (ColumnIndex: Integer; const Value: TStream); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateUnicodeStream (ColumnIndex: Integer; const Value: TStream); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateBinaryStream (ColumnIndex: Integer; const Value: TStream); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateLob (ColumnIndex: Integer; const Value: IZBlob); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateDefaultExpression (ColumnIndex: Integer; const Value: string); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> InsertRow; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateRow; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DeleteRow; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CancelRowUpdates; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> RefreshRow;override;// FOS+ 071106
+        
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> MoveToInsertRow; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> MoveToCurrentRow; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> CompareRows (Row1, Row2: NativeInt; const ColumnIndices: TIntegerDynArray;
+           const CompareFuncs: TCompareFuncs): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCompareFuncs (const ColumnIndices: TIntegerDynArray;
+           const CompareKinds: TComparisonKindArray): TCompareFuncs; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetResolver: IZCachedResolver;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetResolver (Resolver: IZCachedResolver);
+         {BEGIN PATCH [1214009] CalcDefaults in TZUpdateSQL and Added Methods to GET the DB NativeResolver}
+         <span style="color:navy"><b>FUNCTION</b></span> GetNativeResolver: IZCachedResolver;
+         {END PATCH [1214009] CalcDefaults in TZUpdateSQL and Added Methods to GET the DB NativeResolver}
+         <span style="color:navy"><b>FUNCTION</b></span> IsCachedUpdates: Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetCachedUpdates (Value: Boolean);
+         <span style="color:navy"><b>FUNCTION</b></span> IsPendingUpdates: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> PostUpdates; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CancelUpdates; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> RevertRecord; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> MoveToInitialRow; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> PostUpdatesCached; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DisposeCachedUpdates; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcachedresultset" name="tzcachedresultset">TZCachedResultSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractcachedresultset">TZAbstractCachedResultSet</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const ResultSet: IZResultSet; const SQL: string;
+           const Resolver: IZCachedResolver; ConSettings: PZConSettings);
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithColumns (const ColumnsInfo: TObjectList;
+           const ResultSet: IZResultSet; const SQL: string;
+           const Resolver: IZCachedResolver; ConSettings: PZConSettings);
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> AfterClose; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ResetCursor; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMetaData: IZResultSetMetaData; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> IsAfterLast: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsLast: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> AfterLast; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Last: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> MoveAbsolute (Row: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

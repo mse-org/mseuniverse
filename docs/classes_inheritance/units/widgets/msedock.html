@@ -1,0 +1,266 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedock;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetdragobject" name="twidgetdragobject">twidgetdragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdragobject">tdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: twidget; var instance: tdragobject;
+                            const apickpos: pointty);
+        roperty widget: twidget <span style="color:navy"><b>READ</b></span> getwidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockdragobject" name="tdockdragobject">tdockdragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetdragobject">twidgetdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adock: tdockcontroller; const asender: twidget;
+               var instance: tdragobject; const apickpos: pointty);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> refused (const apos: pointty); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockhandle" name="tdockhandle">tdockhandle</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> grip_pos: captionposty <span style="color:navy"><b>READ</b></span> fgrip_pos <span style="color:navy"><b>WRITE</b></span> setgrip_pos <span style="color:navy"><b>DEFAULT</b></span> cp_bottomright;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_grip: stockbitmapty <span style="color:navy"><b>READ</b></span> fgrip_grip <span style="color:navy"><b>WRITE</b></span> setgrip_grip <span style="color:navy"><b>DEFAULT</b></span> stb_none;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_color: colorty <span style="color:navy"><b>READ</b></span> fgrip_color <span style="color:navy"><b>WRITE</b></span> setgrip_color <span style="color:navy"><b>DEFAULT</b></span> defaultgripcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> 15;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> 15;
+        <span style="color:navy"><b>PROPERTY</b></span> anchors <span style="color:navy"><b>DEFAULT</b></span> [an_right,an_bottom];
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidget + [ow_top{,ow_noautosizing}];
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidget1 + [ow1_noautosizing];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockcontroller" name="tdockcontroller">tdockcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdragcontroller">tdragcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aintf: idockcontroller);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> beforedragevent (var info: draginfoty): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> enddrag; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseevent (var info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clientmouseevent (var info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> childormouseevent (const sender: twidget;
+                                          var info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkmouseactivate (const sender: twidget;
+                                           var info: mouseeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> dopaint (const acanvas: tcanvas);
+        <span style="color:navy"><b>PROCEDURE</b></span> doactivate;
+        <span style="color:navy"><b>PROCEDURE</b></span> sizechanged (force: boolean = false;
+                 scalefixedalso: boolean = false; const awidgets: widgetarty = nil);
+        <span style="color:navy"><b>PROCEDURE</b></span> parentchanged (const sender: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> poschanged;
+        <span style="color:navy"><b>PROCEDURE</b></span> statechanged (const astate: widgetstatesty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> widgetregionchanged (const sender: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> updateminscrollsize (var asize: sizety);
+        <span style="color:navy"><b>PROCEDURE</b></span> beginclientrectchanged;
+        <span style="color:navy"><b>PROCEDURE</b></span> endclientrectchanged;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginplacement ();
+        <span style="color:navy"><b>PROCEDURE</b></span> endplacement ();
+        <span style="color:navy"><b>PROCEDURE</b></span> layoutchanged; //force layout calcualation
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader);
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter;
+                                       const bounds: prectty = nil);
+        <span style="color:navy"><b>PROCEDURE</b></span> statreading;
+        <span style="color:navy"><b>PROCEDURE</b></span> statread;
+        <span style="color:navy"><b>FUNCTION</b></span> getdockcaption: msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> getfloatcaption: msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> getitems: widgetarty; //reference count = 1
+        <span style="color:navy"><b>FUNCTION</b></span> getwidget: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> activewidget: twidget; //focused child
+        <span style="color:navy"><b>PROPERTY</b></span> tabwidget: ttabwidget <span style="color:navy"><b>READ</b></span> ftabwidget; //can be nil
+        <span style="color:navy"><b>PROPERTY</b></span> activetabpage: ttabpage <span style="color:navy"><b>READ</b></span> getactivetabpage;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getparentcontroller (
+                          out acontroller: tdockcontroller): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getparentcontroller: tdockcontroller; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> dockparentname (): string; //'' if none
+        <span style="color:navy"><b>FUNCTION</b></span> childicon (): tmaskedbitmap <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mdistate: mdistatety <span style="color:navy"><b>READ</b></span> fmdistate <span style="color:navy"><b>WRITE</b></span> setmdistate;
+        <span style="color:navy"><b>PROPERTY</b></span> currentsplitdir: splitdirty <span style="color:navy"><b>READ</b></span> fsplitdir
+                                                   <span style="color:navy"><b>WRITE</b></span> setcurrentsplitdir;
+        <span style="color:navy"><b>PROPERTY</b></span> dockrect: rectty <span style="color:navy"><b>READ</b></span> getdockrect;
+        <span style="color:navy"><b>FUNCTION</b></span> close: boolean; //simulates mr_windowclosed for owner
+        <span style="color:navy"><b>FUNCTION</b></span> closeactivewidget: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> float (): boolean; //false if canceled
+        <span style="color:navy"><b>FUNCTION</b></span> dockto (const dest: tdockcontroller; const apos: pointty): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> dock (const source: tdockcontroller; const arect: rectty);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dockhandle: tdockhandle <span style="color:navy"><b>READ</b></span> fdockhandle <span style="color:navy"><b>WRITE</b></span> setdockhandle;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_size: integer <span style="color:navy"><b>READ</b></span> fsplitter_size
+                                 <span style="color:navy"><b>WRITE</b></span> setsplitter_size <span style="color:navy"><b>DEFAULT</b></span> defaultsplittersize;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_grip: stockbitmapty <span style="color:navy"><b>READ</b></span> fsplitter_grip
+                             <span style="color:navy"><b>WRITE</b></span> setsplitter_setgrip <span style="color:navy"><b>DEFAULT</b></span> defaultsplittergrip;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_color: colorty <span style="color:navy"><b>READ</b></span> fsplitter_color
+                             <span style="color:navy"><b>WRITE</b></span> setsplitter_color <span style="color:navy"><b>DEFAULT</b></span> defaultsplittercolor;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_colorgrip: colorty <span style="color:navy"><b>READ</b></span> fsplitter_colorgrip
+                       <span style="color:navy"><b>WRITE</b></span> setsplitter_colorgrip <span style="color:navy"><b>DEFAULT</b></span> defaultsplittercolorgrip;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_options: tabbaroptionsty <span style="color:navy"><b>READ</b></span> ftab_options <span style="color:navy"><b>WRITE</b></span> settab_options
+                                        <span style="color:navy"><b>DEFAULT</b></span> defaulttaboptions;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftab_textflags write
+                               settab_textflags <span style="color:navy"><b>DEFAULT</b></span> defaultcaptiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_width: integer <span style="color:navy"><b>READ</b></span> ftab_width <span style="color:navy"><b>WRITE</b></span> settab_width <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_widthmin: integer <span style="color:navy"><b>READ</b></span> ftab_widthmin
+                                                    <span style="color:navy"><b>WRITE</b></span> settab_widthmin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_widthmax: integer <span style="color:navy"><b>READ</b></span> ftab_widthmax
+                                                    <span style="color:navy"><b>WRITE</b></span> settab_widthmax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tab_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftab_frame <span style="color:navy"><b>WRITE</b></span> settab_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftab_face <span style="color:navy"><b>WRITE</b></span> settab_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_color: colorty <span style="color:navy"><b>READ</b></span> ftab_color <span style="color:navy"><b>WRITE</b></span> settab_color
+                                                    <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_colortab: colorty <span style="color:navy"><b>READ</b></span> ftab_colortab
+                             <span style="color:navy"><b>WRITE</b></span> settab_colortab <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_coloractivetab: colorty <span style="color:navy"><b>READ</b></span> ftab_coloractivetab
+                             <span style="color:navy"><b>WRITE</b></span> settab_coloractivetab <span style="color:navy"><b>DEFAULT</b></span> cl_active;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_frametab: tframecomp <span style="color:navy"><b>READ</b></span> ftab_frametab <span style="color:navy"><b>WRITE</b></span> settab_frametab;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_facetab: tfacecomp <span style="color:navy"><b>READ</b></span> ftab_facetab <span style="color:navy"><b>WRITE</b></span> settab_facetab;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_faceactivetab: tfacecomp <span style="color:navy"><b>READ</b></span> ftab_faceactivetab
+                                                      <span style="color:navy"><b>WRITE</b></span> settab_faceactivetab;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_size: integer <span style="color:navy"><b>READ</b></span> ftab_size <span style="color:navy"><b>WRITE</b></span> settab_size <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_sizemin: integer <span style="color:navy"><b>READ</b></span> ftab_sizemin <span style="color:navy"><b>WRITE</b></span> settab_sizemin
+                                 <span style="color:navy"><b>DEFAULT</b></span> defaulttabsizemin;
+        <span style="color:navy"><b>PROPERTY</b></span> tab_sizemax: integer <span style="color:navy"><b>READ</b></span> ftab_sizemax <span style="color:navy"><b>WRITE</b></span> settab_sizemax
+                                 <span style="color:navy"><b>DEFAULT</b></span> defaulttabsizemax;
+        <span style="color:navy"><b>PROPERTY</b></span> colortab: colorty <span style="color:navy"><b>READ</b></span> fcolortab
+                                          <span style="color:navy"><b>WRITE</b></span> setcolortab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> coloractivetab: colorty <span style="color:navy"><b>READ</b></span> fcoloractivetab
+                                          <span style="color:navy"><b>WRITE</b></span> setcoloractivetab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> facetab: tfacecomp <span style="color:navy"><b>READ</b></span> ffacetab <span style="color:navy"><b>WRITE</b></span> setfacetab;
+        <span style="color:navy"><b>PROPERTY</b></span> faceactivetab: tfacecomp <span style="color:navy"><b>READ</b></span> ffaceactivetab <span style="color:navy"><b>WRITE</b></span> setfaceactivetab;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> fcaption <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> splitdir: splitdirty <span style="color:navy"><b>READ</b></span> fdefaultsplitdir <span style="color:navy"><b>WRITE</b></span> setsplitdir
+                           <span style="color:navy"><b>DEFAULT</b></span> sd_none; //sets default and current splitdir,
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdock: optionsdockty <span style="color:navy"><b>READ</b></span> foptionsdock <span style="color:navy"><b>WRITE</b></span> setoptionsdock
+                           <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsdock;
+        <span style="color:navy"><b>PROPERTY</b></span> bandgap: integer <span style="color:navy"><b>READ</b></span> fbandgap <span style="color:navy"><b>WRITE</b></span> setbandgap <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncalclayout: docklayouteventty <span style="color:navy"><b>READ</b></span> foncalclayout
+                                                               <span style="color:navy"><b>WRITE</b></span> foncalclayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged: dockcontrollereventty <span style="color:navy"><b>READ</b></span> fonlayoutchanged
+                                                            <span style="color:navy"><b>WRITE</b></span> fonlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onboundschanged: dockcontrollereventty <span style="color:navy"><b>READ</b></span> fonboundschanged
+                                                            <span style="color:navy"><b>WRITE</b></span> fonboundschanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncaptionchanged: dockcontrollereventty <span style="color:navy"><b>READ</b></span> foncaptionchanged
+                                                            <span style="color:navy"><b>WRITE</b></span> foncaptionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforefloat: dockrecteventty <span style="color:navy"><b>READ</b></span> fonbeforefloat
+                                                          <span style="color:navy"><b>WRITE</b></span> fonbeforefloat;
+        <span style="color:navy"><b>PROPERTY</b></span> onfloat: notifyeventty <span style="color:navy"><b>READ</b></span> fonfloat <span style="color:navy"><b>WRITE</b></span> fonfloat;
+        <span style="color:navy"><b>PROPERTY</b></span> ondock: notifyeventty <span style="color:navy"><b>READ</b></span> fondock <span style="color:navy"><b>WRITE</b></span> fondock;
+        <span style="color:navy"><b>PROPERTY</b></span> onchilddock: widgeteventty <span style="color:navy"><b>READ</b></span> fonchilddock <span style="color:navy"><b>WRITE</b></span> fonchilddock;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildfloat: widgeteventty <span style="color:navy"><b>READ</b></span> fonchildfloat <span style="color:navy"><b>WRITE</b></span> fonchildfloat;
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckdock: checkdockeventty <span style="color:navy"><b>READ</b></span> foncheckdock <span style="color:navy"><b>WRITE</b></span> foncheckdock;
+        <span style="color:navy"><b>PROPERTY</b></span> onmdistatechanged: mdistatechangedeventty <span style="color:navy"><b>READ</b></span> fonmdistatechanged
+                                   <span style="color:navy"><b>WRITE</b></span> fonmdistatechanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnochildrendockcontroller" name="tnochildrendockcontroller">tnochildrendockcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdockcontroller">tdockcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aintf: idockcontroller);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdock <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsdocknochildren;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgripframe" name="tgripframe">tgripframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcaptionframe">tcaptionframe</a>,iobjectpicker,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe;
+                                          const acontroller: tdockcontroller);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createface ();
+        <span style="color:navy"><b>PROCEDURE</b></span> createfaceactive ();
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const aid: int32; var info: hintinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatemousestate (const sender: twidget;
+                                       const info: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseevent (var info: mouseeventinfoty);
+        <span style="color:navy"><b>PROPERTY</b></span> buttonrects[const index:  dockbuttonrectty]: rectty
+                                                         <span style="color:navy"><b>READ</b></span> getbuttonrects;
+        <span style="color:navy"><b>FUNCTION</b></span> getminimizedsize (out apos: captionposty): sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> griprect: rectty; //origin = pos
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> grip_size: integer <span style="color:navy"><b>READ</b></span> fgrip_size <span style="color:navy"><b>WRITE</b></span> setgrip_size stored true;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_textflagstop: textflagsty <span style="color:navy"><b>READ</b></span> fgrip_textflagstop
+                          <span style="color:navy"><b>WRITE</b></span> setgrip_textflagstop <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagstop;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_textflagsleft: textflagsty <span style="color:navy"><b>READ</b></span> fgrip_textflagsleft
+                          <span style="color:navy"><b>WRITE</b></span> setgrip_textflagsright <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagsleft;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_textflagsbottom: textflagsty <span style="color:navy"><b>READ</b></span> fgrip_textflagsbottom
+                       <span style="color:navy"><b>WRITE</b></span> setgrip_textflagsbottom <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagsbottom;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_textflagsright: textflagsty <span style="color:navy"><b>READ</b></span> fgrip_textflagsright
+                         <span style="color:navy"><b>WRITE</b></span> setgrip_textflagsrright <span style="color:navy"><b>DEFAULT</b></span> defaulttextflagsright;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_captiondist: integer <span style="color:navy"><b>READ</b></span> fgrip_captiondist
+                                           <span style="color:navy"><b>WRITE</b></span> setgrip_captiondist <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_captionoffset: integer <span style="color:navy"><b>READ</b></span> fgrip_captionoffset
+                                           <span style="color:navy"><b>WRITE</b></span> setgrip_captionoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_grip: stockbitmapty <span style="color:navy"><b>READ</b></span> fgrip_grip <span style="color:navy"><b>WRITE</b></span> setgrip_grip
+                                                            <span style="color:navy"><b>DEFAULT</b></span> defaultgripgrip;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_color: colorty <span style="color:navy"><b>READ</b></span> fgrip_color <span style="color:navy"><b>WRITE</b></span> setgrip_color
+                                                            <span style="color:navy"><b>DEFAULT</b></span> defaultgripcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_coloractive: colorty <span style="color:navy"><b>READ</b></span> fgrip_coloractive
+                           <span style="color:navy"><b>WRITE</b></span> setgrip_coloractive <span style="color:navy"><b>DEFAULT</b></span> defaultgripcoloractive;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_colorglyph: colorty <span style="color:navy"><b>READ</b></span> fgrip_colorglyph write
+                      setgrip_colorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_colorglyphactive: colorty <span style="color:navy"><b>READ</b></span> fgrip_colorglyphactive write
+                      setgrip_colorglyphactive <span style="color:navy"><b>DEFAULT</b></span> cl_glyphactive;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_colorbutton: colorty <span style="color:navy"><b>READ</b></span> fgrip_colorbutton write
+                      setgrip_colorbutton <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_colorbuttonactive: colorty <span style="color:navy"><b>READ</b></span> fgrip_colorbuttonactive write
+                      setgrip_colorbuttonactive <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_options: gripoptionsty <span style="color:navy"><b>READ</b></span> fgrip_options <span style="color:navy"><b>WRITE</b></span> setgrip_options
+                                                          <span style="color:navy"><b>DEFAULT</b></span> defaultgripoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_face: tface <span style="color:navy"><b>READ</b></span> getgrip_face <span style="color:navy"><b>WRITE</b></span> setgrip_face;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_faceactive: tface <span style="color:navy"><b>READ</b></span> getgrip_faceactive
+                                                 <span style="color:navy"><b>WRITE</b></span> setgrip_faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> grip_hint: msestring <span style="color:navy"><b>READ</b></span> fgrip_hint <span style="color:navy"><b>WRITE</b></span> fgrip_hint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockpanel" name="tdockpanel">tdockpanel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscalingwidget">tscalingwidget</a>,idockcontroller,idocktarget,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragevent (var info: draginfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getdockcontroller: tdockcontroller;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dragdock: tnochildrendockcontroller <span style="color:navy"><b>READ</b></span> fdragdock <span style="color:navy"><b>WRITE</b></span> setdragdock;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultdockpaneloptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswindow: windowoptionsty <span style="color:navy"><b>READ</b></span> foptionswindow
+                                                    <span style="color:navy"><b>WRITE</b></span> foptionswindow <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tgripframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> fstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> icon: tmaskedbitmap <span style="color:navy"><b>READ</b></span> ficon <span style="color:navy"><b>WRITE</b></span> seticon;
+        <span style="color:navy"><b>PROPERTY</b></span> dockingareacaption: msestring <span style="color:navy"><b>READ</b></span> fdockingareacaption
+                                                        <span style="color:navy"><b>WRITE</b></span> setdockingareacaption;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

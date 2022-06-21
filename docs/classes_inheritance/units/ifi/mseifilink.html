@@ -1,0 +1,396 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory ifi</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseifilink;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmodulelinkprop" name="tmodulelinkprop">tmodulelinkprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistent">townedeventpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> prop: tmodulelinkarrayprop <span style="color:navy"><b>READ</b></span> fprop;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> name: ansistring <span style="color:navy"><b>READ</b></span> fname <span style="color:navy"><b>WRITE</b></span> fname;
+        <span style="color:navy"><b>PROPERTY</b></span> tag: integer <span style="color:navy"><b>READ</b></span> ftag <span style="color:navy"><b>WRITE</b></span> ftag <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmodulelinkarrayprop" name="tmodulelinkarrayprop">tmodulelinkarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustommodulelink);
+        <span style="color:navy"><b>FUNCTION</b></span> finditem (const aname: string): tmodulelinkprop;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): tmodulelinkprop;
+        <span style="color:navy"><b>PROPERTY</b></span> owner: tcustommodulelink <span style="color:navy"><b>READ</b></span> fowner;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlinkaction" name="tlinkaction">tlinkaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkprop">tmodulelinkprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> action: tcustomaction <span style="color:navy"><b>READ</b></span> faction <span style="color:navy"><b>WRITE</b></span> setaction;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trxlinkaction" name="trxlinkaction">trxlinkaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkaction">tlinkaction</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: ifiexecuteeventty <span style="color:navy"><b>READ</b></span> fonexecute <span style="color:navy"><b>WRITE</b></span> fonexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxlinkaction" name="ttxlinkaction">ttxlinkaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkaction">tlinkaction</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> execute;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> ificomp: tcomponent <span style="color:navy"><b>READ</b></span> fificomp <span style="color:navy"><b>WRITE</b></span> setificomp;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlinkactions" name="tlinkactions">tlinkactions</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkarrayprop">tmodulelinkarrayprop</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trxlinkactions" name="trxlinkactions">trxlinkactions</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkactions">tlinkactions</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustommodulelink);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): trxlinkaction;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: trxlinkaction <span style="color:navy"><b>READ</b></span> getitems; default;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: ifiexecuteeventty <span style="color:navy"><b>READ</b></span> fonexecute <span style="color:navy"><b>WRITE</b></span> fonexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxactiondestroyhandler" name="ttxactiondestroyhandler">ttxactiondestroyhandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">tcomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: ttxlinkactions); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxlinkactions" name="ttxlinkactions">ttxlinkactions</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkactions">tlinkactions</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustommodulelink);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): ttxlinkaction;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ttxlinkaction <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlinkmodule" name="tlinkmodule">tlinkmodule</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkprop">tmodulelinkprop</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxlinkmodule" name="ttxlinkmodule">ttxlinkmodule</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkmodule">tlinkmodule</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> sendmodule;
+        <span style="color:navy"><b>PROCEDURE</b></span> close;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> moduleclassname: string <span style="color:navy"><b>READ</b></span> fmoduleclassname <span style="color:navy"><b>WRITE</b></span> fmoduleclassname;
+        <span style="color:navy"><b>PROPERTY</b></span> moduleparentclassname: string <span style="color:navy"><b>READ</b></span> fmoduleparentclassname
+                                 <span style="color:navy"><b>WRITE</b></span> fmoduleparentclassname;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxlinkmodules" name="ttxlinkmodules">ttxlinkmodules</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkarrayprop">tmodulelinkarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustommodulelink);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): ttxlinkmodule;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ttxlinkmodule <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trxlinkmodule" name="trxlinkmodule">trxlinkmodule</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkaction">tlinkaction</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> requestmodule;
+        <span style="color:navy"><b>PROPERTY</b></span> module: tmsecomponent <span style="color:navy"><b>READ</b></span> fmodule;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onmodulereceived: rxlinkmoduleeventty <span style="color:navy"><b>READ</b></span> fonmodulereceived
+                              <span style="color:navy"><b>WRITE</b></span> fonmodulereceived;
+        <span style="color:navy"><b>PROPERTY</b></span> options: rxlinkoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trxlinkmodules" name="trxlinkmodules">trxlinkmodules</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkarrayprop">tmodulelinkarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustommodulelink);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): trxlinkmodule;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: trxlinkmodule <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluelink" name="tvaluelink">tvaluelink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkprop">tmodulelinkprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: colorty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: int64); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: string); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: realty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperty (const aname: string; const avalue: currency); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asinteger: integer <span style="color:navy"><b>READ</b></span> getasinteger <span style="color:navy"><b>WRITE</b></span> setasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> aslargeint: int64 <span style="color:navy"><b>READ</b></span> getaslargeint <span style="color:navy"><b>WRITE</b></span> setaslargeint;
+        <span style="color:navy"><b>PROPERTY</b></span> asfloat: double <span style="color:navy"><b>READ</b></span> getasfloat <span style="color:navy"><b>WRITE</b></span> setasfloat;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestring: msestring <span style="color:navy"><b>READ</b></span> getasmsestring <span style="color:navy"><b>WRITE</b></span> setasmsestring;
+        <span style="color:navy"><b>PROPERTY</b></span> asstring: string <span style="color:navy"><b>READ</b></span> getasansistring <span style="color:navy"><b>WRITE</b></span> setasansistring;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>WRITE</b></span> setenabled;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>WRITE</b></span> setvisible;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onpropertychanged: propertychangedeventty <span style="color:navy"><b>READ</b></span> fonpropertychanged
+                                          <span style="color:navy"><b>WRITE</b></span> fonpropertychanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwidgetstatechanged: widgetstatechangedeventty
+                             <span style="color:navy"><b>READ</b></span> fonwidgetstatechanged <span style="color:navy"><b>WRITE</b></span> fonwidgetstatechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onmodalresult: modalresulteventty <span style="color:navy"><b>READ</b></span> fonmodalresult
+                             <span style="color:navy"><b>WRITE</b></span> fonmodalresult;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluelinks" name="tvaluelinks">tvaluelinks</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmodulelinkarrayprop">tmodulelinkarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): tvaluelink;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tvaluelink <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomvaluecomponentlink" name="tcustomvaluecomponentlink">tcustomvaluecomponentlink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvaluelink">tvaluelink</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> sendvalue (const aname: string; const avalue: colorty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendproperties;
+        <span style="color:navy"><b>PROPERTY</b></span> component: tmsecomponent <span style="color:navy"><b>READ</b></span> fcomponent <span style="color:navy"><b>WRITE</b></span> setcomponent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluecomponentlink" name="tvaluecomponentlink">tvaluecomponentlink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomvaluecomponentlink">tcustomvaluecomponentlink</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> component;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluecomponentlinks" name="tvaluecomponentlinks">tvaluecomponentlinks</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvaluelinks">tvaluelinks</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> byname (const aname: string): tvaluecomponentlink;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tvaluecomponentlink <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommodulelink" name="tcustommodulelink">tcustommodulelink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifiiolinkcomponent">tifiiolinkcomponent</a>,iifiserver,iifimodulelink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecomponent (const anamepath: ansistring;
+                                     const aobjecttext: ansistring);
+        <span style="color:navy"><b>PROPERTY</b></span> linkname: string <span style="color:navy"><b>READ</b></span> flinkname <span style="color:navy"><b>WRITE</b></span> flinkname;
+        <span style="color:navy"><b>PROPERTY</b></span> actionsrx: trxlinkactions <span style="color:navy"><b>READ</b></span> factionsrx <span style="color:navy"><b>WRITE</b></span> setactionsrx;
+        <span style="color:navy"><b>PROPERTY</b></span> actionstx: ttxlinkactions <span style="color:navy"><b>READ</b></span> factionstx <span style="color:navy"><b>WRITE</b></span> setactionstx;
+        <span style="color:navy"><b>PROPERTY</b></span> modulesrx: trxlinkmodules <span style="color:navy"><b>READ</b></span> fmodulesrx <span style="color:navy"><b>WRITE</b></span> setmodulesrx;
+        <span style="color:navy"><b>PROPERTY</b></span> modulestx: ttxlinkmodules <span style="color:navy"><b>READ</b></span> fmodulestx <span style="color:navy"><b>WRITE</b></span> setmodulestx;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecomponents: tvaluecomponentlinks <span style="color:navy"><b>READ</b></span> fvaluecomponents
+                                                          <span style="color:navy"><b>WRITE</b></span> setvaluecomponents;
+        <span style="color:navy"><b>PROPERTY</b></span> values: tvaluelinks <span style="color:navy"><b>READ</b></span> fvalues <span style="color:navy"><b>WRITE</b></span> setvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> options: formlinkoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions
+                                           <span style="color:navy"><b>DEFAULT</b></span> defaultformlinkoptions;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmodulelink" name="tmodulelink">tmodulelink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommodulelink">tcustommodulelink</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> linkname;
+        <span style="color:navy"><b>PROPERTY</b></span> actionsrx;
+        <span style="color:navy"><b>PROPERTY</b></span> actionstx;
+        <span style="color:navy"><b>PROPERTY</b></span> modulesrx;
+        <span style="color:navy"><b>PROPERTY</b></span> modulestx;
+        <span style="color:navy"><b>PROPERTY</b></span> values;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecomponents;
+        <span style="color:navy"><b>PROPERTY</b></span> channel;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tificontroller" name="tificontroller">tificontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactivatorcontroller">tactivatorcontroller</a>,iifimodulelink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const aintf: iactivatorclient);
+        <span style="color:navy"><b>FUNCTION</b></span> cansend: boolean;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> channel: tcustomiochannel <span style="color:navy"><b>READ</b></span> fchannel <span style="color:navy"><b>WRITE</b></span> setchannel;
+        <span style="color:navy"><b>PROPERTY</b></span> linkname: string <span style="color:navy"><b>READ</b></span> flinkname <span style="color:navy"><b>WRITE</b></span> flinkname;
+        <span style="color:navy"><b>PROPERTY</b></span> tag: integer <span style="color:navy"><b>READ</b></span> ftag <span style="color:navy"><b>WRITE</b></span> ftag <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> options: ifirxoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions
+                                            <span style="color:navy"><b>DEFAULT</b></span> defaultifirxoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutus: integer <span style="color:navy"><b>READ</b></span> fdefaulttimeout <span style="color:navy"><b>WRITE</b></span> fdefaulttimeout
+                            <span style="color:navy"><b>DEFAULT</b></span> defaultifirxtimeout;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifirxcontroller" name="tifirxcontroller">tifirxcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificontroller">tificontroller</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifitxcontroller" name="tifitxcontroller">tifitxcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificontroller">tificontroller</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidatacol" name="tifidatacol">tifidatacol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistent">tindexpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+              const aprop: tindexpersistentarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datalist: tdatalist <span style="color:navy"><b>READ</b></span> getdatalist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asinteger[const aindex: integer]: integer <span style="color:navy"><b>READ</b></span> getasinteger
+                                    <span style="color:navy"><b>WRITE</b></span> setasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> asint64[const aindex: integer]: int64 <span style="color:navy"><b>READ</b></span> getasint64
+                                    <span style="color:navy"><b>WRITE</b></span> setasint64;
+        <span style="color:navy"><b>PROPERTY</b></span> ascurrency[const aindex: integer]: currency <span style="color:navy"><b>READ</b></span> getascurrency
+                                    <span style="color:navy"><b>WRITE</b></span> setascurrency;
+        <span style="color:navy"><b>PROPERTY</b></span> asreal[const aindex: integer]: real <span style="color:navy"><b>READ</b></span> getasreal
+                                    <span style="color:navy"><b>WRITE</b></span> setasreal;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestring[const aindex: integer]: msestring <span style="color:navy"><b>READ</b></span> getasmsestring
+                                    <span style="color:navy"><b>WRITE</b></span> setasmsestring;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestringint[const aindex: integer]: msestringintty
+                              <span style="color:navy"><b>READ</b></span> getasmsestringint <span style="color:navy"><b>WRITE</b></span> setasmsestringint;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestringinti[const aindex: integer]: integer
+                              <span style="color:navy"><b>READ</b></span> getasmsestringinti <span style="color:navy"><b>WRITE</b></span> setasmsestringinti;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestringints[const aindex: integer]: msestring
+                              <span style="color:navy"><b>READ</b></span> getasmsestringints <span style="color:navy"><b>WRITE</b></span> setasmsestringints;
+        <span style="color:navy"><b>PROPERTY</b></span> asrealint[const aindex: integer]: realintty <span style="color:navy"><b>READ</b></span> getasrealint write
+                              setasrealint;
+        <span style="color:navy"><b>PROPERTY</b></span> asrealintr[const aindex: integer]: realty <span style="color:navy"><b>READ</b></span> getasrealintr write
+                              setasrealintr;
+        <span style="color:navy"><b>PROPERTY</b></span> asrealinti[const aindex: integer]: integer <span style="color:navy"><b>READ</b></span> getasrealinti write
+                              setasrealinti;
+        <span style="color:navy"><b>PROPERTY</b></span> asbytes[const aindex: integer]: ansistring <span style="color:navy"><b>READ</b></span> getasbytes
+                                    <span style="color:navy"><b>WRITE</b></span> setasbytes;
+        <span style="color:navy"><b>PROPERTY</b></span> merged[const row: integer]: boolean <span style="color:navy"><b>READ</b></span> getmerged <span style="color:navy"><b>WRITE</b></span> setmerged;
+        <span style="color:navy"><b>PROPERTY</b></span> selected[row: integer]: boolean <span style="color:navy"><b>READ</b></span> getselected <span style="color:navy"><b>WRITE</b></span> setselected;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datakind: ifidatakindty <span style="color:navy"><b>READ</b></span> fdatakind <span style="color:navy"><b>WRITE</b></span> setdatakind
+                              <span style="color:navy"><b>DEFAULT</b></span> idk_none;
+        <span style="color:navy"><b>PROPERTY</b></span> name: ansistring <span style="color:navy"><b>READ</b></span> fname <span style="color:navy"><b>WRITE</b></span> fname;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: ifidatacolchangeeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifirowstatelist" name="tifirowstatelist">tifirowstatelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrowstatelist">tcustomrowstatelist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> hidden[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> gethidden <span style="color:navy"><b>WRITE</b></span> sethidden;
+        <span style="color:navy"><b>PROPERTY</b></span> foldlevel[const index: integer]: byte <span style="color:navy"><b>READ</b></span> getfoldlevel
+                                       <span style="color:navy"><b>WRITE</b></span> setfoldlevel;   //0..63
+        <span style="color:navy"><b>PROPERTY</b></span> foldissum[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getfoldissum
+                                       <span style="color:navy"><b>WRITE</b></span> setfoldissum;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifidatacols" name="tifidatacols">tifidatacols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistentarrayprop">tindexpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: ttxdatagrid); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> colbyname (const aname: ansistring): tifidatacol;
+        <span style="color:navy"><b>FUNCTION</b></span> datalistbyname (const aname: ansistring): tdatalist;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clearselection;
+        <span style="color:navy"><b>FUNCTION</b></span> hasselection: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> selectedcellcount: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> hascolselection: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedcells: gridcoordarty <span style="color:navy"><b>READ</b></span> getselectedcells <span style="color:navy"><b>WRITE</b></span> setselectedcells;
+        <span style="color:navy"><b>PROPERTY</b></span> selected[const cell: gridcoordty]: boolean <span style="color:navy"><b>READ</b></span> Getselected <span style="color:navy"><b>WRITE</b></span> Setselected;
+        <span style="color:navy"><b>PROCEDURE</b></span> setselectedrange (const rect: gridrectty; const value: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setselectedrange (const start,stop: gridcoordty;
+                         const value: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> mergecols (const arow: integer; const astart: longword = 0;
+                                                   const acount: longword = bigint);
+        <span style="color:navy"><b>PROCEDURE</b></span> unmergecols (const arow: integer = invalidaxis);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate: tifirowstatelist <span style="color:navy"><b>READ</b></span> frowstate;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tifidatacol <span style="color:navy"><b>READ</b></span> getcols <span style="color:navy"><b>WRITE</b></span> setcols;
+                                                      default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tifigridcontroller" name="tifigridcontroller">tifigridcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tificontroller">tificontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> cancommandsend (const akind: ifigridoptionty): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendstate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionstx: ifigridoptionsty <span style="color:navy"><b>READ</b></span> foptionstx
+                                                <span style="color:navy"><b>WRITE</b></span> foptionstx default[];
+        <span style="color:navy"><b>PROPERTY</b></span> optionsrx: ifigridoptionsty <span style="color:navy"><b>READ</b></span> foptionsrx
+                                                <span style="color:navy"><b>WRITE</b></span> foptionsrx default[];
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxdatagridcontroller" name="ttxdatagridcontroller">ttxdatagridcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tifigridcontroller">tifigridcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: ttxdatagrid; const aintf: iactivatorclient);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttxdatagrid" name="ttxdatagrid">ttxdatagrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>PROCEDURE</b></span> moverow (const curindex,newindex: integer; const count: integer = 1);
+        <span style="color:navy"><b>PROCEDURE</b></span> insertrow (index: integer; count: integer = 1);
+        <span style="color:navy"><b>PROCEDURE</b></span> deleterow (index: integer; count: integer = 1);
+        <span style="color:navy"><b>PROPERTY</b></span> rowhigh: integer <span style="color:navy"><b>READ</b></span> getrowhigh;
+        <span style="color:navy"><b>PROPERTY</b></span> row: integer <span style="color:navy"><b>READ</b></span> frow <span style="color:navy"><b>WRITE</b></span> setrow;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolorstate[index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getrowcolorstate
+                             <span style="color:navy"><b>WRITE</b></span> setrowcolorstate; //<span style="color:navy"><b>DEFAULT</b></span> = -1
+        <span style="color:navy"><b>PROPERTY</b></span> rowfontstate[index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getrowfontstate
+                             <span style="color:navy"><b>WRITE</b></span> setrowfontstate;  //<span style="color:navy"><b>DEFAULT</b></span> = -1
+        <span style="color:navy"><b>PROPERTY</b></span> row<span style="color:navy"><b>READ</b></span>onlystate[const index: integer]: boolean read getrowreadonlystate
+                             <span style="color:navy"><b>WRITE</b></span> setrowreadonlystate;
+        <span style="color:navy"><b>PROPERTY</b></span> rowhidden[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getrowhidden
+                             <span style="color:navy"><b>WRITE</b></span> setrowhidden;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfoldlevel[const index: integer]: byte <span style="color:navy"><b>READ</b></span> getrowfoldlevel
+                             <span style="color:navy"><b>WRITE</b></span> setrowfoldlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfoldissum[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getrowfoldissum
+                             <span style="color:navy"><b>WRITE</b></span> setrowfoldissum;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> ifi: ttxdatagridcontroller <span style="color:navy"><b>READ</b></span> fifi <span style="color:navy"><b>WRITE</b></span> setifi;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tifidatacols <span style="color:navy"><b>READ</b></span> fdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount: integer <span style="color:navy"><b>READ</b></span> frowcount <span style="color:navy"><b>WRITE</b></span> setrowcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted: ifigridblockeventty <span style="color:navy"><b>READ</b></span> fonrowsdeleted
+                                <span style="color:navy"><b>WRITE</b></span> fonrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted: ifigridblockeventty <span style="color:navy"><b>READ</b></span> fonrowsinserted
+                                <span style="color:navy"><b>WRITE</b></span> fonrowsinserted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoved: ifigridblockmovedeventty <span style="color:navy"><b>READ</b></span> fonrowsmoved
+                                <span style="color:navy"><b>WRITE</b></span> fonrowsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowindexchanged: ifigrideventty <span style="color:navy"><b>READ</b></span> fonrowindexchanged
+                                <span style="color:navy"><b>WRITE</b></span> fonrowindexchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowstatechanged: ifigriditemeventty <span style="color:navy"><b>READ</b></span> fonrowstatechanged
+                                <span style="color:navy"><b>WRITE</b></span> fonrowstatechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeopen: ifigrideventty <span style="color:navy"><b>READ</b></span> fonbeforeopen <span style="color:navy"><b>WRITE</b></span> fonbeforeopen;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

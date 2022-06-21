@@ -1,0 +1,74 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory sysutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msestatusnotifieritem;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstatusnotifieritem" name="tstatusnotifieritem">tstatusnotifieritem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbusobject">tdbusobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkdesktop (): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> desktopkind: desktopkindty <span style="color:navy"><b>READ</b></span> fdesktopkind;
+        <span style="color:navy"><b>FUNCTION</b></span> showmessage (const message: msestring; const title: msestring;
+                               out messageid: card32;
+                               const timeoutms: card32 = 0): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> cancelmessage (const messageid: card32): boolean;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive;
+        <span style="color:navy"><b>PROPERTY</b></span> statuscategory: statusnotifiercategoryty <span style="color:navy"><b>READ</b></span> fstatuscategory
+                              <span style="color:navy"><b>WRITE</b></span> fstatuscategory <span style="color:navy"><b>DEFAULT</b></span> snc_applicationstatus;
+        <span style="color:navy"><b>PROCEDURE</b></span> setToolTip (const avalue: tooltipinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> setId (const avalue: string); //'' -> applicationname
+        <span style="color:navy"><b>PROCEDURE</b></span> setTitle (const avalue: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> setStatus (const avalue: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> setWindowId (const avalue: int32);
+        <span style="color:navy"><b>PROCEDURE</b></span> setIconName (const avalue: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> setIconPixmap (const avalue: tmaskedbitmap);
+        <span style="color:navy"><b>PROCEDURE</b></span> setIconPixmap (const avalue: iconpixmaparty);
+        <span style="color:navy"><b>PROCEDURE</b></span> setOverlayIconName (const avalue: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> setOverlayIconPixmap (const avalue: iconpixmaparty);
+        <span style="color:navy"><b>PROCEDURE</b></span> setAtentionIconName (const avalue: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> setAtentionIconPixmap (const avalue: iconpixmaparty);
+        <span style="color:navy"><b>PROCEDURE</b></span> setAtentionMovieName (const avalue: string);
+        <span style="color:navy"><b>PROPERTY</b></span> ToolTip: tooltipinfoty <span style="color:navy"><b>READ</b></span> ftooltip;
+        <span style="color:navy"><b>PROPERTY</b></span> oncontextmenu: statusnotifierposprocty <span style="color:navy"><b>READ</b></span> foncontextmenu
+                                                             <span style="color:navy"><b>WRITE</b></span> foncontextmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivate: statusnotifierposprocty <span style="color:navy"><b>READ</b></span> fonactivate
+                                                             <span style="color:navy"><b>WRITE</b></span> fonactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onsecondaryactivate: statusnotifierposprocty
+                             <span style="color:navy"><b>READ</b></span> fonsecondaryactivate <span style="color:navy"><b>WRITE</b></span> fonsecondaryactivate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> Category: string <span style="color:navy"><b>READ</b></span> getcategory;
+        <span style="color:navy"><b>PROPERTY</b></span> Id: string <span style="color:navy"><b>READ</b></span> getid;
+        <span style="color:navy"><b>PROPERTY</b></span> Title: string <span style="color:navy"><b>READ</b></span> ftitle;
+        <span style="color:navy"><b>PROPERTY</b></span> Status: string <span style="color:navy"><b>READ</b></span> fstatus;
+        <span style="color:navy"><b>PROPERTY</b></span> WindowId: int32 <span style="color:navy"><b>READ</b></span> fwindowid;
+        <span style="color:navy"><b>PROPERTY</b></span> IconName: string <span style="color:navy"><b>READ</b></span> ficonname;
+        <span style="color:navy"><b>PROPERTY</b></span> IconPixmap: iconpixmaparty <span style="color:navy"><b>READ</b></span> ficonpixmap;
+        <span style="color:navy"><b>PROPERTY</b></span> OverlayIconName: string <span style="color:navy"><b>READ</b></span> foverlayiconname;
+        <span style="color:navy"><b>PROPERTY</b></span> OverlayIconPixmap: iconpixmaparty <span style="color:navy"><b>READ</b></span> foverlayiconpixmap;
+        <span style="color:navy"><b>PROPERTY</b></span> AtentionIconName: string <span style="color:navy"><b>READ</b></span> fatentioniconname;
+        <span style="color:navy"><b>PROPERTY</b></span> AtentionIconPixmap: iconpixmaparty <span style="color:navy"><b>READ</b></span> fatentioniconpixmap;
+        <span style="color:navy"><b>PROPERTY</b></span> AtentionMovieName: string <span style="color:navy"><b>READ</b></span> fatentionmoviename;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

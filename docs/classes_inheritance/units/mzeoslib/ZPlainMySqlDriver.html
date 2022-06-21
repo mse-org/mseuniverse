@@ -1,0 +1,313 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainMySqlDriver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmysqlplaindriver" name="tzmysqlplaindriver">TZMySQLPlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractplaindriver">TZAbstractPlainDriver</a>, IZPlainDriver, IZMySQLPlainDriver)
+      PUBLIC
+         FIsMariaDBDriver: Boolean;
+         { ************** Plain API Function types definition ************* }
+        
+         mysql_get_character_set_info: procedure (mysql: PMYSQL; cs: PMY_CHARSET_INFO); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_affected_rows:          function ( mysql: PMYSQL): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_character_set_name:     function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_close:                  procedure (mysql: PMYSQL); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_connect:                function (mysql: PMYSQL; const Host, User, Passwd: PAnsiChar): PMYSQL;   {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_create_db:              function (mysql: PMYSQL; const Db: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_data_seek:              procedure (Result: PMYSQL_RES; Offset: ULongLong); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_debug:                  procedure (Debug: PAnsiChar); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_drop_db:                function (mysql: PMYSQL; const Db: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_dump_debug_info:        function (mysql: PMYSQL): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_eof:                    function (Result: PMYSQL_RES): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_errno:                  function (mysql: PMYSQL): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_error:                  function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_escape_string:          function (PTo, PFrom: PAnsiChar; Len: ULong): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_fetch_field:            function (Result: PMYSQL_RES): PMYSQL_FIELD; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_fetch_field_direct:     function (Result: PMYSQL_RES; FieldNo: UInt): PMYSQL_FIELD; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_fetch_fields:           function (Result: PMYSQL_RES): PMYSQL_FIELD; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_fetch_lengths:          function (Result: PMYSQL_RES): PULongArray; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_fetch_row:              function (Result: PMYSQL_RES): PMYSQL_ROW; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_field_seek:             function (Result: PMYSQL_RES; Offset: MYSQL_FIELD_OFFSET): MYSQL_FIELD_OFFSET; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_field_tell:             function (Result: PMYSQL_RES): MYSQL_FIELD_OFFSET; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_free_result:            procedure (Result: PMYSQL_RES); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_client_info:        function: PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_host_info:          function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_proto_info:         function (mysql: PMYSQL): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_server_info:        function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_info:                   function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_init:                   function (mysql: PMYSQL): PMYSQL; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_insert_id:              function (mysql: PMYSQL): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_kill:                   function (mysql: PMYSQL; Pid: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_list_dbs:               function (mysql: PMYSQL; Wild: PAnsiChar): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_list_fields:            function (mysql: PMYSQL; const Table, Wild: PAnsiChar): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_list_processes:         function (mysql: PMYSQL): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_list_tables:            function (mysql: PMYSQL; const Wild: PAnsiChar): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_num_fields:             function (Result: PMYSQL_RES): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_num_rows:               function (Result: PMYSQL_RES): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_options:                function (mysql: PMYSQL; Option: TMySqlOption; const Arg: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_ping:                   function (mysql: PMYSQL): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_query:                  function (mysql: PMYSQL; const Query: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_real_connect:           function (mysql: PMYSQL; const Host, User, Passwd, Db: PAnsiChar; Port: UInt; const UnixSocket: PAnsiChar; ClientFlag: ULong): PMYSQL; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_real_escape_string:     function (mysql: PMYSQL; PTo: PAnsiChar; const PFrom: PAnsiChar; length: ULong): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_real_query:             function (mysql: PMYSQL; const Query: PAnsiChar; Length: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_refresh:                function (mysql: PMYSQL; Options: UInt): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_row_seek:               function (Result: PMYSQL_RES; Offset: PMYSQL_ROWS): PMYSQL_ROWS; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_row_tell:               function (Result: PMYSQL_RES): PMYSQL_ROWS; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_select_db:              function (mysql: PMYSQL; const Db: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_ssl_set:                function (mysql: PMYSQL; const key, cert, CA, CApath, cipher: PAnsiChar): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stat:                   function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_store_result:           function (mysql: PMYSQL): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_thread_id:              function (mysql: PMYSQL): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_use_result:             function (mysql: PMYSQL): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+        
+         my_init:                      procedure; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_thread_init:            function: Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_thread_end:             procedure; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_thread_safe:            function: UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+        
+         mysql_server_init:            function (Argc: Integer; Argv, Groups: Pointer): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF}; //deprecated
+         mysql_library_init:           function (Argc: Integer; Argv, Groups: Pointer): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_server_end:             procedure; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF}; //deprecated
+         mysql_library_end:            procedure; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+         mysql_change_user:            function (mysql: PMYSQL; const user: PAnsiChar; const passwd: PAnsiChar; const db: PAnsiChar): Byte;
+         mysql_field_count:            function (mysql: PMYSQL): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_client_version:     function: ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+         mysql_send_query:             function (mysql: PMYSQL; const query: PAnsiChar; length: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_read_query_result:      function (mysql: PMYSQL): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+         mysql_autocommit:             function (mysql: PMYSQL; const mode: Byte): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_commit:                 function (mysql: PMYSQL): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_get_server_version:     function (mysql: PMYSQL): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_hex_string:             function (PTo, PFrom: PAnsiChar; Len: ULong): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_more_results:           function (mysql: PMYSQL): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_next_result:            function (mysql: PMYSQL): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_rollback:               function (mysql: PMYSQL): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_set_character_set:      function (mysql: PMYSQL; const csname: PAnsiChar): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_set_server_option:      function (mysql: PMYSQL; Option: TMysqlSetOption): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_shutdown:               function (mysql: PMYSQL; shutdown_level: TMysqlShutdownLevel): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_sqlstate:               function (mysql: PMYSQL): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_warning_count:          function (mysql: PMYSQL): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         {BELOW are new PREPARED STATEMENTS}
+         mysql_stmt_affected_rows:     function (stmt: PMYSQL_STMT): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_attr_get:          function (stmt: PMYSQL_STMT; option: TMysqlStmtAttrType; arg: PAnsiChar): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_attr_set517UP:     function (stmt: PMYSQL_STMT; option: TMysqlStmtAttrType; const arg: Pointer): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_attr_set:          function (stmt: PMYSQL_STMT; option: TMysqlStmtAttrType; const arg: Pointer): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_bind_param:        function (stmt: PMYSQL_STMT; bind: Pointer{BIND record}): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_bind_result:       function (stmt: PMYSQL_STMT; bind: Pointer{BIND record}): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_close:             function (stmt: PMYSQL_STMT): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_data_seek:         procedure (stmt: PMYSQL_STMT; offset: ULongLong); {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_errno:             function (stmt: PMYSQL_STMT): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_error:             function (stmt: PMYSQL_STMT): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_execute:           function (stmt: PMYSQL_STMT): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_fetch:             function (stmt: PMYSQL_STMT): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_fetch_column:      function (stmt: PMYSQL_STMT; bind: Pointer{BIND record}; column: UInt; offset: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_field_count:       function (stmt: PMYSQL_STMT): UInt; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_free_result:       function (stmt: PMYSQL_STMT): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_init:              function (mysql: PMYSQL): PMYSQL_STMT; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_insert_id:         function (stmt: PMYSQL_STMT): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_next_result:       function (stmt: PMYSQL_STMT): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_num_rows:          function (stmt: PMYSQL_STMT): ULongLong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_param_count:       function (stmt: PMYSQL_STMT): ULong; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_param_metadata:    function (stmt: PMYSQL_STMT): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_prepare:           function (stmt: PMYSQL_STMT; const query: PAnsiChar; length: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_reset:             function (stmt: PMYSQL_STMT): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_result_metadata:   function (stmt: PMYSQL_STMT): PMYSQL_RES; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_row_seek:          function (stmt: PMYSQL_STMT; offset: PMYSQL_ROWS): PMYSQL_ROWS; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_row_tell:          function (stmt: PMYSQL_STMT): PMYSQL_ROWS; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_send_long_data:    function (stmt: PMYSQL_STMT; parameter_number: UInt; const data: PAnsiChar; length: ULong): Byte; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_sqlstate:          function (stmt: PMYSQL_STMT): PAnsiChar; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mysql_stmt_store_result:      function (stmt: PMYSQL_STMT): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+        
+         mariadb_stmt_execute_direct:  function (stmt: PMYSQL_STMT; query: PAnsiChar; Length: ULong): Integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mariadb_cancel: function (mysql: PMYSQL): integer; {$IFDEF MSWINDOWS} stdcall {$ELSE} cdecl {$ENDIF};
+         mariadb_reconnect: function (mysql: PMYSQL): my_bool;
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> IsMariaDBDriver: Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> Debug (Debug: PAnsiChar);
+         <span style="color:navy"><b>FUNCTION</b></span> DumpDebugInfo (mysql: PMYSQL): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetLastError (mysql: PMYSQL): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> GetLastErrorCode (mysql: PMYSQL): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Init (const mysql: PMYSQL): PMYSQL; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetLastInsertID (mysql: PMYSQL): Int64;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Connect (mysql: PMYSQL;
+           const Host, User, Password: PAnsiChar): PMYSQL;
+         <span style="color:navy"><b>FUNCTION</b></span> RealConnect (mysql: PMYSQL;
+           const Host, User, Password, Db: PAnsiChar; Port: Cardinal;
+           UnixSocket: PAnsiChar; ClientFlag: Cardinal): PMYSQL;
+         <span style="color:navy"><b>PROCEDURE</b></span> Close (mysql: PMYSQL);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> ExecQuery (mysql: PMYSQL; const Query: PAnsiChar): Integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ExecRealQuery (mysql: PMYSQL; const Query: PAnsiChar;
+           Length: Integer): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> SelectDatabase (mysql: PMYSQL;
+           const Database: PAnsiChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> SslSet (mysql: PMYSQL; const Key, Cert, Ca, Capath, Cipher: PAnsiChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> CreateDatabase (mysql: PMYSQL;
+           const Database: PAnsiChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> DropDatabase (mysql: PMYSQL;
+           const Database: PAnsiChar): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Shutdown (mysql: PMYSQL; shutdown_level: TMysqlShutdownLevel = ZPlainMySqlConstants.SHUTDOWN_DEFAULT): Integer; // 2 versions!!
+         <span style="color:navy"><b>FUNCTION</b></span> SetAutocommit (mysql: PMYSQL; mode: Boolean): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> Commit (mysql: PMYSQL): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> CheckAnotherRowset   (mysql: PMYSQL): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> RetrieveNextRowset   (mysql: PMYSQL): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Rollback (mysql: PMYSQL): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSQLState (mysql: PMYSQL): {$IFNDEF NO_ANSISTRING}AnsiString{$ELSE}RawByteString{$ENDIF};
+        
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_attr_set (stmt: PMYSQL_STMT; option: TMysqlStmtAttrType;
+                                       arg: Pointer): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_affected_rows (stmt: PMYSQL_STMT): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_bind_param (stmt: PMYSQL_STMT; bindArray: PZMysqlBindArray): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_bind_result (stmt: PMYSQL_STMT;  bindArray: PZMysqlBindArray): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_close (stmt: PMYSQL_STMT): Byte;
+         <span style="color:navy"><b>PROCEDURE</b></span> stmt_data_seek (stmt: PMYSQL_STMT; Offset: Cardinal);
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_errno (stmt: PMYSQL_STMT): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_error (stmt: PMYSQL_STMT): {$IFNDEF NO_ANSISTRING}AnsiString{$ELSE}RawByteString{$ENDIF};
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_execute (stmt: PMYSQL_STMT): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_fetch (stmt: PMYSQL_STMT): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_fetch_column (stmt: PMYSQL_STMT; bind: Pointer{BIND record};
+           column: UInt; offset: ULong): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_field_count (stmt: PMYSQL_STMT): UInt;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_free_result (stmt: PMYSQL_STMT): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_init (mysql: PMYSQL): PMYSQL_STMT;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_insert_id (stmt: PMYSQL_STMT): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_next_result (stmt: PMYSQL_STMT): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_num_rows (stmt: PMYSQL_STMT): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_param_count (stmt: PMYSQL_STMT): Cardinal;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_param_metadata (stmt: PMYSQL_STMT): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_prepare (stmt: PMYSQL_STMT; const Query: PAnsiChar; Length: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_reset (stmt: PMYSQL_STMT): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_result_metadata (stmt: PMYSQL_STMT): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_row_seek (stmt: PMYSQL_STMT; Row: PZMySQLRowOffset): PZMySQLRowOffset;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_send_long_data (stmt: PMYSQL_STMT; parameter_number: Cardinal; const data: PAnsiChar; length: Cardinal): Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_sqlstate (stmt: PMYSQL_STMT): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_store_result (stmt: PMYSQL_STMT): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> stmt_execute_direct (stmt: PMYSQL_STMT; query: PAnsiChar; Length: ULong): Integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> GetCharacterSetInfo (mysql: PMYSQL; CharSetInfo: PMY_CHARSET_INFO);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Refresh (mysql: PMYSQL; Options: Cardinal): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Kill (mysql: PMYSQL; Pid: LongInt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Ping (mysql: PMYSQL): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetStatInfo (mysql: PMYSQL): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> SetOptions (mysql: PMYSQL; Option: TMySQLOption;
+           const Arg: Pointer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> EscapeString (mysql: PMYSQL; PTo: PAnsiChar; const PFrom: PAnsiChar; length: ULong): ULong;
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerInfo (mysql: PMYSQL): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientInfo: PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> GetHostInfo (mysql: PMYSQL): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtoInfo (mysql: PMYSQL): Cardinal;
+         <span style="color:navy"><b>FUNCTION</b></span> GetThreadId (mysql: PMYSQL): Cardinal;
+         {ADDED by fduenas 15-06-2006}
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientVersion: Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerVersion (mysql: PMYSQL): Integer;
+         {END ADDED by fduenas 15-06-2006}
+         <span style="color:navy"><b>FUNCTION</b></span> GetListDatabases (mysql: PMYSQL;
+           Wild: PAnsiChar): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> GetListTables (mysql: PMYSQL;
+           const Wild: PAnsiChar): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNumRows (Res: PZMySQLResult): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> GetListFields (mysql: PMYSQL;
+           const Table, Wild: PAnsiChar): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> GetListProcesses (mysql: PMYSQL): PZMySQLResult;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> StoreResult (mysql: PMYSQL): PZMySQLResult;
+         <span style="color:navy"><b>FUNCTION</b></span> use_result (mysql: PMYSQL): PZMySQLResult;
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeResult (Res: PZMySQLResult);
+         <span style="color:navy"><b>FUNCTION</b></span> GetAffectedRows (mysql: PMYSQL): Int64;
+         {ADDED by EgonHugeist}
+         <span style="color:navy"><b>FUNCTION</b></span> character_set_name (mysql: PMYSQL): PAnsiChar;// char_set_name
+         <span style="color:navy"><b>FUNCTION</b></span> set_character_set (mysql: PMYSQL; const csname: PAnsiChar): Integer; // set_character_set Returns 0 if valid
+        
+         <span style="color:navy"><b>FUNCTION</b></span> FetchRow (Res: PZMySQLResult): PZMySQLRow;
+         <span style="color:navy"><b>FUNCTION</b></span> FetchLengths (Res: PZMySQLResult): PULongArray;
+         <span style="color:navy"><b>FUNCTION</b></span> FetchField (Res: PZMySQLResult): PMYSQL_FIELD;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SeekData (Res: PZMySQLResult; Offset: Cardinal);
+         <span style="color:navy"><b>FUNCTION</b></span> SeekRow (Res: PZMySQLResult; Row: PZMySQLRowOffset):
+           PZMySQLRowOffset;
+         <span style="color:navy"><b>FUNCTION</b></span> SeekField (Res: PZMySQLResult; Offset: Cardinal): Cardinal;
+         <span style="color:navy"><b>FUNCTION</b></span> num_fields (Res: PZMySQLResult): UInt;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> field_count (mysql: PMYSQL): UInt;
+         <span style="color:navy"><b>FUNCTION</b></span> GetRowCount (Res: PZMySQLResult): Int64;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetDriverOptions (Options: TStrings); <span style="color:teal"><b>VIRTUAL</b></span>; // changed by tohenk, 2009-10-11
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmysql41plaindriver" name="tzmysql41plaindriver">TZMySQL41PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysqlplaindriver">TZMySQLPlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmysqld41plaindriver" name="tzmysqld41plaindriver">TZMySQLD41PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysql41plaindriver">TZMySQL41PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmysql5plaindriver" name="tzmysql5plaindriver">TZMySQL5PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysqlplaindriver">TZMySQLPlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmysqld5plaindriver" name="tzmysqld5plaindriver">TZMySQLD5PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysql5plaindriver">TZMySQL5PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmariadb5plaindriver" name="tzmariadb5plaindriver">TZMariaDB5PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysql5plaindriver">TZMySQL5PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmariadb10plaindriver" name="tzmariadb10plaindriver">TZMariaDB10PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzmysql5plaindriver">TZMySQL5PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

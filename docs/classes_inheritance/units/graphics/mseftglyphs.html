@@ -1,0 +1,56 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory graphics</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseftglyphs;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tftglyphs" name="tftglyphs">tftglyphs</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const afontfile: filenamety; const afontindex: int32;
+                                             const aheight: int32); //pixels
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getglyph (const abitmap: tmaskedbitmap; const achar: card32;
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getglyph (const abitmap: tmaskedbitmap; const achar: card32;
+                                  const aframe: framety; //padding
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getglyph (const abitmap: tmaskedbitmap; const achar: card32;
+                                  const arotation: real; //0.0..1.0 -> 0..360deg CCW
+                                  const aframe: framety; //padding
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getcell (const abitmap: tmaskedbitmap; const achar: card32;
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getcell (const abitmap: tmaskedbitmap; const achar: card32;
+                                  const aframe: framety; //padding
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getcell (const abitmap: tmaskedbitmap; const achar: card32;
+                                  const arotation: real; //0.0..1.0 -> 0..360deg CCW
+                                  const aframe: framety; //padding
+                                     const acolor: colorty = cl_text): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> height: int32 <span style="color:navy"><b>READ</b></span> fheight <span style="color:navy"><b>WRITE</b></span> setheight;
+        <span style="color:navy"><b>PROPERTY</b></span> ascent: int32 <span style="color:navy"><b>READ</b></span> fascent;
+        <span style="color:navy"><b>PROPERTY</b></span> descent: int32 <span style="color:navy"><b>READ</b></span> fdescent;
+        <span style="color:navy"><b>PROPERTY</b></span> glyphheight: int32 <span style="color:navy"><b>READ</b></span> fglyphheight;
+        <span style="color:navy"><b>PROPERTY</b></span> linespacing: int32 <span style="color:navy"><b>READ</b></span> flinespacing;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

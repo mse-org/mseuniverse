@@ -1,0 +1,92 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZUpdateSqlEditor;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzupdatesqleditform" name="tzupdatesqleditform">TZUpdateSQLEditForm</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tform">TForm</a>)
+      PUBLIC
+         Label2: TLabel;
+         Label3: TLabel;
+         Label4: TLabel;
+         GenerateButton: TButton;
+         Panel1: TPanel;
+         PrimaryKeyButton: TButton;
+         DefaultButton: TButton;
+         UpdateTableName: TComboBox;
+         FieldsPage: TTabSheet;
+         SQLPage: TTabSheet;
+         PageControl: TPageControl;
+         KeyFieldList: TListBox;
+         UpdateFieldList: TListBox;
+         GroupBox1: TGroupBox;
+         Label1: TLabel;
+         SQLMemo: TMemo;
+         StatementType: TRadioGroup;
+         QuoteFields: TCheckBox;
+         GetTableFieldsButton: TButton;
+         FieldListPopup: TPopupMenu;
+         miSelectAll: TMenuItem;
+         miClearAll: TMenuItem;
+         OkButton: TButton;
+         CancelButton: TButton;
+         HelpButton: TButton;
+         <span style="color:navy"><b>PROCEDURE</b></span> FormCreate (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> FormResize (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> HelpButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> StatementTypeClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> OkButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> DefaultButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> GenerateButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> PrimaryKeyButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> PageControlChanging (Sender: TObject;
+           var AllowChange: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> FormDestroy (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetTableFieldsButtonClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> SettingsChanged (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> FormCloseQuery (Sender: TObject; var CanClose: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateTableNameChange (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateTableNameClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> SelectAllClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearAllClick (Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> SQLMemoKeyPress (Sender: TObject; var Key: Char);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TSQLParser" name="tsqlparser">TSQLParser</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Text, QuoteString: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetSelectTableNames (List: TStrings);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetUpdateTableName (var TableName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetUpdateFields (List: TStrings);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetWhereFields (List: TStrings);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzupdatesqleditor" name="tzupdatesqleditor">TZUpdateSqlEditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponenteditor">TComponentEditor</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> ExecuteVerb (Index: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetVerb (Index: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetVerbCount: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

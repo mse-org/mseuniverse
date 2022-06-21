@@ -1,0 +1,384 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedblookup;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupdispfielddatalink" name="tlookupdispfielddatalink">tlookupdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdispfielddatalink">tdispfielddatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdataedit;
+                                const adatatype: lookupdatatypety;
+                                         const intf: idblookupdispfieldlink);
+        <span style="color:navy"><b>FUNCTION</b></span> msedisplaytext (const aformat: msestring = '';
+                               const aedit: boolean = false): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource1 <span style="color:navy"><b>WRITE</b></span> setwidgetdatasource;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupdatalink" name="tlookupdatalink">tlookupdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddatalink">tfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupdbdispfielddatalink" name="tlookupdbdispfielddatalink">tlookupdbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupdispfielddatalink">tlookupdispfielddatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdataedit;
+                               const adatatype: lookupdatatypety;
+                                         const intf: idblookupdbdispfieldlink);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupdatasource: tdatasource <span style="color:navy"><b>READ</b></span> getlookupdatasource
+                                                     <span style="color:navy"><b>WRITE</b></span> setlookupdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfield: string <span style="color:navy"><b>READ</b></span> getlookupkeyfield 
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupkeyfield;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefield: string <span style="color:navy"><b>READ</b></span> getlookupvaluefield 
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupvaluefield;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookuplbdispfielddatalink" name="tlookuplbdispfielddatalink">tlookuplbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupdispfielddatalink">tlookupdispfielddatalink</a>,
+                        ilookupbufferfieldinfo,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdataedit; 
+                                const adatatype: lookupdatatypety;
+                                         const intf: idblookuplbdispfieldlink);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer 
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupkeyfieldno 
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupvaluefieldno
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookup32lbdispfielddatalink" name="tlookup32lbdispfielddatalink">tlookup32lbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookuplbdispfielddatalink">tlookuplbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookup64lbdispfielddatalink" name="tlookup64lbdispfielddatalink">tlookup64lbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookuplbdispfielddatalink">tlookuplbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupstrlbdispfielddatalink" name="tlookupstrlbdispfielddatalink">tlookupstrlbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookuplbdispfielddatalink">tlookuplbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookup32dbdispfielddatalink" name="tlookup32dbdispfielddatalink">tlookup32dbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupdbdispfielddatalink">tlookupdbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookup64dbdispfielddatalink" name="tlookup64dbdispfielddatalink">tlookup64dbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupdbdispfielddatalink">tlookupdbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupstrdbdispfielddatalink" name="tlookupstrdbdispfielddatalink">tlookupstrdbdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupdbdispfielddatalink">tlookupdbdispfielddatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup1" name="tdblookup1">tdblookup1</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdataedit">tcustomdataedit</a>,idblookupdispfieldlink,idbdispfieldlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> isnull: boolean <span style="color:navy"><b>READ</b></span> getisnull;
+      PUBLISHED
+        
+        <span style="color:navy"><b>PROPERTY</b></span> empty_color;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_font;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_fontstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_options;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolorbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit <span style="color:navy"><b>DEFAULT</b></span> defaultlookupoptionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ongettext;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup" name="tdblookup">tdblookup</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup1">tdblookup1</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookupdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookupdb" name="tdblookupdb">tdblookupdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup">tdblookup</a>,idblookupdbdispfieldlink)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookupdbdispfielddatalink <span style="color:navy"><b>READ</b></span> getdatalink 
+                                                         <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup32db" name="tdblookup32db">tdblookup32db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupdb">tdblookupdb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup64db" name="tdblookup64db">tdblookup64db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupdb">tdblookupdb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookupstrdb" name="tdblookupstrdb">tdblookupstrdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupdb">tdblookupdb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookuplb" name="tdblookuplb">tdblookuplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup">tdblookup</a>,idblookuplbdispfieldlink)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tlookuplbdispfielddatalink <span style="color:navy"><b>READ</b></span> getdatalink 
+                                                            <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> getlookupbuffer
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupbuffer; deprecated;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup32lb" name="tdblookup32lb">tdblookup32lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookuplb">tdblookuplb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookup64lb" name="tdblookup64lb">tdblookup64lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookuplb">tdblookuplb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookupstrlb" name="tdblookupstrlb">tdblookupstrlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookuplb">tdblookuplb</a>,ireccontrol)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookuplb" name="tdbstringlookuplb">tdbstringlookuplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32lb">tdblookup32lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookup64lb" name="tdbstringlookup64lb">tdbstringlookup64lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64lb">tdblookup64lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookupstrlb" name="tdbstringlookupstrlb">tdbstringlookupstrlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrlb">tdblookupstrlb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookupdb" name="tdbstringlookupdb">tdbstringlookupdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32db">tdblookup32db</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookup64db" name="tdbstringlookup64db">tdbstringlookup64db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64db">tdblookup64db</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringlookupstrdb" name="tdbstringlookupstrdb">tdbstringlookupstrdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrdb">tdblookupstrdb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookuplb" name="tdbintegerlookuplb">tdbintegerlookuplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32lb">tdblookup32lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookup64lb" name="tdbintegerlookup64lb">tdbintegerlookup64lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64lb">tdblookup64lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookupstrlb" name="tdbintegerlookupstrlb">tdbintegerlookupstrlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrlb">tdblookupstrlb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookupdb" name="tdbintegerlookupdb">tdbintegerlookupdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32db">tdblookup32db</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookup64db" name="tdbintegerlookup64db">tdbintegerlookup64db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64db">tdblookup64db</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerlookupstrdb" name="tdbintegerlookupstrdb">tdbintegerlookupstrdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrdb">tdblookupstrdb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aaowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookuplb" name="tdbreallookuplb">tdbreallookuplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32lb">tdblookup32lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookup64lb" name="tdbreallookup64lb">tdbreallookup64lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64lb">tdblookup64lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookupstrlb" name="tdbreallookupstrlb">tdbreallookupstrlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrlb">tdblookupstrlb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookupdb" name="tdbreallookupdb">tdbreallookupdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32db">tdblookup32db</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookup64db" name="tdbreallookup64db">tdbreallookup64db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64db">tdblookup64db</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbreallookupstrdb" name="tdbreallookupstrdb">tdbreallookupstrdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrdb">tdblookupstrdb</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: real <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookuplb" name="tdbdatetimelookuplb">tdbdatetimelookuplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32lb">tdblookup32lb</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookup64lb" name="tdbdatetimelookup64lb">tdbdatetimelookup64lb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64lb">tdblookup64lb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookupstrlb" name="tdbdatetimelookupstrlb">tdbdatetimelookupstrlb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrlb">tdblookupstrlb</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookupdb" name="tdbdatetimelookupdb">tdbdatetimelookupdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup32db">tdblookup32db</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookup64db" name="tdbdatetimelookup64db">tdbdatetimelookup64db</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookup64db">tdblookup64db</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimelookupstrdb" name="tdbdatetimelookupstrdb">tdbdatetimelookupstrdb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdblookupstrdb">tdblookupstrdb</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

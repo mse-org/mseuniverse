@@ -1,0 +1,160 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory audio</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msespeak;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvoice" name="tvoice">tvoice</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistent">townedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> identifier: msestring <span style="color:navy"><b>READ</b></span> fidentifier <span style="color:navy"><b>WRITE</b></span> setidentifier;
+        <span style="color:navy"><b>PROPERTY</b></span> voicename: msestring <span style="color:navy"><b>READ</b></span> fvoicename <span style="color:navy"><b>WRITE</b></span> setvoicename;
+        <span style="color:navy"><b>PROPERTY</b></span> variant: msestring <span style="color:navy"><b>READ</b></span> fvariant <span style="color:navy"><b>WRITE</b></span> setvariant;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> language: msestring <span style="color:navy"><b>READ</b></span> flanguage <span style="color:navy"><b>WRITE</b></span> setlanguage;
+        <span style="color:navy"><b>PROPERTY</b></span> variantnum: card8 <span style="color:navy"><b>READ</b></span> fvariantnum <span style="color:navy"><b>WRITE</b></span> setvariantnum <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> gender: genderty <span style="color:navy"><b>READ</b></span> fgender <span style="color:navy"><b>WRITE</b></span> setgender <span style="color:navy"><b>DEFAULT</b></span> gen_none;
+        <span style="color:navy"><b>PROPERTY</b></span> age: card8 <span style="color:navy"><b>READ</b></span> fage <span style="color:navy"><b>WRITE</b></span> setage <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rate: int32 <span style="color:navy"><b>READ</b></span> frate <span style="color:navy"><b>WRITE</b></span> setrate <span style="color:navy"><b>DEFAULT</b></span> espeakRATE_NORMAL;
+          {espeakRATE:    speaking speed in word per minute.  Values 80 to 450.}
+        <span style="color:navy"><b>PROPERTY</b></span> volume: int32 <span style="color:navy"><b>READ</b></span> fvolume <span style="color:navy"><b>WRITE</b></span> setvolume <span style="color:navy"><b>DEFAULT</b></span> 100;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> pitch: int32 <span style="color:navy"><b>READ</b></span> fpitch <span style="color:navy"><b>WRITE</b></span> setpitch <span style="color:navy"><b>DEFAULT</b></span> 50;
+          {espeakPITCH:   base pitch, range 0-100.  50=normal}
+        <span style="color:navy"><b>PROPERTY</b></span> range: int32 <span style="color:navy"><b>READ</b></span> frange <span style="color:navy"><b>WRITE</b></span> setrange <span style="color:navy"><b>DEFAULT</b></span> 50;
+          {espeakRANGE:   pitch range, range 0-100. 0-monotone, 50=normal}
+        <span style="color:navy"><b>PROPERTY</b></span> punctuationlist: msestring <span style="color:navy"><b>READ</b></span> fpunctuationlist
+                                                      <span style="color:navy"><b>WRITE</b></span> setpunctuationlist;
+        <span style="color:navy"><b>PROPERTY</b></span> punctuation: punctuationty <span style="color:navy"><b>READ</b></span> fpunctuation
+                               <span style="color:navy"><b>WRITE</b></span> setpunctuation <span style="color:navy"><b>DEFAULT</b></span> pu_none;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> capitals: int32 <span style="color:navy"><b>READ</b></span> fcapitals <span style="color:navy"><b>WRITE</b></span> setcapitals <span style="color:navy"><b>DEFAULT</b></span> -1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> wordgap: int32 <span style="color:navy"><b>READ</b></span> fwordgap <span style="color:navy"><b>WRITE</b></span> setwordgap <span style="color:navy"><b>DEFAULT</b></span> -1;
+          {espeakWORDGAP:  pause between words, units of 10mS (at the <span style="color:navy"><b>DEFAULT</b></span> speed)}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvoices" name="tvoices">tvoices</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomespeakng); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: int32]: tvoice <span style="color:navy"><b>READ</b></span> getitems
+                                                     <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tspeakevent" name="tspeakevent">tspeakevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseevent">tmseevent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const text: msestring; const options: speakoptionsty;
+                                                              const voice: int32);
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const achar: char32; const options: speakoptionsty;
+                                                              const voice: int32);
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createkey (const key: msestring; const options: speakoptionsty;
+                                                              const voice: int32);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tspeakthread" name="tspeakthread">tspeakthread</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventthread">teventthread</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const athreadproc: threadprocty;
+                          const afreeonterminate: boolean = false;
+                          const astacksizekb: integer = 0); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearevents () <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomespeakng" name="tcustomespeakng">tcustomespeakng</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> speak (const atext: msestring; const aoptions: speakoptionsty = [];
+                             const avoice: int32 = -1); //-1 -> default
+        <span style="color:navy"><b>PROCEDURE</b></span> speakcharacter (const achar: char32;
+                                  const aoptions: speakoptionsty = [];
+                                     const avoice: int32 = -1); //-1 -> default
+        <span style="color:navy"><b>PROCEDURE</b></span> speakkeyname (const akey: msestring;
+                                  const aoptions: speakoptionsty = [];
+                                     const avoice: int32 = -1); //-1 -> default
+        <span style="color:navy"><b>PROCEDURE</b></span> wait ();
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel ();
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> datapath: filenamety <span style="color:navy"><b>READ</b></span> fdatapath <span style="color:navy"><b>WRITE</b></span> fdatapath;
+        <span style="color:navy"><b>PROPERTY</b></span> options: espeakoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions
+                                                   <span style="color:navy"><b>DEFAULT</b></span> defaultespeakoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> device: msestring <span style="color:navy"><b>READ</b></span> fdevice <span style="color:navy"><b>WRITE</b></span> fdevice;
+        <span style="color:navy"><b>PROPERTY</b></span> bufferlength: int32 <span style="color:navy"><b>READ</b></span> fbufferlength
+                                               <span style="color:navy"><b>WRITE</b></span> fbufferlength <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> voicedefault: int32 <span style="color:navy"><b>READ</b></span> fvoicedefault
+                                        <span style="color:navy"><b>WRITE</b></span> setvoice<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> voices: tvoices <span style="color:navy"><b>READ</b></span> fvoices <span style="color:navy"><b>WRITE</b></span> setvoices;
+        <span style="color:navy"><b>PROPERTY</b></span> identifier: msestring <span style="color:navy"><b>READ</b></span> fidentifier <span style="color:navy"><b>WRITE</b></span> setidentifier;
+        <span style="color:navy"><b>PROPERTY</b></span> voicename: msestring <span style="color:navy"><b>READ</b></span> fvoicename <span style="color:navy"><b>WRITE</b></span> setvoicename;
+        <span style="color:navy"><b>PROPERTY</b></span> variant: msestring <span style="color:navy"><b>READ</b></span> fvariant <span style="color:navy"><b>WRITE</b></span> setvariant;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> language: msestring <span style="color:navy"><b>READ</b></span> flanguage <span style="color:navy"><b>WRITE</b></span> setlanguage;
+        <span style="color:navy"><b>PROPERTY</b></span> gender: genderty <span style="color:navy"><b>READ</b></span> fgender <span style="color:navy"><b>WRITE</b></span> setgender <span style="color:navy"><b>DEFAULT</b></span> gen_none;
+        <span style="color:navy"><b>PROPERTY</b></span> age: card8 <span style="color:navy"><b>READ</b></span> fage <span style="color:navy"><b>WRITE</b></span> setage <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> variantnum: card8 <span style="color:navy"><b>READ</b></span> fvariantnum <span style="color:navy"><b>WRITE</b></span> setvariantnum <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> volume: flo64 <span style="color:navy"><b>READ</b></span> fvolume <span style="color:navy"><b>WRITE</b></span> setvolume;    //<span style="color:navy"><b>DEFAULT</b></span> 1.0
+        <span style="color:navy"><b>PROPERTY</b></span> rate: flo64 <span style="color:navy"><b>READ</b></span> frate <span style="color:navy"><b>WRITE</b></span> setrate;          //<span style="color:navy"><b>DEFAULT</b></span> 1.0
+        <span style="color:navy"><b>PROPERTY</b></span> pitch: flo64 <span style="color:navy"><b>READ</b></span> fpitch <span style="color:navy"><b>WRITE</b></span> setpitch;       //<span style="color:navy"><b>DEFAULT</b></span> 1.0
+        <span style="color:navy"><b>PROPERTY</b></span> range: flo64 <span style="color:navy"><b>READ</b></span> frange <span style="color:navy"><b>WRITE</b></span> setrange;       //<span style="color:navy"><b>DEFAULT</b></span> 1.0
+        <span style="color:navy"><b>PROPERTY</b></span> capitals: int32 <span style="color:navy"><b>READ</b></span> fcapitals <span style="color:navy"><b>WRITE</b></span> setcapitals <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> wordgap: int32 <span style="color:navy"><b>READ</b></span> fwordgap <span style="color:navy"><b>WRITE</b></span> setwordgap <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> punctuationlist: msestring <span style="color:navy"><b>READ</b></span> fpunctuationlist
+                                                      <span style="color:navy"><b>WRITE</b></span> setpunctuationlist;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect: espeakngeventty <span style="color:navy"><b>READ</b></span> fonbeforeconnect
+                                                           <span style="color:navy"><b>WRITE</b></span> fonbeforeconnect;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tespeakng" name="tespeakng">tespeakng</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomespeakng">tcustomespeakng</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+        <span style="color:navy"><b>PROPERTY</b></span> datapath;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> device;
+        <span style="color:navy"><b>PROPERTY</b></span> bufferlength;
+        <span style="color:navy"><b>PROPERTY</b></span> voicedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> voices;
+        <span style="color:navy"><b>PROPERTY</b></span> language;
+        <span style="color:navy"><b>PROPERTY</b></span> identifier;
+        <span style="color:navy"><b>PROPERTY</b></span> voicename;
+        <span style="color:navy"><b>PROPERTY</b></span> variant;
+        <span style="color:navy"><b>PROPERTY</b></span> gender;
+        <span style="color:navy"><b>PROPERTY</b></span> age;
+        <span style="color:navy"><b>PROPERTY</b></span> variantnum;
+        <span style="color:navy"><b>PROPERTY</b></span> volume;
+        <span style="color:navy"><b>PROPERTY</b></span> rate;
+        <span style="color:navy"><b>PROPERTY</b></span> pitch;
+        <span style="color:navy"><b>PROPERTY</b></span> range;
+        <span style="color:navy"><b>PROPERTY</b></span> wordgap;
+        <span style="color:navy"><b>PROPERTY</b></span> punctuationlist;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

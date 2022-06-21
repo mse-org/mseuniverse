@@ -1,0 +1,150 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcAdoMetadata;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzadodatabaseinfo" name="tzadodatabaseinfo">TZAdoDatabaseInfo</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractdatabaseinfo">TZAbstractDatabaseInfo</a>, IZOleDBDatabaseInfo)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Metadata: TZAbstractDatabaseMetadata);
+         <span style="color:navy"><b>FUNCTION</b></span> GetDatabaseProductName: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDatabaseProductVersion: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverName: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverVersion: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverMajorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverMinorVersion: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerVersion: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMixedCaseIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMixedCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsExpressionsInOrderBy: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOrderByUnrelated: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupBy: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupByUnrelated: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupByBeyondSelect: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMultipleResultSets: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMultipleStorageObjects: Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMinimumSQLGrammar: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCoreSQLGrammar: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsExtendedSQLGrammar: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92EntryLevelSQL: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92IntermediateSQL: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92FullSQL: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsIntegrityEnhancementFacility: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInDataManipulation: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInProcedureCalls: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInTableDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInIndexDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInPrivilegeDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInDataManipulation: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInProcedureCalls: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInTableDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInIndexDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInPrivilegeDefinitions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOverloadPrefixInStoredProcedureName: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsParameterBinding: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsPositionedDelete: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsPositionedUpdate: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSelectForUpdate: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsStoredProcedures: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInComparisons: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInExists: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInIns: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInQuantifieds: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCorrelatedSubqueries: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUnion: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUnionAll: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenCursorsAcrossCommit: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenCursorsAcrossRollback: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenStatementsAcrossCommit: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenStatementsAcrossRollback: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsTransactions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsTransactionIsolationLevel (const {%H-}Level: TZTransactIsolationLevel):
+           Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsDataDefinitionAndDataManipulationTransactions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsDataManipulationTransactionsOnly: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsResultSetType (const {%H-}_Type: TZResultSetType): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsResultSetConcurrency (const {%H-}_Type: TZResultSetType;
+           const {%H-}Concurrency: TZResultSetConcurrency): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsNonEscapedSearchStrings: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUpdateAutoIncrementFields: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsArrayBindings: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxBinaryLiteralLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCharLiteralLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInGroupBy: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInIndex: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInOrderBy: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInSelect: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInTable: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxConnections: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCursorNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxIndexLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxSchemaNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxProcedureNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCatalogNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxRowSize: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxStatementLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxStatements: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxTableNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxTablesInSelect: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxUserNameLength: Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DoesMaxRowSizeIncludeBlobs: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedHigh: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedLow: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedAtStart: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedAtEnd: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullPlusNonNullIsNull: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> UsesLocalFilePerTable: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresUpperCaseIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresLowerCaseIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresMixedCaseIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresUpperCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresLowerCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresMixedCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDefaultTransactionIsolation: TZTransactIsolationLevel; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DataDefinitionCausesTransactionCommit: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DataDefinitionIgnoredInTransactions: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetSchemaTerm: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProcedureTerm: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogTerm: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogSeparator: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSQLKeywords: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNumericFunctions: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetStringFunctions: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSystemFunctions: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTimeDateFunctions: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSearchStringEscape: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetExtraNameCharacters: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> InitilizePropertiesFromDBInfo (const DBInitialize: IDBInitialize; const Malloc: IMalloc);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzadodatabasemetadata" name="tzadodatabasemetadata">TZAdoDatabaseMetadata</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractdatabasemetadata">TZAbstractDatabaseMetadata</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Connection: TZAbstractConnection; const Url: TZURL); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

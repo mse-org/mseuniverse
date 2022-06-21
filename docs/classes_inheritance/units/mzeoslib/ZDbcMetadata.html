@@ -1,0 +1,304 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcMetadata;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzvirtualresultset" name="tzvirtualresultset">TZVirtualResultSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractcachedresultset">TZAbstractCachedResultSet</a>, IZVirtualResultSet)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithStatement (const SQL: string; const Statement: IZStatement;
+           ConSettings: PZConSettings);
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateWithColumns (ColumnsInfo: TObjectList; const SQL: string;
+           ConSettings: PZConSettings);
+         <span style="color:navy"><b>PROCEDURE</b></span> ChangeRowNo (CurrentRowNo, NewRowNo: NativeInt);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzuncloseableresultset" name="tzuncloseableresultset">TZUnCloseableResultSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzvirtualresultset">TZVirtualResultSet</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> Close; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ResetCursor; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractdatabasemetadata" name="tzabstractdatabasemetadata">TZAbstractDatabaseMetadata</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcontainedobject">TContainedObject</a>, IZDatabaseMetadata)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Connection: TZAbstractConnection; const Url: TZURL); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetURL: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUserName: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetDatabaseInfo: IZDatabaseInfo; // technobot 2008-06-24 - see also CreateDatabaseInfo method.
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetTables (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string; const Types: TStringDynArray): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSchemas: IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogs: IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTableTypes: IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetColumns (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string; const ColumnNamePattern: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTablePrivileges (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetColumnPrivileges (const Catalog: string; const Schema: string;
+           const Table: string; const ColumnNamePattern: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPrimaryKeys (const Catalog: string; const Schema: string;
+           const Table: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetImportedKeys (const Catalog: string; const Schema: string;
+           const Table: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetExportedKeys (const Catalog: string; const Schema: string;
+           const Table: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCrossReference (const PrimaryCatalog: string; const PrimarySchema: string;
+           const PrimaryTable: string; const ForeignCatalog: string; const ForeignSchema: string;
+           const ForeignTable: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIndexInfo (const Catalog: string; const Schema: string; const Table: string;
+           Unique: Boolean; Approximate: Boolean): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCollationAndCharSet (const Catalog, Schema, TableName, ColumnName: String): IZResultSet; //EgonHugeist
+         <span style="color:navy"><b>FUNCTION</b></span> GetCharacterSets: IZResultSet; //EgonHugeist
+         <span style="color:navy"><b>FUNCTION</b></span> GetTriggers (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string; const TriggerNamePattern: string): IZResultSet; //EgonHugesit
+         <span style="color:navy"><b>FUNCTION</b></span> GetSequences (const Catalog: string; const SchemaPattern: string;
+           const SequenceNamePattern: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProcedures (const Catalog: string; const SchemaPattern: string;
+           const ProcedureNamePattern: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProcedureColumns (const Catalog: string; const SchemaPattern: string;
+           const ProcedureNamePattern: string; const ColumnNamePattern: string):
+           IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBestRowIdentifier (const Catalog: string; const Schema: string;
+           const Table: string; Scope: Integer; Nullable: Boolean): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetVersionColumns (const Catalog: string; const Schema: string;
+           const Table: string): IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTypeInfo: IZResultSet;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUDTs (const Catalog: string; const SchemaPattern: string;
+           const TypeNamePattern: string; const Types: TIntegerDynArray): IZResultSet;
+        
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetConnection: IZConnection; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetIdentifierConvertor: IZIdentifierConvertor; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearCache; <span style="color:teal"><b>OVERLOAD</b></span>;virtual;
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearCache (const Key: string);overload;virtual;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetTablesCacheKey (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string; const Types: TStringDynArray): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSchemasCacheKey: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogsCacheKey: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTableTypesCacheKey: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetColumnsCacheKey (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string; const ColumnNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetColumnPrivilegesCacheKey (const Catalog: string; const Schema: string;
+           const Table: string; const ColumnNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTablePrivilegesCacheKey (const Catalog: string; const SchemaPattern: string;
+           const TableNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPrimaryKeysCacheKey (const Catalog: string; const Schema: string;
+           const Table: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetImportedKeysCacheKey (const Catalog: string; const Schema: string;
+           const Table: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetExportedKeysCacheKey (const Catalog: string; const Schema: string;
+           const Table: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCrossReferenceCacheKey (const PrimaryCatalog: string; const PrimarySchema: string;
+           const PrimaryTable: string; const ForeignCatalog: string; const ForeignSchema: string;
+           const ForeignTable: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIndexInfoCacheKey (const Catalog: string; const Schema: string; const Table: string;
+           const Unique: Boolean; const Approximate: Boolean): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSequencesCacheKey (const Catalog: string; const SchemaPattern: string;
+           const SequenceNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCollationAndCharSetCacheKey (const Catalog, SchemaPattern,
+           TableNamePattern, ColumnPattern: String): string; //EgonHugeist
+         <span style="color:navy"><b>FUNCTION</b></span> GetCharacterSetsCacheKey: String; //EgonHugeist
+         <span style="color:navy"><b>FUNCTION</b></span> GetTriggersCacheKey (const Catalog: string;
+           const SchemaPattern: string; const TableNamePattern: string;
+           const TriggerNamePattern: string): string; //EgonHugeist
+         <span style="color:navy"><b>FUNCTION</b></span> GetProceduresCacheKey (const Catalog: string; const SchemaPattern: string;
+           const ProcedureNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProcedureColumnsCacheKey (const Catalog: string; const SchemaPattern: string;
+           const ProcedureNamePattern: string; const ColumnNamePattern: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBestRowIdentifierCacheKey (const Catalog: string; const Schema: string;
+           const Table: string; const Scope: Integer; const Nullable: Boolean): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetVersionColumnsCacheKey (const Catalog: string; const Schema: string;
+           const Table: string): string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTypeInfoCacheKey: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUDTsCacheKey (const Catalog: string; const SchemaPattern: string;
+           const TypeNamePattern: string; const Types: TIntegerDynArray): string;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> GetCacheKeys (List: TStrings);
+         <span style="color:navy"><b>PROPERTY</b></span> ConSettings: PZConSettings Read FConSettings <span style="color:navy"><b>WRITE</b></span> FConSettings;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractdatabaseinfo" name="tzabstractdatabaseinfo">TZAbstractDatabaseInfo</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinterfacedobject">TInterfacedObject</a>, IZDatabaseInfo)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Metadata: TZAbstractDatabaseMetadata); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Metadata: TZAbstractDatabaseMetadata;
+           const IdentifierQuotes: String); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetDatabaseProductName: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDatabaseProductVersion: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverName: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverVersion: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverMajorVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriverMinorVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerVersion: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> AllProceduresAreCallable: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> AllTablesAreSelectable: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMixedCaseIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMixedCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsAlterTableWithAddColumn: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsAlterTableWithDropColumn: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsColumnAliasing: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsConvert: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsConvertForTypes ({%H-}FromType: TZSQLType; {%H-}ToType: TZSQLType):
+           Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsTableCorrelationNames: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsDifferentTableCorrelationNames: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsExpressionsInOrderBy: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOrderByUnrelated: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupBy: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupByUnrelated: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsGroupByBeyondSelect: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsLikeEscapeClause: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMultipleResultSets: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMultipleTransactions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsNonNullableColumns: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMinimumSQLGrammar: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCoreSQLGrammar: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsExtendedSQLGrammar: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92EntryLevelSQL: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92IntermediateSQL: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsANSI92FullSQL: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsIntegrityEnhancementFacility: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOuterJoins: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsFullOuterJoins: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsLimitedOuterJoins: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInDataManipulation: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInProcedureCalls: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInTableDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInIndexDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSchemasInPrivilegeDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInDataManipulation: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInProcedureCalls: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInTableDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInIndexDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCatalogsInPrivilegeDefinitions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOverloadPrefixInStoredProcedureName: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsParameterBinding: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsPositionedDelete: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsPositionedUpdate: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSelectForUpdate: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsStoredProcedures: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInComparisons: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInExists: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInIns: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsSubqueriesInQuantifieds: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsCorrelatedSubqueries: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUnion: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUnionAll: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenCursorsAcrossCommit: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenCursorsAcrossRollback: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenStatementsAcrossCommit: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsOpenStatementsAcrossRollback: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsTransactions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsTransactionIsolationLevel (const {%H-}Level: TZTransactIsolationLevel):
+           Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsDataDefinitionAndDataManipulationTransactions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsDataManipulationTransactionsOnly: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsResultSetType (const {%H-}_Type: TZResultSetType): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsResultSetConcurrency (const {%H-}_Type: TZResultSetType;
+           const {%H-}Concurrency: TZResultSetConcurrency): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsBatchUpdates: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsNonEscapedSearchStrings: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsMilliSeconds: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsUpdateAutoIncrementFields: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> SupportsArrayBindings: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxBinaryLiteralLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCharLiteralLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInGroupBy: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInIndex: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInOrderBy: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInSelect: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxColumnsInTable: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxConnections: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCursorNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxIndexLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxSchemaNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxProcedureNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxCatalogNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxRowSize: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxStatementLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxStatements: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxTableNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxTablesInSelect: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMaxUserNameLength: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> IsReadOnly: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsCatalogAtStart: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DoesMaxRowSizeIncludeBlobs: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedHigh: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedLow: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedAtStart: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullsAreSortedAtEnd: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NullPlusNonNullIsNull: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> UsesLocalFiles: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> UsesLocalFilePerTable: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresUpperCaseIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresLowerCaseIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresMixedCaseIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresUpperCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresLowerCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> StoresMixedCaseQuotedIdentifiers: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDefaultTransactionIsolation: TZTransactIsolationLevel; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DataDefinitionCausesTransactionCommit: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DataDefinitionIgnoredInTransactions: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetIdentifierQuoteString: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSchemaTerm: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProcedureTerm: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogTerm: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogSeparator: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSQLKeywords: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIdentifierQuoteKeywordsSorted: TStringList;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNumericFunctions: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetStringFunctions: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSystemFunctions: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTimeDateFunctions: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSearchStringEscape: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetExtraNameCharacters: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdefaultidentifierconvertor" name="tzdefaultidentifierconvertor">TZDefaultIdentifierConvertor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>,
+    IZIdentifierConvertor)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Metadata: IZDatabaseMetadata);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetIdentifierCase (const Value: String; TestKeyWords: Boolean): TZIdentifierCase;
+         <span style="color:navy"><b>FUNCTION</b></span> IsCaseSensitive (const Value: string): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> IsQuoted (const Value: string): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Quote (const Value: string): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ExtractQuote (const Value: string): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

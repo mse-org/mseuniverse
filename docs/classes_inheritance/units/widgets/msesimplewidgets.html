@@ -1,0 +1,575 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesimplewidgets;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#teventwidget" name="teventwidget">teventwidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomeventwidget">tcustomeventwidget</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onfocusedwidgetchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onenter;
+        <span style="color:navy"><b>PROPERTY</b></span> onexit;
+        <span style="color:navy"><b>PROPERTY</b></span> onfocus;
+        <span style="color:navy"><b>PROPERTY</b></span> ondefocus;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onshow;
+        <span style="color:navy"><b>PROPERTY</b></span> onhide;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> ondeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onmove;
+        <span style="color:navy"><b>PROPERTY</b></span> onclosequery;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onasyncevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oncomponentevent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombutton" name="tcustombutton">tcustombutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactionsimplebutton">tactionsimplebutton</a>,iactionlink,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys () <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultbuttonwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultbuttonheight;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult: modalresultty <span style="color:navy"><b>READ</b></span> fmodalresult <span style="color:navy"><b>WRITE</b></span> fmodalresult
+                                     <span style="color:navy"><b>DEFAULT</b></span> mr_none;
+        <span style="color:navy"><b>PROPERTY</b></span> action: tcustomaction <span style="color:navy"><b>READ</b></span> factioninfo.action <span style="color:navy"><b>WRITE</b></span> setaction;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: captionty <span style="color:navy"><b>READ</b></span> getcaption <span style="color:navy"><b>WRITE</b></span> setcaption stored iscaptionstored;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> finfo.ca.textflags
+                              <span style="color:navy"><b>WRITE</b></span> settextflags <span style="color:navy"><b>DEFAULT</b></span> defaultcaptiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos: imageposty <span style="color:navy"><b>READ</b></span> finfo.ca.imagepos <span style="color:navy"><b>WRITE</b></span> setimagepos
+                                   <span style="color:navy"><b>DEFAULT</b></span> ip_center;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist: integer <span style="color:navy"><b>READ</b></span> finfo.ca.captiondist <span style="color:navy"><b>WRITE</b></span> setcaptiondist
+                                 <span style="color:navy"><b>DEFAULT</b></span> defaultshapecaptiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> getimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist
+                         stored isimageliststored;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> factioninfo.imagenr <span style="color:navy"><b>WRITE</b></span> setimagenr
+                                 stored isimagenrstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled: imagenrty <span style="color:navy"><b>READ</b></span> factioninfo.imagenrdisabled
+                                   <span style="color:navy"><b>WRITE</b></span> setimagenrdisabled
+                                 stored isimagenrdisabledstored <span style="color:navy"><b>DEFAULT</b></span> -2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist
+                                                   <span style="color:navy"><b>WRITE</b></span> setimagedist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist1
+                                              <span style="color:navy"><b>WRITE</b></span> setimagedist1 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist2
+                                              <span style="color:navy"><b>WRITE</b></span> setimagedist2 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> factioninfo.colorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                                        stored iscolorglyphstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut <span style="color:navy"><b>WRITE</b></span> setshortcut
+                                         stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcut1
+                                         stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts: shortcutarty <span style="color:navy"><b>READ</b></span> factioninfo.shortcut <span style="color:navy"><b>WRITE</b></span> setshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts1: shortcutarty <span style="color:navy"><b>READ</b></span> factioninfo.shortcut1
+                                                             <span style="color:navy"><b>WRITE</b></span> setshortcuts1;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate: buttoneventty <span style="color:navy"><b>READ</b></span> fonupdate <span style="color:navy"><b>WRITE</b></span> fonupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: notifyeventty <span style="color:navy"><b>READ</b></span> factioninfo.onexecute
+                   <span style="color:navy"><b>WRITE</b></span> setonexecute stored isonexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute: accepteventty <span style="color:navy"><b>READ</b></span> factioninfo.onbeforeexecute
+                   <span style="color:navy"><b>WRITE</b></span> setonbeforeexecute stored isonbeforeexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute: notifyeventty <span style="color:navy"><b>READ</b></span> factioninfo.onafterexecute
+                   <span style="color:navy"><b>WRITE</b></span> setonafterexecute stored isonafterexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cx: integer <span style="color:navy"><b>READ</b></span> fautosize_cx
+                                                 <span style="color:navy"><b>WRITE</b></span> setautosize_cx <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cy: integer <span style="color:navy"><b>READ</b></span> fautosize_cy
+                                                 <span style="color:navy"><b>WRITE</b></span> setautosize_cy <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> disabled: boolean <span style="color:navy"><b>READ</b></span> getdisabled <span style="color:navy"><b>WRITE</b></span> setdisabled;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options; //before state!
+        <span style="color:navy"><b>PROPERTY</b></span> visible stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled stored isenabledstored;
+        <span style="color:navy"><b>PROPERTY</b></span> state: actionstatesty <span style="color:navy"><b>READ</b></span> getstate <span style="color:navy"><b>WRITE</b></span> setstate
+                 stored isstatestored  <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbutton" name="tbutton">tbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombutton">tcustombutton</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cy;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstockglyphbutton" name="tstockglyphbutton">tstockglyphbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombutton">tcustombutton</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> glyph: stockglyphty <span style="color:navy"><b>READ</b></span> fglyph <span style="color:navy"><b>WRITE</b></span> setglyph <span style="color:navy"><b>DEFAULT</b></span> stg_none;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cy;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrichbutton" name="tcustomrichbutton">tcustomrichbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombutton">tcustombutton</a>,irichstringprop)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfaceactive;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfacedisabled;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfacemouse;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfaceclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> faceactive: tcustomface <span style="color:navy"><b>READ</b></span> getfaceactive <span style="color:navy"><b>WRITE</b></span> setfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> facemouse: tcustomface <span style="color:navy"><b>READ</b></span> getfacemouse <span style="color:navy"><b>WRITE</b></span> setfacemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> faceclicked: tcustomface <span style="color:navy"><b>READ</b></span> getfaceclicked <span style="color:navy"><b>WRITE</b></span> setfaceclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> facedisabled: tcustomface <span style="color:navy"><b>READ</b></span> getfacedisabled <span style="color:navy"><b>WRITE</b></span> setfacedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrmouse: imagenrty <span style="color:navy"><b>READ</b></span> fimagenrmouse
+                                             <span style="color:navy"><b>WRITE</b></span> setimagenrmouse <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrclicked: imagenrty <span style="color:navy"><b>READ</b></span> fimagenrclicked
+                                             <span style="color:navy"><b>WRITE</b></span> setimagenrclicked <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> captionrich: msestring <span style="color:navy"><b>READ</b></span> fcaptionrich
+                                        <span style="color:navy"><b>WRITE</b></span> setcaptionrich stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> richcaption: richstringty <span style="color:navy"><b>READ</b></span> finfo.ca.caption <span style="color:navy"><b>WRITE</b></span> setrichvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichbutton" name="trichbutton">trichbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrichbutton">tcustomrichbutton</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> facemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> faceclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> facedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cy;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionrich;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichstockglyphbutton" name="trichstockglyphbutton">trichstockglyphbutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrichbutton">tcustomrichbutton</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> glyph: stockglyphty <span style="color:navy"><b>READ</b></span> fglyph <span style="color:navy"><b>WRITE</b></span> setglyph <span style="color:navy"><b>DEFAULT</b></span> stg_none;
+        <span style="color:navy"><b>PROPERTY</b></span> faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> facemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> faceclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> facedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> autosize_cy;
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionrich;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomlabel" name="tcustomlabel">tcustomlabel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys () <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> fcaption <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty: twidgetfontempty <span style="color:navy"><b>READ</b></span> getfontempty
+                                 <span style="color:navy"><b>WRITE</b></span> setfontempty stored isfontemptystored;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags default
+                                  defaultlabeltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> options: labeloptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultlabeloptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaultlabeloptionswidget1;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultlabelwidgetwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultlabelwidgetheight;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlabel" name="tlabel">tlabel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlabel">tcustomlabel</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options; //first
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomicon" name="tcustomicon">tcustomicon</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenum: integer <span style="color:navy"><b>READ</b></span> fimagenum <span style="color:navy"><b>WRITE</b></span> setimagenum <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> fcolorglyph
+                                <span style="color:navy"><b>WRITE</b></span> setcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> fcolorbackground
+                                <span style="color:navy"><b>WRITE</b></span> setcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> opacity: colorty <span style="color:navy"><b>READ</b></span> fopacity
+                                <span style="color:navy"><b>WRITE</b></span> setopacity <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> alignment: alignmentsty <span style="color:navy"><b>READ</b></span> falignment
+                             <span style="color:navy"><b>WRITE</b></span> setalignment <span style="color:navy"><b>DEFAULT</b></span> [al_xcentered,al_ycentered];
+        <span style="color:navy"><b>PROPERTY</b></span> currentanimoffset: int32 <span style="color:navy"><b>READ</b></span> fcurrentanimoffset
+                                                  <span style="color:navy"><b>WRITE</b></span> setcurrentanimoffset;
+        <span style="color:navy"><b>PROCEDURE</b></span> animrestart ();
+        <span style="color:navy"><b>PROPERTY</b></span> anim_intervalus: int32 <span style="color:navy"><b>READ</b></span> fanim_intervalus
+                                      <span style="color:navy"><b>WRITE</b></span> setanim_intervalus <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_count: int32 <span style="color:navy"><b>READ</b></span> fanim_count <span style="color:navy"><b>WRITE</b></span> setanim_count <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_enabled: boolean <span style="color:navy"><b>READ</b></span> fanim_enabled write
+                                           setanim_enabled <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_options: animationoptionsty <span style="color:navy"><b>READ</b></span> fanim_options write
+                                           setanim_options <span style="color:navy"><b>DEFAULT</b></span> [];
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaulticonoptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaulticonoptionswidget1;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaulticonwidgetwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaulticonwidgetheight;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ticon" name="ticon">ticon</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomicon">tcustomicon</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenum;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> opacity;
+        <span style="color:navy"><b>PROPERTY</b></span> alignment;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_intervalus;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_count;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_enabled;
+        <span style="color:navy"><b>PROPERTY</b></span> anim_options;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgroupboxframe" name="tgroupboxframe">tgroupboxframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcaptionframe">tcaptionframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> options
+                <span style="color:navy"><b>DEFAULT</b></span> defaultcaptionframeoptions + [cfo_captionframecentered];
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset <span style="color:navy"><b>DEFAULT</b></span> 4;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomscalingwidget" name="tcustomscalingwidget">tcustomscalingwidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writestate (writer: twriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dolayout (const sender: twidget); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize: notifyeventty <span style="color:navy"><b>READ</b></span> fonresize <span style="color:navy"><b>WRITE</b></span> fonresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onmove: notifyeventty <span style="color:navy"><b>READ</b></span> fonmove <span style="color:navy"><b>WRITE</b></span> fonmove;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> taborderoverride: ttaborderoverride <span style="color:navy"><b>READ</b></span> ftaborderoverride
+                                                       <span style="color:navy"><b>WRITE</b></span> settaborderoverride;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale: optionsscalety <span style="color:navy"><b>READ</b></span> foptionsscale <span style="color:navy"><b>WRITE</b></span> setoptionsscale
+                       <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta: fontheightdeltaeventty <span style="color:navy"><b>READ</b></span> fonfontheightdelta
+                          <span style="color:navy"><b>WRITE</b></span> fonfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout: notifyeventty <span style="color:navy"><b>READ</b></span> fonlayout <span style="color:navy"><b>WRITE</b></span> fonlayout;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscalingwidget" name="tscalingwidget">tscalingwidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomscalingwidget">tcustomscalingwidget</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onmove;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgroupbox" name="tgroupbox">tgroupbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscalingwidget">tscalingwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultgroupboxoptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> onfocusedwidgetchanged: widgetchangeeventty
+                          <span style="color:navy"><b>READ</b></span> fonfocusedwidgetchanged <span style="color:navy"><b>WRITE</b></span> fonfocusedwidgetchanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscrollbox" name="tscrollbox">tscrollbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscalingwidget">tscalingwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clampinview (const arect: rectty;
+                                const bottomright: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tscrollboxframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> onscroll: pointeventty <span style="color:navy"><b>READ</b></span> fonscroll <span style="color:navy"><b>WRITE</b></span> fonscroll;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrolled: pointeventty <span style="color:navy"><b>READ</b></span> fonscrolled <span style="color:navy"><b>WRITE</b></span> fonscrolled;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultscrollboxoptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale <span style="color:navy"><b>DEFAULT</b></span> defaultscrollboxoptionsscale;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpaintbox" name="tpaintbox">tpaintbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscrollbox">tscrollbox</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onmove;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstepboxframe" name="tstepboxframe">tstepboxframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstepframe">tcustomstepframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> levelo;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonface;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonframe;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsize;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonpos;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonslast;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsinline;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsinvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstepboxframe1" name="tstepboxframe1">tstepboxframe1</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstepboxframe">tstepboxframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheel;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomstepbox" name="tcustomstepbox">tcustomstepbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,istepbar,idragcontroller)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> onstep: stepeventty <span style="color:navy"><b>READ</b></span> fonstep <span style="color:navy"><b>WRITE</b></span> fonstep;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetnofocus;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tstepboxframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstepbox" name="tstepbox">tstepbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstepbox">tcustomstepbox</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onstep;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

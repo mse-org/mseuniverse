@@ -1,0 +1,243 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory fpccompatibility</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mdbf;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbfblobstream" name="tdbfblobstream">TDbfBlobStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmemorystream">TMemoryStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (FieldVal: TField);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span>  AddReference: TDbfBlobStream;
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeInstance; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Cancel;
+         <span style="color:navy"><b>PROCEDURE</b></span> Commit;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Dirty: boolean <span style="color:navy"><b>READ</b></span> FDirty;
+         <span style="color:navy"><b>PROPERTY</b></span> Transliterate: Boolean <span style="color:navy"><b>READ</b></span> GetTransliterate;
+         <span style="color:navy"><b>PROPERTY</b></span> MemoRecNo: Integer <span style="color:navy"><b>READ</b></span> FMemoRecNo <span style="color:navy"><b>WRITE</b></span> FMemoRecNo;
+         <span style="color:navy"><b>PROPERTY</b></span> ReadSize: Integer <span style="color:navy"><b>READ</b></span> FReadSize <span style="color:navy"><b>WRITE</b></span> FReadSize;
+         <span style="color:navy"><b>PROPERTY</b></span> Mode: TBlobStreamMode <span style="color:navy"><b>WRITE</b></span> SetMode;
+         <span style="color:navy"><b>PROPERTY</b></span> BlobField: TBlobField <span style="color:navy"><b>READ</b></span> FBlobField;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbfindexdefs" name="tdbfindexdefs">TDbfIndexDefs</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollection">TCollection</a>)
+      PUBLIC
+         FOwner: TDbf;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TDbf);
+        
+         <span style="color:navy"><b>FUNCTION</b></span>  Add: TDbfIndexDef;
+         <span style="color:navy"><b>FUNCTION</b></span>  GetIndexByName (const Name: string): TDbfIndexDef;
+         <span style="color:navy"><b>FUNCTION</b></span>  GetIndexByField (const Name: string): TDbfIndexDef;
+         <span style="color:navy"><b>PROCEDURE</b></span> Update; {$ifdef SUPPORT_REINTRODUCE} <span style="color:teal"><b>REINTRODUCE</b></span>; {$endif}
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Items[N: Integer]: TDbfIndexDef <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbfmasterlink" name="tdbfmasterlink">TDbfMasterLink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalink">TDataLink</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ADataSet: TDbf);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> FieldNames: string <span style="color:navy"><b>READ</b></span> FFieldNames <span style="color:navy"><b>WRITE</b></span> SetFieldNames;
+         <span style="color:navy"><b>PROPERTY</b></span> ValidExpression: Boolean <span style="color:navy"><b>READ</b></span> FValidExpression <span style="color:navy"><b>WRITE</b></span> FValidExpression;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldsVal: TRecordBuffer <span style="color:navy"><b>READ</b></span> GetFieldsVal;
+         <span style="color:navy"><b>PROPERTY</b></span> Parser: TDbfParser <span style="color:navy"><b>READ</b></span> FParser;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> OnMasterChange: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnMasterChange <span style="color:navy"><b>WRITE</b></span> FOnMasterChange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnMasterDisable: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnMasterDisable <span style="color:navy"><b>WRITE</b></span> FOnMasterDisable;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbf" name="tdbf">TDbf</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataset">TDataSet</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         { <span style="color:teal"><b>ABSTRACT</b></span> methods }
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldData (Field: TField; Buffer: Pointer);
+           {$ifdef SUPPORT_OVERLOAD} <span style="color:teal"><b>OVERLOAD</b></span>; {$endif} <span style="color:teal"><b>OVERRIDE</b></span>; {virtual abstract}
+         <span style="color:navy"><b>FUNCTION</b></span> GetFieldData (Field: TField; Buffer: Pointer): Boolean;
+           {$ifdef SUPPORT_OVERLOAD} <span style="color:teal"><b>OVERLOAD</b></span>; {$endif} <span style="color:teal"><b>OVERRIDE</b></span>; {virtual abstract}
+         { <span style="color:teal"><b>VIRTUAL</b></span> methods (mostly optionnal) }
+         <span style="color:navy"><b>PROCEDURE</b></span> Resync (Mode: TResyncMode); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CreateBlobStream (Field: TField; Mode: TBlobStreamMode): TStream; <span style="color:teal"><b>OVERRIDE</b></span>; {virtual}
+        fdef SUPPORT_NEW_TRANSLATE}
+         <span style="color:navy"><b>FUNCTION</b></span> Translate (Src, Dest: PChar; ToOem: Boolean): Integer; <span style="color:teal"><b>OVERRIDE</b></span>; {virtual}
+        lse}
+         <span style="color:navy"><b>PROCEDURE</b></span> Translate (Src, Dest: PChar; ToOem: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>; {virtual}
+        ndif}
+        
+        fdef SUPPORT_OVERLOAD}
+         <span style="color:navy"><b>FUNCTION</b></span>  GetFieldData (Field: TField; Buffer: Pointer; NativeFormat: Boolean): Boolean;
+           {$ifdef SUPPORT_BACKWARD_FIELDDATA} <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>; {$else} <span style="color:teal"><b>REINTRODUCE</b></span>; overload; {$endif}
+         <span style="color:navy"><b>PROCEDURE</b></span> SetFieldData (Field: TField; Buffer: Pointer; NativeFormat: Boolean);
+           {$ifdef SUPPORT_BACKWARD_FIELDDATA} <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>; {$else} <span style="color:teal"><b>REINTRODUCE</b></span>; overload; {$endif}
+        ndif}
+        
+         <span style="color:navy"><b>FUNCTION</b></span> CompareBookmarks (Bookmark1, Bookmark2: TBookmark): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CheckDbfFieldDefs (ADbfFieldDefs: TDbfFieldDefs);
+        
+        fdef VER1_0}
+         <span style="color:navy"><b>PROCEDURE</b></span> DataEvent (Event: TDataEvent; Info: Longint); <span style="color:teal"><b>OVERRIDE</b></span>;
+        ndif}
+        
+        
+        fdef SUPPORT_DEFAULT_PARAMS}
+         <span style="color:navy"><b>PROCEDURE</b></span> AddIndex (const AIndexName, AFields: String; Options: TIndexOptions; const DescFields: String='');
+        lse}
+         <span style="color:navy"><b>PROCEDURE</b></span> AddIndex (const AIndexName, AFields: String; Options: TIndexOptions);
+        ndif}
+         <span style="color:navy"><b>PROCEDURE</b></span> RegenerateIndexes;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> CancelRange;
+         <span style="color:navy"><b>PROCEDURE</b></span> CheckMasterRange;
+        fdef SUPPORT_VARIANTS}
+         <span style="color:navy"><b>FUNCTION</b></span>  SearchKey (Key: Variant; SearchType: TSearchKeyType; KeyIsANSI: boolean
+           {$ifdef SUPPORT_DEFAULT_PARAMS}= false{$endif}): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetRange (LowRange: Variant; HighRange: Variant; KeyIsANSI: boolean
+           {$ifdef SUPPORT_DEFAULT_PARAMS}= false{$endif});
+        ndif}
+         <span style="color:navy"><b>FUNCTION</b></span>  PrepareKey (Buffer: Pointer; BufferType: TExpressionType): PChar;
+         <span style="color:navy"><b>FUNCTION</b></span>  SearchKeyPChar (Key: PChar; SearchType: TSearchKeyType; KeyIsANSI: boolean
+           {$ifdef SUPPORT_DEFAULT_PARAMS}= false{$endif}): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetRangePChar (LowRange: PChar; HighRange: PChar; KeyIsANSI: boolean
+           {$ifdef SUPPORT_DEFAULT_PARAMS}= false{$endif});
+         <span style="color:navy"><b>FUNCTION</b></span>  GetCurrentBuffer: TRecordBuffer;
+         <span style="color:navy"><b>PROCEDURE</b></span> ExtractKey (KeyBuffer: PChar);
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateIndexDefs; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> GetFileNames (Strings: TStrings; Files: TDbfFileNames); {$ifdef SUPPORT_DEFAULT_PARAMS} <span style="color:teal"><b>OVERLOAD</b></span>; {$endif}
+        fdef SUPPORT_DEFAULT_PARAMS}
+         <span style="color:navy"><b>FUNCTION</b></span>  GetFileNames (Files: TDbfFileNames  = [dfDbf]  ): string; <span style="color:teal"><b>OVERLOAD</b></span>;
+        lse}
+         <span style="color:navy"><b>FUNCTION</b></span>  GetFileNamesString (Files: TDbfFileNames (* = [dfDbf] *) ): string;
+        ndif}
+         <span style="color:navy"><b>PROCEDURE</b></span> GetIndexNames (Strings: TStrings);
+         <span style="color:navy"><b>PROCEDURE</b></span> GetAllIndexFiles (Strings: TStrings);
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> TryExclusive;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndExclusive;
+         <span style="color:navy"><b>FUNCTION</b></span>  LockTable (const Wait: Boolean): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> UnlockTable;
+         <span style="color:navy"><b>PROCEDURE</b></span> OpenIndexFile (IndexFile: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> DeleteIndex (const AIndexName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> CloseIndexFile (const AIndexName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> RepageIndexFile (const AIndexFile: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> CompactIndexFile (const AIndexFile: string);
+        
+        fdef SUPPORT_VARIANTS}
+         <span style="color:navy"><b>FUNCTION</b></span>  Lookup (const KeyFields: string; const KeyValues: Variant; const ResultFields: string): Variant; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span>  Locate (const KeyFields: string; const KeyValues: Variant; Options: TLocateOptions): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        ndif}
+        
+         <span style="color:navy"><b>FUNCTION</b></span>  IsDeleted: Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> Undelete;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> CreateTable;
+         <span style="color:navy"><b>PROCEDURE</b></span> CreateTableEx (ADbfFieldDefs: TDbfFieldDefs);
+         <span style="color:navy"><b>PROCEDURE</b></span> CopyFrom (DataSet: TDataSet; FileName: string; DateTimeAsString: Boolean; Level: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> RestructureTable (ADbfFieldDefs: TDbfFieldDefs; Pack: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> PackTable;
+         <span style="color:navy"><b>PROCEDURE</b></span> EmptyTable;
+         <span style="color:navy"><b>PROCEDURE</b></span> Zap;
+        
+        fndef SUPPORT_INITDEFSFROMFIELDS}
+         <span style="color:navy"><b>PROCEDURE</b></span> InitFieldDefsFromFields;
+        ndif}
+        
+         <span style="color:navy"><b>PROPERTY</b></span> AbsolutePath: string <span style="color:navy"><b>READ</b></span> FAbsolutePath;
+         <span style="color:navy"><b>PROPERTY</b></span> DbfFieldDefs: TDbfFieldDefs <span style="color:navy"><b>READ</b></span> GetDbfFieldDefs;
+         <span style="color:navy"><b>PROPERTY</b></span> PhysicalRecNo: Integer <span style="color:navy"><b>READ</b></span> GetPhysicalRecNo <span style="color:navy"><b>WRITE</b></span> SetPhysicalRecNo;
+         <span style="color:navy"><b>PROPERTY</b></span> LanguageID: Byte <span style="color:navy"><b>READ</b></span> FLanguageID <span style="color:navy"><b>WRITE</b></span> SetLanguageID;
+         <span style="color:navy"><b>PROPERTY</b></span> LanguageStr: String <span style="color:navy"><b>READ</b></span> GetLanguageStr;
+         <span style="color:navy"><b>PROPERTY</b></span> CodePage: Cardinal <span style="color:navy"><b>READ</b></span> GetCodePage;
+         <span style="color:navy"><b>PROPERTY</b></span> ExactRecordCount: Integer <span style="color:navy"><b>READ</b></span> GetExactRecordCount;
+         <span style="color:navy"><b>PROPERTY</b></span> PhysicalRecordCount: Integer <span style="color:navy"><b>READ</b></span> GetPhysicalRecordCount;
+         <span style="color:navy"><b>PROPERTY</b></span> KeySize: Integer <span style="color:navy"><b>READ</b></span> GetKeySize;
+         <span style="color:navy"><b>PROPERTY</b></span> DbfFile: TDbfFile <span style="color:navy"><b>READ</b></span> FDbfFile;
+         <span style="color:navy"><b>PROPERTY</b></span> UserStream: TStream <span style="color:navy"><b>READ</b></span> FUserStream <span style="color:navy"><b>WRITE</b></span> FUserStream;
+         <span style="color:navy"><b>PROPERTY</b></span> DisableResyncOnPost: Boolean <span style="color:navy"><b>READ</b></span> FDisableResyncOnPost <span style="color:navy"><b>WRITE</b></span> FDisableResyncOnPost;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> DateTimeHandling: TDateTimeHandling
+                  <span style="color:navy"><b>READ</b></span> FDateTimeHandling <span style="color:navy"><b>WRITE</b></span> FDateTimeHandling <span style="color:navy"><b>DEFAULT</b></span> dtBDETimeStamp;
+         <span style="color:navy"><b>PROPERTY</b></span> Exclusive: Boolean <span style="color:navy"><b>READ</b></span> FExclusive <span style="color:navy"><b>WRITE</b></span> FExclusive <span style="color:navy"><b>DEFAULT</b></span> false;
+         <span style="color:navy"><b>PROPERTY</b></span> FilePath: string     <span style="color:navy"><b>READ</b></span> FRelativePath <span style="color:navy"><b>WRITE</b></span> SetFilePath;
+         <span style="color:navy"><b>PROPERTY</b></span> FilePathFull: string <span style="color:navy"><b>READ</b></span> FAbsolutePath <span style="color:navy"><b>WRITE</b></span> SetFilePath stored false;
+         <span style="color:navy"><b>PROPERTY</b></span> Indexes: TDbfIndexDefs <span style="color:navy"><b>READ</b></span> FIndexDefs <span style="color:navy"><b>WRITE</b></span> SetDbfIndexDefs stored false;
+         <span style="color:navy"><b>PROPERTY</b></span> IndexDefs: TDbfIndexDefs <span style="color:navy"><b>READ</b></span> FIndexDefs <span style="color:navy"><b>WRITE</b></span> SetDbfIndexDefs;
+         <span style="color:navy"><b>PROPERTY</b></span> IndexFieldNames: string <span style="color:navy"><b>READ</b></span> GetIndexFieldNames <span style="color:navy"><b>WRITE</b></span> SetIndexFieldNames stored false;
+         <span style="color:navy"><b>PROPERTY</b></span> IndexName: string <span style="color:navy"><b>READ</b></span> GetIndexName <span style="color:navy"><b>WRITE</b></span> SetIndexName;
+         <span style="color:navy"><b>PROPERTY</b></span> MasterFields: string <span style="color:navy"><b>READ</b></span> GetMasterFields <span style="color:navy"><b>WRITE</b></span> SetMasterFields;
+         <span style="color:navy"><b>PROPERTY</b></span> MasterSource: TDataSource <span style="color:navy"><b>READ</b></span> GetDataSource <span style="color:navy"><b>WRITE</b></span> SetDataSource;
+         <span style="color:navy"><b>PROPERTY</b></span> OpenMode: TDbfOpenMode <span style="color:navy"><b>READ</b></span> FOpenMode <span style="color:navy"><b>WRITE</b></span> FOpenMode <span style="color:navy"><b>DEFAULT</b></span> omNormal;
+         <span style="color:navy"><b>PROPERTY</b></span> ReadOnly: Boolean <span style="color:navy"><b>READ</b></span> FReadOnly <span style="color:navy"><b>WRITE</b></span> FReadonly <span style="color:navy"><b>DEFAULT</b></span> false;
+         <span style="color:navy"><b>PROPERTY</b></span> ShowDeleted: Boolean <span style="color:navy"><b>READ</b></span> FShowDeleted <span style="color:navy"><b>WRITE</b></span> SetShowDeleted <span style="color:navy"><b>DEFAULT</b></span> false;
+         <span style="color:navy"><b>PROPERTY</b></span> Storage: TDbfStorage <span style="color:navy"><b>READ</b></span> FStorage <span style="color:navy"><b>WRITE</b></span> FStorage <span style="color:navy"><b>DEFAULT</b></span> stoFile;
+         <span style="color:navy"><b>PROPERTY</b></span> StoreDefs: Boolean <span style="color:navy"><b>READ</b></span> FStoreDefs <span style="color:navy"><b>WRITE</b></span> FStoreDefs <span style="color:navy"><b>DEFAULT</b></span> False;
+         <span style="color:navy"><b>PROPERTY</b></span> TableName: string <span style="color:navy"><b>READ</b></span> FTableName <span style="color:navy"><b>WRITE</b></span> SetTableName;
+         <span style="color:navy"><b>PROPERTY</b></span> TableLevel: Integer <span style="color:navy"><b>READ</b></span> FTableLevel <span style="color:navy"><b>WRITE</b></span> SetTableLevel;
+         <span style="color:navy"><b>PROPERTY</b></span> Version: string <span style="color:navy"><b>READ</b></span> GetVersion <span style="color:navy"><b>WRITE</b></span> SetVersion stored false;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeAutoCreate: TBeforeAutoCreateEvent <span style="color:navy"><b>READ</b></span> FBeforeAutoCreate <span style="color:navy"><b>WRITE</b></span> FBeforeAutoCreate;
+         <span style="color:navy"><b>PROPERTY</b></span> OnCompareRecord: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnCompareRecord <span style="color:navy"><b>WRITE</b></span> FOnCompareRecord;
+         <span style="color:navy"><b>PROPERTY</b></span> OnLanguageWarning: TLanguageWarningEvent <span style="color:navy"><b>READ</b></span> FOnLanguageWarning <span style="color:navy"><b>WRITE</b></span> FOnLanguageWarning;
+         <span style="color:navy"><b>PROPERTY</b></span> OnLocaleError: TDbfLocaleErrorEvent <span style="color:navy"><b>READ</b></span> FOnLocaleError <span style="color:navy"><b>WRITE</b></span> FOnLocaleError;
+         <span style="color:navy"><b>PROPERTY</b></span> OnIndexMissing: TDbfIndexMissingEvent <span style="color:navy"><b>READ</b></span> FOnIndexMissing <span style="color:navy"><b>WRITE</b></span> FOnIndexMissing;
+         <span style="color:navy"><b>PROPERTY</b></span> OnCopyDateTimeAsString: TConvertFieldEvent <span style="color:navy"><b>READ</b></span> FOnCopyDateTimeAsString <span style="color:navy"><b>WRITE</b></span> FOnCopyDateTimeAsString;
+         <span style="color:navy"><b>PROPERTY</b></span> OnTranslate: TTranslateEvent <span style="color:navy"><b>READ</b></span> FOnTranslate <span style="color:navy"><b>WRITE</b></span> FOnTranslate;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Active;
+         <span style="color:navy"><b>PROPERTY</b></span> FieldDefs stored FieldDefsStored;
+         <span style="color:navy"><b>PROPERTY</b></span> Filter;
+         <span style="color:navy"><b>PROPERTY</b></span> Filtered;
+         <span style="color:navy"><b>PROPERTY</b></span> FilterOptions;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeOpen;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterOpen;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeClose;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterClose;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeInsert;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterInsert;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeEdit;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterEdit;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforePost;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterPost;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeCancel;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterCancel;
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeDelete;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterDelete;
+        fdef SUPPORT_REFRESHEVENTS}
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeRefresh;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterRefresh;
+        ndif}
+         <span style="color:navy"><b>PROPERTY</b></span> BeforeScroll;
+         <span style="color:navy"><b>PROPERTY</b></span> AfterScroll;
+         <span style="color:navy"><b>PROPERTY</b></span> OnCalcFields;
+         <span style="color:navy"><b>PROPERTY</b></span> OnDeleteError;
+         <span style="color:navy"><b>PROPERTY</b></span> OnEditError;
+         <span style="color:navy"><b>PROPERTY</b></span> OnFilterRecord;
+         <span style="color:navy"><b>PROPERTY</b></span> OnNewRecord;
+         <span style="color:navy"><b>PROPERTY</b></span> OnPostError;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

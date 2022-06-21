@@ -1,0 +1,161 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZTokenizer;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tztokenizerstate" name="tztokenizerstate">TZTokenizerState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> InitBuf (FirstChar: Char); {$IFDEF WITH_INLINE}inline;{$ENDIF}
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearBuf; {$IFDEF WITH_INLINE}inline;{$ENDIF}
+         <span style="color:navy"><b>PROCEDURE</b></span> FlushBuf (var Value: String); {$IFDEF WITH_INLINE}inline;{$ENDIF}
+         <span style="color:navy"><b>PROCEDURE</b></span> ToBuf (C: Char; var Value: String); {$IFDEF WITH_INLINE}inline;{$ENDIF}
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tznumberstate" name="tznumberstate">TZNumberState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzquotestate" name="tzquotestate">TZQuoteState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> EncodeString (const Value: string; QuoteChar: Char): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> DecodeString (const Value: string; QuoteChar: Char): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcommentstate" name="tzcommentstate">TZCommentState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcppcommentstate" name="tzcppcommentstate">TZCppCommentState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzcommentstate">TZCommentState</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzccommentstate" name="tzccommentstate">TZCCommentState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzcppcommentstate">TZCppCommentState</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsymbolnode" name="tzsymbolnode">TZSymbolNode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Parent: TZSymbolNode; Character: Char);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Ancestry: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsymbolrootnode" name="tzsymbolrootnode">TZSymbolRootNode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzsymbolnode">TZSymbolNode</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const Value: string);
+         <span style="color:navy"><b>FUNCTION</b></span> Ancestry: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> NextSymbol (Stream: TStream; FirstChar: Char): string;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsymbolstate" name="tzsymbolstate">TZSymbolState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Add (const Value: string); <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzwhitespacestate" name="tzwhitespacestate">TZWhitespaceState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetWhitespaceChars (FromChar: Char; ToChar: Char; Enable: Boolean);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzwordstate" name="tzwordstate">TZWordState</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztokenizerstate">TZTokenizerState</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NextToken (Stream: TStream; FirstChar: Char;
+           Tokenizer: TZTokenizer): TZToken; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetWordChars (FromChar: Char; ToChar: Char; Enable: Boolean);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttokenizerstream" name="ttokenizerstream">TTokenizerStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzcharreaderstream">TZCharReaderStream</a>); //just a hack to get protected access
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tztokenizer" name="tztokenizer">TZTokenizer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZTokenizer)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TokenizeBufferToList (const Buffer: string; Options: TZTokenOptions):
+           TStrings;
+         <span style="color:navy"><b>FUNCTION</b></span> TokenizeStreamToList (Stream: TStream; Options: TZTokenOptions):
+           TStrings;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TokenizeBuffer (const Buffer: string; Options: TZTokenOptions):
+           TZTokenDynArray;
+         <span style="color:navy"><b>FUNCTION</b></span> TokenizeStream (Stream: TStream; Options: TZTokenOptions):
+           TZTokenDynArray;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetCharacterState (StartChar: Char): TZTokenizerState;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetCharacterState (FromChar, ToChar: Char; State: TZTokenizerState);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetCommentState: TZCommentState;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNumberState: TZNumberState;
+         <span style="color:navy"><b>FUNCTION</b></span> GetQuoteState: TZQuoteState;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSymbolState: TZSymbolState;
+         <span style="color:navy"><b>FUNCTION</b></span> GetWhitespaceState: TZWhitespaceState;
+         <span style="color:navy"><b>FUNCTION</b></span> GetWordState: TZWordState;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> CommentState: TZCommentState <span style="color:navy"><b>READ</b></span> FCommentState <span style="color:navy"><b>WRITE</b></span> FCommentState;
+         <span style="color:navy"><b>PROPERTY</b></span> NumberState: TZNumberState <span style="color:navy"><b>READ</b></span> FNumberState <span style="color:navy"><b>WRITE</b></span> FNumberState;
+         <span style="color:navy"><b>PROPERTY</b></span> QuoteState: TZQuoteState <span style="color:navy"><b>READ</b></span> FQuoteState <span style="color:navy"><b>WRITE</b></span> FQuoteState;
+         <span style="color:navy"><b>PROPERTY</b></span> SymbolState: TZSymbolState <span style="color:navy"><b>READ</b></span> FSymbolState <span style="color:navy"><b>WRITE</b></span> FSymbolState;
+         <span style="color:navy"><b>PROPERTY</b></span> WhitespaceState: TZWhitespaceState <span style="color:navy"><b>READ</b></span> FWhitespaceState
+           <span style="color:navy"><b>WRITE</b></span> FWhitespaceState;
+         <span style="color:navy"><b>PROPERTY</b></span> WordState: TZWordState <span style="color:navy"><b>READ</b></span> FWordState <span style="color:navy"><b>WRITE</b></span> FWordState;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,1172 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msegrids;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridexception" name="tgridexception">tgridexception</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">exception</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcellframe" name="tcellframe">tcellframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tframe">tframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixcellframe" name="tfixcellframe">tfixcellframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcellframe">tcellframe</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcellface" name="tcellface">tcellface</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tface">tface</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixcellface" name="tfixcellface">tfixcellface</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcellface">tcellface</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridpropfont" name="tgridpropfont">tgridpropfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridprop" name="tgridprop">tgridprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistent">tindexpersistent</a>,iframe,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                    const aprop: tgridarrayprop); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> createframe ();
+        <span style="color:navy"><b>PROCEDURE</b></span> createface ();
+        <span style="color:navy"><b>PROCEDURE</b></span> drawcellbackground (const acanvas: tcanvas;
+                      const aframe: tcustomframe; const aface: tcustomface);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawcelloverlay (const acanvas: tcanvas; const aframe: tcustomframe);
+        <span style="color:navy"><b>PROPERTY</b></span> grid: tcustomgrid <span style="color:navy"><b>READ</b></span> fcellinfo.grid;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe: framety <span style="color:navy"><b>READ</b></span> getinnerframe;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> cursor: cursorshapety <span style="color:navy"><b>READ</b></span> fcursor <span style="color:navy"><b>WRITE</b></span> fcursor <span style="color:navy"><b>DEFAULT</b></span> cr_default;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tcellframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> face: tcellface <span style="color:navy"><b>READ</b></span> getface <span style="color:navy"><b>WRITE</b></span> setface;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> flinewidth <span style="color:navy"><b>WRITE</b></span> setlinewidth
+                                            <span style="color:navy"><b>DEFAULT</b></span> defaultgridlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor: colorty <span style="color:navy"><b>READ</b></span> flinecolor <span style="color:navy"><b>WRITE</b></span> setlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix: colorty <span style="color:navy"><b>READ</b></span> flinecolorfix <span style="color:navy"><b>WRITE</b></span> setlinecolorfix
+                                            <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> fcolorselect <span style="color:navy"><b>WRITE</b></span> setcolorselect
+                                            <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> coloractive: colorty <span style="color:navy"><b>READ</b></span> fcoloractive <span style="color:navy"><b>WRITE</b></span> setcoloractive
+                                            <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> colorfocused: colorty <span style="color:navy"><b>READ</b></span> fcolorfocused <span style="color:navy"><b>WRITE</b></span> setcolorfocused
+                                            <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> tag: integer <span style="color:navy"><b>READ</b></span> ftag <span style="color:navy"><b>WRITE</b></span> ftag <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolselectfont" name="tcolselectfont">tcolselectfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcol" name="tcol">tcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridprop">tgridprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                             const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidate;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatecell (const arow: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatemaxsize (const arow: integer = -1); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> rowcolor (const aindex: integer): colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> rowfont (const aindex: integer): tfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> changed; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> cellchanged (const row: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> actualfont: tfont; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> maxwidth: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> minmaxwidth (): integer; //bigger of fwidthmin, fmaxwidth
+        <span style="color:navy"><b>PROPERTY</b></span> colindex: integer <span style="color:navy"><b>READ</b></span> getcolindex;
+        <span style="color:navy"><b>FUNCTION</b></span> translatetocell (const arow: integer; const apos: pointty): pointty;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth <span style="color:navy"><b>WRITE</b></span> setwidth
+                                              <span style="color:navy"><b>DEFAULT</b></span> griddefaultcolwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcoloroffset: integer <span style="color:navy"><b>READ</b></span> frowcoloroffset
+                                    <span style="color:navy"><b>WRITE</b></span> setrowcoloroffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcoloroffsetselect: integer <span style="color:navy"><b>READ</b></span> frowcoloroffsetselect
+                                    <span style="color:navy"><b>WRITE</b></span> setrowcoloroffsetselect <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfontoffset: integer <span style="color:navy"><b>READ</b></span> frowfontoffset write
+                                    setrowfontoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfontoffsetselect: integer <span style="color:navy"><b>READ</b></span> frowfontoffsetselect write
+                                    setrowfontoffsetselect <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect: tcolselectfont <span style="color:navy"><b>READ</b></span> getfontselect write
+                          setfontselect stored isfontselectstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontactivenum: integer <span style="color:navy"><b>READ</b></span> ffontactivenum
+                                     <span style="color:navy"><b>WRITE</b></span> setfontactivenum <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> fontfocusednum: integer <span style="color:navy"><b>READ</b></span> ffontfocusednum
+                                     <span style="color:navy"><b>WRITE</b></span> setfontfocusednum <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedrawcell: beforedrawcelleventty <span style="color:navy"><b>READ</b></span> fonbeforedrawcell
+                                     <span style="color:navy"><b>WRITE</b></span> fonbeforedrawcell;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdrawcell: drawcelleventty <span style="color:navy"><b>READ</b></span> fonafterdrawcell
+                                     <span style="color:navy"><b>WRITE</b></span> fonafterdrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacol" name="tdatacol">tdatacol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcol">tcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                                          const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> canfocus (const abutton: mousebuttonty;
+                          const ashiftstate: shiftstatesty;
+                          const noreadonly: boolean;
+                          out canrowfocus: boolean): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isreadonly: boolean; //col readonly or row readonly
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecellzone (const row: integer; const pos: pointty;
+                                            var result: cellzonety); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> autocellheightchanged (const aindex: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> autocellwidthchanged (const aindex: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> datalist: tdatalist <span style="color:navy"><b>READ</b></span> fdata <span style="color:navy"><b>WRITE</b></span> setdata;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearselection;
+        <span style="color:navy"><b>FUNCTION</b></span> defaultcaption (): msestring;
+        <span style="color:navy"><b>PROPERTY</b></span> merged;
+        <span style="color:navy"><b>PROPERTY</b></span> selected[const row: integer]: boolean <span style="color:navy"><b>READ</b></span> getselected <span style="color:navy"><b>WRITE</b></span> setselected;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedcells: integerarty <span style="color:navy"><b>READ</b></span> getselectedcells
+                                                     <span style="color:navy"><b>WRITE</b></span> setselectedcells;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedcellcount: int32 <span style="color:navy"><b>READ</b></span> fselectedrowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> cellorigin: pointty <span style="color:navy"><b>READ</b></span> getcellorigin;    //org = grid.paintpos
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcelldragobject" name="tcelldragobject">tcelldragobject</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdragobject">tdragobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const draginfo: draginfoty; const cellinfo: cellinfoty);
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                                   var ainstance: tdragobject; const apos: pointty);
+        <span style="color:navy"><b>PROPERTY</b></span> grid: tcustomgrid <span style="color:navy"><b>READ</b></span> fgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> cell: gridcoordty <span style="color:navy"><b>READ</b></span> fcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdrawcol" name="tdrawcol">tdrawcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacol">tdatacol</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawcell: drawcelleventty <span style="color:navy"><b>READ</b></span> fondrawcell <span style="color:navy"><b>WRITE</b></span> fondrawcell;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedragevent: celldrageventty <span style="color:navy"><b>READ</b></span> fonbeforedragevent
+                                                           <span style="color:navy"><b>WRITE</b></span> fonbeforedragevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdragevent: celldrageventty <span style="color:navy"><b>READ</b></span> fonafterdragevent
+                                                           <span style="color:navy"><b>WRITE</b></span> fonafterdragevent;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcoldatalist" name="tstringcoldatalist">tstringcoldatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringdatalist">tmsestringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const avalue: msestring; const anoparagraph: boolean): integer;
+                                                                   <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>FUNCTION</b></span> getparagraph (const index: integer;
+                                    const aseparator: msestring = ''): msestring;
+        <span style="color:navy"><b>PROPERTY</b></span> noparagraph[index: integer]: boolean <span style="color:navy"><b>READ</b></span> getnoparagraphs;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> facultative;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomstringcol" name="tcustomstringcol">tcustomstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacol">tdatacol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                              const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> edited: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readpipe (const pipe: tpipereader;
+                       const aoptions: addcharoptionsty = [aco_processeditchars];
+                           const maxchars: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readpipe (const text: string;
+                       const aoptions: addcharoptionsty = [aco_processeditchars];
+                           const maxchars: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: msestring);
+        <span style="color:navy"><b>PROPERTY</b></span> items[aindex: integer]: msestring <span style="color:navy"><b>READ</b></span> getitems
+                                               <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> noparagraph[const aindex: integer]: boolean <span style="color:navy"><b>READ</b></span> getnoparagraph;
+        <span style="color:navy"><b>PROPERTY</b></span> checked[aindex: integer]: boolean <span style="color:navy"><b>READ</b></span> getchecked <span style="color:navy"><b>WRITE</b></span> setchecked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextinfo.flags <span style="color:navy"><b>WRITE</b></span> settextflags
+                               <span style="color:navy"><b>DEFAULT</b></span> defaultcoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive: textflagsty <span style="color:navy"><b>READ</b></span> ftextflagsactive
+                  <span style="color:navy"><b>WRITE</b></span> settextflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaultactivecoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit: stringcoleditoptionsty <span style="color:navy"><b>READ</b></span> foptionsedit
+                    <span style="color:navy"><b>WRITE</b></span> foptionsedit <span style="color:navy"><b>DEFAULT</b></span> defaultstringcoleditoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1
+                                  <span style="color:navy"><b>WRITE</b></span> foptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar: msechar <span style="color:navy"><b>READ</b></span> fpasswordchar
+                                         <span style="color:navy"><b>WRITE</b></span> setpasswordchar <span style="color:navy"><b>DEFAULT</b></span> #0;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> datalist: tstringcoldatalist <span style="color:navy"><b>READ</b></span> getdatalist <span style="color:navy"><b>WRITE</b></span> setdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> editpos: gridcoordty <span style="color:navy"><b>READ</b></span> geteditpos <span style="color:navy"><b>WRITE</b></span> seteditpos;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> fcolorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                                                                 <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: msestring <span style="color:navy"><b>READ</b></span> getvaluedefault <span style="color:navy"><b>WRITE</b></span> setvaluedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valuetrue: msestring <span style="color:navy"><b>READ</b></span> fvaluetrue <span style="color:navy"><b>WRITE</b></span> fvaluetrue;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefalse: msestring <span style="color:navy"><b>READ</b></span> fvaluefalse <span style="color:navy"><b>WRITE</b></span> fvaluefalse;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setstringeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered <span style="color:navy"><b>WRITE</b></span> fondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard: updatestringeventty <span style="color:navy"><b>READ</b></span> foncopytoclipboard
+                       <span style="color:navy"><b>WRITE</b></span> foncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard: updatestringeventty <span style="color:navy"><b>READ</b></span> fonpastefromclipboard
+                       <span style="color:navy"><b>WRITE</b></span> fonpastefromclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawcell: drawcelleventty <span style="color:navy"><b>READ</b></span> fondrawcell <span style="color:navy"><b>WRITE</b></span> fondrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcol" name="tstringcol">tstringcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringcol">tcustomstringcol</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> datalist;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefalse;
+        <span style="color:navy"><b>PROPERTY</b></span> valuetrue;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixcol" name="tfixcol">tfixcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcol">tcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                                 const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextinfo.flags <span style="color:navy"><b>WRITE</b></span> settextflags
+                     <span style="color:navy"><b>DEFAULT</b></span> defaultfixcoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> numstart: integer <span style="color:navy"><b>READ</b></span> fnumstart <span style="color:navy"><b>WRITE</b></span> setnumstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> numstep: integer <span style="color:navy"><b>READ</b></span> fnumstep <span style="color:navy"><b>WRITE</b></span> setnumstep <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> captions: tmsestringdatalist
+                   <span style="color:navy"><b>READ</b></span> getcaptions <span style="color:navy"><b>WRITE</b></span> setcaptions stored iscaptionsstored;
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_parent;
+        <span style="color:navy"><b>PROPERTY</b></span> options: fixcoloptionsty <span style="color:navy"><b>READ</b></span> foptionsfix <span style="color:navy"><b>WRITE</b></span> setoptionsfix
+                            <span style="color:navy"><b>DEFAULT</b></span> defaultfixcoloptions;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolheaderfont" name="tcolheaderfont">tcolheaderfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolheader" name="tcolheader">tcolheader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistent">tindexpersistent</a>,iframe,iface,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+              const aprop: tindexpersistentarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> createframe;
+        <span style="color:navy"><b>PROCEDURE</b></span> createface;
+        <span style="color:navy"><b>PROPERTY</b></span> mergedcx: integer <span style="color:navy"><b>READ</b></span> fmergedcx;
+        <span style="color:navy"><b>PROPERTY</b></span> mergedx: integer <span style="color:navy"><b>READ</b></span> fmergedx;
+        <span style="color:navy"><b>PROPERTY</b></span> mergedcy: integer <span style="color:navy"><b>READ</b></span> fmergedcy;
+        <span style="color:navy"><b>PROPERTY</b></span> mergedy: integer <span style="color:navy"><b>READ</b></span> fmergedy;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_parent;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> finfo.caption.text <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> finfo.textflags <span style="color:navy"><b>WRITE</b></span> settextflags
+                                                  <span style="color:navy"><b>DEFAULT</b></span> defaultcaptiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tcolheaderfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tfixcellframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> face: tfixcellface <span style="color:navy"><b>READ</b></span> getface <span style="color:navy"><b>WRITE</b></span> setface;
+        <span style="color:navy"><b>PROPERTY</b></span> mergecols: integer <span style="color:navy"><b>READ</b></span> fmergecols <span style="color:navy"><b>WRITE</b></span> setmergecols <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> mergerows: integer <span style="color:navy"><b>READ</b></span> fmergerows <span style="color:navy"><b>WRITE</b></span> setmergerows <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> hint: msestring <span style="color:navy"><b>READ</b></span> fhint <span style="color:navy"><b>WRITE</b></span> fhint;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> finfo.imagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> finfo.imagenr <span style="color:navy"><b>WRITE</b></span> setimagenr <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist: integer <span style="color:navy"><b>READ</b></span> finfo.imagedist <span style="color:navy"><b>WRITE</b></span> setimagedist
+                                                 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist: integer <span style="color:navy"><b>READ</b></span> finfo.captiondist <span style="color:navy"><b>WRITE</b></span> setcaptiondist
+                                          <span style="color:navy"><b>DEFAULT</b></span> defaultshapecaptiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos: imageposty <span style="color:navy"><b>READ</b></span> finfo.imagepos <span style="color:navy"><b>WRITE</b></span> setimagepos
+                                                          <span style="color:navy"><b>DEFAULT</b></span> ip_center;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> finfo.colorglyph
+                        <span style="color:navy"><b>WRITE</b></span> setcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_glyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacolheader" name="tdatacolheader">tdatacolheader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcolheader">tcolheader</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+              const aprop: tindexpersistentarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: datacolheaderoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                 <span style="color:navy"><b>DEFAULT</b></span> [dco_hintclippedtext];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolheaders" name="tcolheaders">tcolheaders</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistentarrayprop">tindexpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agridprop: tgridprop); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixcolheaders" name="tfixcolheaders">tfixcolheaders</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcolheaders">tcolheaders</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agridprop: tgridprop);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tcolheader <span style="color:navy"><b>READ</b></span> getitems
+                      <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacolheaders" name="tdatacolheaders">tdatacolheaders</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcolheaders">tcolheaders</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdatacolheader <span style="color:navy"><b>READ</b></span> getitems
+                      <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixrow" name="tfixrow">tfixrow</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridprop">tgridprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agrid: tcustomgrid;
+                             const aowner: tgridarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight;
+        <span style="color:navy"><b>PROPERTY</b></span> rowindex: integer <span style="color:navy"><b>READ</b></span> getrowindex;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> fheight <span style="color:navy"><b>WRITE</b></span> setheight;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextinfo.flags <span style="color:navy"><b>WRITE</b></span> settextflags
+                     <span style="color:navy"><b>DEFAULT</b></span> defaultfixcoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> numstart: integer <span style="color:navy"><b>READ</b></span> fnumstart <span style="color:navy"><b>WRITE</b></span> setnumstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> numstep: integer <span style="color:navy"><b>READ</b></span> fnumstep <span style="color:navy"><b>WRITE</b></span> setnumstep <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> captions: tdatacolheaders <span style="color:navy"><b>READ</b></span> fcaptions <span style="color:navy"><b>WRITE</b></span> setcaptions;
+        <span style="color:navy"><b>PROPERTY</b></span> captionsfix: tfixcolheaders <span style="color:navy"><b>READ</b></span> fcaptionsfix <span style="color:navy"><b>WRITE</b></span> setcaptionsfix;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> options: fixrowoptionsty <span style="color:navy"><b>READ</b></span> foptionsfix
+                            <span style="color:navy"><b>WRITE</b></span> setoptionsfix <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedrawcell: beforefixdrawcelleventty <span style="color:navy"><b>READ</b></span> fonbeforedrawcell
+                                     <span style="color:navy"><b>WRITE</b></span> fonbeforedrawcell;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdrawcell: drawfixcelleventty <span style="color:navy"><b>READ</b></span> fonafterdrawcell
+                                     <span style="color:navy"><b>WRITE</b></span> fonafterdrawcell;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridarrayprop" name="tgridarrayprop">tgridarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistentarrayprop">tindexpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid; aclasstype: gridpropclassty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fixindex (const index: integer): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> oppositecount: integer <span style="color:navy"><b>READ</b></span> foppositecount <span style="color:navy"><b>WRITE</b></span> setoppositecount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe: framety <span style="color:navy"><b>READ</b></span> finnerframe <span style="color:navy"><b>WRITE</b></span> setinnerframe;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> cursor: cursorshapety <span style="color:navy"><b>READ</b></span> fcursor <span style="color:navy"><b>WRITE</b></span> setcursor <span style="color:navy"><b>DEFAULT</b></span> cr_default;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> flinewidth
+                     <span style="color:navy"><b>WRITE</b></span> setlinewidth <span style="color:navy"><b>DEFAULT</b></span> defaultgridlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor: colorty <span style="color:navy"><b>READ</b></span> flinecolor
+                     <span style="color:navy"><b>WRITE</b></span> setlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix: colorty <span style="color:navy"><b>READ</b></span> flinecolorfix
+                     <span style="color:navy"><b>WRITE</b></span> setlinecolorfix <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor
+                   <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> fcolorselect <span style="color:navy"><b>WRITE</b></span> setcolorselect
+                   <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> coloractive: colorty <span style="color:navy"><b>READ</b></span> fcoloractive <span style="color:navy"><b>WRITE</b></span> setcoloractive
+                   <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> colorfocused: colorty <span style="color:navy"><b>READ</b></span> fcolorfocused <span style="color:navy"><b>WRITE</b></span> setcolorfocused
+                   <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe_left: integer <span style="color:navy"><b>READ</b></span> finnerframe.left
+                                   <span style="color:navy"><b>WRITE</b></span> setinnerframe_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe_top: integer <span style="color:navy"><b>READ</b></span> finnerframe.top
+                                   <span style="color:navy"><b>WRITE</b></span> setinnerframe_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe_right: integer <span style="color:navy"><b>READ</b></span> finnerframe.right
+                                   <span style="color:navy"><b>WRITE</b></span> setinnerframe_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> innerframe_bottom: integer <span style="color:navy"><b>READ</b></span> finnerframe.bottom
+                                   <span style="color:navy"><b>WRITE</b></span> setinnerframe_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolsfont" name="tcolsfont">tcolsfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolsfontselect" name="tcolsfontselect">tcolsfontselect</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcols" name="tcols">tcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridarrayprop">tgridarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid; aclasstype: gridpropclassty);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatemaxsize (const arow: integer = -1);
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont ();
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontselect ();
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const curindex,newindex: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> mergedwidth (const acol: integer; const amerged: longword): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tcol <span style="color:navy"><b>READ</b></span> getcols; default;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist: integer <span style="color:navy"><b>READ</b></span> ffocusrectdist
+                                     <span style="color:navy"><b>WRITE</b></span> setfocusrectdist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect: tcolsfontselect <span style="color:navy"><b>READ</b></span> getfontselect
+                         <span style="color:navy"><b>WRITE</b></span> setfontselect stored isfontselectstored;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tcolsfont <span style="color:navy"><b>READ</b></span> getfont
+                         <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth
+                     <span style="color:navy"><b>WRITE</b></span> setwidth <span style="color:navy"><b>DEFAULT</b></span> griddefaultcolwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> fontactivenum: integer <span style="color:navy"><b>READ</b></span> ffontactivenum
+                                     <span style="color:navy"><b>WRITE</b></span> setfontactivenum <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> fontfocusednum: integer <span style="color:navy"><b>READ</b></span> ffontfocusednum
+                                     <span style="color:navy"><b>WRITE</b></span> setfontfocusednum <span style="color:navy"><b>DEFAULT</b></span> -1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowstatelist" name="trowstatelist">trowstatelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrowstatelist
+                         {$ifdef mse_with_ifi}">tcustomrowstatelist
+                         {$ifdef mse_with_ifi}</a>,iifidatalink{$endif})
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomgrid); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> listdestroyed (const sender: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourcecount: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourceinfo (const atag: integer): plistlinkinfoty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> linksource (const source: tdatalist; const atag: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sourcechange (const sender: tdatalist;
+                                              const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> foldleveltosource (const index: integer; const acount: integer);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clearmemberitem (const subitem: integer;
+                                         const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setmemberitem (const subitem: integer;
+                              const index: integer; const avalue: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> change (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> cellrow (const arow: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerow (const arowindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerowcount: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerowtoindex (const avisibleindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerows1 (const astart: integer; const aendy: integer): integerarty;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatefoldinfo (const rows: integerarty;
+                                                var infos: rowfoldinfoarty);
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerowstep (const arow: integer; const step: integer;
+                                 const autoappend: boolean): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> rowhidden (const arow: integer): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> nearestvisiblerow (const arow: integer): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> getfoldstate (const arow: integer; out aisvisible: boolean;
+                     out afoldlevel: byte; out ahaschildren,aisopen: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> hidechildren (const arow: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> showchildren (const arow: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> folded: boolean <span style="color:navy"><b>READ</b></span> ffolded <span style="color:navy"><b>WRITE</b></span> setfolded;
+        <span style="color:navy"><b>PROCEDURE</b></span> setupfoldinfo (asource: pbyte; const acount: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> hidden[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> gethidden <span style="color:navy"><b>WRITE</b></span> sethidden;
+        <span style="color:navy"><b>PROPERTY</b></span> foldlevel[const index: integer]: byte <span style="color:navy"><b>READ</b></span> getfoldlevel
+                                                       <span style="color:navy"><b>WRITE</b></span> setfoldlevel; //0..63
+        <span style="color:navy"><b>PROPERTY</b></span> foldissum[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getfoldissum
+                                                       <span style="color:navy"><b>WRITE</b></span> setfoldissum;
+        <span style="color:navy"><b>PROPERTY</b></span> height[const index: integer]: integer <span style="color:navy"><b>READ</b></span> getheight
+                                                                 <span style="color:navy"><b>WRITE</b></span> setheight;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth[const index: integer]: rowlinewidthty
+                                            <span style="color:navy"><b>READ</b></span> getlinewidth <span style="color:navy"><b>WRITE</b></span> setlinewidth;
+        <span style="color:navy"><b>FUNCTION</b></span> currentrowheight (const index: integer): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> rowypos[const index: integer]: integer <span style="color:navy"><b>READ</b></span> getrowypos;
+        <span style="color:navy"><b>FUNCTION</b></span> rowindex (const aypos: integer): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillfoldlevel (const index: integer; const acount: integer;
+                                                                 const avalue: byte);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sourcefoldhidden: string <span style="color:navy"><b>READ</b></span> flinkfoldhidden.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourcefoldhidden;
+        <span style="color:navy"><b>PROPERTY</b></span> sourcefoldlevel: string <span style="color:navy"><b>READ</b></span> flinkfoldlevel.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourcefoldlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> sourceissum: string <span style="color:navy"><b>READ</b></span> flinkissum.name
+                                                 <span style="color:navy"><b>WRITE</b></span> setsourceissum;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatacols" name="tdatacols">tdatacols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcols">tcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid; aclasstype: gridpropclassty);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> sortfunc (const l,r: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> updatedatastate: boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const curindex,newindex: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> previosvisiblecol (aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> nextvisiblecol (aindex: integer): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> lastvisiblecol: integer <span style="color:navy"><b>READ</b></span> flastvisiblecol;
+        <span style="color:navy"><b>FUNCTION</b></span> rowempty (const arow: integer): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tdatacol <span style="color:navy"><b>READ</b></span> getcols
+                                                           <span style="color:navy"><b>WRITE</b></span> setcols; default;
+        <span style="color:navy"><b>FUNCTION</b></span> colbyname (const aname: string): tdatacol;
+        <span style="color:navy"><b>FUNCTION</b></span> datalistbyname (const aname: string): tdatalist; //can be nil
+        <span style="color:navy"><b>FUNCTION</b></span> colsubdatainfo (const aname: string): subdatainfoty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clearselection;
+        <span style="color:navy"><b>FUNCTION</b></span> hasselection: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedrowcount: int32 <span style="color:navy"><b>READ</b></span> fselectedrowcount;
+        <span style="color:navy"><b>FUNCTION</b></span> selectedcellcount: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> hascolselection: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedcells: gridcoordarty <span style="color:navy"><b>READ</b></span> getselectedcells
+                                              <span style="color:navy"><b>WRITE</b></span> setselectedcells;
+        <span style="color:navy"><b>PROPERTY</b></span> selectedrows: integerarty <span style="color:navy"><b>READ</b></span> getselectedrows
+                                              <span style="color:navy"><b>WRITE</b></span> setselectedrows;
+        <span style="color:navy"><b>PROPERTY</b></span> rowselected[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getrowselected
+                                              <span style="color:navy"><b>WRITE</b></span> setrowselected;
+        <span style="color:navy"><b>PROPERTY</b></span> selected[const cell: gridcoordty]: boolean <span style="color:navy"><b>READ</b></span> Getselected <span style="color:navy"><b>WRITE</b></span> Setselected;
+        <span style="color:navy"><b>PROCEDURE</b></span> setselectedrange (const rect: gridrectty; const value: boolean;
+                  const calldoselectcell: boolean = false;
+                  const checkmultiselect: boolean = false); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setselectedrange (const start,stop: gridcoordty;
+                         const value: boolean;
+                         const calldoselectcell: boolean = false;
+                         const checkmultiselect: boolean = false); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> mergecols (const arow: integer; const astart: longword = 0;
+                                                   const acount: longword = bigint);
+        <span style="color:navy"><b>PROCEDURE</b></span> unmergecols (const arow: integer = invalidaxis);
+        <span style="color:navy"><b>PROPERTY</b></span> rowstate: trowstatelist <span style="color:navy"><b>READ</b></span> frowstate;
+        <span style="color:navy"><b>FUNCTION</b></span> defaultrowheight: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sortcol: integer <span style="color:navy"><b>READ</b></span> fsortcol <span style="color:navy"><b>WRITE</b></span> setsortcol <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> sortcoldefault: integer <span style="color:navy"><b>READ</b></span> fsortcoldefault
+                                          <span style="color:navy"><b>WRITE</b></span> setsortcol<span style="color:navy"><b>DEFAULT</b></span> default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> newrowcol: integer <span style="color:navy"><b>READ</b></span> fnewrowcol <span style="color:navy"><b>WRITE</b></span> setnewrowcol <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultdatacoloptions;
+        <span style="color:navy"><b>PROPERTY</b></span> options1 <span style="color:navy"><b>DEFAULT</b></span> defaultdatacoloptions1;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> fontselect;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor <span style="color:navy"><b>DEFAULT</b></span> defaultdatalinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdrawcols" name="tdrawcols">tdrawcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacols">tdatacols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tdrawcol <span style="color:navy"><b>READ</b></span> getcols; default;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcols" name="tstringcols">tstringcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatacols">tdatacols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tstringcol <span style="color:navy"><b>READ</b></span> getcols; default; //last!
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags
+                                                        <span style="color:navy"><b>DEFAULT</b></span> defaultcoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive: textflagsty <span style="color:navy"><b>READ</b></span> ftextflagsactive
+                  <span style="color:navy"><b>WRITE</b></span> settextflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaultactivecoltextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit: stringcoleditoptionsty <span style="color:navy"><b>READ</b></span> foptionsedit
+               <span style="color:navy"><b>WRITE</b></span> setoptionsedit <span style="color:navy"><b>DEFAULT</b></span> defaultstringcoleditoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1
+               <span style="color:navy"><b>WRITE</b></span> setoptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixcols" name="tfixcols">tfixcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcols">tcols</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: integer]: tfixcol <span style="color:navy"><b>READ</b></span> getcols <span style="color:navy"><b>WRITE</b></span> setcols; default;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> oppositecount;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfixrows" name="tfixrows">tfixrows</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgridarrayprop">tgridarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight;
+        <span style="color:navy"><b>PROPERTY</b></span> rows[const index: integer]: tfixrow <span style="color:navy"><b>READ</b></span> getrows <span style="color:navy"><b>WRITE</b></span> setrows; default;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> oppositecount;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridframe" name="tgridframe">tgridframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomautoscrollframe">tcustomautoscrollframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iscrollframe; const owner: twidget;
+                                  const autoscrollintf: iautoscrollframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> sbvert;
+        <span style="color:navy"><b>PROPERTY</b></span> sbhorz;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops;  //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trowfontarrayprop" name="trowfontarrayprop">trowfontarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomgrid);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tfont <span style="color:navy"><b>READ</b></span> getitems
+                                                        <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomgrid" name="tcustomgrid">tcustomgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,iautoscrollframe,iobjectpicker,iscrollbar,
+                    idragcontroller,istatfile
+                    {$ifdef mse_with_ifi},iifigridlink{$endif},
+                    iassistiveclientgrid)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragevent (var info: draginfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> internaldragevent (var info: draginfoty): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcursor (const apos: pointty): cursorshapety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate (const nosort: boolean = false;
+                                         const invalidrowstart: int32 = 0);
+        <span style="color:navy"><b>FUNCTION</b></span> updating: boolean; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> calcminscrollsize: sizety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> layoutchanged;
+        <span style="color:navy"><b>FUNCTION</b></span> cellclicked: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdatachanged; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdatachanged (const acell: gridcoordty;
+                                    const count: integer = 1); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> rowup (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false) <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rowdown (const action: focuscellactionty = fca_focusin;
+                                            const nowrap: boolean = false) <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pageup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> pagedown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheelup (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> wheeldown (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lastrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> firstrow (const action: focuscellactionty = fca_focusin); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> colstep (const action: focuscellactionty; const step: integer;
+                                const rowchange: boolean;
+                                const nocolwrap: boolean;
+                                const noreadonly: boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> hasdata: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canexitrow (const force: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> cellexiting: boolean;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> gridprop (const coord: gridcoordty): tgridprop;  //nil if none
+        <span style="color:navy"><b>FUNCTION</b></span> isdatacell (const coord: gridcoordty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isvalidcell (const coord: gridcoordty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isfixrow (const coord: gridcoordty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isfixcol (const coord: gridcoordty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> rowvisible (const arow: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> rowsperpage: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> cellatpos (const apos: pointty;
+                                  out coord: gridcoordty): cellkindty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> cellatpos (const apos: pointty): gridcoordty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> cellrect (const cell: gridcoordty;
+                      const innerlevel: cellinnerlevelty = cil_all;
+                      const nomerged: boolean = false;
+                      const acellorigin: boolean = false): rectty;
+        <span style="color:navy"><b>FUNCTION</b></span> clippedcellrect (const cell: gridcoordty;
+                      const innerlevel: cellinnerlevelty = cil_all): rectty;
+        <span style="color:navy"><b>FUNCTION</b></span> cellvisible (const acell: gridcoordty): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatecell (const cell: gridcoordty);
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatefocusedcell;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidaterow (const arow: integer);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> selectcell (const cell: gridcoordty;
+                               const amode: cellselectmodety;
+                               const checkmultiselect: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> getselectedrange: gridrectty; //selected by focuscell ()
+        
+        <span style="color:navy"><b>FUNCTION</b></span> focuscell (cell: gridcoordty;
+                   selectaction: focuscellactionty = fca_focusin;
+                   const selectmode: selectcellmodety = scm_cell;
+                   const ashowcell: cellpositionty = cep_nearest): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> focuscolbyname (const aname: string);
+        <span style="color:navy"><b>FUNCTION</b></span> focusedcellvalid: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> rowremoving: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> scrollingcol: boolean;   //true if focusedcolvalid and no co_nohscroll
+        <span style="color:navy"><b>FUNCTION</b></span> noscrollingcol: boolean; //true if focusedcolvalid and co_nohscroll
+        
+        <span style="color:navy"><b>FUNCTION</b></span> defocuscell: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> defocusrow: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> showrect (const rect: rectty;
+                            const position: cellpositionty = cep_nearest;
+                            const noxshift: boolean = false): pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> showcaretrect (const arect: rectty;
+                                    const aframe: tcustomframe): pointty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> showcaretrect (const arect: rectty;
+                            const aframe: framety): pointty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> showcellrect (const rect: rectty;
+                        const origin: cellinnerlevelty = cil_paint): pointty;
+        <span style="color:navy"><b>PROCEDURE</b></span> showcell (const cell: gridcoordty;
+                           const position: cellpositionty = cep_nearest;
+                           const force: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> showrow (const arow: integer;
+                           const position: cellpositionty = cep_nearest;
+                           const force: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> showlastrow;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollrows (step: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollleft;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollright;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollpageleft;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollpageright;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> cellwindowpos: pointty <span style="color:navy"><b>READ</b></span> getcellwindowpos
+                                                       <span style="color:navy"><b>WRITE</b></span> setcellwindowpos;
+        <span style="color:navy"><b>PROPERTY</b></span> rowwindowpos: int32 <span style="color:navy"><b>READ</b></span> getrowwindowpos <span style="color:navy"><b>WRITE</b></span> setrowwindowpos;
+        <span style="color:navy"><b>PROPERTY</b></span> colwindowpos: int32 <span style="color:navy"><b>READ</b></span> getcolwindowpos <span style="color:navy"><b>WRITE</b></span> setcolwindowpos;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> userinput: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> movecol (curindex,newindex: integer;
+                                 const auserinput: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> moverow (curindex,newindex: integer; count: integer = 1;
+                                 const auserinput: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> insertrow (aindex: integer; acount: integer = 1;
+                                       const auserinput: boolean = false): int32;
+        <span style="color:navy"><b>PROCEDURE</b></span> deleterow (aindex: integer; acount: integer = 1;
+                                       const auserinput: boolean = false);
+        <span style="color:navy"><b>FUNCTION</b></span> appinsrow (aindex: integer;const auserinput: boolean = false): int32;
+        <span style="color:navy"><b>FUNCTION</b></span> isinsertempty: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isautoappend: boolean; //true if last row is auto appended
+        <span style="color:navy"><b>FUNCTION</b></span> autoappending: boolean; //empty row appending by focuscell
+        <span style="color:navy"><b>FUNCTION</b></span> checkreautoappend: boolean; //true if row appended
+        <span style="color:navy"><b>PROCEDURE</b></span> removeappendedrow;
+        <span style="color:navy"><b>FUNCTION</b></span> autoremoving: boolean; //removing empty row
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; //sets rowcount to 0
+        <span style="color:navy"><b>FUNCTION</b></span> appendrow (const checkautoappend: boolean = false): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> appenddatarow: integer;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> sortinvalid (const acol: integer = invalidaxis;
+                                            const arow: integer = invalidaxis);
+        <span style="color:navy"><b>FUNCTION</b></span> checksort: boolean; //true if sortchanged called
+        <span style="color:navy"><b>PROCEDURE</b></span> sort;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> copyselection: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;  //false if no copy
+        <span style="color:navy"><b>FUNCTION</b></span> pasteselection: boolean; <span style="color:teal"><b>VIRTUAL</b></span>; //false if no paste
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid: optionsgridty <span style="color:navy"><b>READ</b></span> foptionsgrid <span style="color:navy"><b>WRITE</b></span> setoptionsgrid
+                     <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsgrid; //first!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1: optionsgrid1ty <span style="color:navy"><b>READ</b></span> foptionsgrid1 <span style="color:navy"><b>WRITE</b></span> foptionsgrid1
+                     <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> optionsfold: optionsfoldty <span style="color:navy"><b>READ</b></span> foptionsfold
+                                                <span style="color:navy"><b>WRITE</b></span> foptionsfold <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> norowedit: boolean <span style="color:navy"><b>READ</b></span> fnorowedit <span style="color:navy"><b>WRITE</b></span> fnorowedit;
+        <span style="color:navy"><b>PROPERTY</b></span> sorted: boolean <span style="color:navy"><b>READ</b></span> getsorted <span style="color:navy"><b>WRITE</b></span> setsorted;
+        <span style="color:navy"><b>PROPERTY</b></span> folded: boolean <span style="color:navy"><b>READ</b></span> getfolded <span style="color:navy"><b>WRITE</b></span> setfolded;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth: integer <span style="color:navy"><b>READ</b></span> fdatarowlinewidth
+                     <span style="color:navy"><b>WRITE</b></span> setdatarowlinewidth <span style="color:navy"><b>DEFAULT</b></span> defaultgridlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix: colorty <span style="color:navy"><b>READ</b></span> fdatarowlinecolorfix
+                     <span style="color:navy"><b>WRITE</b></span> setdatarowlinecolorfix <span style="color:navy"><b>DEFAULT</b></span> defaultfixlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor: colorty <span style="color:navy"><b>READ</b></span> fdatarowlinecolor
+                     <span style="color:navy"><b>WRITE</b></span> setdatarowlinecolor <span style="color:navy"><b>DEFAULT</b></span> defaultdatalinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight: integer <span style="color:navy"><b>READ</b></span> fdatarowheight
+                     <span style="color:navy"><b>WRITE</b></span> setdatarowheight <span style="color:navy"><b>DEFAULT</b></span> griddefaultrowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin: integer <span style="color:navy"><b>READ</b></span> fdatarowheightmin
+                                             <span style="color:navy"><b>WRITE</b></span> fdatarowheightmin <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax: integer <span style="color:navy"><b>READ</b></span> fdatarowheightmax
+                                             <span style="color:navy"><b>WRITE</b></span> fdatarowheightmax <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tdatacols <span style="color:navy"><b>READ</b></span> fdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols: tfixcols <span style="color:navy"><b>READ</b></span> ffixcols <span style="color:navy"><b>WRITE</b></span> setfixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows: tfixrows <span style="color:navy"><b>READ</b></span> ffixrows <span style="color:navy"><b>WRITE</b></span> setfixrows;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount: integer <span style="color:navy"><b>READ</b></span> frowcount <span style="color:navy"><b>WRITE</b></span> setrowcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>FUNCTION</b></span> rowhigh: integer; //rowcount - 1
+        <span style="color:navy"><b>FUNCTION</b></span> datarowhigh: integer; //without auto appended empty row
+        <span style="color:navy"><b>PROPERTY</b></span> rowcountmax: integer <span style="color:navy"><b>READ</b></span> frowcountmax
+                              <span style="color:navy"><b>WRITE</b></span> setrowcountmax <span style="color:navy"><b>DEFAULT</b></span> bigint;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblerow (const arow: integer): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> firstvisiblerow: integer <span style="color:navy"><b>READ</b></span> ffirstvisiblerow;
+        <span style="color:navy"><b>PROPERTY</b></span> lastvisiblerow: integer <span style="color:navy"><b>READ</b></span> flastvisiblerow;
+        <span style="color:navy"><b>PROPERTY</b></span> visiblerows: integerarty <span style="color:navy"><b>READ</b></span> fvisiblerows;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> focusedcell: gridcoordty <span style="color:navy"><b>READ</b></span> ffocusedcell;
+        <span style="color:navy"><b>PROPERTY</b></span> col: integer <span style="color:navy"><b>READ</b></span> ffocusedcell.col <span style="color:navy"><b>WRITE</b></span> setcol;
+        <span style="color:navy"><b>PROPERTY</b></span> row: integer <span style="color:navy"><b>READ</b></span> ffocusedcell.row <span style="color:navy"><b>WRITE</b></span> setrow;
+        <span style="color:navy"><b>PROPERTY</b></span> mousecell: gridcoordty <span style="color:navy"><b>READ</b></span> fmousecell;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor: colorty <span style="color:navy"><b>READ</b></span> fgridframecolor
+                             <span style="color:navy"><b>WRITE</b></span> setgridframecolor <span style="color:navy"><b>DEFAULT</b></span> cl_gridframe;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors: tcolorarrayprop <span style="color:navy"><b>READ</b></span> frowcolors <span style="color:navy"><b>WRITE</b></span> setrowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolorstate[index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getrowcolorstate
+        
+                             <span style="color:navy"><b>WRITE</b></span> setrowcolorstate; //<span style="color:navy"><b>DEFAULT</b></span> = -1
+        <span style="color:navy"><b>PROPERTY</b></span> rowlinecolorstate[index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getrowlinecolorstate
+                             <span style="color:navy"><b>WRITE</b></span> setrowlinecolorstate;
+        <span style="color:navy"><b>PROPERTY</b></span> rowlinecolorfixstate[index: integer]: rowstatenumty
+                             <span style="color:navy"><b>READ</b></span> getrowlinecolorfixstate
+                             <span style="color:navy"><b>WRITE</b></span> setrowlinecolorfixstate;
+        <span style="color:navy"><b>PROPERTY</b></span> rowlinewidth[index: integer]: rowlinewidthty <span style="color:navy"><b>READ</b></span> getrowlinewidth
+                                            <span style="color:navy"><b>WRITE</b></span> setrowlinewidth;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts: trowfontarrayprop <span style="color:navy"><b>READ</b></span> frowfonts <span style="color:navy"><b>WRITE</b></span> setrowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfontstate[index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getrowfontstate
+                             <span style="color:navy"><b>WRITE</b></span> setrowfontstate;  //<span style="color:navy"><b>DEFAULT</b></span> = -1
+        <span style="color:navy"><b>PROPERTY</b></span> row<span style="color:navy"><b>READ</b></span>onlystate[index: integer]: boolean read getrowreadonlystate
+                             <span style="color:navy"><b>WRITE</b></span> setrowreadonlystate;
+        <span style="color:navy"><b>PROPERTY</b></span> rowhidden[index: integer]: boolean <span style="color:navy"><b>READ</b></span> getrowhidden
+                             <span style="color:navy"><b>WRITE</b></span> setrowhidden;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfoldlevel[index: integer]: byte <span style="color:navy"><b>READ</b></span> getrowfoldlevel
+                             <span style="color:navy"><b>WRITE</b></span> setrowfoldlevel;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfoldissum[index: integer]: boolean <span style="color:navy"><b>READ</b></span> getrowfoldissum
+                             <span style="color:navy"><b>WRITE</b></span> setrowfoldissum;
+        <span style="color:navy"><b>FUNCTION</b></span> rowfoldinfo: prowfoldinfoty; //nil if focused row not visible
+        <span style="color:navy"><b>PROPERTY</b></span> rowheight[index: integer]: integer <span style="color:navy"><b>READ</b></span> getrowheight
+                                                               <span style="color:navy"><b>WRITE</b></span> setrowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstatelist: trowstatelist <span style="color:navy"><b>READ</b></span> getrowstatelist
+                                                    <span style="color:navy"><b>WRITE</b></span> setrowstatelist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifigridlinkcomp <span style="color:navy"><b>READ</b></span> fifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+        
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color: colorty <span style="color:navy"><b>READ</b></span> fzebra_color <span style="color:navy"><b>WRITE</b></span> setzebra_color
+                                                                   <span style="color:navy"><b>DEFAULT</b></span> cl_zebra;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start: integer <span style="color:navy"><b>READ</b></span> fzebra_start <span style="color:navy"><b>WRITE</b></span> setzebra_start <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height: integer <span style="color:navy"><b>READ</b></span> fzebra_height <span style="color:navy"><b>WRITE</b></span> setzebra_height <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step: integer <span style="color:navy"><b>READ</b></span> fzebra_step <span style="color:navy"><b>WRITE</b></span> setzebra_step <span style="color:navy"><b>DEFAULT</b></span> 2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout: gridnotifyeventty
+                     <span style="color:navy"><b>READ</b></span> fonbeforeupdatelayout <span style="color:navy"><b>WRITE</b></span> fonbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged: gridnotifyeventty <span style="color:navy"><b>READ</b></span> fonlayoutchanged
+                   <span style="color:navy"><b>WRITE</b></span> fonlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving: gridblockmovingeventty <span style="color:navy"><b>READ</b></span> foncolmoving
+                   <span style="color:navy"><b>WRITE</b></span> foncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved: gridblockmovedeventty <span style="color:navy"><b>READ</b></span> foncolmoved
+                   <span style="color:navy"><b>WRITE</b></span> foncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged: gridnotifyeventty <span style="color:navy"><b>READ</b></span> fonrowcountchanged
+                   <span style="color:navy"><b>WRITE</b></span> fonrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged: griddatablockeventty <span style="color:navy"><b>READ</b></span> fonrowsdatachanged
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged: griddataeventty <span style="color:navy"><b>READ</b></span> fonrowdatachanged
+                   <span style="color:navy"><b>WRITE</b></span> fonrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoving: gridblockmovingeventty <span style="color:navy"><b>READ</b></span> fonrowsmoving
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoved: gridblockmovedeventty <span style="color:navy"><b>READ</b></span> fonrowsmoved
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrollrows: gridscrolleventty <span style="color:navy"><b>READ</b></span> fonscrollrows
+                                                        <span style="color:navy"><b>WRITE</b></span> fonscrollrows;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetmorerows: gridmorerowseventty <span style="color:navy"><b>READ</b></span> fongetmorerows
+                                                        <span style="color:navy"><b>WRITE</b></span> fongetmorerows;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserting: gridbeforeblockeventty <span style="color:navy"><b>READ</b></span> fonrowsinserting
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsinserting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted: gridblockeventty <span style="color:navy"><b>READ</b></span> fonrowsinserted
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsinserted;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleting: gridbeforeblockeventty <span style="color:navy"><b>READ</b></span> fonrowsdeleting
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsdeleting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted: gridblockeventty <span style="color:navy"><b>READ</b></span> fonrowsdeleted
+                   <span style="color:navy"><b>WRITE</b></span> fonrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmodified: notifyeventty <span style="color:navy"><b>READ</b></span> fonrowsmodified
+                                                   <span style="color:navy"><b>WRITE</b></span> fonrowsmodified;
+        <span style="color:navy"><b>PROPERTY</b></span> onedited: notifyeventty <span style="color:navy"><b>READ</b></span> fonedited <span style="color:navy"><b>WRITE</b></span> fonedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onsort: gridsorteventty <span style="color:navy"><b>READ</b></span> fonsort <span style="color:navy"><b>WRITE</b></span> fonsort;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged: gridnotifyeventty <span style="color:navy"><b>READ</b></span> fonsortchanged
+                                                        <span style="color:navy"><b>WRITE</b></span> fonsortchanged;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent: celleventty <span style="color:navy"><b>READ</b></span> foncellevent <span style="color:navy"><b>WRITE</b></span> foncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged: notifyeventty <span style="color:navy"><b>READ</b></span> fonselectionchanged
+                       <span style="color:navy"><b>WRITE</b></span> fonselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection: copyselectioneventty <span style="color:navy"><b>READ</b></span> foncopyselection
+                                           <span style="color:navy"><b>WRITE</b></span> foncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection: pasteselectioneventty <span style="color:navy"><b>READ</b></span> fonpasteselection
+                                           <span style="color:navy"><b>WRITE</b></span> fonpasteselection;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> drag: tdragcontroller <span style="color:navy"><b>READ</b></span> fdragcontroller <span style="color:navy"><b>WRITE</b></span> setdragcontroller;
+        
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tgridframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty: twidgetfontempty <span style="color:navy"><b>READ</b></span> getfontempty
+                            <span style="color:navy"><b>WRITE</b></span> setfontempty stored isfontemptystored;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown: keyeventty <span style="color:navy"><b>READ</b></span> fonkeydown <span style="color:navy"><b>WRITE</b></span> fonkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> wheelscrollheight: integer <span style="color:navy"><b>READ</b></span> fwheelscrollheight write
+                         fwheelscrollheight <span style="color:navy"><b>DEFAULT</b></span> defaultwheelscrollheight;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultgridwidgetoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaultgridwidgetoptions1;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcellgrid" name="tcellgrid">tcellgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomgrid">tcustomgrid</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdrawgrid" name="tdrawgrid">tdrawgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcellgrid">tcellgrid</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsfold;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tdrawcols <span style="color:navy"><b>READ</b></span> getdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstatelist;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcountmax;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmodified;
+        <span style="color:navy"><b>PROPERTY</b></span> onedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrollrows;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetmorerows;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onsort;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomstringgrid" name="tcustomstringgrid">tcustomstringgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcellgrid">tcellgrid</a>,iedit)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped (const acell: gridcoordty;
+                      out acellrect: rectty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped (const acell: gridcoordty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> appendrow (const value: array of msestring;
+                             const ashowlastrow: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> appendrow (const value: msestringarty;
+                             const ashowlastrow: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> appendrow (const value: msestring;
+                             const ashowlastrow: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> appenddatarow (const value: array of msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> appenddatarow (const value: msestringarty): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> appenddatarow (const value: msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> copyselection: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> pasteselection: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const cell: gridcoordty]: msestring <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tstringcols <span style="color:navy"><b>READ</b></span> getdatacols <span style="color:navy"><b>WRITE</b></span> setdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth: integer <span style="color:navy"><b>READ</b></span> getcaretwidth <span style="color:navy"><b>WRITE</b></span> setcaretwidth
+                                                         <span style="color:navy"><b>DEFAULT</b></span> defaultcaretwidth;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringgrid" name="tstringgrid">tstringgrid</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringgrid">tcustomstringgrid</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgrid1;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsfold;
+        <span style="color:navy"><b>PROPERTY</b></span> datacols;
+        <span style="color:navy"><b>PROPERTY</b></span> rowstatelist;
+        <span style="color:navy"><b>PROPERTY</b></span> fixcols;
+        <span style="color:navy"><b>PROPERTY</b></span> fixrows;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcountmax;
+        <span style="color:navy"><b>PROPERTY</b></span> gridframecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> rowfonts;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheight;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmin;
+        <span style="color:navy"><b>PROPERTY</b></span> datarowheightmax;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncopyselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onpasteselection;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdatelayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayoutchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> oncolmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowcountchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdatachanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoving;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmoved;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsinserted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleting;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsdeleted;
+        <span style="color:navy"><b>PROPERTY</b></span> onrowsmodified;
+        <span style="color:navy"><b>PROPERTY</b></span> onedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrollrows;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetmorerows;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onsort;
+        <span style="color:navy"><b>PROPERTY</b></span> onsortchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> drag;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

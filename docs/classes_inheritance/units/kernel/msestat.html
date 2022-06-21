@@ -1,0 +1,191 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msestat;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstatfiler" name="tstatfiler">tstatfiler</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const astream: ttextstream;
+                                 const aencoding: charencodingty = ce_utf8);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> varname (const intf: istatfile): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> arrayname (const name: msestring; index: integer): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> iswriter: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> stream: ttextstream <span style="color:navy"><b>READ</b></span> fstream;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setsection (const name: msestring);
+        <span style="color:navy"><b>PROPERTY</b></span> currentsection: msestring <span style="color:navy"><b>READ</b></span> fcurrentsection;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: byte); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: word); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: integer;
+                    const min: integer = -(maxint)-1; const max: integer = maxint); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: real;
+                    const min: real = -bigreal; const max: real = bigreal); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: string); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatebinaryvalue (const name: msestring; var value: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: tdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: stringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: msestringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: longboolarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: integerarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: int64arty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: realarty);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; var value: complexarty);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> updatevalue (const name: msestring; const intf: istatupdatevalue); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatestat (const intf: istatfile);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatememorystatstream (const name: msestring; const streamname: msestring);
+        <span style="color:navy"><b>FUNCTION</b></span> beginlist (const name: msestring = ''): boolean;  <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> endlist: boolean;  <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> options: statfileroptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions;
+        <span style="color:navy"><b>FUNCTION</b></span> candata: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canstate: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canoptions: boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstatreader" name="tstatreader">tstatreader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstatfiler">tstatfiler</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const astream: ttextstream;
+                           const aencoding: charencodingty = ce_utf8); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const filename: filenamety;
+                           const aencoding: charencodingty = ce_utf8); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> sections: msestringarty;
+        <span style="color:navy"><b>FUNCTION</b></span> hassection (const name: msestring): boolean; //true if found
+        <span style="color:navy"><b>FUNCTION</b></span> findsection (const name: msestring): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> checkvar (const name: msestring): boolean; //true if found
+        <span style="color:navy"><b>FUNCTION</b></span> streamdata: string;    //returns data after [-]
+        <span style="color:navy"><b>FUNCTION</b></span> streamtext: msestring; //returns text after [-]
+        
+        <span style="color:navy"><b>FUNCTION</b></span> readboolean (const name: msestring; const default: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readbyte (const name: msestring; const default: byte = 0): byte;
+        <span style="color:navy"><b>FUNCTION</b></span> readword (const name: msestring; const default: word = 0): word;
+        <span style="color:navy"><b>FUNCTION</b></span> readinteger (const name: msestring; const default: integer = 0;
+                    const min: integer = -(maxint)-1; const max: integer = maxint): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> readint64 (const name: msestring; const default: int64 = 0;
+                    const min: int64 = -(maxint64)-1; const max: int64 = maxint64): int64;
+        <span style="color:navy"><b>FUNCTION</b></span> readreal (const name: msestring; const default: real = 0;
+                    const min: real = -bigreal; const max: real = bigreal;
+                                      const acceptempty: boolean = false): realty;
+        <span style="color:navy"><b>FUNCTION</b></span> readstring (const name: msestring; const default: string): string;
+        <span style="color:navy"><b>FUNCTION</b></span> readbinarystring (const name: msestring; const default: string): string;
+        <span style="color:navy"><b>FUNCTION</b></span> readmsestring (const name: msestring; const default: msestring): msestring;
+        <span style="color:navy"><b>PROCEDURE</b></span> readdatalist (const name: msestring; const value: tdatalist);
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: stringarty): stringarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: msestringarty): msestringarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: widestringarty): widestringarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: integerarty): integerarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: int64arty): int64arty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: booleanarty): booleanarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring; const default: longboolarty): longboolarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring;
+                               const default: realarty): realarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readarray (const name: msestring;
+                               const default: complexarty): complexarty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readlistitem: msestring;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> readrecord (const name: msestring; const values: array of pointer;
+                                        const default: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> readrecordarray (const name: msestring;
+                      setcount: recsetcounteventty; store: recstoreeventty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> readrecordarray (const name: msestring;
+                      setcount: recsetcountevent1ty; store: recstoreevent1ty);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> beginlist (const name: msestring = ''): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> endlist: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> readvalue (const name: msestring; const intf: istatupdatevalue);
+        <span style="color:navy"><b>PROCEDURE</b></span> readstat (const intf: istatfile);
+        <span style="color:navy"><b>PROCEDURE</b></span> readmemorystatstream (const name: msestring; const streamname: msestring);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstatwriter" name="tstatwriter">tstatwriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstatfiler">tstatfiler</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const astream: ttextstream;
+                          const aencoding: charencodingty = ce_utf8); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const filename: filenamety;
+                                   const aencoding: charencodingty = ce_utf8;
+                                   const atransaction: boolean = true); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writesection (const name: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> writeboolean (const name: msestring; const value: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> writebyte (const name: msestring; const value: byte);
+        <span style="color:navy"><b>PROCEDURE</b></span> writeword (const name: msestring; const value: word);
+        <span style="color:navy"><b>PROCEDURE</b></span> writeinteger (const name: msestring; const value: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> writeint64 (const name: msestring; const value: int64);
+        <span style="color:navy"><b>PROCEDURE</b></span> writereal (const name: msestring; const value: real);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestring (const name: msestring; const value: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> writebinarystring (const name: msestring; const value: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> writemsestring (const name: msestring; const value: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> writedatalist (const name: msestring; const value: tdatalist);
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: stringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: msestringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: integerarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: int64arty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: booleanarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: longboolarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: realarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writearray (const name: msestring; const value: complexarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writelistitem (const value: msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelistitem (const value: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelistitem (const value: realty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelistitem (const value: complexty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const name: msestring; const values: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecordarray (const name: msestring; const count: integer;
+                       get: recgetrecordeventty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecordarray (const name: msestring; const count: integer;
+                       get: recgetrecordevent1ty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> beginlist (const name: msestring = ''): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> endlist: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writevalue (const name: msestring; const intf: istatupdatevalue);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestat (const intf: istatfile);
+        <span style="color:navy"><b>PROCEDURE</b></span> writememorystatstream (const name: msestring;
+                                                      const streamname: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> streamdata (const adata: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> streamtext (const atext: msestring);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemorytextstream" name="tmemorytextstream">tmemorytextstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttextstream">ttextstream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tmemorystreams; const name: msestring;
+           const aopenmode: fileopenmodety; var info: streaminfoty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemorystreams" name="tmemorystreams">tmemorystreams</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> open (const streamname: msestring;
+                       const aopenmode: fileopenmodety): ttextstream;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const name: msestring);
+        <span style="color:navy"><b>FUNCTION</b></span> findfiles (const aname: msestring): msestringarty;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

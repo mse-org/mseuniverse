@@ -1,0 +1,593 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory designutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msepropertyeditors;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringpropertyeditor" name="tstringpropertyeditor">tstringpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tutf8stringpropertyeditor" name="tutf8stringpropertyeditor">tutf8stringpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trefreshstringpropertyeditor" name="trefreshstringpropertyeditor">trefreshstringpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringpropertyeditor">tstringpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnamepropertyeditor" name="tnamepropertyeditor">tnamepropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringpropertyeditor">tstringpropertyeditor</a>)
+      PUBLIC
+        rocedure setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfontnamepropertyeditor" name="tfontnamepropertyeditor">tfontnamepropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringpropertyeditor">tstringpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringpropertyeditor" name="tmsestringpropertyeditor">tmsestringpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichstringpropertyeditor" name="trichstringpropertyeditor">trichstringpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringpropertyeditor">tmsestringpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tordinalpropertyeditor" name="tordinalpropertyeditor">tordinalpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvolatileordinalpropertyeditor" name="tvolatileordinalpropertyeditor">tvolatileordinalpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64propertyeditor" name="tint64propertyeditor">tint64propertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcharpropertyeditor" name="tcharpropertyeditor">tcharpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidecharpropertyeditor" name="twidecharpropertyeditor">twidecharpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleanpropertyeditor" name="tbooleanpropertyeditor">tbooleanpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvolatilebooleanpropertyeditor" name="tvolatilebooleanpropertyeditor">tvolatilebooleanpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbooleanpropertyeditor">tbooleanpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trefreshbooleanpropertyeditor" name="trefreshbooleanpropertyeditor">trefreshbooleanpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbooleanpropertyeditor">tbooleanpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealpropertyeditor" name="trealpropertyeditor">trealpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealtypropertyeditor" name="trealtypropertyeditor">trealtypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcurrencypropertyeditor" name="tcurrencypropertyeditor">tcurrencypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimepropertyeditor" name="tdatetimepropertyeditor">tdatetimepropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvariantpropertyeditor" name="tvariantpropertyeditor">tvariantpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumpropertyeditor" name="tenumpropertyeditor">tenumpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tshortcutpropertyeditor" name="tshortcutpropertyeditor">tshortcutpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenumpropertyeditor">tenumpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+             const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypeinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tshortcutarpropertyeditor" name="tshortcutarpropertyeditor">tshortcutarpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tshortcutpropertyeditor">tshortcutpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+             const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypeinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolorpropertyeditor" name="tcolorpropertyeditor">tcolorpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tenumpropertyeditor">tenumpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tclasspropertyeditor" name="tclasspropertyeditor">tclasspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#toptionalclasspropertyeditor" name="toptionalclasspropertyeditor">toptionalclasspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> canrevert: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tparentclasspropertyeditor" name="tparentclasspropertyeditor">tparentclasspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#toptionalclasspropertyeditor">toptionalclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tparentfontpropertyeditor" name="tparentfontpropertyeditor">tparentfontpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentclasspropertyeditor">tparentclasspropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlinkedobjectpropertyeditor" name="tlinkedobjectpropertyeditor">tlinkedobjectpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcomponentpropertyeditor" name="tcomponentpropertyeditor">tcomponentpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsubcomponentpropertyeditor" name="tsubcomponentpropertyeditor">tsubcomponentpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsisterwidgetpropertyeditor" name="tsisterwidgetpropertyeditor">tsisterwidgetpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnochildrenwidgetpropertyeditor" name="tnochildrenwidgetpropertyeditor">tnochildrenwidgetpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tchildwidgetpropertyeditor" name="tchildwidgetpropertyeditor">tchildwidgetpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlocalcomponentpropertyeditor" name="tlocalcomponentpropertyeditor">tlocalcomponentpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlinkcomponentpropertyeditor" name="tlinkcomponentpropertyeditor">tlinkcomponentpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlocallinkcomponentpropertyeditor" name="tlocallinkcomponentpropertyeditor">tlocallinkcomponentpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentpropertyeditor">tcomponentpropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetelementeditor" name="tsetelementeditor">tsetelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+             const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypeinfo: ptypeinfo;
+                 const aparent: tsetpropertyeditor; const aindex: integer);
+                                  <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatedefaultvalue; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canrevert: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> propertyname: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetpropertyeditor" name="tsetpropertyeditor">tsetpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tordinalpropertyeditor">tordinalpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+             const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypeinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvolatilesetpropertyeditor" name="tvolatilesetpropertyeditor">tvolatilesetpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsetpropertyeditor">tsetpropertyeditor</a>)
+      PUBLIC
+        onstructor create (const adesigner: idesigner;
+             const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypeinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmethodpropertyeditor" name="tmethodpropertyeditor">tmethodpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+                 const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getdefaultstate: propertystatesty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> navigevent (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> method: tmethod;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialogclasspropertyeditor" name="tdialogclasspropertyeditor">tdialogclasspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbitmappropertyeditor" name="tbitmappropertyeditor">tbitmappropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringspropertyeditor" name="tstringspropertyeditor">tstringspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextstringspropertyeditor" name="ttextstringspropertyeditor">ttextstringspropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatalistpropertyeditor" name="tdatalistpropertyeditor">tdatalistpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#toptionaldatalistpropertyeditor" name="toptionaldatalistpropertyeditor">toptionaldatalistpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalistpropertyeditor">tdatalistpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> canrevert: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringdatalistpropertyeditor" name="tmsestringdatalistpropertyeditor">tmsestringdatalistpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublemsestringdatalistpropertyeditor" name="tdoublemsestringdatalistpropertyeditor">tdoublemsestringdatalistpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringintdatalistpropertyeditor" name="tmsestringintdatalistpropertyeditor">tmsestringintdatalistpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialogclasspropertyeditor">tdialogclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tarrayelementeditor" name="tarrayelementeditor">tarrayelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>,iremotepropertyeditor)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aindex: integer; aparenteditor: tarraypropertyeditor;
+                 aeditorclass: propertyeditorclassty;
+                 const adesigner: idesigner;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypinfo: ptypeinfo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+                                                              <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canrevert: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> focused () <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragbegin (var accept: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragover (const sender: tpropertyeditor; var accept: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragdrop (const sender: tpropertyeditor); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dopopup (var amenu: tpopupmenu; const atransientfor: twidget;
+                               var mouseinfo: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var ainfo: keyeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> index:int32 <span style="color:navy"><b>READ</b></span> findex;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tarraypropertyeditor" name="tarraypropertyeditor">tarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> itemprefix: msestring; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const curindex,newindex: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dopopup (var amenu: tpopupmenu; const atransientfor: twidget;
+                               var mouseinfo: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var ainfo: keyeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tconstelementeditor" name="tconstelementeditor">tconstelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayelementeditor">tarrayelementeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const avalue: msestring;
+                 aindex: integer; aparenteditor: tarraypropertyeditor;
+                 aeditorclass: propertyeditorclassty;
+                 const adesigner: idesigner;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypinfo: ptypeinfo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragdrop (const sender: tpropertyeditor); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tconstarraypropertyeditor" name="tconstarraypropertyeditor">tconstarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcollectionitemeditor" name="tcollectionitemeditor">tcollectionitemeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>,iremotepropertyeditor)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aindex: integer; aparenteditor: tcollectionpropertyeditor;
+                 aeditorclass: propertyeditorclassty;
+                 const adesigner: idesigner;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypinfo: ptypeinfo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalues: msestringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> dragbegin (var accept: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragover (const sender: tpropertyeditor; var accept: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragdrop (const sender: tpropertyeditor); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dopopup (var amenu: tpopupmenu; const atransientfor: twidget;
+                               var mouseinfo: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var ainfo: keyeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcollectionpropertyeditor" name="tcollectionpropertyeditor">tcollectionpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> name: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dopopup (var amenu: tpopupmenu; const atransientfor: twidget;
+                               var mouseinfo: mouseeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dokeydown (var ainfo: keyeventinfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpersistentarraypropertyeditor" name="tpersistentarraypropertyeditor">tpersistentarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#toptionalpersistentarraypropertyeditor" name="toptionalpersistentarraypropertyeditor">toptionalpersistentarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarraypropertyeditor">tpersistentarraypropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> edit; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenuarraypropertyeditor" name="tmenuarraypropertyeditor">tmenuarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tordinalelementeditor" name="tordinalelementeditor">tordinalelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayelementeditor">tarrayelementeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setvalue (const value: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tclasselementeditor" name="tclasselementeditor">tclasselementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasspropertyeditor">tclasspropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenuelementeditor" name="tmenuelementeditor">tmenuelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclasselementeditor">tclasselementeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerarraypropertyeditor" name="tintegerarraypropertyeditor">tintegerarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetarrayelementeditor" name="tsetarrayelementeditor">tsetarrayelementeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayelementeditor">tarrayelementeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aindex: integer; aparenteditor: tarraypropertyeditor;
+                 aeditorclass: propertyeditorclassty;
+                 const adesigner: idesigner;
+                 const aobjectinspector: iobjectinspector;
+                 const aprops: propinstancearty; atypinfo: ptypeinfo); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetarrayelementpropertyeditor" name="tsetarrayelementpropertyeditor">tsetarrayelementpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsetpropertyeditor">tsetpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetarraypropertyeditor" name="tsetarraypropertyeditor">tsetarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolorarraypropertyeditor" name="tcolorarraypropertyeditor">tcolorarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringarraypropertyeditor" name="tstringarraypropertyeditor">tstringarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringarraypropertyeditor" name="tmsestringarraypropertyeditor">tmsestringarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealarraypropertyeditor" name="trealarraypropertyeditor">trealarraypropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarraypropertyeditor">tarraypropertyeditor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordpropertyeditor" name="trecordpropertyeditor">trecordpropertyeditor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpropertyeditor">tpropertyeditor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adesigner: idesigner;
+                 const amodule: tmsecomponent; const acomponent: tcomponent;
+                 const aobjectinspector: iobjectinspector; const aname: string;
+                 const subprops: propertyeditorarty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> allequal: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> subproperties: propertyeditorarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getvalue: msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpropertyeditors" name="tpropertyeditors">tpropertyeditors</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicdatalist">tdynamicdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> geteditorclass (apropertytype: ptypeinfo;
+          apropertyownerclass: tclass; apropertyname: string): propertyeditorclassty;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: ppropertyeditorinfoty <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

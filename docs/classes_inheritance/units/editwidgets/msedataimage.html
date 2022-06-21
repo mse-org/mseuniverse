@@ -1,0 +1,69 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedataimage;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#timagecache" name="timagecache">timagecache</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>PROCEDURE</b></span> clear () <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const adata: string; out aimage: maskedimagety): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const adata: string; const aimage: maskedimagety);
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const adata: string);
+        <span style="color:navy"><b>PROPERTY</b></span> maxsize: int32 <span style="color:navy"><b>READ</b></span> fmaxsize <span style="color:navy"><b>WRITE</b></span> fmaxsize;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdataimage" name="tcustomdataimage">tcustomdataimage</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#timage">timage</a>,igridwidget)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> seteditfocus: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> changed; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromstream (const astream: tstream): string;    //returns format
+        <span style="color:navy"><b>FUNCTION</b></span> loadfromfile (const afilename: filenamety): string; //returns format
+        <span style="color:navy"><b>PROCEDURE</b></span> storeimage (const aformat: string; const params: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawimage (const canvas: tcanvas; const cellinfo: pcellinfoty;
+                                                                const dest: rectty);
+        <span style="color:navy"><b>PROPERTY</b></span> value: string <span style="color:navy"><b>READ</b></span> fvalue{getvalue} <span style="color:navy"><b>WRITE</b></span> setvalue stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[index: integer]: string <span style="color:navy"><b>READ</b></span> getgridvalue
+                                  <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> format: string <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> cachesize: int32 <span style="color:navy"><b>READ</b></span> getcachesize
+                                    <span style="color:navy"><b>WRITE</b></span> setcachesize <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdataimage" name="tdataimage">tdataimage</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdataimage">tcustomdataimage</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> format;
+        <span style="color:navy"><b>PROPERTY</b></span> cachesize;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,182 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory printer</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseprinter;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprintertabulators" name="tprintertabulators">tprintertabulators</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomtabulators">tcustomtabulators</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> defaultdist;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomprinter" name="tcustomprinter">tcustomprinter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beginprint (const adryrun: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endprint; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> canvas: tprintercanvas <span style="color:navy"><b>READ</b></span> fcanvas <span style="color:navy"><b>WRITE</b></span> setcanvas;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagestart: printereventty <span style="color:navy"><b>READ</b></span> fonpagestart <span style="color:navy"><b>WRITE</b></span> fonpagestart;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprinter" name="tprinter">tprinter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomprinter">tcustomprinter</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> canvas;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagestart;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstreamprinter" name="tstreamprinter">tstreamprinter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tprinter">tprinter</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginprint (command: msestring = '';
+                         const apreamble: string = ''); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginprint (const astream: ttextstream;
+                         const apreamble: string = ''); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endprint; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> printcommand: msestring <span style="color:navy"><b>READ</b></span> fprintcommand <span style="color:navy"><b>WRITE</b></span> fprintcommand;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onerror;  //call abort for quiet cancel
+        <span style="color:navy"><b>PROPERTY</b></span> onupdateprintcommand: updateprinterstringeventty
+                           <span style="color:navy"><b>READ</b></span> fonupdateprintcommand <span style="color:navy"><b>WRITE</b></span> fonupdateprintcommand;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprinterfont" name="tprinterfont">tprinterfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcanvasfont">tcanvasfont</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomprintercanvas" name="tcustomprintercanvas">tcustomprintercanvas</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcanvas">tcanvas</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const user: tcustomprinter;
+                                        const intf: icanvas); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initflags (const dest: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawtext (var info: drawtextinfoty); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawtext (const atext: richstringty;
+                        const adest: rectty; aflags: textflagsty = [];
+                        afont: tfont = nil; atabulators: ttabulators = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawtext (const atext: richstringty;
+                        const adest,aclip: rectty; aflags: textflagsty = [];
+                        afont: tfont = nil; atabulators: ttabulators = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawtext (const atext: msestring;
+                        const adest: rectty; aflags: textflagsty = [];
+                        afont: tfont = nil; atabulators: ttabulators = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const avalue: msestring = ''); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const avalue: richstringty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelines (const alines: array of msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelines (const alines: msestringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writelines (const alines: richstringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> indentx: integer <span style="color:navy"><b>READ</b></span> findentx <span style="color:navy"><b>WRITE</b></span> findentx;
+        <span style="color:navy"><b>PROPERTY</b></span> indenty: integer <span style="color:navy"><b>READ</b></span> findenty <span style="color:navy"><b>WRITE</b></span> findenty;
+        <span style="color:navy"><b>PROPERTY</b></span> headerheight: integer <span style="color:navy"><b>READ</b></span> fheaderheight <span style="color:navy"><b>WRITE</b></span> fheaderheight;
+        <span style="color:navy"><b>PROPERTY</b></span> footerheight: integer <span style="color:navy"><b>READ</b></span> ffooterheight <span style="color:navy"><b>WRITE</b></span> ffooterheight;
+        <span style="color:navy"><b>PROPERTY</b></span> linenumber: integer <span style="color:navy"><b>READ</b></span> flinenumber;
+        <span style="color:navy"><b>PROPERTY</b></span> pagelinenumber: integer <span style="color:navy"><b>READ</b></span> fpagelinenumber;
+        <span style="color:navy"><b>FUNCTION</b></span> remaininglines: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> liney1: integer; //no checknextpage call
+        <span style="color:navy"><b>PROPERTY</b></span> liney: integer <span style="color:navy"><b>READ</b></span> getliney <span style="color:navy"><b>WRITE</b></span> setliney;
+        <span style="color:navy"><b>FUNCTION</b></span> lineheight: integer; //pixels
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> nextpage; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> title: msestring <span style="color:navy"><b>READ</b></span> ftitle <span style="color:navy"><b>WRITE</b></span> ftitle;
+        <span style="color:navy"><b>PROPERTY</b></span> clientrect: rectty <span style="color:navy"><b>READ</b></span> fclientrect;
+        <span style="color:navy"><b>PROPERTY</b></span> clientpos: pointty <span style="color:navy"><b>READ</b></span> fclientrect.pos;
+        <span style="color:navy"><b>PROPERTY</b></span> clientsize: sizety <span style="color:navy"><b>READ</b></span> fclientrect.size;
+        <span style="color:navy"><b>PROPERTY</b></span> clientleft: integer <span style="color:navy"><b>READ</b></span> fclientrect.x;
+        <span style="color:navy"><b>PROPERTY</b></span> clienttop: integer <span style="color:navy"><b>READ</b></span> fclientrect.y;
+        <span style="color:navy"><b>PROPERTY</b></span> clientwidth: integer <span style="color:navy"><b>READ</b></span> fclientrect.cx;
+        <span style="color:navy"><b>PROPERTY</b></span> clientheight: integer <span style="color:navy"><b>READ</b></span> fclientrect.cy;
+        <span style="color:navy"><b>PROPERTY</b></span> colorspace: colorspacety <span style="color:navy"><b>READ</b></span> fcolorspace
+                              <span style="color:navy"><b>WRITE</b></span> setcolorspace <span style="color:navy"><b>DEFAULT</b></span> cos_gray;
+        <span style="color:navy"><b>PROPERTY</b></span> pagenumber: integer <span style="color:navy"><b>READ</b></span> fpagenumber;
+        <span style="color:navy"><b>PROPERTY</b></span> pageskind: pageskindty <span style="color:navy"><b>READ</b></span> fpageskind <span style="color:navy"><b>WRITE</b></span> fpageskind;
+        <span style="color:navy"><b>PROPERTY</b></span> pages: pagerangearty <span style="color:navy"><b>READ</b></span> fpages <span style="color:navy"><b>WRITE</b></span> setpages;
+        <span style="color:navy"><b>PROPERTY</b></span> pagesstring: msestring <span style="color:navy"><b>READ</b></span> fpagesstring <span style="color:navy"><b>WRITE</b></span> setpagesstring;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> printorientation: pageorientationty <span style="color:navy"><b>READ</b></span> fprintorientation
+                     <span style="color:navy"><b>WRITE</b></span> setprintorientation <span style="color:navy"><b>DEFAULT</b></span> pao_portrait;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprintercanvas" name="tprintercanvas">tprintercanvas</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomprintercanvas">tcustomprintercanvas</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> printorientation;
+        <span style="color:navy"><b>PROPERTY</b></span> colorspace;
+        <span style="color:navy"><b>PROPERTY</b></span> title;
+        <span style="color:navy"><b>PROPERTY</b></span> ppmm; //<span style="color:navy"><b>DEFAULT</b></span> 10
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstreamprintercanvas" name="tstreamprintercanvas">tstreamprintercanvas</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tprintercanvas">tprintercanvas</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprintervalueselector" name="tprintervalueselector">tprintervalueselector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomselector">tcustomselector</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> printer: tcustomprinter <span style="color:navy"><b>READ</b></span> fprinter <span style="color:navy"><b>WRITE</b></span> setprinter;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpagesizeselector" name="tpagesizeselector">tpagesizeselector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tprintervalueselector">tprintervalueselector</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatesize ();
+        <span style="color:navy"><b>FUNCTION</b></span> pagesizename: msestring;
+        <span style="color:navy"><b>PROPERTY</b></span> pagewidth: real <span style="color:navy"><b>READ</b></span> fpagewidth <span style="color:navy"><b>WRITE</b></span> setpagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> pageheight: real <span style="color:navy"><b>READ</b></span> fpageheight <span style="color:navy"><b>WRITE</b></span> setpageheight;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: stdpagesizety <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> sps_a4;
+        <span style="color:navy"><b>PROPERTY</b></span> editwidth: tcustomrealedit <span style="color:navy"><b>READ</b></span> feditwidth
+                                                      <span style="color:navy"><b>WRITE</b></span> seteditwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> editheight: tcustomrealedit <span style="color:navy"><b>READ</b></span> feditheight
+                                                      <span style="color:navy"><b>WRITE</b></span> seteditheight;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: pagesizeeventty <span style="color:navy"><b>READ</b></span> getonsetvalue
+                                                      <span style="color:navy"><b>WRITE</b></span> setongetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpageorientationselector" name="tpageorientationselector">tpageorientationselector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tprintervalueselector">tprintervalueselector</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: pageorientationty <span style="color:navy"><b>READ</b></span> getvalue
+                        <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> pao_portrait;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: pageorientationeventty <span style="color:navy"><b>READ</b></span> getonsetvalue
+                                                         <span style="color:navy"><b>WRITE</b></span> setongetvalue;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

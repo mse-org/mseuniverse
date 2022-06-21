@@ -1,0 +1,70 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory dialogs</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedirtree;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdirlistitem" name="tdirlistitem">tdirlistitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttreelistedititem">ttreelistedititem</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomitemlist = nil;
+                   const aparent: ttreelistitem = nil); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setentries (const list: tcustomfiledatalist;
+                       const achecksubdirectories,ashowhidden,acheckbox: boolean);
+        <span style="color:navy"><b>FUNCTION</b></span> findsubdir (const aname: filenamety): tdirlistitem;
+        <span style="color:navy"><b>FUNCTION</b></span> getpath: filenamety;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdirtreefo" name="tdirtreefo">tdirtreefo</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsizingform">tsizingform</a>)
+      PUBLIC
+        grid: twidgetgrid;
+        treeitem: ttreeitemedit;
+        <span style="color:navy"><b>PROCEDURE</b></span> treeitemoncreateitem (const sender: tcustomitemlist;
+                          var item: ttreelistedititem); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> treeitemonitemnotification (const sender: tlistitem;
+                      var action: nodeactionty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> treeitemondataentered (const sender: tobject); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> treeitemoncellevent (const sender: tobject;
+                      var info: celleventinfoty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckednodes (const amode: getnodemodety =
+                                         gno_nochildren): dirlistitemarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcheckedfilenames (const amode: getnodemodety =
+                                         gno_nochildren): filenamearty;
+        <span style="color:navy"><b>PROPERTY</b></span> casesensitive: boolean <span style="color:navy"><b>READ</b></span> getcasesensitive <span style="color:navy"><b>WRITE</b></span> setcasesensitive;
+        <span style="color:navy"><b>PROPERTY</b></span> showhiddenfiles: boolean <span style="color:navy"><b>READ</b></span> getshowhiddenfiles
+                                                        <span style="color:navy"><b>WRITE</b></span> setshowhiddenfiles;
+        <span style="color:navy"><b>PROPERTY</b></span> checksubdir: boolean <span style="color:navy"><b>READ</b></span> getchecksubdir <span style="color:navy"><b>WRITE</b></span> setchecksubdir;
+        <span style="color:navy"><b>PROPERTY</b></span> path: filenamety <span style="color:navy"><b>READ</b></span> getpath <span style="color:navy"><b>WRITE</b></span> setpath;
+        <span style="color:navy"><b>PROPERTY</b></span> root: filenamety <span style="color:navy"><b>READ</b></span> froot <span style="color:navy"><b>WRITE</b></span> setroot;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdir: dirtreeoptionsty <span style="color:navy"><b>READ</b></span> foptionsdir
+                                               <span style="color:navy"><b>WRITE</b></span> foptionsdir <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> onpathchanged: notifyeventty <span style="color:navy"><b>READ</b></span> fonpathchanged
+                                                        <span style="color:navy"><b>WRITE</b></span> fonpathchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged: listitemeventty <span style="color:navy"><b>READ</b></span> fonselctionchanged
+                                                        <span style="color:navy"><b>WRITE</b></span> fonselectionchanged;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdiredit" name="tdiredit">tdiredit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringedit">tstringedit</a>)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

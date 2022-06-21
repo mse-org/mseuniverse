@@ -1,0 +1,871 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory report</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msereport;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treptabfont" name="treptabfont">treptabfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> defaultrepfontcolor;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepwidgetfont" name="trepwidgetfont">trepwidgetfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidgetfont">twidgetfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> defaultrepfontcolor;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepfont" name="trepfont">trepfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfont">tfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> defaultrepfontcolor;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treptabitemdatalink" name="treptabitemdatalink">treptabitemdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddatalink">tfielddatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: treptabulatoritem);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treptabulatoritem" name="treptabulatoritem">treptabulatoritem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttabulatoritem">ttabulatoritem</a>,idbeditinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetsum (const skipcurrent: boolean);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setintvalue (const avalue: int32);
+        <span style="color:navy"><b>PROCEDURE</b></span> setint64value (const avalue: int64);
+        <span style="color:navy"><b>PROCEDURE</b></span> setfloatvalue (const avalue: flo64);
+        <span style="color:navy"><b>PROCEDURE</b></span> setdatetimevalue (const avalue: tdatetime);
+        <span style="color:navy"><b>PROCEDURE</b></span> setcurrencyvalue (const avalue: currency);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> sumcount: integer <span style="color:navy"><b>READ</b></span> getsumcount;
+        <span style="color:navy"><b>PROPERTY</b></span> sumasinteger: integer <span style="color:navy"><b>READ</b></span> getsumasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> sumaslargeint: int64 <span style="color:navy"><b>READ</b></span> getsumaslargeint;
+        <span style="color:navy"><b>PROPERTY</b></span> sumasfloat: double <span style="color:navy"><b>READ</b></span> getsumasfloat;
+        <span style="color:navy"><b>PROPERTY</b></span> sumascurrency: currency <span style="color:navy"><b>READ</b></span> getsumascurrency;
+        <span style="color:navy"><b>PROPERTY</b></span> richvalue: richstringty <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setrichvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> tag: integer <span style="color:navy"><b>READ</b></span> ftag <span style="color:navy"><b>WRITE</b></span> ftag <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> options: reptabulatoritemoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                  <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue.text <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> font: treptabfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags
+                        <span style="color:navy"><b>DEFAULT</b></span> defaultreptabtextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifilinkcomp <span style="color:navy"><b>READ</b></span> fifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        <span style="color:navy"><b>PROPERTY</b></span> datafield: string <span style="color:navy"><b>READ</b></span> getdatafield <span style="color:navy"><b>WRITE</b></span> setdatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource1 <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer
+                                           <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: integer <span style="color:navy"><b>READ</b></span> flookupkeyfieldno
+                                           <span style="color:navy"><b>WRITE</b></span> setlookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: integer <span style="color:navy"><b>READ</b></span> flookupvaluefieldno
+                                           <span style="color:navy"><b>WRITE</b></span> setlookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkind: lookupkindty <span style="color:navy"><b>READ</b></span> flookupkind
+                                           <span style="color:navy"><b>WRITE</b></span> setlookupkind <span style="color:navy"><b>DEFAULT</b></span> lk_text;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> litop_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].widthmm write
+                      setlitop_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].color write
+                      setlitop_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].colorgap write
+                      setlitop_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].capstyle write
+                      setlitop_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].dashes write
+                      setlitop_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].dist write
+                      setlitop_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].visible write
+                      setlitop_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> livert_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].widthmm write
+                                setlivert_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].color write
+                                  setlivert_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].colorgap write
+                                  setlivert_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].capstyle write
+                                  setlivert_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].dashes write
+                                  setlivert_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].dist write
+                                  setlivert_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].visible write
+                      setlivert_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].widthmm write
+                      setlibottom_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].color write
+                      setlibottom_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].colorgap write
+                      setlibottom_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].capstyle write
+                      setlibottom_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].dashes write
+                                              setlibottom_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].dist write
+                                      setlibottom_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].visible write
+                      setlibottom_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ongetvalue: getrichstringeventty <span style="color:navy"><b>READ</b></span> fongetvalue <span style="color:navy"><b>WRITE</b></span> fongetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> distleft; //mm
+        <span style="color:navy"><b>PROPERTY</b></span> distright; //mm
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treptabulators" name="treptabulators">treptabulators</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomtabulators">tcustomtabulators</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomrecordband);
+        <span style="color:navy"><b>PROCEDURE</b></span> resetsums (const skipcurrent: boolean);
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: treptabulatoritem <span style="color:navy"><b>READ</b></span> getitems
+                            <span style="color:navy"><b>WRITE</b></span> setitems; default;
+      PUBLISHED
+        
+        <span style="color:navy"><b>PROPERTY</b></span> litop_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].widthmm write
+                      setlitop_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].color write
+                      setlitop_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].colorgap write
+                      setlitop_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].capstyle write
+                      setlitop_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].dashes write
+                      setlitop_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].dist write
+                      setlitop_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_top].visible write
+                      setlitop_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_widthmm: real <span style="color:navy"><b>READ</b></span> flileft.widthmm write
+                      setlileft_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_color: colorty <span style="color:navy"><b>READ</b></span> flileft.color write
+                      setlileft_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_colorgap: colorty <span style="color:navy"><b>READ</b></span> flileft.colorgap write
+                      setlileft_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flileft.capstyle write
+                      setlileft_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dashes: string <span style="color:navy"><b>READ</b></span> flileft.dashes write
+                      setlileft_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dist: integer <span style="color:navy"><b>READ</b></span> flileft.dist write
+                      setlileft_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flileft.visible write
+                      setlileft_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> livert_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].widthmm write
+                      setlivert_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].color write
+                      setlivert_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].colorgap write
+                      setlivert_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].capstyle write
+                      setlivert_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].dashes write
+                      setlivert_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].dist write
+                      setlivert_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_vert].visible write
+                      setlivert_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> liright_widthmm: real <span style="color:navy"><b>READ</b></span> fliright.widthmm write
+                      setliright_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_color: colorty <span style="color:navy"><b>READ</b></span> fliright.color write
+                      setliright_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_colorgap: colorty <span style="color:navy"><b>READ</b></span> fliright.colorgap write
+                      setliright_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_capstyle: capstylety <span style="color:navy"><b>READ</b></span> fliright.capstyle write
+                      setliright_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dashes: string <span style="color:navy"><b>READ</b></span> fliright.dashes write
+                      setliright_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dist: integer <span style="color:navy"><b>READ</b></span> fliright.dist write
+                      setliright_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> fliright.visible write
+                      setliright_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_widthmm: real <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].widthmm write
+                      setlibottom_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_color: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].color write
+                      setlibottom_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_colorgap: colorty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].colorgap write
+                      setlibottom_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].capstyle
+                    <span style="color:navy"><b>WRITE</b></span> setlibottom_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dashes: string <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].dashes write
+                      setlibottom_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dist: integer <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].dist write
+                      setlibottom_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_visible: linevisiblesty <span style="color:navy"><b>READ</b></span> flineinfos[tlk_bottom].visible
+                    <span style="color:navy"><b>WRITE</b></span> setlibottom_visible <span style="color:navy"><b>DEFAULT</b></span> defaulttablinevisible;
+        <span style="color:navy"><b>PROPERTY</b></span> distleft: real <span style="color:navy"><b>READ</b></span> fdistleft <span style="color:navy"><b>WRITE</b></span> setdistleft; //mm
+        <span style="color:navy"><b>PROPERTY</b></span> distright: real <span style="color:navy"><b>READ</b></span> fdistright <span style="color:navy"><b>WRITE</b></span> setdistright; //mm
+        <span style="color:navy"><b>PROPERTY</b></span> linksource: tcustomrecordband <span style="color:navy"><b>READ</b></span> flinksource <span style="color:navy"><b>WRITE</b></span> setlinksource;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultdist;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordbanddatalink" name="trecordbanddatalink">trecordbanddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsedatalink">tmsedatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepspacer" name="trepspacer">trepspacer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlayouter">tlayouter</a>,ireportclient)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsrep: bandoptionshowsty <span style="color:navy"><b>READ</b></span> foptionsrep
+                                             <span style="color:navy"><b>WRITE</b></span> setoptionsrep <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepwidgetframe" name="trepwidgetframe">trepwidgetframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcaptionframe">tcaptionframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrecordband" name="tcustomrecordband">tcustomrecordband</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomscalingwidget">tcustomscalingwidget</a>,idbeditinfo,ireccontrol,
+                                iobjectpicker,ireportclient,icaptionframe)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> scale (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>FUNCTION</b></span> remainingbands: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> reppage: tcustomreportpage;
+        <span style="color:navy"><b>PROCEDURE</b></span> finish;
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstrecord: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islastrecord: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstofgroup: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islastofgroup: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> restart;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetzebra; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> textframe: int32 <span style="color:navy"><b>READ</b></span> ftextframe <span style="color:navy"><b>WRITE</b></span> settextframe <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabs: treptabulators <span style="color:navy"><b>READ</b></span> ftabs <span style="color:navy"><b>WRITE</b></span> settabs;
+        <span style="color:navy"><b>PROPERTY</b></span> font: trepwidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatasource: tdatasource <span style="color:navy"><b>READ</b></span> getvisidatasource
+                               <span style="color:navy"><b>WRITE</b></span> setvisidatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatafield: string <span style="color:navy"><b>READ</b></span> getvisidatafield <span style="color:navy"><b>WRITE</b></span> setvisidatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> visigroupfield: string <span style="color:navy"><b>READ</b></span> getvisigroupfield <span style="color:navy"><b>WRITE</b></span> setvisigroupfield;
+        <span style="color:navy"><b>PROPERTY</b></span> options: bandoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> optionsshow: bandoptionshowsty <span style="color:navy"><b>READ</b></span> foptionsshow <span style="color:navy"><b>WRITE</b></span> setoptionsshow <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> nextband: tcustomrecordband <span style="color:navy"><b>READ</b></span> fnextband <span style="color:navy"><b>WRITE</b></span> setnextband;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflastofarea: tcustomrecordband <span style="color:navy"><b>READ</b></span> fnextbandiflastofarea
+                                            <span style="color:navy"><b>WRITE</b></span> setnextbandiflastofarea;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandifempty: tcustomrecordband <span style="color:navy"><b>READ</b></span> fnextbandifempty
+                                            <span style="color:navy"><b>WRITE</b></span> setnextbandifempty;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflast: tcustomrecordband <span style="color:navy"><b>READ</b></span> fnextbandiflast
+                                            <span style="color:navy"><b>WRITE</b></span> setnextbandiflast;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_counter: integer <span style="color:navy"><b>READ</b></span> fzebra_counter <span style="color:navy"><b>WRITE</b></span> fzebra_counter;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color: colorty <span style="color:navy"><b>READ</b></span> fzebra_color <span style="color:navy"><b>WRITE</b></span> fzebra_color <span style="color:navy"><b>DEFAULT</b></span> cl_infobackground;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start: integer <span style="color:navy"><b>READ</b></span> fzebra_start <span style="color:navy"><b>WRITE</b></span> fzebra_start <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height: integer <span style="color:navy"><b>READ</b></span> fzebra_height <span style="color:navy"><b>WRITE</b></span> fzebra_height <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step: integer <span style="color:navy"><b>READ</b></span> fzebra_step <span style="color:navy"><b>WRITE</b></span> fzebra_step <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_options: zebraoptionsty <span style="color:navy"><b>READ</b></span> fzebra_options
+                                              <span style="color:navy"><b>WRITE</b></span> fzebra_options <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender: beforerenderrecordeventty <span style="color:navy"><b>READ</b></span> fonbeforerender
+                                    <span style="color:navy"><b>WRITE</b></span> fonbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint: painteventty <span style="color:navy"><b>READ</b></span> fonpaint <span style="color:navy"><b>WRITE</b></span> fonpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint: painteventty <span style="color:navy"><b>READ</b></span> fonafterpaint <span style="color:navy"><b>WRITE</b></span> fonafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender: recordbandeventty <span style="color:navy"><b>READ</b></span> fonafterrender
+                                        <span style="color:navy"><b>WRITE</b></span> fonafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforenextrecord: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforenextrecord
+                                                      <span style="color:navy"><b>WRITE</b></span> fonbeforenextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafternextrecord: notifyeventty <span style="color:navy"><b>READ</b></span> fonafternextrecord
+                                                      <span style="color:navy"><b>WRITE</b></span> fonafternextrecord;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> anchors <span style="color:navy"><b>DEFAULT</b></span> defaultbandanchors;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultbandoptionswidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trecordband" name="trecordband">trecordband</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrecordband">tcustomrecordband</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textframe;
+        <span style="color:navy"><b>PROPERTY</b></span> tabs;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsshow;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> visigroupfield;
+        <span style="color:navy"><b>PROPERTY</b></span> nextband;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflastofarea;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandifempty;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflast;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_options;
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforenextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafternextrecord;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrepvaluedisp" name="tcustomrepvaluedisp">tcustomrepvaluedisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrecordband">tcustomrecordband</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags default
+                                                 defaultrepvaluedisptextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale <span style="color:navy"><b>DEFAULT</b></span> defaultrepvaluedispoptionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> ongettext: getrepvaluetexteventty <span style="color:navy"><b>READ</b></span> fongettext <span style="color:navy"><b>WRITE</b></span> fongettext;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultrepvaluedispoptions;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> anchors <span style="color:navy"><b>DEFAULT</b></span> [an_left,an_top];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepvaluedisp" name="trepvaluedisp">trepvaluedisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrepvaluedisp">tcustomrepvaluedisp</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textframe;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsshow;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> visigroupfield;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_options;
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> ongettext;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treppagenumdisp" name="treppagenumdisp">treppagenumdisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trepvaluedisp">trepvaluedisp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> offset: integer <span style="color:navy"><b>READ</b></span> foffset <span style="color:navy"><b>WRITE</b></span> setoffset <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> format;   //'1' returns lastpagecount
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepprintdatedisp" name="trepprintdatedisp">trepprintdatedisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trepvaluedisp">trepvaluedisp</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> format;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombandgroup" name="tcustombandgroup">tcustombandgroup</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrecordband">tcustomrecordband</a>,ibandparent)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> resetzebra; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> font: trepwidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbandgroup" name="tbandgroup">tbandgroup</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombandgroup">tcustombandgroup</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> tabs;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> nextband;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflastofarea;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandifempty;
+        <span style="color:navy"><b>PROPERTY</b></span> nextbandiflast;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsshow;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsscale;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> visidatafield;
+        <span style="color:navy"><b>PROPERTY</b></span> visigroupfield;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_color;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_start;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_height;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_step;
+        <span style="color:navy"><b>PROPERTY</b></span> zebra_options;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbasebandarea" name="tbasebandarea">tbasebandarea</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,ibandparent)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstrecord: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islastrecord: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> istopband: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstband: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> islastband (const addheight: integer = 0): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> remainingheight: integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> pagepagenum: integer; //null based
+        <span style="color:navy"><b>FUNCTION</b></span> reppagenum: integer; //null based
+        <span style="color:navy"><b>FUNCTION</b></span> pageprintstarttime: tdatetime;
+        <span style="color:navy"><b>FUNCTION</b></span> repprintstarttime: tdatetime;
+        <span style="color:navy"><b>FUNCTION</b></span> getreppage: tcustomreportpage;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> restart; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetzebra;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> font: trepwidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> onfirstarea: bandareaeventty <span style="color:navy"><b>READ</b></span> fonfirstarea <span style="color:navy"><b>WRITE</b></span> fonfirstarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onlastarea: bandareaeventty <span style="color:navy"><b>READ</b></span> fonlastarea <span style="color:navy"><b>WRITE</b></span> fonlastarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender: bandareaeventty <span style="color:navy"><b>READ</b></span> fonbeforerender
+                                    <span style="color:navy"><b>WRITE</b></span> fonbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender: bandareaeventty <span style="color:navy"><b>READ</b></span> fonafterrender
+                                    <span style="color:navy"><b>WRITE</b></span> fonafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint: bandareapainteventty <span style="color:navy"><b>READ</b></span> fonpaint <span style="color:navy"><b>WRITE</b></span> fonpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint: bandareapainteventty <span style="color:navy"><b>READ</b></span> fonafterpaint <span style="color:navy"><b>WRITE</b></span> fonafterpaint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombandarea" name="tcustombandarea">tcustombandarea</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbasebandarea">tbasebandarea</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstband: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> islastband (const addheight: integer = 0): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> remainingheight: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> restart; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> acty: integer <span style="color:navy"><b>READ</b></span> getacty;
+        <span style="color:navy"><b>PROPERTY</b></span> areafull: boolean <span style="color:navy"><b>READ</b></span> getareafull <span style="color:navy"><b>WRITE</b></span> setareafull;
+        <span style="color:navy"><b>PROPERTY</b></span> options: bandareaoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbandarea" name="tbandarea">tbandarea</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombandarea">tcustombandarea</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onfirstarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onlastarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomtilearea" name="tcustomtilearea">tcustomtilearea</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbasebandarea">tbasebandarea</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> cellwidthmm: real;
+        <span style="color:navy"><b>FUNCTION</b></span> cellheightmm: real;
+        <span style="color:navy"><b>FUNCTION</b></span> cellsize: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> cellrect: rectty;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colcount: integer <span style="color:navy"><b>READ</b></span> fcolcount <span style="color:navy"><b>WRITE</b></span> setcolcount <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount: integer <span style="color:navy"><b>READ</b></span> frowcount <span style="color:navy"><b>WRITE</b></span> setrowcount <span style="color:navy"><b>DEFAULT</b></span> 2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> livert_widthmm: real <span style="color:navy"><b>READ</b></span> flivert.widthmm write
+                      setlivert_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_color: colorty <span style="color:navy"><b>READ</b></span> flivert.color write
+                      setlivert_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_colorgap: colorty <span style="color:navy"><b>READ</b></span> flivert.colorgap write
+                      setlivert_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flivert.capstyle write
+                      setlivert_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dashes: string <span style="color:navy"><b>READ</b></span> flivert.dashes write
+                      setlivert_dashes;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_widthmm: real <span style="color:navy"><b>READ</b></span> flihorz.widthmm write
+                      setlihorz_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_color: colorty <span style="color:navy"><b>READ</b></span> flihorz.color write
+                      setlihorz_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_colorgap: colorty <span style="color:navy"><b>READ</b></span> flihorz.colorgap write
+                      setlihorz_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flihorz.capstyle write
+                      setlihorz_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_dashes: string <span style="color:navy"><b>READ</b></span> flihorz.dashes write
+                      setlihorz_dashes;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_widthmm: real <span style="color:navy"><b>READ</b></span> flileft.widthmm write
+                      setlileft_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_color: colorty <span style="color:navy"><b>READ</b></span> flileft.color write
+                      setlileft_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_colorgap: colorty <span style="color:navy"><b>READ</b></span> flileft.colorgap write
+                      setlileft_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flileft.capstyle write
+                      setlileft_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dashes: string <span style="color:navy"><b>READ</b></span> flileft.dashes write
+                      setlileft_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dist: integer <span style="color:navy"><b>READ</b></span> flileft.dist write
+                      setlileft_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> litop_widthmm: real <span style="color:navy"><b>READ</b></span> flitop.widthmm write
+                      setlitop_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_color: colorty <span style="color:navy"><b>READ</b></span> flitop.color write
+                      setlitop_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_colorgap: colorty <span style="color:navy"><b>READ</b></span> flitop.colorgap write
+                      setlitop_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flitop.capstyle write
+                      setlitop_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dashes: string <span style="color:navy"><b>READ</b></span> flitop.dashes write
+                      setlitop_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dist: integer <span style="color:navy"><b>READ</b></span> flitop.dist write
+                      setlitop_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> liright_widthmm: real <span style="color:navy"><b>READ</b></span> fliright.widthmm write
+                      setliright_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_color: colorty <span style="color:navy"><b>READ</b></span> fliright.color write
+                      setliright_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_colorgap: colorty <span style="color:navy"><b>READ</b></span> fliright.colorgap write
+                      setliright_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_capstyle: capstylety <span style="color:navy"><b>READ</b></span> fliright.capstyle write
+                      setliright_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dashes: string <span style="color:navy"><b>READ</b></span> fliright.dashes write
+                      setliright_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dist: integer <span style="color:navy"><b>READ</b></span> fliright.dist write
+                      setliright_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_widthmm: real <span style="color:navy"><b>READ</b></span> flibottom.widthmm write
+                      setlibottom_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_color: colorty <span style="color:navy"><b>READ</b></span> flibottom.color write
+                      setlibottom_color <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_colorgap: colorty <span style="color:navy"><b>READ</b></span> flibottom.colorgap write
+                      setlibottom_colorgap <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecolorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_capstyle: capstylety <span style="color:navy"><b>READ</b></span> flibottom.capstyle write
+                      setlibottom_capstyle <span style="color:navy"><b>DEFAULT</b></span> defaulttablinecapstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dashes: string <span style="color:navy"><b>READ</b></span> flibottom.dashes write
+                      setlibottom_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dist: integer <span style="color:navy"><b>READ</b></span> flibottom.dist write
+                      setlibottom_dist <span style="color:navy"><b>DEFAULT</b></span> defaulttablinedist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options: tileareaoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttilearea" name="ttilearea">ttilearea</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomtilearea">tcustomtilearea</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colcount;
+        <span style="color:navy"><b>PROPERTY</b></span> rowcount;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> livert_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_color;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> livert_dashes;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_color;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> lihorz_dashes;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_color;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> lileft_dist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> litop_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_color;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> litop_dist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> liright_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_color;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> liright_dist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_color;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_colorgap;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_capstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dashes;
+        <span style="color:navy"><b>PROPERTY</b></span> libottom_dist;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> onfirstarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onlastarea;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treportpagedatalink" name="treportpagedatalink">treportpagedatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsedatalink">tmsedatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomreportpage" name="tcustomreportpage">tcustomreportpage</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidget">twidget</a>,ibandparent)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> isfirstrecord: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islastrecord: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget; const apos: pointty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> recordchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> report: tcustomreport <span style="color:navy"><b>READ</b></span> freport;
+        <span style="color:navy"><b>PROPERTY</b></span> pagenum: integer <span style="color:navy"><b>READ</b></span> fpagenum <span style="color:navy"><b>WRITE</b></span> fpagenum;
+        <span style="color:navy"><b>PROPERTY</b></span> lastpagecount: integer <span style="color:navy"><b>READ</b></span> getlastpagepagecount <span style="color:navy"><b>WRITE</b></span> flastpagecount;
+        <span style="color:navy"><b>PROPERTY</b></span> printstarttime: tdatetime <span style="color:navy"><b>READ</b></span> fprintstarttime <span style="color:navy"><b>WRITE</b></span> fprintstarttime;
+        <span style="color:navy"><b>PROPERTY</b></span> visiblepage: boolean <span style="color:navy"><b>READ</b></span> fvisiblepage <span style="color:navy"><b>WRITE</b></span> fvisiblepage <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROCEDURE</b></span> activatepage;
+        <span style="color:navy"><b>PROCEDURE</b></span> finish;
+        <span style="color:navy"><b>PROCEDURE</b></span> restart;
+        <span style="color:navy"><b>PROCEDURE</b></span> resetzebra;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> pagewidth: real <span style="color:navy"><b>READ</b></span> fpagewidth <span style="color:navy"><b>WRITE</b></span> setpagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> pageheight: real <span style="color:navy"><b>READ</b></span> fpageheight <span style="color:navy"><b>WRITE</b></span> setpageheight;
+        <span style="color:navy"><b>FUNCTION</b></span> getpagewidth: real; //actual value
+        <span style="color:navy"><b>FUNCTION</b></span> getpageheight: real; //actual value
+        
+        <span style="color:navy"><b>PROPERTY</b></span> font: trepwidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpage: tcustomreportpage <span style="color:navy"><b>READ</b></span> fnextpage <span style="color:navy"><b>WRITE</b></span> setnextpage;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpageifempty: tcustomreportpage <span style="color:navy"><b>READ</b></span> fnextpageifempty write
+                               setnextpageifempty;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpageiflast: tcustomreportpage <span style="color:navy"><b>READ</b></span> fnextpageiflast write
+                               setnextpageiflast;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        <span style="color:navy"><b>PROPERTY</b></span> options: reportpageoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                      <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> printorientation: reppageorientationty <span style="color:navy"><b>READ</b></span> fprintorientation
+                     <span style="color:navy"><b>WRITE</b></span> fprintorientation <span style="color:navy"><b>DEFAULT</b></span> rpo_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfirstpage: reportpageeventty <span style="color:navy"><b>READ</b></span> fonfirstpage
+                                    <span style="color:navy"><b>WRITE</b></span> fonfirstpage;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender: beforerenderpageeventty <span style="color:navy"><b>READ</b></span> fonbeforerender
+                                    <span style="color:navy"><b>WRITE</b></span> fonbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender: reportpageeventty <span style="color:navy"><b>READ</b></span> fonafterrender
+                                    <span style="color:navy"><b>WRITE</b></span> fonafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint: reportpagepainteventty <span style="color:navy"><b>READ</b></span> fonpaint <span style="color:navy"><b>WRITE</b></span> fonpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint: reportpagepainteventty <span style="color:navy"><b>READ</b></span> fonafterpaint
+                             <span style="color:navy"><b>WRITE</b></span> fonafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforenextrecord: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforenextrecord
+                                                      <span style="color:navy"><b>WRITE</b></span> fonbeforenextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafternextrecord: notifyeventty <span style="color:navy"><b>READ</b></span> fonafternextrecord
+                                                      <span style="color:navy"><b>WRITE</b></span> fonafternextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterlastpage: reportpageeventty <span style="color:navy"><b>READ</b></span> fonafterlastpage
+                                    <span style="color:navy"><b>WRITE</b></span> fonafterlastpage;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treportpage" name="treportpage">treportpage</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomreportpage">tcustomreportpage</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> pagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> pageheight;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> frame;
+        <span style="color:navy"><b>PROPERTY</b></span> face;
+        <span style="color:navy"><b>PROPERTY</b></span> visible;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpage;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpageifempty;
+        <span style="color:navy"><b>PROPERTY</b></span> nextpageiflast;
+        <span style="color:navy"><b>PROPERTY</b></span> visiblepage;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> printorientation;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfirstpage;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforenextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafternextrecord;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterlastpage;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treppageform" name="treppageform">treppageform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#treportpage">treportpage</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean);
+                                          <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> grid_show: boolean <span style="color:navy"><b>READ</b></span> frepdesigninfo.showgrid
+                                                  <span style="color:navy"><b>WRITE</b></span> setgrid_show <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_snap: boolean <span style="color:navy"><b>READ</b></span> frepdesigninfo.snaptogrid
+                                                  <span style="color:navy"><b>WRITE</b></span> setgrid_snap <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_size: real <span style="color:navy"><b>READ</b></span> frepdesigninfo.gridsize <span style="color:navy"><b>WRITE</b></span> setgrid_size;
+        <span style="color:navy"><b>PROPERTY</b></span> ppmm;
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomreport" name="tcustomreport">tcustomreport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twidget">twidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget; const apos: pointty) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const apage: tcustomreportpage;
+                                    aindex: int32 = bigint): tcustomreportpage;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const aindex: int32);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear ();
+        <span style="color:navy"><b>PROCEDURE</b></span> movepage (const curindex,newindex: int32);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> render (const acanvas: tcanvas;
+                             const onafterrender: reporteventty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> render (const aprinter: tstreamprinter;
+                             const command: msestring = '';
+                             const onafterrender: reporteventty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> render (const aprinter: tstreamprinter;
+                             const astream: ttextstream; //owns the stream
+                             const onafterrender: reporteventty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> render (const aprinter: tcustomgdiprinter;
+                                const onafterrender: reporteventty = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> waitfor;         //returns before calling of onafterrender
+        <span style="color:navy"><b>FUNCTION</b></span> prepass: boolean; //true if in prepass render state
+        <span style="color:navy"><b>PROCEDURE</b></span> restart;
+        <span style="color:navy"><b>PROCEDURE</b></span> recordchanged;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ppmm: real <span style="color:navy"><b>READ</b></span> fppmm <span style="color:navy"><b>WRITE</b></span> setppmm; //pixel per mm
+        <span style="color:navy"><b>PROPERTY</b></span> pagewidth: real <span style="color:navy"><b>READ</b></span> fpagewidth <span style="color:navy"><b>WRITE</b></span> setpagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> pageheight: real <span style="color:navy"><b>READ</b></span> fpageheight <span style="color:navy"><b>WRITE</b></span> setpageheight;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> reppagecount: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> reppages[index: integer]: tcustomreportpage <span style="color:navy"><b>READ</b></span> getreppages
+                                                     <span style="color:navy"><b>WRITE</b></span> setreppages; default;
+        <span style="color:navy"><b>PROPERTY</b></span> pagenum: integer <span style="color:navy"><b>READ</b></span> fpagenum {<span style="color:navy"><b>WRITE</b></span> fpagenum};
+        <span style="color:navy"><b>PROPERTY</b></span> lastpagecount: integer <span style="color:navy"><b>READ</b></span> flastpagecount <span style="color:navy"><b>WRITE</b></span> flastpagecount;
+        <span style="color:navy"><b>PROPERTY</b></span> activepage: integer <span style="color:navy"><b>READ</b></span> factivepage <span style="color:navy"><b>WRITE</b></span> setactivepage;
+        <span style="color:navy"><b>PROCEDURE</b></span> finish;
+        <span style="color:navy"><b>PROPERTY</b></span> printstarttime: tdatetime <span style="color:navy"><b>READ</b></span> fprintstarttime
+                                                         <span style="color:navy"><b>WRITE</b></span> fprintstarttime;
+        <span style="color:navy"><b>PROPERTY</b></span> nilstream: boolean <span style="color:navy"><b>READ</b></span> fnilstream;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> font: trepfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_show: boolean <span style="color:navy"><b>READ</b></span> frepdesigninfo.showgrid
+                                                  <span style="color:navy"><b>WRITE</b></span> setgrid_show <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_snap: boolean <span style="color:navy"><b>READ</b></span> frepdesigninfo.snaptogrid
+                                                  <span style="color:navy"><b>WRITE</b></span> setgrid_snap <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_size: real <span style="color:navy"><b>READ</b></span> frepdesigninfo.gridsize <span style="color:navy"><b>WRITE</b></span> setgrid_size;
+        <span style="color:navy"><b>PROPERTY</b></span> canceled: boolean <span style="color:navy"><b>READ</b></span> getcanceled <span style="color:navy"><b>WRITE</b></span> setcanceled;
+        <span style="color:navy"><b>PROPERTY</b></span> running: boolean <span style="color:navy"><b>READ</b></span> getrunning;
+        <span style="color:navy"><b>PROPERTY</b></span> options: reportoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions
+                                       <span style="color:navy"><b>DEFAULT</b></span> defaultreportoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> dialogtext: msestring <span style="color:navy"><b>READ</b></span> fdialogtext <span style="color:navy"><b>WRITE</b></span> fdialogtext;
+        <span style="color:navy"><b>PROPERTY</b></span> dialogcaption: msestring <span style="color:navy"><b>READ</b></span> fdialogcaption <span style="color:navy"><b>WRITE</b></span> fdialogcaption;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onpreamble: preambleeventty <span style="color:navy"><b>READ</b></span> fonpreamble <span style="color:navy"><b>WRITE</b></span> fonpreamble;
+        <span style="color:navy"><b>PROPERTY</b></span> onreportstart: reporteventty <span style="color:navy"><b>READ</b></span> fonreportstart
+                                                              <span style="color:navy"><b>WRITE</b></span> fonreportstart;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender: reporteventty <span style="color:navy"><b>READ</b></span> fonbeforerender
+                                    <span style="color:navy"><b>WRITE</b></span> fonbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender: reporteventty <span style="color:navy"><b>READ</b></span> fonafterrender
+                                    <span style="color:navy"><b>WRITE</b></span> fonafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onreportfinished: notifyeventty <span style="color:navy"><b>READ</b></span> fonreportfinished
+                                                          <span style="color:navy"><b>WRITE</b></span> fonreportfinished;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagebeforerender: beforerenderpageeventty
+                         <span style="color:navy"><b>READ</b></span> fonpagebeforerender <span style="color:navy"><b>WRITE</b></span> fonpagebeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagepaint: reportpagepainteventty <span style="color:navy"><b>READ</b></span> fonpagepaint
+                             <span style="color:navy"><b>WRITE</b></span> fonpagepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpageafterpaint: reportpagepainteventty <span style="color:navy"><b>READ</b></span> fonpageafterpaint
+                             <span style="color:navy"><b>WRITE</b></span> fonpageafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onprogress: notifyeventty <span style="color:navy"><b>READ</b></span> fonprogress <span style="color:navy"><b>WRITE</b></span> fonprogress;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treport" name="treport">treport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomreport">tcustomreport</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean);
+                                          <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beforedestruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> reload;
+        <span style="color:navy"><b>PROCEDURE</b></span> afterconstruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> ppmm;
+        <span style="color:navy"><b>PROPERTY</b></span> pagewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> pageheight;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_show;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_snap;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_size;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> dialogtext;
+        <span style="color:navy"><b>PROPERTY</b></span> dialogcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> onpreamble;
+        <span style="color:navy"><b>PROPERTY</b></span> onreportstart;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterrender;
+        <span style="color:navy"><b>PROPERTY</b></span> onreportfinished;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagebeforerender;
+        <span style="color:navy"><b>PROPERTY</b></span> onpagepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpageafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onprogress;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreate: notifyeventty <span style="color:navy"><b>READ</b></span> foncreate <span style="color:navy"><b>WRITE</b></span> foncreate;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreated: notifyeventty <span style="color:navy"><b>READ</b></span> foncreated <span style="color:navy"><b>WRITE</b></span> foncreated;
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded: notifyeventty <span style="color:navy"><b>READ</b></span> fonloaded <span style="color:navy"><b>WRITE</b></span> fonloaded;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroy: notifyeventty <span style="color:navy"><b>READ</b></span> fondestroy <span style="color:navy"><b>WRITE</b></span> fondestroy;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroyed: notifyeventty <span style="color:navy"><b>READ</b></span> fondestroyed <span style="color:navy"><b>WRITE</b></span> fondestroyed;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

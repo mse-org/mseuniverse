@@ -1,0 +1,225 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainDbLibDriver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdblibabstractplaindriver" name="tzdblibabstractplaindriver">TZDBLibAbstractPlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractplaindriver">TZAbstractPlainDriver</a>, IZPlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> dbIntit: RETCODE;
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CheckError (dbProc: PDBPROCESS);
+         <span style="color:navy"><b>FUNCTION</b></span> GetErrorString (dbProc: PDBPROCESS): String;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDBLibraryVendorType: TDBLibraryVendorType;
+         <span style="color:navy"><b>FUNCTION</b></span> dbDead (dbProc: PDBPROCESS): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> dbLogin: PLOGINREC; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> dbLoginFree (Login: PLOGINREC);
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLoginTime (Seconds: DBINT): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetLName (Login: PLOGINREC; Value: PAnsiChar;
+           Item: DBINT): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLHost (Login: PLOGINREC; HostName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLUser (Login: PLOGINREC; UserName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLPwd (Login: PLOGINREC; Password: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLApp (Login: PLOGINREC; AppName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLNatLang (Login: PLOGINREC; NatLangName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLCharSet (Login: PLOGINREC; CharsetName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetLSecure (Login: PLOGINREC): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetMaxprocs (MaxProcs: SmallInt): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetVersion (Version: DBINT): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetTime (Seconds: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbOpen (Login: PLOGINREC; Host: PAnsiChar): PDBPROCESS;
+         <span style="color:navy"><b>FUNCTION</b></span> dbCancel (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbCmd (const dbProc: PDBPROCESS; const Cmd: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSqlExec (dbProc: PDBPROCESS; Async: Boolean = False): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSqlExecSync (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSqlExecAsync (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbResults (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbCanQuery (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbMoreCmds (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbUse (dbProc: PDBPROCESS; dbName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbSetOpt (dbProc: PDBPROCESS; Option: DBINT;
+           Char_Param: PAnsiChar = nil; Int_Param: DBINT = -1): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbClose (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbName (dbProc: PDBPROCESS): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> dbCmdRow (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbNumCols (dbProc: PDBPROCESS): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbColName (dbProc: PDBPROCESS; Column: DBINT): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> dbColSource (dbProc: PDBPROCESS; Column: DBINT): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> dbColType (dbProc: PDBPROCESS; Column: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbcoltypeinfo (Proc: PDBPROCESS; Column: Integer): PDBTYPEINFO;
+         <span style="color:navy"><b>FUNCTION</b></span> dbColLen (dbProc: PDBPROCESS; Column: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbcolinfo (pdbhandle: pdbhandle; _Type: Integer; Column: DBINT;
+           ComputeId: DBINT; lpdbcol: PDBCOL): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbData (dbProc: PDBPROCESS; Column: DBINT): PByte;
+         <span style="color:navy"><b>FUNCTION</b></span> dbDatLen (dbProc: PDBPROCESS; Column: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbConvert (dbProc: PDBPROCESS; SrcType: DBINT; Src: PByte;
+           SrcLen: DBINT; DestType: DBINT; Dest: PByte; DestLen: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbNextRow (dbProc: PDBPROCESS): STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> dbGetRow (dbProc: PDBPROCESS; Row: DBINT): STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> dbCount (dbProc: PDBPROCESS): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbbind (Proc: PDBPROCESS; Column, VarType, VarLen: Integer;
+           VarAddr: PByte): RETCODE;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> dbRpcInit (dbProc: PDBPROCESS; RpcName: PAnsiChar;
+           Options: SmallInt): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRpcParam (dbProc: PDBPROCESS; ParamName: PAnsiChar; STATUS: Byte;
+           Type_: DBINT; MaxLen: DBINT; DataLen: DBINT; Value: Pointer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRpcSend (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRpcExec (dbProc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRetStatus (dbProc: PDBPROCESS): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbHasRetStat (dbProc: PDBPROCESS): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRetName (dbProc: PDBPROCESS; RetNum: DBINT): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRetData (dbProc: PDBPROCESS; RetNum: DBINT): Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRetLen (dbProc: PDBPROCESS; RetNum: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbRetType (dbProc: PDBPROCESS; RetNum: DBINT): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> dbdataready (Proc: PDBPROCESS): LongBool;
+         <span style="color:navy"><b>FUNCTION</b></span> GetVariables: TDBVariables;
+         { BCP functions }
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_batch (const Proc: PDBPROCESS): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_bind (Proc: PDBPROCESS; VarAddr: PByte; PrefixLen: Integer;
+           VarLen: DBINT; Terminator: PByte;
+           TermLen, Typ, TableColumn: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_colfmt (Proc: PDBPROCESS; FileColumn: Integer; FileType: Byte;
+           FilePrefixLen: Integer; FileColLen: DBINT; FileTerm: PByte;
+           FileTermLen, TableColumn: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_collen (Proc: PDBPROCESS; VarLen: DBINT;
+           TableColumn: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_colptr (Proc: PDBPROCESS; ColPtr: PByte;
+           TableColumn: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_columns (Proc: PDBPROCESS; FileColCount: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_control (Proc: PDBPROCESS; Field: Integer;
+           Value: DBINT): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_done (Proc: PDBPROCESS): DBINT;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_exec (Proc: PDBPROCESS; RowsCopied: PDBINT): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_init (Proc: PDBPROCESS; TableName, hFile, ErrFile: PAnsiChar;
+           Direction: Integer): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_moretext (Proc: PDBPROCESS; Size: DBINT; Text: PByte): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_readfmt (Proc: PDBPROCESS; FileName: PAnsiChar): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_sendrow (Proc: PDBPROCESS): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_setl (Login: PLOGINREC; Enable: LongBool): RETCODE;
+         <span style="color:navy"><b>FUNCTION</b></span> bcp_writefmt (Proc: PDBPROCESS; FileName: PAnsiChar): RETCODE;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdblibbaseplaindriver" name="tzdblibbaseplaindriver">TZDbLibBasePlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdblibabstractplaindriver">TZDBLibAbstractPlainDriver</a>, IZPlainDriver,
+    IZDBLibPlainDriver)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdblibsybasease125plaindriver" name="tzdblibsybasease125plaindriver">TZDBLibSybaseASE125PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdblibabstractplaindriver">TZDBLibAbstractPlainDriver</a>,
+    IZPlainDriver, IZDBLibPlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdblibmssql7plaindriver" name="tzdblibmssql7plaindriver">TZDBLibMSSQL7PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdblibbaseplaindriver">TZDbLibBasePlainDriver</a>, IZPlainDriver,
+    IZDBLibPlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetdsbaseplaindriver" name="tzfreetdsbaseplaindriver">TZFreeTDSBasePlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdblibbaseplaindriver">TZDbLibBasePlainDriver</a>, IZDBLibPlainDriver,
+    IZFreeTDSPlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         { API functions }
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetlversion (Login: PLOGINREC): RETCODE; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion (Version: DBINT): RETCODE; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> dbLogin: PLOGINREC; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> tdsDumpOn;
+         <span style="color:navy"><b>PROCEDURE</b></span> tdsDumpOff;
+         <span style="color:navy"><b>PROCEDURE</b></span> tdsDump_Open (const FileName: String);
+         <span style="color:navy"><b>PROCEDURE</b></span> tdsDump_Close;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds42mssqlplaindriver" name="tzfreetds42mssqlplaindriver">TZFreeTDS42MsSQLPlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetdsbaseplaindriver">TZFreeTDSBasePlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetlversion (Login: PLOGINREC): RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds42sybaseplaindriver" name="tzfreetds42sybaseplaindriver">TZFreeTDS42SybasePlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetdsbaseplaindriver">TZFreeTDSBasePlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetlversion ( { %H- } Login: PLOGINREC): RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds50plaindriver" name="tzfreetds50plaindriver">TZFreeTDS50PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetds42sybaseplaindriver">TZFreeTDS42SybasePlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetlversion ( { %H- } Login: PLOGINREC): RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds70plaindriver" name="tzfreetds70plaindriver">TZFreeTDS70PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetds42mssqlplaindriver">TZFreeTDS42MsSQLPlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetlversion (Login: PLOGINREC): RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds71plaindriver" name="tzfreetds71plaindriver">TZFreeTDS71PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetds70plaindriver">TZFreeTDS70PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfreetds72plaindriver" name="tzfreetds72plaindriver">TZFreeTDS72PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfreetds70plaindriver">TZFreeTDS70PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> dbsetversion: RETCODE; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

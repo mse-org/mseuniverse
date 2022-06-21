@@ -1,0 +1,233 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msearrayprops;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#earraystreamerror" name="earraystreamerror">earraystreamerror</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#estreamerror">estreamerror</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#earrayproperror" name="earrayproperror">earrayproperror</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">exception</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tarrayprop" name="tarrayprop">tarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate (nochange: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertempty (const index: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> insertdefault (const index: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const index: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const curindex,newindex: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> order (const sourceorder: integerarty); //sourceorder can be nil
+        <span style="color:navy"><b>PROCEDURE</b></span> reorder (const destorder: integerarty); //destorder can be nil
+        <span style="color:navy"><b>PROCEDURE</b></span> link (alinkedarrays: array of tarrayprop{;
+        );
+        <span style="color:navy"><b>PROPERTY</b></span> fixcount: integer <span style="color:navy"><b>READ</b></span> ffixcount <span style="color:navy"><b>WRITE</b></span> setfixcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: arraychangeeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> getcount <span style="color:navy"><b>WRITE</b></span> setcount <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerarrayprop" name="tintegerarrayprop">tintegerarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: integer <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcolorarrayprop" name="tcolorarrayprop">tcolorarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerarrayprop">tintegerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: colorty <span style="color:navy"><b>READ</b></span> getitems
+                                                     <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64arrayprop" name="tint64arrayprop">tint64arrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: int64 <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealarrayprop" name="trealarrayprop">trealarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: real <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringarrayprop" name="tstringarrayprop">tstringarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> itemar: stringarty;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: string <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringarrayprop" name="tmsestringarrayprop">tmsestringarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: msestring <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleanarrayprop" name="tbooleanarrayprop">tbooleanarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerarrayprop">tintegerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumarrayprop" name="tenumarrayprop">tenumarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerarrayprop">tintegerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (typeinfo: ptypeinfo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsetarrayprop" name="tsetarrayprop">tsetarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerarrayprop">tintegerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (typeinfo: ptypeinfo); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> typeinfo: ptypeinfo <span style="color:navy"><b>READ</b></span> ftypeinfo;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tintegerset <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerarrayprop" name="tpointerarrayprop">tpointerarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: pointer <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdynarrayarrayprop" name="tdynarrayarrayprop">tdynarrayarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerarrayprop">tpointerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpersistentarrayprop" name="tpersistentarrayprop">tpersistentarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tarrayprop">tarrayprop</a>,iobjectlink)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aitemclasstype: virtualpersistentclassty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> itemdestroyed (const aitem: tpersistent);
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> propkind: arraypropkindty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> displayname (const index: integer): msestring; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const item: tpersistent);
+        <span style="color:navy"><b>FUNCTION</b></span> add (): tpersistent; //returns added element
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const aitem: tpersistent): integer; //-1 if not found
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> itemclasstype: virtualpersistentclassty <span style="color:navy"><b>READ</b></span> fitemclasstype;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tpersistent <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsecomponentlinkitem" name="tmsecomponentlinkitem">tmsecomponentlinkitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvirtualpersistent">tvirtualpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsecomponentlinkarrayprop" name="tmsecomponentlinkarrayprop">tmsecomponentlinkarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aitemclasstype: msecomponentlinkitemclassty);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#townedpersistentarrayprop" name="townedpersistentarrayprop">townedpersistentarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+                          aclasstype: ownedpersistentclassty); <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#townedeventpersistentarrayprop" name="townedeventpersistentarrayprop">townedeventpersistentarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+                       aclasstype: ownedeventpersistentclassty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpersistonchangearrayprop" name="tpersistonchangearrayprop">tpersistonchangearrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aclasstype: virtualpersistentclassty; aonchange: notifyeventty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringlistarrayprop" name="tstringlistarrayprop">tstringlistarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: tstringlist <span style="color:navy"><b>READ</b></span> getitems <span style="color:navy"><b>WRITE</b></span> setitems;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tindexpersistent" name="tindexpersistent">tindexpersistent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistent">townedeventpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+              const aprop: tindexpersistentarrayprop); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> index: integer <span style="color:navy"><b>READ</b></span> findex;
+        <span style="color:navy"><b>PROPERTY</b></span> ident: integer <span style="color:navy"><b>READ</b></span> fident;
+        <span style="color:navy"><b>PROPERTY</b></span> prop: tindexpersistentarrayprop <span style="color:navy"><b>READ</b></span> fprop;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tindexpersistentarrayprop" name="tindexpersistentarrayprop">tindexpersistentarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject; aclasstype: indexpersistentclassty);
+                        <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const item: tindexpersistent);
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter; const aorder: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> writeorder (const writer: tstatwriter);
+        <span style="color:navy"><b>FUNCTION</b></span> readorder (const reader: tstatreader): integerarty;
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader; const aorder: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> clearorder; //ident order = index order
+        <span style="color:navy"><b>FUNCTION</b></span> newident: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> idents: integerarty <span style="color:navy"><b>READ</b></span> getidents;
+        <span style="color:navy"><b>PROPERTY</b></span> identmap: integerarty <span style="color:navy"><b>READ</b></span> getidentmap;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsubcomponentitem" name="tsubcomponentitem">tsubcomponentitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistent">tindexpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tobject;
+                                const aprop: tindexpersistentarrayprop); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsubcomponentarrayprop" name="tsubcomponentarrayprop">tsubcomponentarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tindexpersistentarrayprop">tindexpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                     const aitemclasstype: subcomponentitemclassty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

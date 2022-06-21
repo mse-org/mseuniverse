@@ -1,0 +1,200 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseapplication;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tactcomponent" name="tactcomponent">tactcomponent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> release (const nomodaldefer: boolean=false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> releasing: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> deactivate (const achildren: boolean = true); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> activator: tactivator <span style="color:navy"><b>READ</b></span> factivator <span style="color:navy"><b>WRITE</b></span> setactivator;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tactivator" name="tactivator">tactivator</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>PROCEDURE</b></span> addclient (const aactivator: tactivator;
+                   const aclient: iobjectlink; var dest: tactivator);
+        <span style="color:navy"><b>PROCEDURE</b></span> activaterecursive; //increments activecount
+        <span style="color:navy"><b>PROCEDURE</b></span> deactivaterecursive; //decrements activecount
+        <span style="color:navy"><b>PROCEDURE</b></span> activateclients;
+        <span style="color:navy"><b>PROCEDURE</b></span> deactivateclients;
+        <span style="color:navy"><b>PROPERTY</b></span> activated: boolean <span style="color:navy"><b>READ</b></span> factivated;
+        <span style="color:navy"><b>PROPERTY</b></span> activecount: integer <span style="color:navy"><b>READ</b></span> factivecount;
+        <span style="color:navy"><b>PROPERTY</b></span> clientinstances[const index: integer]: tobject
+                                                 <span style="color:navy"><b>READ</b></span> getclientinstances;
+        <span style="color:navy"><b>PROPERTY</b></span> clientcount: integer <span style="color:navy"><b>READ</b></span> getclients;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> clients: integer <span style="color:navy"><b>READ</b></span> getclients <span style="color:navy"><b>WRITE</b></span> setclients;
+        <span style="color:navy"><b>PROPERTY</b></span> options: activatoroptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                         <span style="color:navy"><b>DEFAULT</b></span> defaultactivatoroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> abortaction: activatorabortactionty <span style="color:navy"><b>READ</b></span> fabortaction
+                                <span style="color:navy"><b>WRITE</b></span> fabortaction <span style="color:navy"><b>DEFAULT</b></span> aaa_abortexception;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeactivate: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforeactivate
+                                <span style="color:navy"><b>WRITE</b></span> fonbeforeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivateerror: activateerroreventty <span style="color:navy"><b>READ</b></span> fonactivateerror
+                                        <span style="color:navy"><b>WRITE</b></span> fonactivateerror;
+        <span style="color:navy"><b>PROPERTY</b></span> onabort: activatoraborteventty <span style="color:navy"><b>READ</b></span> fonabort <span style="color:navy"><b>WRITE</b></span> fonabort;
+        <span style="color:navy"><b>PROPERTY</b></span> onafteractivate: notifyeventty <span style="color:navy"><b>READ</b></span> fonafteractivate
+                                <span style="color:navy"><b>WRITE</b></span> fonafteractivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedeactivate: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforedeactivate
+                                 <span style="color:navy"><b>WRITE</b></span> fonbeforedeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdeactivate: notifyeventty <span style="color:navy"><b>READ</b></span> fonafterdeactivate
+                                 <span style="color:navy"><b>WRITE</b></span> fonafterdeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tactivatorcontroller" name="tactivatorcontroller">tactivatorcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const aintf: iactivatorclient); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> setactive (const value : boolean): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> loaded;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> activator: tactivator <span style="color:navy"><b>READ</b></span> factivator <span style="color:navy"><b>WRITE</b></span> setactivator;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tonterminatequerylist" name="tonterminatequerylist">tonterminatequerylist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmethodlist">tmethodlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> doterminatequery: boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tonidlelist" name="tonidlelist">tonidlelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmethodlist">tmethodlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> doidle: boolean; //true if again requested
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#teventlist" name="teventlist">teventlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobjectqueue">tobjectqueue</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tonapplicationeventlist" name="tonapplicationeventlist">tonapplicationeventlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmethodlist">tmethodlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> doevent (var aevent: tmseevent; var handled: boolean);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomapplication" name="tcustomapplication">tcustomapplication</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        $ifdef mse_debugmutex}
+        <span style="color:navy"><b>FUNCTION</b></span> getmutexaddr: pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getmutexcount: integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> checklockcount;
+        $endif}
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beforedestruction () <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initialize;
+        <span style="color:navy"><b>PROCEDURE</b></span> deinitialize;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginhighrestimer;
+        <span style="color:navy"><b>PROCEDURE</b></span> endhighrestimer;
+        <span style="color:navy"><b>PROPERTY</b></span> highrestimer: boolean <span style="color:navy"><b>READ</b></span> gethighrestimer;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> procid: procidty;
+        <span style="color:navy"><b>FUNCTION</b></span> getserial (): card32;
+        <span style="color:navy"><b>FUNCTION</b></span> createdatamodule (instanceclass: msecomponentclassty;
+                                                     var reference): tmsecomponent;
+        <span style="color:navy"><b>PROCEDURE</b></span> run;
+        <span style="color:navy"><b>FUNCTION</b></span> running: boolean; //true if eventloop entered
+        <span style="color:navy"><b>PROCEDURE</b></span> processmessages; <span style="color:teal"><b>VIRTUAL</b></span>; //handle with care!
+        <span style="color:navy"><b>FUNCTION</b></span> idle: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> modallevel: integer; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>; //-1 invalid,
+        <span style="color:navy"><b>PROPERTY</b></span> applicationname: msestring <span style="color:navy"><b>READ</b></span> fapplicationname
+                                                      <span style="color:navy"><b>WRITE</b></span> fapplicationname;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> postevent (event: tmseevent;
+                        const aoptions: posteventoptionsty = []);
+        <span style="color:navy"><b>FUNCTION</b></span> checkoverload (const asleepus: integer = 100000): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> handleexception (sender: tobject = nil;
+                                            const leadingtext: msestring = '');
+        <span style="color:navy"><b>PROCEDURE</b></span> showexception (e: exception; const leadingtext: msestring = '');
+                                       <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> errormessage (const amessage: msestring); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronterminated (const method: notifyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronterminated (const method: notifyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronterminate (const method: terminatequeryeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronterminate (const method: terminatequeryeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronidle (const method: idleeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronidle (const method: idleeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registerapplicationeventhandler (
+                                      const method: applicationeventhandlereventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisterapplicationeventhandler (
+                                      const method: applicationeventhandlereventty);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> settimer (const us: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> islockedth<span style="color:navy"><b>READ</b></span>: boolean; //true if calling thread holds the lock
+        <span style="color:navy"><b>FUNCTION</b></span> islockedmainthread: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> trylock: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> lock: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> unlock: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> unlockall: integer <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> relockall (count: integer) <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> lockifnotmainthread;
+        <span style="color:navy"><b>PROCEDURE</b></span> unlockifnotmainthread;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> synchronize (const proc: proceventty; const quiet: boolean = false;
+                     const aoptions: posteventoptionsty = []): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> synchronize (const proc: synchronizeeventty; const data: pointer;
+                             const quiet: boolean = false;
+                             const aoptions: posteventoptionsty = []): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> synchronize (const proc: synchronizeprocty; const data: pointer;
+                             const quiet: boolean = false;
+                             const aoptions: posteventoptionsty = []): boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> queueasynccall (const proc: proceventty;
+                            const aoptions: posteventoptionsty = []);
+        <span style="color:navy"><b>PROCEDURE</b></span> queueasynccall (const proc: synchronizeeventty; const data: pointer;
+                            const aoptions: posteventoptionsty = []);
+        <span style="color:navy"><b>PROCEDURE</b></span> queueasynccall (const proc: synchronizeprocty; const data: pointer;
+                            const aoptions: posteventoptionsty = []);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> releaseobject (const aobject: tobject);
+        <span style="color:navy"><b>FUNCTION</b></span> ismainthread: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> islockthread: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> waitforthread (athread: tmsethread);
+        <span style="color:navy"><b>FUNCTION</b></span> semwait (var sem: semty;  timeoutusec: integer): syserrorty;
+        <span style="color:navy"><b>PROCEDURE</b></span> wakeupmainthread;
+        <span style="color:navy"><b>PROCEDURE</b></span> langchanged; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginwait (const aprocessmessages: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endwait; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> waitescaped: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> idlesleep (const asleepus: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> candefocus (const caller: tobject=nil): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> terminated: boolean <span style="color:navy"><b>READ</b></span> getterminated <span style="color:navy"><b>WRITE</b></span> setterminated;
+        <span style="color:navy"><b>PROPERTY</b></span> mainth<span style="color:navy"><b>READ</b></span>: threadty read fthread;
+        <span style="color:navy"><b>PROPERTY</b></span> lockth<span style="color:navy"><b>READ</b></span>: threadty read flockthread;
+        <span style="color:navy"><b>PROPERTY</b></span> lockcount: integer <span style="color:navy"><b>READ</b></span> flockcount;
+        <span style="color:navy"><b>PROPERTY</b></span> exceptioncount: integer <span style="color:navy"><b>READ</b></span> fexceptioncount;
+        <span style="color:navy"><b>PROPERTY</b></span> options: applicationoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions;
+        <span style="color:navy"><b>PROPERTY</b></span> onexception: exceptioneventty <span style="color:navy"><b>READ</b></span> fonexception <span style="color:navy"><b>WRITE</b></span> fonexception;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,614 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msegraphedits;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgrapheditframe" name="tgrapheditframe">tgrapheditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomcaptionframe">tcustomcaptionframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultgrapheditframeoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_transparent};
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos <span style="color:navy"><b>DEFAULT</b></span> cp_right;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttogglegrapheditframe" name="ttogglegrapheditframe">ttogglegrapheditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgrapheditframe">tgrapheditframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgraphdataedit" name="tgraphdataedit">tgraphdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactionpublishedwidget">tactionpublishedwidget</a>,igridwidget,istatfile,
+                         iassistiveclientgridwidget
+                  {$ifdef mse_with_ifi},iifidatalink{$endif})
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewwidget (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridwidget; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> edited: boolean <span style="color:navy"><b>READ</b></span> getedited <span style="color:navy"><b>WRITE</b></span> setedited;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetcol: twidgetcol;
+        <span style="color:navy"><b>FUNCTION</b></span> grid: tcustomwidgetgrid;
+        <span style="color:navy"><b>FUNCTION</b></span> gridrow: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> gridrowhigh: int32; //-1 if no grid
+        <span style="color:navy"><b>FUNCTION</b></span> griddatarowhigh: int32; //-1 if no grid
+        <span style="color:navy"><b>FUNCTION</b></span> gridcol: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tdatalist;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean <span style="color:teal"><b>VIRTUAL</b></span> <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> seteditfocus: boolean;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> objectlinker: tobjectlinker <span style="color:navy"><b>READ</b></span> getobjectlinker
+                     {$ifdef msehasimplements}implements istatfile{$endif};
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> fcolorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                                                                <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit: optionseditty <span style="color:navy"><b>READ</b></span> getoptionsedit <span style="color:navy"><b>WRITE</b></span> setoptionsedit
+                                   <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1
+                              <span style="color:navy"><b>WRITE</b></span> setoptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered
+                                                         <span style="color:navy"><b>WRITE</b></span> fondataentered;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointeredit" name="tpointeredit">tpointeredit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgraphdataedit">tgraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: pointer <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> nil;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: pointer
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: pointerarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridpointerdatalist;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> visible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph: paintpointerglypheventty <span style="color:navy"><b>READ</b></span> fonpaintglyph
+                                                              <span style="color:navy"><b>WRITE</b></span> fonpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsliderscrollbar" name="tsliderscrollbar">tsliderscrollbar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscrollbar">tscrollbar</a>,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (intf: iscrollbar; org: originty = org_client;
+                   ondimchanged: proceventty = nil); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultsliderscrollbaroptions;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonlength <span style="color:navy"><b>DEFAULT</b></span> defaultbuttonminlength;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrealgraphdataedit" name="tcustomrealgraphdataedit">tcustomrealgraphdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgraphdataedit">tgraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: realty);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const avalue: trealdatalist);
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: realty
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: realarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridrealdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> value: realty <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> direction: graphicdirectionty <span style="color:navy"><b>READ</b></span> fdirection <span style="color:navy"><b>WRITE</b></span> setdirection
+                                                                    <span style="color:navy"><b>DEFAULT</b></span> gd_right;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setrealeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph: paintrealglypheventty <span style="color:navy"><b>READ</b></span> fonpaintglyph
+                                                              <span style="color:navy"><b>WRITE</b></span> fonpaintglyph;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> visible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultsliderwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultsliderheight;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifireallinkcomp  <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealgraphdataedit" name="trealgraphdataedit">trealgraphdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealgraphdataedit">tcustomrealgraphdataedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsliderframe" name="tsliderframe">tsliderframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgrapheditframe">tgrapheditframe</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomslider" name="tcustomslider">tcustomslider</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealgraphdataedit">tcustomrealgraphdataedit</a>,iscrollbar)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridwidget; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> scrollbar: tsliderscrollbar <span style="color:navy"><b>READ</b></span> fscrollbar <span style="color:navy"><b>WRITE</b></span> setscrollbar;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultslideroptionswidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tslider" name="tslider">tslider</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomslider">tcustomslider</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> scrollbar;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbarface" name="tbarface">tbarface</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tface">tface</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iface); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbarframe" name="tbarframe">tbarframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tframe">tframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomprogressbar);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomprogressbar" name="tcustomprogressbar">tcustomprogressbar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealgraphdataedit">tcustomrealgraphdataedit</a>,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> changedirection (const avalue: graphicdirectionty;
+                                           var dest: graphicdirectionty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doprogress (const sender: tobject; const avalue: real;
+                                                    var acancel: boolean);
+        <span style="color:navy"><b>PROPERTY</b></span> cancel: boolean <span style="color:navy"><b>READ</b></span> fcancel <span style="color:navy"><b>WRITE</b></span> fcancel;
+        <span style="color:navy"><b>PROPERTY</b></span> value: realty <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetnofocus;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_face: tbarface <span style="color:navy"><b>READ</b></span> fbar_face <span style="color:navy"><b>WRITE</b></span> setbar_face;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_frame: tbarframe <span style="color:navy"><b>READ</b></span> fbar_frame <span style="color:navy"><b>WRITE</b></span> setbar_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange; //<span style="color:navy"><b>DEFAULT</b></span> 100
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> format: msestring <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> ftextflags <span style="color:navy"><b>WRITE</b></span> settextflags default
+                                   [tf_ycentered,tf_xcentered];
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> onprogress: progresseventty <span style="color:navy"><b>READ</b></span> fonprogress <span style="color:navy"><b>WRITE</b></span> fonprogress;
+        <span style="color:navy"><b>PROPERTY</b></span> onfinished: progresseventty <span style="color:navy"><b>READ</b></span> fonfinished <span style="color:navy"><b>WRITE</b></span> fonfinished;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tprogressbar" name="tprogressbar">tprogressbar</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomprogressbar">tcustomprogressbar</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttogglegraphdataedit" name="ttogglegraphdataedit">ttogglegraphdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tgraphdataedit">tgraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> group: integer <span style="color:navy"><b>READ</b></span> fgroup <span style="color:navy"><b>WRITE</b></span> fgroup <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> checkedrow: integer <span style="color:navy"><b>READ</b></span> getcheckedrow <span style="color:navy"><b>WRITE</b></span> setcheckedrow;
+        <span style="color:navy"><b>PROPERTY</b></span> checkedtag: integer <span style="color:navy"><b>READ</b></span> getcheckedtag <span style="color:navy"><b>WRITE</b></span> setcheckedtag;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: buttonoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                    <span style="color:navy"><b>DEFAULT</b></span> defaultbuttonoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombooleanedit" name="tcustombooleanedit">tcustombooleanedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttogglegraphdataedit">ttogglegraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const avalue: longbool);
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> togglegridvalue (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> value: boolean <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: boolean <span style="color:navy"><b>READ</b></span> getvaluedefault
+                                            <span style="color:navy"><b>WRITE</b></span> setvalue<span style="color:navy"><b>DEFAULT</b></span> default false;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: longbool
+                               <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>FUNCTION</b></span> valuetag (const falsevalue: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> valuetagbit: longword;
+        <span style="color:navy"><b>FUNCTION</b></span> gridvaluetagbit (const index: integer): longword;
+        <span style="color:navy"><b>PROPERTY</b></span> valuebitmask: longword <span style="color:navy"><b>READ</b></span> getvaluebitmask <span style="color:navy"><b>WRITE</b></span> setvaluebitmask;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvaluebitmask[const index: integer]: longword
+                                <span style="color:navy"><b>READ</b></span> getgridvaluebitmask <span style="color:navy"><b>WRITE</b></span> setgridvaluebitmask;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> gridvaluetag (const index: integer;
+                                              const falsevalue: integer): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatetagvalue (const bitset: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> gridupdatetagvalue (const index: integer; const bitset: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: longboolarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> gridbooleanvalues: booleanarty <span style="color:navy"><b>READ</b></span> getgridbooleanvalues
+                                                      <span style="color:navy"><b>WRITE</b></span> setgridbooleanvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridintegerdatalist;
+        <span style="color:navy"><b>FUNCTION</b></span> groupmembers: booleaneditarty;
+        <span style="color:navy"><b>FUNCTION</b></span> tagitem (const atag: integer): tcustombooleanedit; //nil if none
+        
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setbooleaneventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifibooleanlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> visible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleanedit" name="tbooleanedit">tbooleanedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleanedit">tcustombooleanedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombooleaneditradio" name="tcustombooleaneditradio">tcustombooleaneditradio</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleanedit">tcustombooleanedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> togglegridvalue (const index: integer) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkeditem: tcustombooleaneditradio; //nil if none
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleaneditradio" name="tbooleaneditradio">tbooleaneditradio</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleaneditradio">tcustombooleaneditradio</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy  <span style="color:navy"><b>DEFAULT</b></span> defaultboxsize;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomintegergraphdataedit" name="tcustomintegergraphdataedit">tcustomintegergraphdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttogglegraphdataedit">ttogglegraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> togglegridvalue (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const avalue: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: integer
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: integerarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridintegerdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> datalist: tintegerdatalist <span style="color:navy"><b>READ</b></span> getdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setintegereventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: integer <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                            <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: integer <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: integer <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph: paintintegerglypheventty <span style="color:navy"><b>READ</b></span> fonpaintglyph
+                                                              <span style="color:navy"><b>WRITE</b></span> fonpaintglyph;
+      PUBLISHED
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiintegerlinkcomp  <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluefacearrayprop" name="tvaluefacearrayprop">tvaluefacearrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdatabutton);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tface <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvaluefontarrayprop" name="tvaluefontarrayprop">tvaluefontarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdatabutton);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tfont <span style="color:navy"><b>READ</b></span> getitems
+                                                        <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdatabutton" name="tcustomdatabutton">tcustomdatabutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomintegergraphdataedit">tcustomintegergraphdataedit</a>,iactionlink,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> execute ();
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewwidget (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys () <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridwidget; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> togglegridvalue (const index: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkeditem: tcustomdatabutton; //nil if none
+        <span style="color:navy"><b>PROPERTY</b></span> valuefaces: tvaluefacearrayprop <span style="color:navy"><b>READ</b></span> fvaluefaces
+                                                          <span style="color:navy"><b>WRITE</b></span> setvaluefaces;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecaptions: tmsestringarrayprop <span style="color:navy"><b>READ</b></span> fvaluecaptions
+                                                       <span style="color:navy"><b>WRITE</b></span> setvaluecaptions;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefonts: tvaluefontarrayprop <span style="color:navy"><b>READ</b></span> fvaluefonts
+                                                       <span style="color:navy"><b>WRITE</b></span> setvaluefonts;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> action: tcustomaction <span style="color:navy"><b>READ</b></span> factioninfo.action <span style="color:navy"><b>WRITE</b></span> setaction;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: captionty <span style="color:navy"><b>READ</b></span> factioninfo.captiontext <span style="color:navy"><b>WRITE</b></span> setcaption
+                                                             stored iscaptionstored;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags: textflagsty <span style="color:navy"><b>READ</b></span> finfo.ca.textflags
+                              <span style="color:navy"><b>WRITE</b></span> settextflags <span style="color:navy"><b>DEFAULT</b></span> defaultcaptiontextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos: imageposty <span style="color:navy"><b>READ</b></span> finfo.ca.imagepos <span style="color:navy"><b>WRITE</b></span> setimagepos
+                                   <span style="color:navy"><b>DEFAULT</b></span> ip_center;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist: integer <span style="color:navy"><b>READ</b></span> finfo.ca.captiondist <span style="color:navy"><b>WRITE</b></span> setcaptiondist
+                                 <span style="color:navy"><b>DEFAULT</b></span> defaultshapecaptiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> getimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist
+                         stored isimageliststored;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> factioninfo.imagenr <span style="color:navy"><b>WRITE</b></span> setimagenr
+                                 stored isimagenrstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled: imagenrty <span style="color:navy"><b>READ</b></span> factioninfo.imagenrdisabled
+                                   <span style="color:navy"><b>WRITE</b></span> setimagenrdisabled
+                                 stored isimagenrdisabledstored <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist
+                                                    <span style="color:navy"><b>WRITE</b></span> setimagedist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist1
+                                                    <span style="color:navy"><b>WRITE</b></span> setimagedist1 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2: integer <span style="color:navy"><b>READ</b></span> finfo.ca.imagedist2
+                                                 <span style="color:navy"><b>WRITE</b></span> setimagedist2 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> factioninfo.colorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                           stored iscolorglyphstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut <span style="color:navy"><b>WRITE</b></span> setshortcut
+                                 stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcut1
+                                 stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts: shortcutarty <span style="color:navy"><b>READ</b></span> factioninfo.shortcut
+                                                   <span style="color:navy"><b>WRITE</b></span> setshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts1: shortcutarty <span style="color:navy"><b>READ</b></span> factioninfo.shortcut1
+                                                            <span style="color:navy"><b>WRITE</b></span> setshortcuts1;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate: databuttoneventty <span style="color:navy"><b>READ</b></span> fonupdate <span style="color:navy"><b>WRITE</b></span> fonupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: notifyeventty <span style="color:navy"><b>READ</b></span> factioninfo.onexecute
+                                 <span style="color:navy"><b>WRITE</b></span> setonexecute stored isonexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute: accepteventty <span style="color:navy"><b>READ</b></span> factioninfo.onbeforeexecute
+                        <span style="color:navy"><b>WRITE</b></span> setonbeforeexecute stored isonbeforeexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute: notifyeventty <span style="color:navy"><b>READ</b></span> factioninfo.onafterexecute
+                              <span style="color:navy"><b>WRITE</b></span> setonafterexecute stored isonafterexecutestored;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset: integer <span style="color:navy"><b>READ</b></span> fimageoffset
+                                                   <span style="color:navy"><b>WRITE</b></span> setimageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetdisabled: integer <span style="color:navy"><b>READ</b></span> fimageoffsetdisabled
+                                      <span style="color:navy"><b>WRITE</b></span> setimageoffsetdisabled <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetmouse: integer <span style="color:navy"><b>READ</b></span> fimageoffsetmouse
+                                            <span style="color:navy"><b>WRITE</b></span> setimageoffsetmouse <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetclicked: integer <span style="color:navy"><b>READ</b></span> fimageoffsetclicked
+                                            <span style="color:navy"><b>WRITE</b></span> setimageoffsetclicked <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums: tintegerarrayprop <span style="color:navy"><b>READ</b></span> fimagenums <span style="color:navy"><b>WRITE</b></span> setimagenums;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist: integer <span style="color:navy"><b>READ</b></span> finfo.focusrectdist
+                 <span style="color:navy"><b>WRITE</b></span> finfo.focusrectdist <span style="color:navy"><b>DEFAULT</b></span> defaultshapefocusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span> default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedisabled: integer <span style="color:navy"><b>READ</b></span> fvaluedisabled
+                                           <span style="color:navy"><b>WRITE</b></span> setvaluedisabled <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidget - [ow_mousefocus];
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> visible stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> state: actionstatesty <span style="color:navy"><b>READ</b></span> factioninfo.state <span style="color:navy"><b>WRITE</b></span> setstate
+                                  stored isstatestored <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatabutton" name="tdatabutton">tdatabutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatabutton">tcustomdatabutton</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefaces;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecaptions;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefonts;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedisabled;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstockglyphdatabutton" name="tstockglyphdatabutton">tstockglyphdatabutton</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatabutton">tcustomdatabutton</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> action;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> glyph: stockglyphty <span style="color:navy"><b>READ</b></span> fglyph <span style="color:navy"><b>WRITE</b></span> setglyph <span style="color:navy"><b>DEFAULT</b></span> stg_none;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuefaces;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> imagepos;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedisabled;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdataicon" name="tcustomdataicon">tcustomdataicon</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomintegergraphdataedit">tcustomintegergraphdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset: integer <span style="color:navy"><b>READ</b></span> fimageoffset <span style="color:navy"><b>WRITE</b></span> setimageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums: tintegerarrayprop <span style="color:navy"><b>READ</b></span> fimagenums <span style="color:navy"><b>WRITE</b></span> setimagenums;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span> default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> value <span style="color:navy"><b>DEFAULT</b></span> -1;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> visible;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdataicon" name="tdataicon">tdataicon</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdataicon">tcustomdataicon</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> value <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span> default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenums;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

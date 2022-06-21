@@ -1,0 +1,74 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory designutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesyntaxpainter;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeywordlist" name="tkeywordlist">tkeywordlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointermsestringhashdatalist">tpointermsestringhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trefreshinfolist" name="trefreshinfolist">trefreshinfolist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> push (const value: refreshinfoty);
+        <span style="color:navy"><b>FUNCTION</b></span> pop: boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> pop (out value: refreshinfoty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: refreshinfoty <span style="color:navy"><b>READ</b></span> Getitems
+                                                        <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsyntaxpainter" name="tsyntaxpainter">tsyntaxpainter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>PROCEDURE</b></span> paintsyntax (handle: integer; start,count: halfinteger;
+                                                   background: boolean = false);
+        <span style="color:navy"><b>FUNCTION</b></span> registerclient (sender: tobject; alist: trichstringdatalist;
+                       aonlinechanged: integerchangedeventty = nil;
+                       asyntaxdefhandle: integer = 0): integer;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisterclient (handle: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> readdeffile (stream: ttextstream): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readdeffile (const afilename: filenamety): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readdeffile (const atext: string): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> freedeffile (handle: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> linkdeffile (const sourcefilename: filenamety): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultsyntax: integer <span style="color:navy"><b>READ</b></span> fdefaultsyntax;
+        <span style="color:navy"><b>PROPERTY</b></span> boldchars[index: integer]: markinfoty <span style="color:navy"><b>READ</b></span> getboldchars
+                                         <span style="color:navy"><b>WRITE</b></span> setboldchars;
+        <span style="color:navy"><b>PROPERTY</b></span> colors[index: integer]: syntaxcolorinfoty <span style="color:navy"><b>READ</b></span> getcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> caseinsensitive[index: int32]: boolean <span style="color:navy"><b>READ</b></span> getcaseinsensitive;
+        <span style="color:navy"><b>PROPERTY</b></span> pairwords[index: int32]: pairwordsty <span style="color:navy"><b>READ</b></span> getpairwords;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> linesperslice: integer <span style="color:navy"><b>READ</b></span> flinesperslice <span style="color:navy"><b>WRITE</b></span> setlinesperslice
+                     <span style="color:navy"><b>DEFAULT</b></span> defaultlinesperslice;
+        <span style="color:navy"><b>PROPERTY</b></span> defdefs: tdoublemsestringdatalist <span style="color:navy"><b>READ</b></span> fdefdefs <span style="color:navy"><b>WRITE</b></span> setdefdefs;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> defsdir: filenamety <span style="color:navy"><b>READ</b></span> fdefsdir <span style="color:navy"><b>WRITE</b></span> fdefsdir;
+        <span style="color:navy"><b>PROPERTY</b></span> deftext: tmsestringdatalist <span style="color:navy"><b>READ</b></span> fdeftext <span style="color:navy"><b>WRITE</b></span> setdeftext;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,78 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msefoldedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tgridmsestringintdatalist" name="tgridmsestringintdatalist">tgridmsestringintdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringintdatalist">tmsestringintdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (owner: twidgetcol); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfoldedit" name="tfoldedit">tfoldedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringedit">tstringedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> imagesize: sizety <span style="color:navy"><b>READ</b></span> fimagesize <span style="color:navy"><b>WRITE</b></span> setimagesize;
+        <span style="color:navy"><b>PROPERTY</b></span> gridimnr[index: integer]: integer
+                                         <span style="color:navy"><b>READ</b></span> getgridimnr <span style="color:navy"><b>WRITE</b></span> setgridimnr;
+        <span style="color:navy"><b>PROPERTY</b></span> gridimnrs: integerarty <span style="color:navy"><b>READ</b></span> getgridimnrs <span style="color:navy"><b>WRITE</b></span> setgridimnrs;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: foldeditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent: celleventty <span style="color:navy"><b>READ</b></span> foncellevent <span style="color:navy"><b>WRITE</b></span> foncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent: mouseeventty <span style="color:navy"><b>READ</b></span> fonclientmouseevent
+                                <span style="color:navy"><b>WRITE</b></span> fonclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> levelstep: integer <span style="color:navy"><b>READ</b></span> flevelstep <span style="color:navy"><b>WRITE</b></span> setlevelstep <span style="color:navy"><b>DEFAULT</b></span> 10;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_base: integer <span style="color:navy"><b>READ</b></span> fimnr_base <span style="color:navy"><b>WRITE</b></span> setimnr_base <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_expanded: integer <span style="color:navy"><b>READ</b></span> fimnr_expanded
+                                              <span style="color:navy"><b>WRITE</b></span> setimnr_expanded <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_selected: integer <span style="color:navy"><b>READ</b></span> fimnr_selected
+                                              <span style="color:navy"><b>WRITE</b></span> setimnr_selected <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_<span style="color:navy"><b>READ</b></span>only: integer read fimnr_readonly
+                                              <span style="color:navy"><b>WRITE</b></span> setimnr_readonly <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_subitems: integer <span style="color:navy"><b>READ</b></span> fimnr_subitems
+                                              <span style="color:navy"><b>WRITE</b></span> setimnr_subitems <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_value: integer <span style="color:navy"><b>READ</b></span> fimnr_value <span style="color:navy"><b>WRITE</b></span> setimnr_value <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_valuebase: integer <span style="color:navy"><b>READ</b></span> fimnr_valuebase
+                                            <span style="color:navy"><b>WRITE</b></span> setimnr_valuebase <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_valueexpanded: integer <span style="color:navy"><b>READ</b></span> fimnr_valueexpanded
+                                            <span style="color:navy"><b>WRITE</b></span> setimnr_valueexpanded <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_valueselected: integer <span style="color:navy"><b>READ</b></span> fimnr_valueselected
+                                            <span style="color:navy"><b>WRITE</b></span> setimnr_valueselected <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_value<span style="color:navy"><b>READ</b></span>only: integer read fimnr_valuereadonly
+                                            <span style="color:navy"><b>WRITE</b></span> setimnr_valuereadonly <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imnr_valuesubitems: integer <span style="color:navy"><b>READ</b></span> fimnr_valuesubitems
+                                            <span style="color:navy"><b>WRITE</b></span> setimnr_valuesubitems <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelistvalue: timagelist <span style="color:navy"><b>READ</b></span> fimagelistvalue
+                                            <span style="color:navy"><b>WRITE</b></span> setimagelistvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> imagewidth: integer <span style="color:navy"><b>READ</b></span> fimagesize.cx <span style="color:navy"><b>WRITE</b></span> setimagewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imageheight: integer <span style="color:navy"><b>READ</b></span> fimagesize.cy <span style="color:navy"><b>WRITE</b></span> setimageheight <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags <span style="color:navy"><b>DEFAULT</b></span> defaultfoldedittextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaultfoldedittextflagsactive;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

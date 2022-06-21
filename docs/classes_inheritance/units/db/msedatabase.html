@@ -1,0 +1,94 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedatabase;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmdbtransaction" name="tmdbtransaction">tmdbtransaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Active : boolean <span style="color:navy"><b>READ</b></span> FActive <span style="color:navy"><b>WRITE</b></span> setactive;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomconnection" name="tcustomconnection">TCustomConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponent">TComponent</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> Close;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Open;
+         <span style="color:navy"><b>PROCEDURE</b></span> beforeaction;
+         <span style="color:navy"><b>PROCEDURE</b></span> afteraction;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> Connected: Boolean <span style="color:navy"><b>READ</b></span> GetConnected <span style="color:navy"><b>WRITE</b></span> SetConnected;
+        <span style="color:navy"><b>PROPERTY</b></span> waitcursor: boolean <span style="color:navy"><b>READ</b></span> fwaitcursor 
+                                          <span style="color:navy"><b>WRITE</b></span> setwaitcursor <span style="color:navy"><b>DEFAULT</b></span> false;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmdatabase" name="tmdatabase">tmdatabase</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomconnection">TCustomConnection</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> CloseDataSets;
+        <span style="color:navy"><b>PROCEDURE</b></span> CloseTransactions;
+        <span style="color:navy"><b>PROCEDURE</b></span> StartTransaction; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> EndTransaction; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> TransactionCount: Longint <span style="color:navy"><b>READ</b></span> GetTransactionCount;
+        <span style="color:navy"><b>PROPERTY</b></span> Transactions[Index: Longint]: tmdbtransaction <span style="color:navy"><b>READ</b></span> GetTransaction;
+        <span style="color:navy"><b>PROPERTY</b></span> Directory: string <span style="color:navy"><b>READ</b></span> FDirectory <span style="color:navy"><b>WRITE</b></span> FDirectory;
+        <span style="color:navy"><b>PROPERTY</b></span> IsSQLBased: Boolean <span style="color:navy"><b>READ</b></span> FSQLBased;
+        <span style="color:navy"><b>PROPERTY</b></span> datasets: idatabaseclientarty <span style="color:navy"><b>READ</b></span> fdatasets;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> Connected: Boolean <span style="color:navy"><b>READ</b></span> FConnected <span style="color:navy"><b>WRITE</b></span> SetConnected <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> DatabaseName: msestring <span style="color:navy"><b>READ</b></span> FDatabaseName <span style="color:navy"><b>WRITE</b></span> FDatabaseName;
+        <span style="color:navy"><b>PROPERTY</b></span> KeepConnection: Boolean <span style="color:navy"><b>READ</b></span> FKeepConnection 
+                                   <span style="color:navy"><b>WRITE</b></span> FKeepConnection <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> Params : TStringlist <span style="color:navy"><b>READ</b></span> FParams Write setparams;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect: databaseeventty <span style="color:navy"><b>READ</b></span> fonbeforeconnect
+                                        <span style="color:navy"><b>WRITE</b></span> fonbeforeconnect;  
+        <span style="color:navy"><b>PROPERTY</b></span> onafterconnect: databaseeventty <span style="color:navy"><b>READ</b></span> fonafterconnect 
+                                        <span style="color:navy"><b>WRITE</b></span> fonafterconnect;  
+        <span style="color:navy"><b>PROPERTY</b></span> onconnecterror: databaseerroreventty <span style="color:navy"><b>READ</b></span> fonconnecterror 
+                                        <span style="color:navy"><b>WRITE</b></span> fonconnecterror; 
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedisconnect: databaseeventty <span style="color:navy"><b>READ</b></span> fonbeforedisconnect 
+                                        <span style="color:navy"><b>WRITE</b></span> fonbeforedisconnect; 
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdisconnect: databaseeventty <span style="color:navy"><b>READ</b></span> fonafterdisconnect 
+                                        <span style="color:navy"><b>WRITE</b></span> fonafterdisconnect; 
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmdbdataset" name="tmdbdataset">tmdbdataset</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataset">TDataset</a>,idatabaseclient,itransactionclient)
+      PUBLIC
+         <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> database : tmdatabase <span style="color:navy"><b>READ</b></span> fdatabase <span style="color:navy"><b>WRITE</b></span> setdatabase;
+         <span style="color:navy"><b>PROPERTY</b></span> transaction : tmdbtransaction <span style="color:navy"><b>READ</b></span> ftransaction <span style="color:navy"><b>WRITE</b></span> settransaction;
+         <span style="color:navy"><b>PROPERTY</b></span> transaction<span style="color:navy"><b>WRITE</b></span> : tmdbtransaction <span style="color:navy"><b>READ</b></span> ftransactionwrite 
+                                <span style="color:navy"><b>WRITE</b></span> settransactionwrite;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttacontroller" name="ttacontroller">ttacontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactivatorcontroller">tactivatorcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmdbtransaction; 
+                                         const aintf: iactivatorclient);
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

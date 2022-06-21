@@ -1,0 +1,64 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mmysqlconn;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#emysqlerror" name="emysqlerror">emysqlerror</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#econnectionerror">econnectionerror</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: tcustomsqlconnection;
+                    const amessage: ansistring; const aerrormessage: msestring;
+                    const aerror: integer; const asqlcode: string);
+        <span style="color:navy"><b>PROPERTY</b></span> sqlcode: string <span style="color:navy"><b>READ</b></span> fsqlcode;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmysqltrans" name="tmysqltrans">tmysqltrans</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlhandle">TSQLHandle</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROPERTY</b></span> conn: pmysql <span style="color:navy"><b>READ</b></span> fconn;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmysqlcursor" name="tmysqlcursor">tmysqlcursor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlcursor">TSQLCursor</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmysqlconnection" name="tmysqlconnection">tmysqlconnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlconnection">TSQLConnection</a>,iblobconnection)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> options: mysqloptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+         <span style="color:navy"><b>PROPERTY</b></span> Dialect  : integer <span style="color:navy"><b>READ</b></span> FDialect <span style="color:navy"><b>WRITE</b></span> FDialect <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> port: longword <span style="color:navy"><b>READ</b></span> fport <span style="color:navy"><b>WRITE</b></span> fport <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> ssl_key: filenamety <span style="color:navy"><b>READ</b></span> fssl_key <span style="color:navy"><b>WRITE</b></span> fssl_key;
+         <span style="color:navy"><b>PROPERTY</b></span> ssl_cert: filenamety <span style="color:navy"><b>READ</b></span> fssl_cert <span style="color:navy"><b>WRITE</b></span> fssl_cert;
+         <span style="color:navy"><b>PROPERTY</b></span> ssl_ca: filenamety <span style="color:navy"><b>READ</b></span> fssl_ca <span style="color:navy"><b>WRITE</b></span> fssl_ca;
+         <span style="color:navy"><b>PROPERTY</b></span> ssl_capath: filenamety <span style="color:navy"><b>READ</b></span> fssl_capath <span style="color:navy"><b>WRITE</b></span> fssl_capath;
+         <span style="color:navy"><b>PROPERTY</b></span> ssl_cipher: filenamety <span style="color:navy"><b>READ</b></span> fssl_cipher <span style="color:navy"><b>WRITE</b></span> fssl_cipher;
+         <span style="color:navy"><b>PROPERTY</b></span> DatabaseName;
+         <span style="color:navy"><b>PROPERTY</b></span> HostName;
+         <span style="color:navy"><b>PROPERTY</b></span> KeepConnection;
+         <span style="color:navy"><b>PROPERTY</b></span> Params;
+         <span style="color:navy"><b>PROPERTY</b></span> ongetcredentials;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#//  emysqlerror" name="//  emysqlerror">//  EMySQLError</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">Exception</a>);
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,766 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedataedits;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdataedit" name="tcustomdataedit">tcustomdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomedit">tcustomedit</a>,igridwidget,istatfile,idragcontroller,
+                          iassistiveclientgridwidget
+                         {$ifdef mse_with_ifi},iifidatalink{$endif})
+      PUBLIC
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewwidget (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridwidget; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcursor (const apos: pointty): cursorshapety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetcol: twidgetcol;
+        <span style="color:navy"><b>FUNCTION</b></span> grid: tcustomwidgetgrid;
+        <span style="color:navy"><b>PROPERTY</b></span> gridrow: integer <span style="color:navy"><b>READ</b></span> getgridrow <span style="color:navy"><b>WRITE</b></span> setgridrow;
+        <span style="color:navy"><b>FUNCTION</b></span> gridrowhigh: int32; //-1 if no grid
+        <span style="color:navy"><b>FUNCTION</b></span> griddatarowhigh: int32; //-1 if no grid
+        <span style="color:navy"><b>FUNCTION</b></span> gridcol: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> gridintf: iwidgetgrid <span style="color:navy"><b>READ</b></span> fgridintf;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped (const arow: integer;
+                            out acellrect: rectty): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> textclipped (const arow: integer): boolean;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> edited: boolean <span style="color:navy"><b>READ</b></span> getedited <span style="color:navy"><b>WRITE</b></span> setedited;
+        <span style="color:navy"><b>FUNCTION</b></span> emptytext: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> seteditfocus: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> disptext: msestring <span style="color:navy"><b>READ</b></span> getdisptext;
+        <span style="color:navy"><b>PROPERTY</b></span> dataeditstate: dataeditstatesty <span style="color:navy"><b>READ</b></span> fstate;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckvalue: checkvalueeventty <span style="color:navy"><b>READ</b></span> foncheckvalue
+                                                           <span style="color:navy"><b>WRITE</b></span> foncheckvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered
+                                                           <span style="color:navy"><b>WRITE</b></span> fondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ongettext: gettexteventty <span style="color:navy"><b>READ</b></span> fongettext <span style="color:navy"><b>WRITE</b></span> fongettext;
+        <span style="color:navy"><b>PROPERTY</b></span> onsettext: settexteventty <span style="color:navy"><b>READ</b></span> fonsettext <span style="color:navy"><b>WRITE</b></span> fonsettext;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextchange: textchangeeventty <span style="color:navy"><b>READ</b></span> fontextchange
+                                                          <span style="color:navy"><b>WRITE</b></span> fontextchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdataedit" name="tdataedit">tdataedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdataedit">tcustomdataedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_color;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_font;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_fontstyle;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_options;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> empty_textcolorbackground;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> cursorreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ontextedited;
+        <span style="color:navy"><b>PROPERTY</b></span> oncheckvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ongettext;
+        <span style="color:navy"><b>PROPERTY</b></span> onsettext;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomstringedit" name="tcustomstringedit">tcustomstringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataedit">tdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue (const quiet: boolean = false): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragevent (var info: draginfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: tmsestringdatalist);
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setstringeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: msestring <span style="color:navy"><b>READ</b></span> fvaluedefault <span style="color:navy"><b>WRITE</b></span> fvaluedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: msestring
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: msestringarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridmsestringdatalist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifistringlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringedit" name="tstringedit">tstringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringedit">tcustomstringedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommemoedit" name="tcustommemoedit">tcustommemoedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringedit">tcustomstringedit</a>,iscrollbar)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> afterconstruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tscrolleditframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags <span style="color:navy"><b>DEFAULT</b></span> defaultmemotextflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive <span style="color:navy"><b>DEFAULT</b></span> defaultmemotextflagsactive;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit <span style="color:navy"><b>DEFAULT</b></span> defaultmemooptionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultmemooptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetmousewheel;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemoedit" name="tmemoedit">tmemoedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemoedit">tcustommemoedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> frame;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrichmemoedit" name="tcustomrichmemoedit">tcustomrichmemoedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemoedit">tcustommemoedit</a>,irichstringprop)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value stored false;
+        <span style="color:navy"><b>PROPERTY</b></span> richvalue: richstringty <span style="color:navy"><b>READ</b></span> getrichvalue <span style="color:navy"><b>WRITE</b></span> setrichvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> formatvalue: formatinfoarty <span style="color:navy"><b>READ</b></span> fformat <span style="color:navy"><b>WRITE</b></span> setformat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trichmemoedit" name="trichmemoedit">trichmemoedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrichmemoedit">tcustomrichmemoedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> frame;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thexstringedit" name="thexstringedit">thexstringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataedit">tdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: tansistringdatalist);
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: ansistring
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: stringarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridansistringdatalist;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: ansistring <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setansistringeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdownedit" name="tcustomdropdownedit">tcustomdropdownedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringedit">tcustomstringedit</a>,idropdown
+                 {$ifdef mse_with_ifi},iifidropdownlistdatalink{$endif})
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown: notifyeventty <span style="color:navy"><b>READ</b></span> fonbeforedropdown <span style="color:navy"><b>WRITE</b></span> fonbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown: notifyeventty <span style="color:navy"><b>READ</b></span> fonafterclosedropdown
+                        <span style="color:navy"><b>WRITE</b></span> fonafterclosedropdown;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tdropdownmultibuttonframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdownwidgetedit" name="tcustomdropdownwidgetedit">tcustomdropdownwidgetedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownedit">tcustomdropdownedit</a>,idropdownwidget)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownwidgetcontroller <span style="color:navy"><b>READ</b></span> getdropdown
+                                                             <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownwidgetedit" name="tdropdownwidgetedit">tdropdownwidgetedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownwidgetedit">tcustomdropdownwidgetedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdropdownlistedit" name="tcustomdropdownlistedit">tcustomdropdownlistedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownedit">tcustomdropdownedit</a>,idropdownlist
+                {$ifdef mse_with_ifi},iifidropdownlistdatalink{$endif})
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> sort (const acol: integer = 0);
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tdropdownlistcontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifidropdownlistlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink1;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdropdownlistedit" name="tdropdownlistedit">tdropdownlistedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thistorycontroller" name="thistorycontroller">thistorycontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlistcontroller">tdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+        <span style="color:navy"><b>PROCEDURE</b></span> readstate (const reader: tstatreader);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestate (const writer: tstatwriter);
+        <span style="color:navy"><b>PROCEDURE</b></span> savehistoryvalue (const avalue: msestring);
+        <span style="color:navy"><b>PROPERTY</b></span> history: msestringarty <span style="color:navy"><b>READ</b></span> gethistory <span style="color:navy"><b>WRITE</b></span> sethistory;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownrowcount; //first
+        <span style="color:navy"><b>PROPERTY</b></span> delay;
+        <span style="color:navy"><b>PROPERTY</b></span> historymaxcount: integer <span style="color:navy"><b>READ</b></span> fhistorymaxcount
+                           <span style="color:navy"><b>WRITE</b></span> sethistorymaxcount <span style="color:navy"><b>DEFAULT</b></span> defaulthistorymaxcount;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearhistory;
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaulthistoryeditoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> width;
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomhistoryedit" name="tcustomhistoryedit">tcustomhistoryedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> savehistoryvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: thistorycontroller <span style="color:navy"><b>READ</b></span> getdropdown <span style="color:navy"><b>WRITE</b></span> setdropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thistoryedit" name="thistoryedit">thistoryedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomhistoryedit">tcustomhistoryedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnumedit" name="tnumedit">tnumedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdataedit">tdataedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> textflags <span style="color:navy"><b>DEFAULT</b></span> defaultnumedittextflags;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomintegeredit" name="tcustomintegeredit">tcustomintegeredit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumedit">tnumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: tintegerdatalist);
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setintegereventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: integer <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                         <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: integer <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: integer <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: integer
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: integerarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridintegerdatalist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiintegerlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegeredit" name="tintegeredit">tintegeredit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomintegeredit">tcustomintegeredit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomint64edit" name="tcustomint64edit">tcustomint64edit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumedit">tnumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: int64);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: tint64datalist);
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setint64eventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: int64 <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span>: int64 <span style="color:navy"><b>READ</b></span> fvaluedefault <span style="color:navy"><b>WRITE</b></span> fvaluedefault default 0;
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 64;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: int64 <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> fvaluemin{setmin} <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: int64 <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> fvaluemax{setmax};
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: int64
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: int64arty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridint64datalist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifiint64linkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64edit" name="tint64edit">tint64edit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomint64edit">tcustomint64edit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeystringdropdowncontroller" name="tkeystringdropdowncontroller">tkeystringdropdowncontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownlistcontroller">tdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+        <span style="color:navy"><b>FUNCTION</b></span> getindex (const akey: msestring): integer;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultkeystringdropdownoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomkeystringedit" name="tcustomkeystringedit">tcustomkeystringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> fvalue1 <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit: keystringediteventty <span style="color:navy"><b>READ</b></span> foninit <span style="color:navy"><b>WRITE</b></span> foninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeystringedit" name="tkeystringedit">tkeystringedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomkeystringedit">tcustomkeystringedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnocolsenumdropdowncontroller" name="tnocolsenumdropdowncontroller">tnocolsenumdropdowncontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnocolsdropdownlistcontroller">tnocolsdropdownlistcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultenumdropdownoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> imageframe_bottom;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumdropdowncontroller" name="tenumdropdowncontroller">tenumdropdowncontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnocolsenumdropdowncontroller">tnocolsenumdropdowncontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idropdownlist);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> cols;
+        <span style="color:navy"><b>PROPERTY</b></span> valuecol; //after cols
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomenuedit" name="tcustomenuedit">tcustomenuedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdropdownlistedit">tcustomdropdownlistedit</a>)
+      PUBLIC
+        enums: integerarty; //nil -> enum = item rowindex + valueoffset
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>FUNCTION</b></span> enumname (const avalue: integer): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> addrow (const aitems: array of msestring;
+                            const enum: integer = -1): integer; //returns itemindex
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const avalue: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const avalue: tintegerdatalist);
+        <span style="color:navy"><b>PROPERTY</b></span> valueoffset: integer <span style="color:navy"><b>READ</b></span> fvalueoffset <span style="color:navy"><b>WRITE</b></span> setvalueoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> fvalue1 <span style="color:navy"><b>WRITE</b></span> setvalue <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: integer <span style="color:navy"><b>READ</b></span> fvaluedefault1
+                                             <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span>1 default -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valueempty: integer <span style="color:navy"><b>READ</b></span> fvalueempty <span style="color:navy"><b>WRITE</b></span> fvalueempty <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> base: numbasety <span style="color:navy"><b>READ</b></span> fbase <span style="color:navy"><b>WRITE</b></span> setbase <span style="color:navy"><b>DEFAULT</b></span> nb_dec;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount: integer <span style="color:navy"><b>READ</b></span> fbitcount <span style="color:navy"><b>WRITE</b></span> setbitcount <span style="color:navy"><b>DEFAULT</b></span> 32;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: integer <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: integer <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax <span style="color:navy"><b>DEFAULT</b></span> maxint;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: integer
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: integerarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridenumdatalist;
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown: tenumdropdowncontroller <span style="color:navy"><b>READ</b></span> getdropdown
+                                                             <span style="color:navy"><b>WRITE</b></span> setdropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setintegereventty <span style="color:navy"><b>READ</b></span> fonsetvalue1 <span style="color:navy"><b>WRITE</b></span> fonsetvalue1;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifienumlinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink1;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomenumedit" name="tcustomenumedit">tcustomenumedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenuedit">tcustomenuedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> oninit: enumediteventty <span style="color:navy"><b>READ</b></span> foninit <span style="color:navy"><b>WRITE</b></span> foninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumedit" name="tenumedit">tenumedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenumedit">tcustomenumedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown; //first
+        <span style="color:navy"><b>PROPERTY</b></span> valueoffset; //before value
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> valueempty;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumtypeedit" name="tenumtypeedit">tenumtypeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenumedit">tcustomenumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> typeinfopo: ptypeinfo <span style="color:navy"><b>READ</b></span> ftypeinfopo <span style="color:navy"><b>WRITE</b></span> settypeinfopo;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> base;
+        <span style="color:navy"><b>PROPERTY</b></span> bitcount;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit: enumtypeediteventty <span style="color:navy"><b>READ</b></span> getoninit <span style="color:navy"><b>WRITE</b></span> setoninit;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomselector" name="tcustomselector">tcustomselector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomenuedit">tcustomenuedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tselector" name="tselector">tselector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomselector">tcustomselector</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dropdownitems: tdropdowndatacols <span style="color:navy"><b>READ</b></span> getdropdownitems
+                                                          <span style="color:navy"><b>WRITE</b></span> setdropdownitems;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetdropdowninfo: selectoreventty <span style="color:navy"><b>READ</b></span> fongetdropdowninfo
+                                                          <span style="color:navy"><b>WRITE</b></span> fongetdropdowninfo;
+        <span style="color:navy"><b>PROPERTY</b></span> oninit: selectoreventty <span style="color:navy"><b>READ</b></span> foninit <span style="color:navy"><b>WRITE</b></span> foninit;
+        <span style="color:navy"><b>PROPERTY</b></span> valueoffset; //before value
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> dropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedropdown;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterclosedropdown;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrealedit" name="tcustomrealedit">tcustomrealedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumedit">tnumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: realty);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: trealdatalist);
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> asstring: msestring <span style="color:navy"><b>READ</b></span> getasstring <span style="color:navy"><b>WRITE</b></span> setasstring;
+        <span style="color:navy"><b>PROPERTY</b></span> asinteger: integer <span style="color:navy"><b>READ</b></span> getasinteger <span style="color:navy"><b>WRITE</b></span> setasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> ascurrency: currency <span style="color:navy"><b>READ</b></span> getascurrency <span style="color:navy"><b>WRITE</b></span> setascurrency;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setrealeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetintvalue: setintegereventty <span style="color:navy"><b>READ</b></span> fonsetintvalue
+                                       <span style="color:navy"><b>WRITE</b></span> fonsetintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: realty <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> intvalue: integer <span style="color:navy"><b>READ</b></span> getintvalue <span style="color:navy"><b>WRITE</b></span> setintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: realty <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                         <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit: msestring <span style="color:navy"><b>READ</b></span> fformatedit <span style="color:navy"><b>WRITE</b></span> setformatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp: msestring <span style="color:navy"><b>READ</b></span> fformatdisp <span style="color:navy"><b>WRITE</b></span> setformatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange: real <span style="color:navy"><b>READ</b></span> fvaluerange <span style="color:navy"><b>WRITE</b></span> setvaluerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart: real <span style="color:navy"><b>READ</b></span> fvaluestart <span style="color:navy"><b>WRITE</b></span> setvaluestart;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: realty <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: realty <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: realty
+             <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridintvalue[const index: integer]: integer
+             <span style="color:navy"><b>READ</b></span> getgridintvalue <span style="color:navy"><b>WRITE</b></span> setgridintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: realarty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>PROPERTY</b></span> gridintvalues: integerarty <span style="color:navy"><b>READ</b></span> getgridintvalues
+                                                      <span style="color:navy"><b>WRITE</b></span> setgridintvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridrealdatalist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifireallinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaulteditwidgetoptions + [ow_mousewheel]; //first!
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealedit" name="trealedit">trealedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealedit">tcustomrealedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tspineditframe" name="tspineditframe">tspineditframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstepframe">tcustomstepframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: icaptionframe; const stepintf: istepbar);
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsinvisible <span style="color:navy"><b>DEFAULT</b></span> [];
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient {<span style="color:navy"><b>DEFAULT</b></span> cl_foreground};
+        <span style="color:navy"><b>PROPERTY</b></span> colorbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom <span style="color:navy"><b>DEFAULT</b></span> -1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactivemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactiveclicked;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionpos;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonface;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonframe;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsvisible <span style="color:navy"><b>READ</b></span> fforcevisiblebuttons <span style="color:navy"><b>WRITE</b></span> setbuttonsvisible
+                                                         <span style="color:navy"><b>DEFAULT</b></span> [sk_up,sk_down];
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsize;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonpos;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonslast;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonsinline;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrealspinedit" name="tcustomrealspinedit">tcustomrealspinedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealedit">tcustomrealedit</a>,istepbar)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> step: real <span style="color:navy"><b>READ</b></span> fstep <span style="color:navy"><b>WRITE</b></span> fstep; //<span style="color:navy"><b>DEFAULT</b></span> 1
+        <span style="color:navy"><b>PROPERTY</b></span> stepctrlfact: real <span style="color:navy"><b>READ</b></span> fstepctrlfact <span style="color:navy"><b>WRITE</b></span> fstepctrlfact;
+        <span style="color:navy"><b>PROPERTY</b></span> stepshiftfact: real <span style="color:navy"><b>READ</b></span> fstepshiftfact <span style="color:navy"><b>WRITE</b></span> fstepshiftfact;
+        <span style="color:navy"><b>PROPERTY</b></span> wheelsensitivity: real <span style="color:navy"><b>READ</b></span> fwheelsensitivity
+                                                    <span style="color:navy"><b>WRITE</b></span> fwheelsensitivity;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tspineditframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealspinedit" name="trealspinedit">trealspinedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealspinedit">tcustomrealspinedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetintvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value;
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuerange;
+        <span style="color:navy"><b>PROPERTY</b></span> valuestart;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax;
+        <span style="color:navy"><b>PROPERTY</b></span> step;
+        <span style="color:navy"><b>PROPERTY</b></span> stepctrlfact;
+        <span style="color:navy"><b>PROPERTY</b></span> stepshiftfact;
+        <span style="color:navy"><b>PROPERTY</b></span> wheelsensitivity;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdatetimeedit" name="tcustomdatetimeedit">tcustomdatetimeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumedit">tnumedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcol (const value: tdatetime);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigncol (const value: trealdatalist);
+        <span style="color:navy"><b>FUNCTION</b></span> isnull: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setdatetimeeventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> fvalue <span style="color:navy"><b>WRITE</b></span> setvalue {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuedefault: tdatetime <span style="color:navy"><b>READ</b></span> fvaluedefault
+                                                  <span style="color:navy"><b>WRITE</b></span> fvalue<span style="color:navy"><b>DEFAULT</b></span> {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit: msestring <span style="color:navy"><b>READ</b></span> fformatedit <span style="color:navy"><b>WRITE</b></span> setformatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp: msestring <span style="color:navy"><b>READ</b></span> fformatdisp <span style="color:navy"><b>WRITE</b></span> setformatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin: tdatetime <span style="color:navy"><b>READ</b></span> fvaluemin <span style="color:navy"><b>WRITE</b></span> setvaluemin;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax: tdatetime <span style="color:navy"><b>READ</b></span> fvaluemax <span style="color:navy"><b>WRITE</b></span> setvaluemax;
+        <span style="color:navy"><b>PROPERTY</b></span> kind: datetimekindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_date;
+        <span style="color:navy"><b>PROPERTY</b></span> options: datetimeeditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                                        <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> showlocal: boolean <span style="color:navy"><b>READ</b></span> getshowlocal <span style="color:navy"><b>WRITE</b></span> setshowlocal;
+        <span style="color:navy"><b>PROPERTY</b></span> showutc: boolean <span style="color:navy"><b>READ</b></span> getshowutc <span style="color:navy"><b>WRITE</b></span> setshowutc;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalue[const index: integer]: tdatetime
+                      <span style="color:navy"><b>READ</b></span> getgridvalue <span style="color:navy"><b>WRITE</b></span> setgridvalue; default;
+        <span style="color:navy"><b>PROPERTY</b></span> gridvalues: datetimearty <span style="color:navy"><b>READ</b></span> getgridvalues <span style="color:navy"><b>WRITE</b></span> setgridvalues;
+        <span style="color:navy"><b>FUNCTION</b></span> griddata: tgridrealdatalist;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tifidatetimelinkcomp <span style="color:navy"><b>READ</b></span> getifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimeedit" name="tdatetimeedit">tdatetimeedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatetimeedit">tcustomdatetimeedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> value {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> value<span style="color:navy"><b>DEFAULT</b></span> {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> formatedit;
+        <span style="color:navy"><b>PROPERTY</b></span> formatdisp;
+        <span style="color:navy"><b>PROPERTY</b></span> valuemin {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> valuemax {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        $ifdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        $endif}
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

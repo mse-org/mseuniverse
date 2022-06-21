@@ -1,0 +1,109 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory editwidgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseterminal;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tterminal" name="tterminal">tterminal</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomtextedit">tcustomtextedit</a>,igridwidget)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> prochandle: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> execprog (const acommandline: msestring;
+                         const aworkingdirectory: filenamety = '';
+                         const aparams: msestringarty = nil;
+                         const aenvvars: msestringarty = nil): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> terminateprocess;
+        <span style="color:navy"><b>PROCEDURE</b></span> killprocess;
+        <span style="color:navy"><b>FUNCTION</b></span> waitforprocess: integer; //returns exitcode
+        <span style="color:navy"><b>FUNCTION</b></span> exitcode: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> running: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> addchars (const avalue: msestring); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> addline (const avalue: msestring); //th<span style="color:navy"><b>READ</b></span> safe
+        <span style="color:navy"><b>PROCEDURE</b></span> writestr (const atext: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestrln (const atext: string);
+        <span style="color:navy"><b>PROPERTY</b></span> inputfd: integer <span style="color:navy"><b>READ</b></span> getinputfd <span style="color:navy"><b>WRITE</b></span> setinoutfd;
+        <span style="color:navy"><b>PROPERTY</b></span> outputfd: integer <span style="color:navy"><b>READ</b></span> getoutputfd <span style="color:navy"><b>WRITE</b></span> setoutputfd;
+        <span style="color:navy"><b>PROPERTY</b></span> errorfd: integer <span style="color:navy"><b>READ</b></span> geterrorfd <span style="color:navy"><b>WRITE</b></span> seterrorfd;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;  <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> prompt: msestring <span style="color:navy"><b>READ</b></span> getprompt <span style="color:navy"><b>WRITE</b></span> setprompt;
+        <span style="color:navy"><b>PROPERTY</b></span> command: msestring <span style="color:navy"><b>READ</b></span> getcommand <span style="color:navy"><b>WRITE</b></span> setcommand;
+        <span style="color:navy"><b>PROPERTY</b></span> commandhistory: msestringarty <span style="color:navy"><b>READ</b></span> fcommandhistory
+                                                         <span style="color:navy"><b>WRITE</b></span> fcommandhistory;
+        <span style="color:navy"><b>PROPERTY</b></span> inputcolindex: integer <span style="color:navy"><b>READ</b></span> finputcolindex <span style="color:navy"><b>WRITE</b></span> finputcolindex;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> process: tcustommseprocess <span style="color:navy"><b>READ</b></span> fprocess <span style="color:navy"><b>WRITE</b></span> setprocess;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1; //before optionsedit!
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit <span style="color:navy"><b>DEFAULT</b></span> defaultterminaleditoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> cursorreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> maxchars: integer <span style="color:navy"><b>READ</b></span> fmaxchars <span style="color:navy"><b>WRITE</b></span> fmaxchars <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> maxcommandhistory: integer <span style="color:navy"><b>READ</b></span> fmaxcommandhistory
+                                          <span style="color:navy"><b>WRITE</b></span> setmaxcommandhistory <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tabulators;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> caretwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+        <span style="color:navy"><b>PROPERTY</b></span> textflagsactive;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> marginlinepos;
+        <span style="color:navy"><b>PROPERTY</b></span> marginlinecolor;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextedited;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> oncopytoclipboard;
+        <span style="color:navy"><b>PROPERTY</b></span> onpastefromclipboard;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> encoding;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfontchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onmodifiedchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> ontextmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oneditnotifcation;
+        <span style="color:navy"><b>PROPERTY</b></span> oncellevent;
+        <span style="color:navy"><b>PROPERTY</b></span> ondrawtext;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetupeditor;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oninputpipebroken: notifyeventty <span style="color:navy"><b>READ</b></span> foninputpipebroken
+                                                        <span style="color:navy"><b>WRITE</b></span> foninputpipebroken;
+        <span style="color:navy"><b>PROPERTY</b></span> onerrorpipebroken: notifyeventty <span style="color:navy"><b>READ</b></span> fonerrorpipebroken
+                                                        <span style="color:navy"><b>WRITE</b></span> fonerrorpipebroken;
+        <span style="color:navy"><b>PROPERTY</b></span> onprocfinished: notifyeventty
+                       <span style="color:navy"><b>READ</b></span> fonprocfinished <span style="color:navy"><b>WRITE</b></span> fonprocfinished;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onsendtext: sendtexteventty <span style="color:navy"><b>READ</b></span> fonsendtext <span style="color:navy"><b>WRITE</b></span> fonsendtext;
+        <span style="color:navy"><b>PROPERTY</b></span> onreceivetext: receivetexteventty <span style="color:navy"><b>READ</b></span> fonreceivetext
+                                                           <span style="color:navy"><b>WRITE</b></span> fonreceivetext;
+        <span style="color:navy"><b>PROPERTY</b></span> options: terminaloptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                               <span style="color:navy"><b>DEFAULT</b></span> defaultterminaloptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsprocess: processoptionsty <span style="color:navy"><b>READ</b></span> getoptionsprocess
+                                 <span style="color:navy"><b>WRITE</b></span> setoptionsprocess <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsprocess;
+        <span style="color:navy"><b>PROPERTY</b></span> pipewaitus: integer <span style="color:navy"><b>READ</b></span> getpipewaitus <span style="color:navy"><b>WRITE</b></span> setpipewaitus
+                                        <span style="color:navy"><b>DEFAULT</b></span> defaultpipewaitus;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

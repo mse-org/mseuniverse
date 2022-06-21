@@ -1,0 +1,296 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msqldb;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlstringlist" name="tsqlstringlist">tsqlstringlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmacrostringlist">tmacrostringlist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlhandle" name="tsqlhandle">TSQLHandle</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlcursor" name="tsqlcursor">TSQLCursor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlhandle">TSQLHandle</a>)
+      PUBLIC
+         FPrepared      : Boolean;
+         FInitFieldDef  : Boolean;
+         FStatementType : TStatementType;
+         ftrans: pointer;
+         fname: ansistring;
+         frowsaffected: integer;
+         frowsreturned: integer;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: icursorclient; const aname: ansistring);
+         <span style="color:navy"><b>PROCEDURE</b></span> close; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> wantblobfetch: boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> stringmemo: boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> getcachedblob (const blobid: integer): tstream;
+         <span style="color:navy"><b>FUNCTION</b></span> addblobdata (const adata: pointer; const alength: integer): integer;
+                                                 <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> addblobcache (const aid: int64; const adata: string);
+         <span style="color:navy"><b>FUNCTION</b></span> addblobdata (const adata: string): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> blobfieldtoparam (const afield: tfield; const aparam: tparam;
+                          const asstring: boolean = false);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#econnectionerror" name="econnectionerror">econnectionerror</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#edatabaseerror">edatabaseerror</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asender: tcustomsqlconnection;
+                   const amessage: ansistring;
+                   const aerrormessage: msestring; const aerror: integer);
+        <span style="color:navy"><b>PROPERTY</b></span> sender: tcustomsqlconnection <span style="color:navy"><b>READ</b></span> fsender;
+        <span style="color:navy"><b>PROPERTY</b></span> error: integer <span style="color:navy"><b>READ</b></span> ferror;
+        <span style="color:navy"><b>PROPERTY</b></span> errormessage: msestring <span style="color:navy"><b>READ</b></span> ferrormessage;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbcontroller" name="tdbcontroller">tdbcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactivatorcontroller">tactivatorcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmdatabase; const aintf: idbcontroller);
+        <span style="color:navy"><b>FUNCTION</b></span> getdatabasename: filenamety;
+        <span style="color:navy"><b>PROCEDURE</b></span> setdatabasename (const avalue: filenamety);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: databaseoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsqlconnection" name="tcustomsqlconnection">tcustomsqlconnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmdatabase">TmDatabase</a>,idbcontroller,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateutf8 (var autf8: boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isutf8: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> todbstring (const avalue: msestring): string;
+        <span style="color:navy"><b>FUNCTION</b></span> tomsestring (const avalue: string): msestring;
+        <span style="color:navy"><b>PROCEDURE</b></span> FreeFldBuffers (cursor : TSQLCursor); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        Function AllocateCursorHandle (const aowner: icursorclient; 
+                    const aname: ansistring): TSQLCursor; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        Procedure DeAllocateCursorHandle (var cursor : TSQLCursor); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> preparestatement (const cursor: tsqlcursor; 
+                      const atransaction : tsqltransaction;
+                      const asql: msestring; const aparams : tmseparams); 
+                                      <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> UnPrepareStatement (cursor : TSQLCursor); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> AddFieldDefs (const cursor: TSQLCursor;
+                            const FieldDefs: TfieldDefs); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Fetch (cursor : TSQLCursor) : boolean; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfield (const cursor: tsqlcursor; 
+                 const datatype: tfieldtype; const fieldnum: integer; //null based
+          const buffer: pointer; var bufsize: integer;
+                                     const aisutf8: boolean): boolean; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fetchblob (const cursor: tsqlcursor;
+                                  const fieldnum: integer): ansistring; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> Close;
+        <span style="color:navy"><b>PROCEDURE</b></span> Open;
+        <span style="color:navy"><b>PROPERTY</b></span> Handle: Pointer <span style="color:navy"><b>READ</b></span> GetHandle;
+        <span style="color:navy"><b>PROCEDURE</b></span> StartTransaction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> EndTransaction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> ConnOptions: sqlconnoptionsty <span style="color:navy"><b>READ</b></span> FConnOptions;
+        <span style="color:navy"><b>FUNCTION</b></span> executedirect (const asql: msestring;
+                        const aisutf8: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> executedirect (const asql: msestring;
+             atransaction: tsqltransaction;
+             const aparams: tmseparams = nil;
+             const aisutf8: boolean = false;
+             const anoprepare: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> ExecuteDirect (const aSQL: mseString;
+              ATransaction: TSQLTransaction;
+              const aparams: array of variant;
+              const aisutf8: boolean = false;
+              const anoprepare: boolean = false): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> GetTableNames (out List: msestringarty;
+                            SystemTables: Boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> GetProcedureNames (out List: msestringarty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> GetFieldNames (const TableName: string;
+                    out List: msestringarty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getinsertid (const atransaction: tsqltransaction): int64; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldtosql (const afield: tfield): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldtooldsql (const afield: tfield): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> paramtosql (const aparam: tparam): msestring;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> Password : msestring <span style="color:navy"><b>READ</b></span> FPassword <span style="color:navy"><b>WRITE</b></span> FPassword;
+        <span style="color:navy"><b>PROPERTY</b></span> Transaction : TSQLTransaction <span style="color:navy"><b>READ</b></span> FTransaction <span style="color:navy"><b>WRITE</b></span> SetTransaction;
+        <span style="color:navy"><b>PROPERTY</b></span> transaction<span style="color:navy"><b>WRITE</b></span> : tsqltransaction <span style="color:navy"><b>READ</b></span> ftransactionwrite 
+                                                       <span style="color:navy"><b>WRITE</b></span> settransactionwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> UserName : msestring <span style="color:navy"><b>READ</b></span> FUserName <span style="color:navy"><b>WRITE</b></span> FUserName;
+        <span style="color:navy"><b>PROPERTY</b></span> CharSet : msestring <span style="color:navy"><b>READ</b></span> FCharSet <span style="color:navy"><b>WRITE</b></span> FCharSet;
+        <span style="color:navy"><b>PROPERTY</b></span> HostName : msestring Read FHostName Write FHostName;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> Connected: boolean <span style="color:navy"><b>READ</b></span> getconnected <span style="color:navy"><b>WRITE</b></span> setconnected <span style="color:navy"><b>DEFAULT</b></span> false;
+        Property Role :  msestring <span style="color:navy"><b>READ</b></span> FRole <span style="color:navy"><b>WRITE</b></span> FRole;
+        <span style="color:navy"><b>PROPERTY</b></span> afterconnect: tmsesqlscript <span style="color:navy"><b>READ</b></span> fafterconnect <span style="color:navy"><b>WRITE</b></span> setafteconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> beforedisconnect: tmsesqlscript <span style="color:navy"><b>READ</b></span> fbeforedisconnect <span style="color:navy"><b>WRITE</b></span> setbeforedisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdbcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> ongetcredentials: getcredentialseventty <span style="color:navy"><b>READ</b></span> fongetcredentials 
+                                                             <span style="color:navy"><b>WRITE</b></span> fongetcredentials;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlconnection" name="tsqlconnection">tsqlconnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsqlconnection">tcustomsqlconnection</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Password;
+         <span style="color:navy"><b>PROPERTY</b></span> Transaction;
+         <span style="color:navy"><b>PROPERTY</b></span> transactionwrite;
+         <span style="color:navy"><b>PROPERTY</b></span> UserName;
+         <span style="color:navy"><b>PROPERTY</b></span> CharSet;
+         <span style="color:navy"><b>PROPERTY</b></span> HostName;
+         <span style="color:navy"><b>PROPERTY</b></span> controller;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Connected;
+         Property Role;
+         <span style="color:navy"><b>PROPERTY</b></span> DatabaseName;
+         <span style="color:navy"><b>PROPERTY</b></span> KeepConnection;
+         <span style="color:navy"><b>PROPERTY</b></span> Params;
+         <span style="color:navy"><b>PROPERTY</b></span> ongetcredentials;
+         <span style="color:navy"><b>PROPERTY</b></span> afterconnect;
+         <span style="color:navy"><b>PROPERTY</b></span> beforedisconnect;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqltransaction" name="tsqltransaction">TSQLTransaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmdbtransaction">TmDBTransaction</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner : TComponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> refresh (aaction: tcommitrollbackaction = canone);
+         <span style="color:navy"><b>FUNCTION</b></span> Commit (const checksavepoint: boolean = true): boolean; <span style="color:teal"><b>VIRTUAL</b></span>; //true if ok
+         <span style="color:navy"><b>FUNCTION</b></span> CommitRetaining (const checksavepoint: boolean = true): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Rollback; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> RollbackRetaining; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> StartTransaction; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Handle: Pointer <span style="color:navy"><b>READ</b></span> GetHandle;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndTransaction; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> savepointbegin: integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> savepointrollback (alevel: integer = -1);
+         <span style="color:navy"><b>PROCEDURE</b></span> savepointrelease;
+         <span style="color:navy"><b>PROPERTY</b></span> savepointlevel: integer <span style="color:navy"><b>READ</b></span> fsavepointlevel;
+         <span style="color:navy"><b>PROPERTY</b></span> trans: tsqlhandle <span style="color:navy"><b>READ</b></span> ftrans;
+         <span style="color:navy"><b>PROPERTY</b></span> pendingaction: tcommitrollbackaction <span style="color:navy"><b>READ</b></span> fpendingaction 
+                                                           <span style="color:navy"><b>WRITE</b></span> setpendingaction;
+         <span style="color:navy"><b>PROPERTY</b></span> pendingrefresh: boolean <span style="color:navy"><b>READ</b></span> fpendingrefresh 
+                                                <span style="color:navy"><b>WRITE</b></span> fpendingrefresh;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> options: transactionoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+         <span style="color:navy"><b>PROPERTY</b></span> Action : TCommitRollbackAction <span style="color:navy"><b>READ</b></span> FAction <span style="color:navy"><b>WRITE</b></span> FAction <span style="color:navy"><b>DEFAULT</b></span> canone;
+         <span style="color:navy"><b>PROPERTY</b></span> Database: tcustomsqlconnection <span style="color:navy"><b>READ</b></span> getdatabase <span style="color:navy"><b>WRITE</b></span> setdatabase1;
+         <span style="color:navy"><b>PROPERTY</b></span> Params : TStringList <span style="color:navy"><b>READ</b></span> FParams <span style="color:navy"><b>WRITE</b></span> setparams;
+         <span style="color:navy"><b>PROPERTY</b></span> oncommiterror: commiterroreventty <span style="color:navy"><b>READ</b></span> foncommiterror 
+                                    <span style="color:navy"><b>WRITE</b></span> foncommiterror;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforestart: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonbeforestart 
+                                          <span style="color:navy"><b>WRITE</b></span> fonbeforestart;
+         <span style="color:navy"><b>PROPERTY</b></span> onafterstart: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonafterstart 
+                                          <span style="color:navy"><b>WRITE</b></span> fonafterstart;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforestop: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonbeforestop 
+                                          <span style="color:navy"><b>WRITE</b></span> fonbeforestop;
+         <span style="color:navy"><b>PROPERTY</b></span> onafterstop: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonafterstop 
+                                          <span style="color:navy"><b>WRITE</b></span> fonafterstop;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforecommit: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonbeforecommit
+                                          <span style="color:navy"><b>WRITE</b></span> fonbeforecommit;
+         <span style="color:navy"><b>PROPERTY</b></span> onaftercommit: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonaftercommit 
+                                          <span style="color:navy"><b>WRITE</b></span> fonaftercommit;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforecommitretaining: sqltransactioneventty 
+                   <span style="color:navy"><b>READ</b></span> fonbeforecommitretaining <span style="color:navy"><b>WRITE</b></span> fonbeforecommitretaining;
+         <span style="color:navy"><b>PROPERTY</b></span> onaftercommitretaining: sqltransactioneventty
+                        <span style="color:navy"><b>READ</b></span> fonaftercommitretaining <span style="color:navy"><b>WRITE</b></span> fonaftercommitretaining;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforerollback: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonbeforerollback 
+                                          <span style="color:navy"><b>WRITE</b></span> fonbeforerollback;
+         <span style="color:navy"><b>PROPERTY</b></span> onafterrollback: sqltransactioneventty <span style="color:navy"><b>READ</b></span> fonafterrollback 
+                                          <span style="color:navy"><b>WRITE</b></span> fonafterrollback;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforerollbackretaining: sqltransactioneventty 
+                                 <span style="color:navy"><b>READ</b></span> fonbeforerollbackretaining
+                                 <span style="color:navy"><b>WRITE</b></span> fonbeforerollbackretaining;
+         <span style="color:navy"><b>PROPERTY</b></span> onafterrollbackretaining: sqltransactioneventty 
+                                 <span style="color:navy"><b>READ</b></span> fonafterrollbackretaining
+                                 <span style="color:navy"><b>WRITE</b></span> fonafterrollbackretaining;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsqlstatement" name="tcustomsqlstatement">tcustomsqlstatement</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,itransactionclient,idatabaseclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isutf8: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> params : tmseparams <span style="color:navy"><b>READ</b></span> fparams <span style="color:navy"><b>WRITE</b></span> setparams;
+        <span style="color:navy"><b>PROPERTY</b></span> sql: tsqlstringlist <span style="color:navy"><b>READ</b></span> fsql <span style="color:navy"><b>WRITE</b></span> setsql;
+        <span style="color:navy"><b>PROPERTY</b></span> database: tcustomsqlconnection <span style="color:navy"><b>READ</b></span> fdatabase <span style="color:navy"><b>WRITE</b></span> setdatabase1;
+        <span style="color:navy"><b>PROPERTY</b></span> transaction: tsqltransaction <span style="color:navy"><b>READ</b></span> ftransaction <span style="color:navy"><b>WRITE</b></span> settransaction1;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sqlstatementoptionsty <span style="color:navy"><b>READ</b></span> foptions 
+                                      <span style="color:navy"><b>WRITE</b></span> setoptions {stored false} <span style="color:navy"><b>DEFAULT</b></span> [] ;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsesqlscript" name="tmsesqlscript">tmsesqlscript</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsqlstatement">tcustomsqlstatement</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> execute (adatabase: tcustomsqlconnection = nil;
+                             atransaction: tsqltransaction = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> statementnr: integer <span style="color:navy"><b>READ</b></span> fstatementnr; //zero based
+        <span style="color:navy"><b>PROPERTY</b></span> statementcount: integer <span style="color:navy"><b>READ</b></span> fstatementcount;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> term: msechar <span style="color:navy"><b>READ</b></span> fterm <span style="color:navy"><b>WRITE</b></span> fterm <span style="color:navy"><b>DEFAULT</b></span> ';';
+        <span style="color:navy"><b>PROPERTY</b></span> charescapement: boolean <span style="color:navy"><b>READ</b></span> fcharescapement 
+                                           <span style="color:navy"><b>WRITE</b></span> fcharescapement <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforestatement: msesqlscripteventty <span style="color:navy"><b>READ</b></span> fonbeforestatement
+                                                            <span style="color:navy"><b>WRITE</b></span> fonbeforestatement;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterstatement: msesqlscripteventty <span style="color:navy"><b>READ</b></span> fonafterstatement
+                                                            <span style="color:navy"><b>WRITE</b></span> fonafterstatement;
+        <span style="color:navy"><b>PROPERTY</b></span> params;
+        <span style="color:navy"><b>PROPERTY</b></span> sql;
+        <span style="color:navy"><b>PROPERTY</b></span> database;
+        <span style="color:navy"><b>PROPERTY</b></span> transaction;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onerror;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcursorsqlstatement" name="tcursorsqlstatement">tcursorsqlstatement</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsqlstatement">tcustomsqlstatement</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isprepared: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> prepare; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> unprepare; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> execute; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> execute (const aparams: array of variant); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> rowsaffected: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> statementtype : tstatementtype <span style="color:navy"><b>READ</b></span> fstatementtype 
+                      <span style="color:navy"><b>WRITE</b></span> fstatementtype <span style="color:navy"><b>DEFAULT</b></span> stnone;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlstatement" name="tsqlstatement">tsqlstatement</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcursorsqlstatement">tcursorsqlstatement</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> params;
+        <span style="color:navy"><b>PROPERTY</b></span> sql;
+        <span style="color:navy"><b>PROPERTY</b></span> database;
+        <span style="color:navy"><b>PROPERTY</b></span> transaction;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> statementtype;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onerror;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

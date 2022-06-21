@@ -1,0 +1,90 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcInterbase6ResultSet;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinterbase6xsqldaresultset" name="tzinterbase6xsqldaresultset">TZInterbase6XSQLDAResultSet</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractresultset">TZAbstractResultSet</a>)
+      PUBLIC
+         TransactionResultSet: Pointer; //EH: this field is a weak resultset reference
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Statement: IZStatement; const SQL: string;
+           StatementHandleAddr: PISC_STMT_HANDLE; const XSQLDA: IZSQLDA;
+           CachedBlob: boolean; StmtType: TZIbSqlStatementType);
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> AfterClose; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ResetCursor; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> IsNull (ColumnIndex: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPAnsiChar (ColumnIndex: Integer; out Len: NativeUInt): PAnsiChar; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetPAnsiChar (ColumnIndex: Integer): PAnsiChar; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetString (ColumnIndex: Integer): String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUnicodeString (ColumnIndex: Integer): ZWideString; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBoolean (ColumnIndex: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetInt (ColumnIndex: Integer): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetLong (ColumnIndex: Integer): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetULong (ColumnIndex: Integer): UInt64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetFloat (ColumnIndex: Integer): Single; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDouble (ColumnIndex: Integer): Double; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrency (ColumnIndex: Integer): Currency; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBigDecimal (ColumnIndex: Integer): Extended; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBytes (ColumnIndex: Integer): TBytes; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDate (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTime (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTimestamp (ColumnIndex: Integer): TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$IFNDEF NO_ANSISTRING}
+         <span style="color:navy"><b>FUNCTION</b></span> GetAnsiString (ColumnIndex: Integer): AnsiString; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         {$IFNDEF NO_UTF8STRING}
+         <span style="color:navy"><b>FUNCTION</b></span> GetUTF8String (ColumnIndex: Integer): UTF8String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+         <span style="color:navy"><b>FUNCTION</b></span> GetBlob (ColumnIndex: Integer): IZBlob; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Next: Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinterbase6uncachedblob" name="tzinterbase6uncachedblob">TZInterbase6UnCachedBlob</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractuncachedblob">TZAbstractUnCachedBlob</a>, IZUnCachedLob)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const PlainDriver: IZInterbasePlainDriver;
+           var BlobId: TISC_QUAD; const Transaction: IZIBTransaction;
+           const Connection: IZInterbase6Connection);
+         <span style="color:navy"><b>PROCEDURE</b></span> BeforeDestruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinterbase6uncachedclob" name="tzinterbase6uncachedclob">TZInterbase6UnCachedClob</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractuncachedclob">TZAbstractUnCachedClob</a>, IZUnCachedLob)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const PlainDriver: IZInterbasePlainDriver;
+           var BlobId: TISC_QUAD; const Transaction: IZIBTransaction;
+           const Connection: IZInterbase6Connection);
+         <span style="color:navy"><b>PROCEDURE</b></span> BeforeDestruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinterbaseresultsetmetadata" name="tzinterbaseresultsetmetadata">TZInterbaseResultSetMetadata</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractresultsetmetadata">TZAbstractResultSetMetadata</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalogName ({%H-}ColumnIndex: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetColumnName (ColumnIndex: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSchemaName ({%H-}ColumnIndex: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTableName (ColumnIndex: Integer): string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsAutoIncrement ({%H-}ColumnIndex: Integer): Boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,87 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory math</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesigfft;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbufferdoubleoutputconn" name="tbufferdoubleoutputconn">tbufferdoubleoutputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleoutputconn">tdoubleoutputconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+               const asigintf: isigclient; const aeventdriven: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onoutputburst: sigoutbursteventty <span style="color:navy"><b>READ</b></span> fonoutputburst
+                                                   <span style="color:navy"><b>WRITE</b></span> fonoutputburst;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbufferdoubleinputconn" name="tbufferdoubleinputconn">tbufferdoubleinputconn</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoubleinputconn">tdoubleinputconn</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tbufferdoublesigcomp;
+                           const aonsigbufferfull: sigbuffereventty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbufferdoublesigcomp" name="tbufferdoublesigcomp">tbufferdoublesigcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdoublesigcomp">tdoublesigcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> output: tbufferdoubleoutputconn <span style="color:navy"><b>READ</b></span> foutput <span style="color:navy"><b>WRITE</b></span> setoutput;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> input: tbufferdoubleinputconn <span style="color:navy"><b>READ</b></span> finput <span style="color:navy"><b>WRITE</b></span> setinput;
+        <span style="color:navy"><b>PROPERTY</b></span> onoutputburst: sigoutbursteventty <span style="color:navy"><b>READ</b></span> getonoutputburst
+                                                   <span style="color:navy"><b>WRITE</b></span> setonoutputburst;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigfft" name="tsigfft">tsigfft</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tbufferdoublesigcomp">tbufferdoublesigcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> samplecount: integer <span style="color:navy"><b>READ</b></span> fsamplecount
+                                               <span style="color:navy"><b>WRITE</b></span> setsamplecount <span style="color:navy"><b>DEFAULT</b></span> 256;
+        <span style="color:navy"><b>PROPERTY</b></span> windowfunc: windowfuncty <span style="color:navy"><b>READ</b></span> getwindowfunc
+                     <span style="color:navy"><b>WRITE</b></span> setwindowfunc <span style="color:navy"><b>DEFAULT</b></span> wf_rectangular;
+        <span style="color:navy"><b>PROPERTY</b></span> windowfuncpar0: double <span style="color:navy"><b>READ</b></span> getwindowfuncpar0
+                                               <span style="color:navy"><b>WRITE</b></span> setwindowfuncpar0;
+        <span style="color:navy"><b>PROPERTY</b></span> windowfuncpar1: double <span style="color:navy"><b>READ</b></span> getwindowfuncpar1
+                                               <span style="color:navy"><b>WRITE</b></span> setwindowfuncpar1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsigsamplerfft" name="tsigsamplerfft">tsigsamplerfft</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsigsampler">tsigsampler</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearaverage ();
+        <span style="color:navy"><b>PROPERTY</b></span> averagecount: int32 <span style="color:navy"><b>READ</b></span> faveragecount;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> windowfunc: windowfuncty <span style="color:navy"><b>READ</b></span> getwindowfunc
+                     <span style="color:navy"><b>WRITE</b></span> setwindowfunc <span style="color:navy"><b>DEFAULT</b></span> wf_rectangular;
+        <span style="color:navy"><b>PROPERTY</b></span> windowfuncpar0: double <span style="color:navy"><b>READ</b></span> getwindowfuncpar0
+                                               <span style="color:navy"><b>WRITE</b></span> setwindowfuncpar0;
+        <span style="color:navy"><b>PROPERTY</b></span> windowfuncpar1: double <span style="color:navy"><b>READ</b></span> getwindowfuncpar1
+                                               <span style="color:navy"><b>WRITE</b></span> setwindowfuncpar1;
+        <span style="color:navy"><b>PROPERTY</b></span> onfft: samplerffteventty <span style="color:navy"><b>READ</b></span> fonfft <span style="color:navy"><b>WRITE</b></span> fonfft;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

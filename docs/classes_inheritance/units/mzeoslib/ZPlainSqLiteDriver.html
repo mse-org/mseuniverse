@@ -1,0 +1,146 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainSqLiteDriver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsqlitebasedriver" name="tzsqlitebasedriver">TZSQLiteBaseDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractplaindriver">TZAbstractPlainDriver</a>, IZPlainDriver, IZSQLitePlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> CompiledWith_SQLITE_ENABLE_COLUMN_METADATA: Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> Open (const filename: PAnsiChar; var Handle: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> open_v2 (const filename: PAnsiChar; var sqlite: Psqlite; flags: integer; zVfs: PAnsiChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Close (db: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (db: Psqlite; const sql: PAnsiChar;
+           sqlite_callback: Tsqlite_callback; arg: Pointer;
+           var errmsg: PAnsiChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> LastInsertRowId (db: Psqlite): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> Changes (db: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> LastStatementChanges ({%H-}db: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> ErrorString (db: Psqlite; code: Integer): RawByteString;
+         <span style="color:navy"><b>FUNCTION</b></span> ErrorMessage (db: Psqlite): RawByteString;
+         <span style="color:navy"><b>PROCEDURE</b></span> Interrupt (db: Psqlite);
+         <span style="color:navy"><b>FUNCTION</b></span> Complete (const sql: PAnsiChar): Integer;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> BusyHandler (db: Psqlite; callback: Tsqlite_busy_callback;
+           ptr: Pointer);
+         <span style="color:navy"><b>PROCEDURE</b></span> BusyTimeout (db: Psqlite; ms: Integer);
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeMem (ptr: Pointer);
+         <span style="color:navy"><b>FUNCTION</b></span> LibVersion: PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> Has_sqlite3_column_table_name: Boolean;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> enable_load_extension (db: Psqlite; OnOff: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> load_extension (db: Psqlite; const zFile: PAnsiChar; zProc: Pointer; var pzErrMsg: PAnsiChar): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> FunctionType ({%H-}db: Psqlite; const {%H-}zName: PAnsiChar;
+           {%H-}datatype: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> SetResultText (func: Psqlite_func; const arg: PAnsiChar;
+           len: Integer): PAnsiChar;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetResultInt (func: Psqlite_func; arg: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> SetResultDouble (func: Psqlite_func; arg: Double);
+         <span style="color:navy"><b>PROCEDURE</b></span> SetResultError (func: Psqlite_func; const arg: PAnsiChar; len: Integer);
+         <span style="color:navy"><b>FUNCTION</b></span> UserData (func: Psqlite_func): Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> AggregateContext (func: Psqlite_func; nBytes: Integer): Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> AggregateCount (func: Psqlite_func): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> SetAuthorizer (db: Psqlite; callback: Tsqlite_auth_callback;
+           pUserData: Pointer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Trace (db: Psqlite; callback: Tsqlite_trace_callback;
+           ptr: Pointer): Pointer;
+        
+         { Prepared statmenet api }
+         <span style="color:navy"><b>FUNCTION</b></span> Prepare (db: Psqlite; const zSql: PAnsiChar; nBytes: Integer;
+           out ppStmt: Psqlite3_stmt; var pzTail: PAnsichar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Prepare_v2 (db: Psqlite; const zSql: PAnsiChar; nBytes: Integer;
+           out ppStmt: Psqlite3_stmt; var pzTail: PAnsichar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Prepare16 (db: Psqlite; const zSql: PWideChar; nBytes: Integer;
+           out ppStmt: Psqlite3_stmt; var pzTail: PWideChar): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Prepare16_v2 (db: Psqlite; const zSql: PWideChar; nBytes: Integer;
+           out ppStmt: Psqlite3_stmt; var pzTail: PWideChar): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> bind_parameter_count (pStmt: Psqlite3_stmt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_parameter_name (pStmt: Psqlite3_stmt; ParamIndex: Integer): PAnsichar;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_parameter_index (pStmt: Psqlite3_stmt; const zName: PAnsiChar): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> clear_bindings (pStmt: Psqlite3_stmt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_count (pStmt: Psqlite3_stmt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_name (pStmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> column_database_name (pStmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> column_table_name (pStmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> column_origin_name (pStmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> column_decltype (pStmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Step (Stmt: Psqlite3_stmt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> data_count (pStmt: Psqlite3_stmt): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> bind_blob (pStmt: Psqlite3_stmt; ParamIndex: Integer;
+           const Buffer: Pointer; N: Integer; ValDestructor: Tsqlite3_destructor_type): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_double (pStmt: Psqlite3_stmt; ParamIndex: Integer; Value: Double): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_int (pStmt: Psqlite3_stmt; ParamIndex: Integer; Value: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_int64 (pStmt: Psqlite3_stmt; ParamIndex: Integer; Value: Int64): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_null (pStmt: Psqlite3_stmt; ParamIndex: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_text (pStmt: Psqlite3_stmt; ParamIndex: Integer; const Text: PAnsiChar; N: Integer;
+           ValDestructor: Tsqlite3_destructor_type): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_text16 (pStmt: Psqlite3_stmt; ParamIndex: Integer; const Text: PWideChar; N: Integer;
+           ValDestructor: Tsqlite3_destructor_type): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_value (pStmt: Psqlite3_stmt; ParamIndex: Integer; const Value: Psqlite3_value): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> bind_zeroblob (pStmt: Psqlite3_stmt; ParamIndex: Integer; N: Integer): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> finalize (pStmt: Psqlite3_stmt): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> reset (pStmt: Psqlite3_stmt): Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> column_blob (Stmt: Psqlite3_stmt; iCol: integer): Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_bytes (Stmt: Psqlite3_stmt; iCol: Integer): integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_bytes16 (Stmt: Psqlite3_stmt; iCol: Integer): integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_double (Stmt: Psqlite3_stmt; iCol: Integer): Double;
+         <span style="color:navy"><b>FUNCTION</b></span> column_int (Stmt: Psqlite3_stmt; iCol: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_int64 (Stmt: Psqlite3_stmt; iCol: Integer): Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> column_text (Stmt: Psqlite3_stmt; iCol: Integer): PAnsiChar;
+         <span style="color:navy"><b>FUNCTION</b></span> column_text16 (Stmt: Psqlite3_stmt; iCol: Integer): PWideChar;
+         <span style="color:navy"><b>FUNCTION</b></span> column_type (Stmt: Psqlite3_stmt; iCol: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> column_value (Stmt: Psqlite3_stmt; iCol: Integer): Psqlite3_value;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> backup_init (pDest: Psqlite; const zDestName: PAnsiChar; pSource: Psqlite; const zSourceName: PAnsiChar):Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> backup_step (p: Psqlite; nPage: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> backup_finish (p: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> backup_remaining (p: Psqlite): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> backup_pagecount (p: Psqlite): Integer;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> ProgressHandler (db: Psqlite; p1: Integer;
+           callback: Tsqlite_simple_callback; ptr: Pointer);
+         <span style="color:navy"><b>FUNCTION</b></span> CommitHook (db: Psqlite; callback: Tsqlite_simple_callback;
+           ptr: Pointer): Pointer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> ReKey (db: Psqlite; const pKey: Pointer; nKey: Integer): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> Key (db: Psqlite; const pKey: Pointer; nKey: Integer): Integer;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsqlite3plaindriver" name="tzsqlite3plaindriver">TZSQLite3PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzsqlitebasedriver">TZSQLiteBaseDriver</a>, IZPlainDriver, IZSQLitePlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

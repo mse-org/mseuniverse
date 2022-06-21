@@ -1,0 +1,314 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msemenus;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenuitems" name="tmenuitems">tmenuitems</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>,ievent)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmenuitem);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> hasvisibleitem: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> sort;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> insert (const index: integer;
+                                     const aitem: tmenuitem): integer <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> insert (const index: integer;
+                                   const aitems: tmenuitems): integer <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> insert (const index: integer; const captions: array of msestring;
+                      const options: array of menuactionoptionsty;
+                      const states: array of actionstatesty;
+                      const onexecutes: array of notifyeventty): integer <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertseparator (const index: integer;
+                                           const aoptional: boolean = false);
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: tmenuitem <span style="color:navy"><b>READ</b></span> getmenuitems
+                                                  <span style="color:navy"><b>WRITE</b></span> setmenuitems; default;
+        <span style="color:navy"><b>FUNCTION</b></span> itembyname (const name: ansistring): tmenuitem;
+        <span style="color:navy"><b>FUNCTION</b></span> itemindexbyname (const name: ansistring): integer;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenufont" name="tmenufont">tmenufont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenufontactive" name="tmenufontactive">tmenufontactive</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenuitem" name="tmenuitem">tmenuitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventpersistent">teventpersistent</a>,iactionlink,imenuitem,iimagelistinfo,
+                   iassistiveclientmenu)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const parentmenu: tmenuitem = nil;
+                           const aowner: tcustommenu = nil); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginload;
+        <span style="color:navy"><b>PROCEDURE</b></span> endload;
+        <span style="color:navy"><b>PROCEDURE</b></span> doupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys ();
+        <span style="color:navy"><b>PROCEDURE</b></span> doshortcut (var info: keyeventinfoty);
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> hasvisibleitem: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> parentmenu: tmenuitem;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcoloractive: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolorglyph: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolorglyphactive: colorty;
+        <span style="color:navy"><b>PROPERTY</b></span> owner: tcustommenu <span style="color:navy"><b>READ</b></span> fowner; //can be nil
+        <span style="color:navy"><b>FUNCTION</b></span> execute: boolean; //true if onexecute fired
+        <span style="color:navy"><b>FUNCTION</b></span> asyncexecute: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canactivate: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canshow: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: menuitemeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tmenuitem <span style="color:navy"><b>READ</b></span> getitems
+                              <span style="color:navy"><b>WRITE</b></span> setitems; default;
+        <span style="color:navy"><b>FUNCTION</b></span> itembyname (const name: string): tmenuitem;
+        <span style="color:navy"><b>FUNCTION</b></span> itembynames (const names: array of string): tmenuitem;
+        <span style="color:navy"><b>PROCEDURE</b></span> deleteitembynames (const names: array of string);
+        <span style="color:navy"><b>FUNCTION</b></span> index: integer; //-1 if no parent menu
+        <span style="color:navy"><b>PROPERTY</b></span> checkedtag: integer <span style="color:navy"><b>READ</b></span> getcheckedtag <span style="color:navy"><b>WRITE</b></span> setcheckedtag;
+        <span style="color:navy"><b>PROPERTY</b></span> checked: boolean <span style="color:navy"><b>READ</b></span> getchecked <span style="color:navy"><b>WRITE</b></span> setchecked;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> tagpo: pointer <span style="color:navy"><b>READ</b></span> finfo.tagpo <span style="color:navy"><b>WRITE</b></span> finfo.tagpo;
+        <span style="color:navy"><b>PROPERTY</b></span> tagpointer: pointer <span style="color:navy"><b>READ</b></span> finfo.tagpo <span style="color:navy"><b>WRITE</b></span> finfo.tagpo;
+                                           deprecated 'Use tagpo instead';
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut <span style="color:navy"><b>WRITE</b></span> setshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts1: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcuts1;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> action: tcustomaction <span style="color:navy"><b>READ</b></span> finfo.action <span style="color:navy"><b>WRITE</b></span> setaction;
+        <span style="color:navy"><b>PROPERTY</b></span> submenu: tmenuitems <span style="color:navy"><b>READ</b></span> getsubmenu <span style="color:navy"><b>WRITE</b></span> setsubmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: captionty <span style="color:navy"><b>READ</b></span> finfo.captiontext <span style="color:navy"><b>WRITE</b></span> setcaption
+                          stored iscaptionstored;
+        <span style="color:navy"><b>PROPERTY</b></span> hint: msestring <span style="color:navy"><b>READ</b></span> finfo.hint <span style="color:navy"><b>WRITE</b></span> sethint stored ishintstored;
+        <span style="color:navy"><b>PROPERTY</b></span> name: string <span style="color:navy"><b>READ</b></span> fname <span style="color:navy"><b>WRITE</b></span> fname;
+        <span style="color:navy"><b>PROPERTY</b></span> state: actionstatesty <span style="color:navy"><b>READ</b></span> finfo.state <span style="color:navy"><b>WRITE</b></span> setstate
+                          stored isstatestored <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> options: menuactionoptionsty <span style="color:navy"><b>READ</b></span> finfo.options
+                        <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> defaultmenuactoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut <span style="color:navy"><b>WRITE</b></span> setshortcut
+                          stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcut1
+                          stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tag: integer <span style="color:navy"><b>READ</b></span> finfo.tag <span style="color:navy"><b>WRITE</b></span> settag stored istagstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> group: integer <span style="color:navy"><b>READ</b></span> finfo.group <span style="color:navy"><b>WRITE</b></span> setgroup
+                          stored isgroupstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> getimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist
+                          stored isimageliststored;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> finfo.imagenr <span style="color:navy"><b>WRITE</b></span> setimagenr
+                                 stored isimagenrstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled: imagenrty <span style="color:navy"><b>READ</b></span> finfo.imagenrdisabled
+                                 <span style="color:navy"><b>WRITE</b></span> setimagenrdisabled
+                                 stored isimagenrdisabledstored <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> finfo.color <span style="color:navy"><b>WRITE</b></span> setcolor
+                               stored iscolorstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> coloractive: colorty <span style="color:navy"><b>READ</b></span> fcoloractive <span style="color:navy"><b>WRITE</b></span> setcoloractive
+                               <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph: colorty <span style="color:navy"><b>READ</b></span> finfo.colorglyph <span style="color:navy"><b>WRITE</b></span> setcolorglyph
+                               stored iscolorglyphstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyphactive: colorty <span style="color:navy"><b>READ</b></span> fcolorglyphactive
+                                      <span style="color:navy"><b>WRITE</b></span> setcolorglyphactive <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tmenufont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontactive: tmenufontactive <span style="color:navy"><b>READ</b></span> getfontactive <span style="color:navy"><b>WRITE</b></span> setfontactive
+                                 stored isfontactivestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute: notifyeventty <span style="color:navy"><b>READ</b></span> finfo.onexecute
+                          <span style="color:navy"><b>WRITE</b></span> setonexecute stored isonexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute: accepteventty <span style="color:navy"><b>READ</b></span> finfo.onbeforeexecute
+                        <span style="color:navy"><b>WRITE</b></span> setonbeforeexecute stored isonbeforeexecutestored;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute: notifyeventty <span style="color:navy"><b>READ</b></span> finfo.onafterexecute
+                          <span style="color:navy"><b>WRITE</b></span> setonafterexecute stored isonafterexecutestored;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenuframetemplate" name="tmenuframetemplate">tmenuframetemplate</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tframetemplate">tframetemplate</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: tmsecomponent; const onchange: notifyeventty);
+                <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> levelo <span style="color:navy"><b>DEFAULT</b></span> 1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommenu" name="tcustommenu">tcustommenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createtransient (const atransientfor: twidget;
+                       const amouseinfopo: pmouseeventinfoty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkexec: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doshortcut (var info: keyeventinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> doupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys ();
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> transientfor: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> mouseinfopo: pmouseeventinfoty;
+        <span style="color:navy"><b>FUNCTION</b></span> shortcutseparator: msechar;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getshortcutseparator (const ainstance: tcustommenu): msechar;
+        <span style="color:navy"><b>PROPERTY</b></span> menu: tmenuitem <span style="color:navy"><b>READ</b></span> fmenu <span style="color:navy"><b>WRITE</b></span> setmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate: tframecomp <span style="color:navy"><b>READ</b></span> ftemplate.frame <span style="color:navy"><b>WRITE</b></span> setframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> ftemplate.face <span style="color:navy"><b>WRITE</b></span> setfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplate: tframecomp <span style="color:navy"><b>READ</b></span> ftemplate.itemframe
+                                 <span style="color:navy"><b>WRITE</b></span> setitemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> ftemplate.itemface
+                                 <span style="color:navy"><b>WRITE</b></span> setitemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplateactive: tframecomp <span style="color:navy"><b>READ</b></span> ftemplate.itemframeactive
+                                 <span style="color:navy"><b>WRITE</b></span> setitemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplateactive: tfacecomp <span style="color:navy"><b>READ</b></span> ftemplate.itemfaceactive
+                                 <span style="color:navy"><b>WRITE</b></span> setitemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> separatorframetemplate: tframecomp
+                                <span style="color:navy"><b>READ</b></span> ftemplate.separatorframe
+                                             <span style="color:navy"><b>WRITE</b></span> setseparatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> checkboxframetemplate: tframecomp <span style="color:navy"><b>READ</b></span> ftemplate.checkboxframe
+                                 <span style="color:navy"><b>WRITE</b></span> setcheckboxframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> template: menutemplatety <span style="color:navy"><b>READ</b></span> ftemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> options: menuoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                     <span style="color:navy"><b>DEFAULT</b></span> defaultmenuoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate: menueventty <span style="color:navy"><b>READ</b></span> fonupdate <span style="color:navy"><b>WRITE</b></span> fonupdate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmenu" name="tmenu">tmenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommenu">tcustommenu</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> separatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> checkboxframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> menu; //last
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpopupmenu" name="tpopupmenu">tpopupmenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmenu">tmenu</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> show (const atransientfor: twidget;
+              const pos: graphicdirectionty): tmenuitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> show (const atransientfor: twidget;
+                var mouseinfo: mouseeventinfoty): tmenuitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> show (const atransientfor: twidget;
+                const pos: pointty): tmenuitem; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> additems (var amenu: tpopupmenu; const atransientfor: twidget;
+                      var mouseinfo: mouseeventinfoty;
+                      const captions: array of msestring;
+                      const aoptions: array of menuactionoptionsty;
+                      const states: array of actionstatesty;
+                      const onexecutes: array of notifyeventty;
+                      const aseparator: boolean = true;
+                      const optionalseparator: boolean = true): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> additems (var amenu: tpopupmenu; const atransientfor: twidget;
+                      var mouseinfo: mouseeventinfoty; const items: tmenuitems;
+                      const aseparator: boolean = true; const first: boolean = false;
+                      const optionalseparator: boolean = true): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> additems (var amenu: tpopupmenu; const atransientfor: twidget;
+                      var mouseinfo: mouseeventinfoty; const items: tcustommenu{;
+        ): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommainmenu" name="tcustommainmenu">tcustommainmenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommenu">tcustommenu</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> popuptemplate: menutemplatety <span style="color:navy"><b>READ</b></span> fpopuptemplate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultmainmenuoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> popupframetemplate: tframecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.frame
+                           <span style="color:navy"><b>WRITE</b></span> setpopupframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupfacetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.face
+                           <span style="color:navy"><b>WRITE</b></span> setpopupfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplate: tframecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.itemframe
+                           <span style="color:navy"><b>WRITE</b></span> setpopupitemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplate: tfacecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.itemface
+                           <span style="color:navy"><b>WRITE</b></span> setpopupitemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplateactive: tframecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.itemframeactive
+                           <span style="color:navy"><b>WRITE</b></span> setpopupitemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplateactive: tfacecomp <span style="color:navy"><b>READ</b></span> fpopuptemplate.itemfaceactive
+                           <span style="color:navy"><b>WRITE</b></span> setpopupitemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupseparatorframetemplate: tframecomp
+                           <span style="color:navy"><b>READ</b></span> fpopuptemplate.separatorframe
+                                     <span style="color:navy"><b>WRITE</b></span> setpopupseparatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupcheckboxframetemplate: tframecomp
+                           <span style="color:navy"><b>READ</b></span> fpopuptemplate.checkboxframe
+                                     <span style="color:navy"><b>WRITE</b></span> setpopupcheckboxframetemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmainmenu" name="tmainmenu">tmainmenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommainmenu">tcustommainmenu</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> frametemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> facetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> separatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> checkboxframetemplate;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> popupframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupseparatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupcheckboxframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> menu; //last
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetmainmenu" name="twidgetmainmenu">twidgetmainmenu</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommainmenu">tcustommainmenu</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> Name stored true;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> itemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> itemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> separatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> checkboxframetemplate;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> popupframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemframetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupitemfacetemplateactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupseparatorframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> popupcheckboxframetemplate;
+        <span style="color:navy"><b>PROPERTY</b></span> menu; //last
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

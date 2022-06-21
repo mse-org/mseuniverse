@@ -1,0 +1,207 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcConnection;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractdriver" name="tzabstractdriver">TZAbstractDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinterfacedobject">TInterfacedObject</a>, IZDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetSupportedProtocols: TStringDynArray;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSupportedClientCodePages (const Url: TZURL;
+           Const {$IFNDEF UNICODE}AutoEncode, {$ENDIF} SupportedsOnly: Boolean;
+           CtrlsCPType: TZControlsCodePage = cCP_UTF16): TStringDynArray;
+         <span style="color:navy"><b>FUNCTION</b></span> Connect (const Url: string; Info: TStrings = nil): IZConnection; <span style="color:teal"><b>OVERLOAD</b></span>; deprecated;
+         <span style="color:navy"><b>FUNCTION</b></span> Connect (const {%H-}Url: TZURL): IZConnection; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> AcceptsURL (const Url: string): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetPropertyInfo (const {%H-}Url: string; {%H-}Info: TStrings): TStrings; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMajorVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMinorVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetSubVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTokenizer: IZTokenizer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetStatementAnalyser: IZStatementAnalyser; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientVersion (const {%H-}Url: string): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractconnection" name="tzabstractconnection">TZAbstractConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzcodepagedobject">TZCodePagedObject</a>, IZConnection)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const {%H-}Driver: IZDriver; const Url: string;
+           const {%H-}PlainDriver: IZPlainDriver; const HostName: string; Port: Integer;
+           const Database: string; const User: string; const Password: string;
+           Info: TStrings); <span style="color:teal"><b>OVERLOAD</b></span>; deprecated;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const ZUrl: TZURL); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> CreateStatement: IZStatement;
+         <span style="color:navy"><b>FUNCTION</b></span> PrepareStatement (const SQL: string): IZPreparedStatement;
+         <span style="color:navy"><b>FUNCTION</b></span> PrepareCall (const SQL: string): IZCallableStatement;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> CreateStatementWithParams (Info: TStrings): IZStatement;
+         <span style="color:navy"><b>FUNCTION</b></span> PrepareStatementWithParams (const SQL: string; Info: TStrings):
+           IZPreparedStatement;
+         <span style="color:navy"><b>FUNCTION</b></span> PrepareCallWithParams (const SQL: string; Info: TStrings):
+           IZCallableStatement;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> CreateNotification (const {%H-}Event: string): IZNotification; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CreateSequence (const {%H-}Sequence: string; {%H-}BlockSize: Integer):
+           IZSequence; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NativeSQL (const SQL: string): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetAutoCommit (Value: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetAutoCommit: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Commit; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Rollback; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> PrepareTransaction (const {%H-}transactionid: string);virtual;
+         <span style="color:navy"><b>PROCEDURE</b></span> CommitPrepared (const {%H-}transactionid: string);virtual;
+         <span style="color:navy"><b>PROCEDURE</b></span> RollbackPrepared (const {%H-}transactionid: string);virtual;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> PingServer: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> EscapeString (const Value: RawByteString): RawByteString; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Open; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Close;
+         <span style="color:navy"><b>PROCEDURE</b></span> InternalClose; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsClosed: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetDriver: IZDriver;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIZPlainDriver: IZPlainDriver;
+         <span style="color:navy"><b>FUNCTION</b></span> GetMetadata: IZDatabaseMetadata;
+         <span style="color:navy"><b>FUNCTION</b></span> GetParameters: TStrings;
+         {ADDED by fduenas 15-06-2006}
+         <span style="color:navy"><b>FUNCTION</b></span> GetClientVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetHostVersion: Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         {END ADDED by fduenas 15-06-2006}
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: String;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetReadOnly (Value: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IsReadOnly: Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetCatalog (const {%H-}Catalog: string); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCatalog: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> SetTransactionIsolation (Level: TZTransactIsolationLevel); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetTransactionIsolation: TZTransactIsolationLevel; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetWarnings: EZSQLWarning; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ClearWarnings; <span style="color:teal"><b>VIRTUAL</b></span>;
+         {$IFNDEF WITH_TBYTES_AS_RAWBYTESTRING}
+         <span style="color:navy"><b>FUNCTION</b></span> GetBinaryEscapeString (const Value: RawByteString): String; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         {$ENDIF}
+         <span style="color:navy"><b>FUNCTION</b></span> GetBinaryEscapeString (const Value: TBytes): String; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEscapeString (const Value: ZWideString): ZWideString; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEscapeString (const Value: RawByteString): RawByteString; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> UseMetadata: boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetUseMetadata (Value: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetServerProvider: TZServerProvider; <span style="color:teal"><b>VIRTUAL</b></span>;
+         {$IFDEF ZEOS_TEST_ONLY}
+         <span style="color:navy"><b>FUNCTION</b></span> GetTestMode : Byte;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetTestMode (Mode: Byte);
+         {$ENDIF}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractnotification" name="tzabstractnotification">TZAbstractNotification</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinterfacedobject">TInterfacedObject</a>, IZNotification)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Connection: IZConnection; const EventName: string);
+         <span style="color:navy"><b>FUNCTION</b></span> GetEvent: string;
+         <span style="color:navy"><b>PROCEDURE</b></span> Listen; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Unlisten; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DoNotify; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> CheckEvents: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetConnection: IZConnection; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzabstractsequence" name="tzabstractsequence">TZAbstractSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinterfacedobject">TInterfacedObject</a>, IZSequence)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Connection: IZConnection; const Name: string;
+           BlockSize: Integer);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValue: Int64;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValue: Int64;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetName: string;
+         <span style="color:navy"><b>FUNCTION</b></span> GetBlockSize: Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetConnection: IZConnection;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzidentifiersequence" name="tzidentifiersequence">TZIdentifierSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractsequence">TZAbstractSequence</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmssqlsequence" name="tzmssqlsequence">TZMSSQLSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractsequence">TZAbstractSequence</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdotcurrvalnextvalsequence" name="tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzidentifiersequence">TZIdentifierSequence</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsybaseasasquence" name="tzsybaseasasquence">TZSybaseASASquence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinformixsquence" name="tzinformixsquence">TZInformixSquence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdb2squence" name="tzdb2squence">TZDB2Squence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcubridsquence" name="tzcubridsquence">TZCubridSquence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzoraclesequence" name="tzoraclesequence">TZOracleSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzdotcurrvalnextvalsequence">TZDotCurrvalNextvalSequence</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird2upsequence" name="tzfirebird2upsequence">TZFirebird2UpSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzidentifiersequence">TZIdentifierSequence</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzpostgresqlsequence" name="tzpostgresqlsequence">TZPostgreSQLSequence</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractsequence">TZAbstractSequence</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrentValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNextValueSQL: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

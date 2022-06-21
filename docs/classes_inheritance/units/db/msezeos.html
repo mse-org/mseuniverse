@@ -1,0 +1,134 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msezeos;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsezgraphicfield" name="tmsezgraphicfield">tmsezgraphicfield</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsegraphicfield">tmsegraphicfield</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsezreadonlyquery" name="tmsezreadonlyquery">tmsezreadonlyquery</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzreadonlyquery">tzreadonlyquery</a>,imselocate,idscontroller,
+                      igetdscontroller,isqlpropertyeditor,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const afields: array of tfield;
+            const akeys: array of const; const aisnull: array of boolean;
+            const akeyoptions: array of locatekeyoptionsty;
+            const aoptions: locaterecordoptionsty = []): locateresultty; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: integer; const field: tfield;
+                        const aoptions: locateoptionsty = []): locateresultty;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: msestring; const field: tfield; 
+                      const aoptions: locateoptionsty = []): locateresultty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> AppendRecord (const Values: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> post; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> moveby (const distance: integer): integer;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdscontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> Active: boolean <span style="color:navy"><b>READ</b></span> getactive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> AutocalcFields <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsezquery" name="tmsezquery">tmsezquery</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzquery">tzquery</a>,imselocate,idscontroller,igetdscontroller,
+                          isqlpropertyeditor,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const afields: array of tfield;
+           const akeys: array of const; const aisnull: array of boolean;
+           const akeyoptions: array of locatekeyoptionsty;
+           const aoptions: locaterecordoptionsty = []): locateresultty; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: integer; const field: tfield;
+                        const aoptions: locateoptionsty = []): locateresultty;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: msestring; const field: tfield; 
+                      const aoptions: locateoptionsty = []): locateresultty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> AppendRecord (const Values: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> post; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> moveby (const distance: integer): integer;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdscontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> Active: boolean <span style="color:navy"><b>READ</b></span> getactive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> AutocalcFields <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmseztable" name="tmseztable">tmseztable</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tztable">tztable</a>,imselocate,idscontroller,
+                          igetdscontroller,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const afields: array of tfield;
+            const akeys: array of const; const aisnull: array of boolean;
+            const akeyoptions: array of locatekeyoptionsty;
+            const aoptions: locaterecordoptionsty = []): locateresultty; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: integer; const field: tfield;
+                        const aoptions: locateoptionsty = []): locateresultty;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: msestring; const field: tfield; 
+                      const aoptions: locateoptionsty = []): locateresultty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> AppendRecord (const Values: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> post; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> moveby (const distance: integer): integer;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdscontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> Active: boolean <span style="color:navy"><b>READ</b></span> getactive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> AutocalcFields <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsezstoredproc" name="tmsezstoredproc">tmsezstoredproc</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzstoredproc">tzstoredproc</a>,imselocate,idscontroller,
+                       igetdscontroller,iactivatorclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const afields: array of tfield;
+           const akeys: array of const; const aisnull: array of boolean;
+           const akeyoptions: array of locatekeyoptionsty;
+           const aoptions: locaterecordoptionsty = []): locateresultty; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: integer; const field: tfield;
+                        const aoptions: locateoptionsty = []): locateresultty;
+        <span style="color:navy"><b>FUNCTION</b></span> locate (const key: msestring; const field: tfield; 
+                      const aoptions: locateoptionsty = []): locateresultty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> AppendRecord (const Values: array of const);
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> post; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> moveby (const distance: integer): integer;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> controller: tdscontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+        <span style="color:navy"><b>PROPERTY</b></span> Active: boolean <span style="color:navy"><b>READ</b></span> getactive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> AutocalcFields <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

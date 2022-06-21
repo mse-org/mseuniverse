@@ -1,0 +1,69 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory designutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseparser;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsourceposlist" name="tsourceposlist">tsourceposlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trecordlist">trecordlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const source: sourceposty): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: psourceposty <span style="color:navy"><b>READ</b></span> getitems;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscanner" name="tscanner">tscanner</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const afilename: filenamety;
+                        const filelist: tmseindexednamelist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setfilename (const aname: filenamety;
+                        const filelist: tmseindexednamelist);
+        <span style="color:navy"><b>PROPERTY</b></span> origoffset: integer <span style="color:navy"><b>READ</b></span> forigoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> filename: filenamety <span style="color:navy"><b>READ</b></span> ffilename;
+        <span style="color:navy"><b>PROPERTY</b></span> fileid: nameidty <span style="color:navy"><b>READ</b></span> ffileid;
+        <span style="color:navy"><b>PROPERTY</b></span> startline: integer <span style="color:navy"><b>READ</b></span> fstartline;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>PROPERTY</b></span> includecount: integer <span style="color:navy"><b>READ</b></span> fincludecount;
+        <span style="color:navy"><b>PROPERTY</b></span> source: ansistring <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> escapechar: char <span style="color:navy"><b>READ</b></span> fescapechar <span style="color:navy"><b>WRITE</b></span> fescapechar;
+        <span style="color:navy"><b>PROPERTY</b></span> casesensitive: boolean <span style="color:navy"><b>READ</b></span> fcasesensitive <span style="color:navy"><b>WRITE</b></span> setcasesensitive;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpascalscanner" name="tpascalscanner">tpascalscanner</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscanner">tscanner</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcscanner" name="tcscanner">tcscanner</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscanner">tscanner</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tdefineslist" name="// tdefineslist">// tdefineslist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashedstrings">thashedstrings</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdefineslist" name="tdefineslist">tdefineslist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tansistringhashdatalist">tansistringhashdatalist</a>);
+</pre>//---------------<br>
+  <pre>END.
+</pre>

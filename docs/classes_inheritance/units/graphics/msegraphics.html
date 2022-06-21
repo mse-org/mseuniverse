@@ -1,0 +1,401 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory graphics</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msegraphics;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfonttemplate" name="tfonttemplate">tfonttemplate</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistenttemplate">tpersistenttemplate</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: tmsecomponent;
+                       const onchange: notifyeventty); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fi.color <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> fi.colorbackground
+                      <span style="color:navy"><b>WRITE</b></span> setcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default; //cl_transparent
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> fi.colorselect
+                  <span style="color:navy"><b>WRITE</b></span> setcolorselect <span style="color:navy"><b>DEFAULT</b></span> cl_default;  //cl_selectedtext
+        <span style="color:navy"><b>PROPERTY</b></span> colorselectbackground: colorty <span style="color:navy"><b>READ</b></span> fi.colorselectbackground
+                  <span style="color:navy"><b>WRITE</b></span> setcolorselectbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_color: colorty <span style="color:navy"><b>READ</b></span> fi.shadow_color
+                      <span style="color:navy"><b>WRITE</b></span> setshadow_color <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shiftx: integer <span style="color:navy"><b>READ</b></span> fi.shadow_shiftx write
+                     setshadow_shiftx <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shifty: integer <span style="color:navy"><b>READ</b></span> fi.shadow_shifty write
+                     setshadow_shifty <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_color: colorty <span style="color:navy"><b>READ</b></span> fi.gloss_color
+                      <span style="color:navy"><b>WRITE</b></span> setgloss_color <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shiftx: integer <span style="color:navy"><b>READ</b></span> fi.gloss_shiftx write
+                     setgloss_shiftx <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shifty: integer <span style="color:navy"><b>READ</b></span> fi.gloss_shifty write
+                     setgloss_shifty <span style="color:navy"><b>DEFAULT</b></span> -1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_color: colorty <span style="color:navy"><b>READ</b></span> fi.grayed_color
+                      <span style="color:navy"><b>WRITE</b></span> setgrayed_color <span style="color:navy"><b>DEFAULT</b></span> cl_default; //cl_grayed
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_colorshadow: colorty <span style="color:navy"><b>READ</b></span> fi.grayed_colorshadow
+                      <span style="color:navy"><b>WRITE</b></span> setgrayed_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shiftx: integer <span style="color:navy"><b>READ</b></span> fi.grayed_shiftx write
+                     setgrayed_shiftx <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shifty: integer <span style="color:navy"><b>READ</b></span> fi.grayed_shifty write
+                     setgrayed_shifty <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> fi.height <span style="color:navy"><b>WRITE</b></span> setheight <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fi.width <span style="color:navy"><b>WRITE</b></span> setwidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace: integer <span style="color:navy"><b>READ</b></span> fi.extraspace <span style="color:navy"><b>WRITE</b></span> setextraspace
+                                                                      <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> style: fontstylesty <span style="color:navy"><b>READ</b></span> fi.style <span style="color:navy"><b>WRITE</b></span> setstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> name: string <span style="color:navy"><b>READ</b></span> fi.name <span style="color:navy"><b>WRITE</b></span> setname;
+        <span style="color:navy"><b>PROPERTY</b></span> charset: string <span style="color:navy"><b>READ</b></span> fi.charset <span style="color:navy"><b>WRITE</b></span> setcharset;
+        <span style="color:navy"><b>PROPERTY</b></span> options: fontoptionsty <span style="color:navy"><b>READ</b></span> fi.options <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> xscale: real <span style="color:navy"><b>READ</b></span> fi.xscale <span style="color:navy"><b>WRITE</b></span> setxscale;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfontcomp" name="tfontcomp">tfontcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttemplatecontainer">ttemplatecontainer</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfonttemplate <span style="color:navy"><b>READ</b></span> gettemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfont" name="tfont">tfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedoptionalpersistent">tlinkedoptionalpersistent</a>,icanvas)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> scale (const ascale: real); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> gethandleforcanvas (const canvas: tcanvas): fontnumty;
+        <span style="color:navy"><b>PROPERTY</b></span> handle: fontnumty <span style="color:navy"><b>READ</b></span> gethandle;
+        <span style="color:navy"><b>PROPERTY</b></span> ascent: integer <span style="color:navy"><b>READ</b></span> getascent;
+        <span style="color:navy"><b>PROPERTY</b></span> descent: integer <span style="color:navy"><b>READ</b></span> getdescent;
+        <span style="color:navy"><b>PROPERTY</b></span> glyphheight: integer <span style="color:navy"><b>READ</b></span> getglyphheight; //ascent + descent
+        <span style="color:navy"><b>PROPERTY</b></span> lineheight: integer <span style="color:navy"><b>READ</b></span> getlineheight;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> getlinewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> caretshift: integer <span style="color:navy"><b>READ</b></span> getcaretshift;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> bold: boolean <span style="color:navy"><b>READ</b></span> getbold <span style="color:navy"><b>WRITE</b></span> setbold;
+        <span style="color:navy"><b>PROPERTY</b></span> italic: boolean <span style="color:navy"><b>READ</b></span> getitalic <span style="color:navy"><b>WRITE</b></span> setitalic;
+        <span style="color:navy"><b>PROPERTY</b></span> underline: boolean <span style="color:navy"><b>READ</b></span> getunderline <span style="color:navy"><b>WRITE</b></span> setunderline;
+        <span style="color:navy"><b>PROPERTY</b></span> strikeout: boolean <span style="color:navy"><b>READ</b></span> getstrikeout <span style="color:navy"><b>WRITE</b></span> setstrikeout;
+        <span style="color:navy"><b>PROPERTY</b></span> heightflo: flo64 <span style="color:navy"><b>READ</b></span> getheightflo <span style="color:navy"><b>WRITE</b></span> setheightflo;
+        
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> getcolor <span style="color:navy"><b>WRITE</b></span> setcolor
+                       stored iscolorstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;    //cl_text
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> getcolorbackground
+                      <span style="color:navy"><b>WRITE</b></span> setcolorbackground stored iscolorbackgroundstored
+                                               <span style="color:navy"><b>DEFAULT</b></span> cl_default; //cl_transparent
+        <span style="color:navy"><b>PROPERTY</b></span> colorselect: colorty <span style="color:navy"><b>READ</b></span> getcolorselect <span style="color:navy"><b>WRITE</b></span> setcolorselect
+                  stored iscolorselectstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;    //cl_selectedtext
+        <span style="color:navy"><b>PROPERTY</b></span> colorselectbackground: colorty <span style="color:navy"><b>READ</b></span> getcolorselectbackground
+             <span style="color:navy"><b>WRITE</b></span> setcolorselectbackground stored iscolorselectbackgroundstored
+                                    <span style="color:navy"><b>DEFAULT</b></span> cl_default; //cl_selectedtextbackground
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_color: colorty <span style="color:navy"><b>READ</b></span> getshadow_color <span style="color:navy"><b>WRITE</b></span> setshadow_color
+                                         stored isshadow_colorstored <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shiftx: integer <span style="color:navy"><b>READ</b></span> getshadow_shiftx <span style="color:navy"><b>WRITE</b></span> setshadow_shiftx
+                                              stored isshadow_shiftxstored <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shifty: integer <span style="color:navy"><b>READ</b></span> getshadow_shifty <span style="color:navy"><b>WRITE</b></span> setshadow_shifty
+                                              stored isshadow_shiftystored <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_color: colorty <span style="color:navy"><b>READ</b></span> getgloss_color
+                      <span style="color:navy"><b>WRITE</b></span> setgloss_color
+                       stored isgloss_colorstored <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shiftx: integer <span style="color:navy"><b>READ</b></span> getgloss_shiftx <span style="color:navy"><b>WRITE</b></span> setgloss_shiftx
+                       stored isgloss_shiftxstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shifty: integer <span style="color:navy"><b>READ</b></span> getgloss_shifty <span style="color:navy"><b>WRITE</b></span> setgloss_shifty
+                       stored isgloss_shiftystored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_color: colorty <span style="color:navy"><b>READ</b></span> getgrayed_color
+                      <span style="color:navy"><b>WRITE</b></span> setgrayed_color
+                       stored isgrayed_colorstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;//cl_grayed
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_colorshadow: colorty <span style="color:navy"><b>READ</b></span> getgrayed_colorshadow
+                      <span style="color:navy"><b>WRITE</b></span> setgrayed_colorshadow
+                       stored isgrayed_colorshadowstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shiftx: integer <span style="color:navy"><b>READ</b></span> getgrayed_shiftx write
+                     setgrayed_shiftx
+                       stored isgrayed_shiftxstored <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shifty: integer <span style="color:navy"><b>READ</b></span> getgrayed_shifty write
+                     setgrayed_shifty
+                       stored isgrayed_shiftystored <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> getheight <span style="color:navy"><b>WRITE</b></span> setheight
+                                           stored isheightstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> getwidth <span style="color:navy"><b>WRITE</b></span> setwidth
+                                           stored iswidthstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace: integer <span style="color:navy"><b>READ</b></span> getextraspace <span style="color:navy"><b>WRITE</b></span> setextraspace
+                                          stored isextraspacestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> style: fontstylesty <span style="color:navy"><b>READ</b></span> getstyle <span style="color:navy"><b>WRITE</b></span> setstyle
+                                   stored isstylestored <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> name: string <span style="color:navy"><b>READ</b></span> getname <span style="color:navy"><b>WRITE</b></span> setname stored isnamestored;
+        <span style="color:navy"><b>PROPERTY</b></span> charset: string <span style="color:navy"><b>READ</b></span> getcharset <span style="color:navy"><b>WRITE</b></span> setcharset
+                                                         stored ischarsetstored;
+        <span style="color:navy"><b>PROPERTY</b></span> options: fontoptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                stored isoptionsstored <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> xscale: real <span style="color:navy"><b>READ</b></span> getxscale <span style="color:navy"><b>WRITE</b></span> setxscale stored isxscalestored;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> localprops: fontlocalpropsty <span style="color:navy"><b>READ</b></span> flocalprops <span style="color:navy"><b>WRITE</b></span> setlocalprops;
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfontcomp <span style="color:navy"><b>READ</b></span> ftemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#toptionalfont" name="toptionalfont">toptionalfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfont">tfont</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tparentfont" name="tparentfont">tparentfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfont">tfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcanvasfont" name="tcanvasfont">tcanvasfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfont">tfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const acanvas: tcanvas); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcanvas" name="tcanvas">tcanvas</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+        target: tobject;     //currently assigned widget in twidget.paint ()
+        drawinfopo: pointer; //used to transport additional drawing information
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const user: tobject; const intf: icanvas); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getclassgdifuncs: pgdifunctionaty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> updatewindowoptions (var aoptions: internalwindowoptionsty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> creategc (const apaintdevice: paintdevicety; const akind: gckindty;
+                     var gc: gcty; const aprintername: msestring = ''): gdierrorty;
+        <span style="color:navy"><b>PROCEDURE</b></span> linktopaintdevice (apaintdevice: paintdevicety; const gc: gcty;
+                                                const cliporigin: pointty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fitppmm (const asize: sizety);
+        <span style="color:navy"><b>FUNCTION</b></span> size: sizety;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> highresdevice: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> initflags (const dest: tcanvas); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> unlink; //frees gc
+        <span style="color:navy"><b>PROCEDURE</b></span> initdrawinfo (var adrawinfo: drawinfoty);
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> reset; <span style="color:teal"><b>VIRTUAL</b></span>;//clears savestack, origin and clipregion
+        <span style="color:navy"><b>FUNCTION</b></span> save: integer; //returns current saveindex
+        <span style="color:navy"><b>FUNCTION</b></span> restore (index: integer = -1): integer; //-1 -> pop from stack
+        <span style="color:navy"><b>PROCEDURE</b></span> resetpaintedflag;
+        <span style="color:navy"><b>PROCEDURE</b></span> endpaint; //opengl swap buffer
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> move (const dist: pointty);   //add dist to origin
+        <span style="color:navy"><b>PROCEDURE</b></span> remove (const dist: pointty); //sub dist from origin
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> copyarea (const asource: tcanvas; const asourcerect: rectty;
+                   const adestpoint: pointty; const acopymode: rasteropty = rop_copy;
+                   const atransparentcolor: colorty = cl_default;
+                   const aopacity: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> copyarea (const asource: tcanvas; const asourcerect: rectty;
+                   const adestrect: rectty; const alignment: alignmentsty = [];
+                   const acopymode: rasteropty = rop_copy;
+                   const atransparentcolor: colorty = cl_default;
+                   const aopacity: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawpoint (const point: pointty; const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawpoints (const apoints: array of pointty;
+                               const acolor: colorty = cl_default;
+                               first: integer = 0; acount: integer = -1); //-1 -> all
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawline (const startpoint,endpoint: pointty;
+                                             const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawline (const startpoint: pointty; const length: sizety;
+                                             const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawlinesegments (const apoints: array of segmentty;
+                              const acolor: colorty = cl_default);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawlines (const apoints: array of pointty;
+                            const aclosed: boolean = false;
+                            const acolor: colorty = cl_default;
+                   const first: integer = 0; const acount: integer = -1); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawlines (const apoints: array of pointty;
+                            const abreaks: array of integer; //ascending order
+                            const aclosed: boolean = false;
+                            const acolor: colorty = cl_default;
+                   const first: integer = 0; const acount: integer = -1); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawvect (const startpoint: pointty;
+                        const direction: graphicdirectionty;
+                        const length: integer; const acolor: colorty = cl_default);
+                                                                <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawvect (const startpoint: pointty;
+                           const direction: graphicdirectionty;
+                           const length: integer; out endpoint: pointty;
+                           const acolor: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawrect (const arect: rectty; const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawcross (const arect: rectty; const acolor: colorty = cl_default;
+                        const alignment: alignmentsty = [al_xcentered,al_ycentered]);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawellipse (const def: rectty; const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawellipse1 (const def: rectty; const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawcircle (const center: pointty; const radius: integer;
+                                                    const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawarc (const def: rectty; const startang,extentang: real;
+                                   const acolor: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawarc1 (const def: rectty; const startang,extentang: real;
+                                   const acolor: colorty = cl_default);
+        <span style="color:navy"><b>PROCEDURE</b></span> drawarc (const center: pointty; const radius: integer;
+                                   const startang,extentang: real;
+                                   const acolor: colorty = cl_default); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> fillrect (const arect: rectty; const acolor: colorty = cl_default;
+                           const linecolor: colorty = cl_none);
+        <span style="color:navy"><b>PROCEDURE</b></span> fillellipse (const def: rectty; const acolor: colorty = cl_default;
+                             const linecolor: colorty = cl_none);
+        <span style="color:navy"><b>PROCEDURE</b></span> fillellipse1 (const def: rectty; const acolor: colorty = cl_default;
+                             const linecolor: colorty = cl_none);
+        <span style="color:navy"><b>PROCEDURE</b></span> fillcircle (const center: pointty; const radius: integer;
+                             const acolor: colorty = cl_default;
+                             const linecolor: colorty = cl_none);
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcchord (const def: rectty; const startang,extentang: real;
+                                   const acolor: colorty = cl_default;
+                                   const linecolor: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcchord1 (const def: rectty; const startang,extentang: real;
+                                   const acolor: colorty = cl_default;
+                                   const linecolor: colorty = cl_none);
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcchord (const center: pointty; const radius: integer;
+                                   const startang,extentang: real;
+                                   const acolor: colorty = cl_default;
+                                   const linecolor: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcpieslice (const def: rectty; const startang,extentang: real;
+                                 const acolor: colorty = cl_default;
+                                 const linecolor: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcpieslice1 (const def: rectty; const startang,extentang: real;
+                                 const acolor: colorty = cl_default;
+                                 const linecolor: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillarcpieslice (const center: pointty; const radius: integer;
+                                 const startang,extentang: real;
+                                 const acolor: colorty = cl_default;
+                                 const linecolor: colorty = cl_none); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillpolygon (const apoints: array of pointty;
+                              const acolor: colorty = cl_default;
+                              const linecolor: colorty = cl_none);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> drawframe (const arect: rectty; awidth: integer = -1;
+                        const acolor: colorty = cl_default;
+                        const hiddenedges: edgesty = []); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawframe (const arect: rectty; awidth: framety;
+                        const acolor: colorty = cl_default;
+                        const hiddenedges: edgesty = []); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawxorframe (const arect: rectty; const awidth: integer = -1;
+                                const abrush: tsimplebitmap = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawxorframe (const po1: pointty; const po2: pointty;
+                                const awidth: integer = -1;
+                                      const abrush: tsimplebitmap = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillxorrect (const arect: rectty;
+                             const abrush: tsimplebitmap = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fillxorrect (const start: pointty; const length: integer;
+                           const direction: graphicdirectionty;
+                           const awidth: integer = 0;
+                           const abrush: tsimplebitmap = nil); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawstring (const atext: msestring; const apos: pointty;
+                             const afont: tfont = nil; const grayed: boolean = false;
+                             const arotation: real = 0); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawstring (const atext: pmsechar; const acount: integer; const apos: pointty;
+                             const afont: tfont = nil; const grayed: boolean = false;
+                             const arotation: real = 0); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getstringwidth (const atext: msestring;
+                                      const afont: tfont = nil): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getstringwidth (const atext: pmsechar; const acount: integer;
+                                      const afont: tfont = nil): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getfontmetrics (const achar: ucs4char;
+                                          const afont: tfont = nil): fontmetricsty;
+        <span style="color:navy"><b>FUNCTION</b></span> getfontmetrics (const achar: msechar;
+                                          const afont: tfont = nil): fontmetricsty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> resetclipregion;
+        <span style="color:navy"><b>PROCEDURE</b></span> setcliprect (const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> addcliprect (const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> addclipframe (const frame: rectty; inflate: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> subcliprect (const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> subclipframe (const frame: rectty; inflate: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> intersectcliprect (const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> intersectclipframe (const frame: rectty; inflate: integer);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> addclipregion (const region: regionty);
+        <span style="color:navy"><b>PROCEDURE</b></span> subclipregion (const region: regionty);
+        <span style="color:navy"><b>PROCEDURE</b></span> intersectclipregion (const region: regionty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> copyclipregion: regionty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> clipregionisempty: boolean; //true if no drawing possible
+        <span style="color:navy"><b>FUNCTION</b></span> clipbox: rectty; //smallest possible rect around clipregion
+        
+        <span style="color:navy"><b>FUNCTION</b></span> createregion: regionty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> createregion (const asource: regionty): regionty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> createregion (const arect: rectty): regionty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> createregion (const rects: array of rectty): regionty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> createregion (frame: rectty; const inflate: integer): regionty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> destroyregion (region: regionty);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> regmove (const adest: regionty; const dist: pointty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regremove (const adest: regionty; const dist: pointty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regaddrect (const dest: regionty; const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regsubrect (const dest: regionty; const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regintersectrect (const dest: regionty; const rect: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regaddregion (const dest: regionty; const region: regionty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regsubregion (const dest: regionty; const region: regionty);
+        <span style="color:navy"><b>PROCEDURE</b></span> regintersectregion (const dest: regionty; const region: regionty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> regionisempty (const region: regionty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> regionclipbox (const region: regionty): rectty;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> origin: pointty <span style="color:navy"><b>READ</b></span> getorigin <span style="color:navy"><b>WRITE</b></span> setorigin;
+        <span style="color:navy"><b>PROPERTY</b></span> clipregion: regionty {<span style="color:navy"><b>READ</b></span> getclipregion} <span style="color:navy"><b>WRITE</b></span> setclipregion;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> kind: bitmapkindty <span style="color:navy"><b>READ</b></span> getkind;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> getcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_black;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> getcolorbackground
+                   <span style="color:navy"><b>WRITE</b></span> setcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> rasterop: rasteropty <span style="color:navy"><b>READ</b></span> getrasterop <span style="color:navy"><b>WRITE</b></span> setrasterop <span style="color:navy"><b>DEFAULT</b></span> rop_copy;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tfont <span style="color:navy"><b>READ</b></span> ffont <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> brush: tsimplebitmap <span style="color:navy"><b>READ</b></span> getbrush <span style="color:navy"><b>WRITE</b></span> setbrush;
+        <span style="color:navy"><b>PROPERTY</b></span> brushorigin: pointty <span style="color:navy"><b>READ</b></span> getbrushorigin <span style="color:navy"><b>WRITE</b></span> setbrushorigin;
+        <span style="color:navy"><b>PROPERTY</b></span> rootbrushorigin: pointty <span style="color:navy"><b>READ</b></span> getrootbrushorigin <span style="color:navy"><b>WRITE</b></span> setrootbrushorigin;
+        <span style="color:navy"><b>PROCEDURE</b></span> adjustbrushorigin (const arect: rectty;
+                                                    const alignment: alignmentsty);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth: integer <span style="color:navy"><b>READ</b></span> getlinewidth <span style="color:navy"><b>WRITE</b></span> setlinewidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidthmm: real <span style="color:navy"><b>READ</b></span> getlinewidthmm <span style="color:navy"><b>WRITE</b></span> setlinewidthmm;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> dashes: dashesstringty <span style="color:navy"><b>READ</b></span> getdashes <span style="color:navy"><b>WRITE</b></span> setdashes;
+        <span style="color:navy"><b>PROPERTY</b></span> capstyle: capstylety <span style="color:navy"><b>READ</b></span> getcapstyle <span style="color:navy"><b>WRITE</b></span> setcapstyle
+                     <span style="color:navy"><b>DEFAULT</b></span> cs_butt;
+        <span style="color:navy"><b>PROPERTY</b></span> joinstyle: joinstylety <span style="color:navy"><b>READ</b></span> getjoinstyle <span style="color:navy"><b>WRITE</b></span> setjoinstyle
+                     <span style="color:navy"><b>DEFAULT</b></span> js_miter;
+        <span style="color:navy"><b>PROPERTY</b></span> smooth: boolean <span style="color:navy"><b>READ</b></span> getsmooth <span style="color:navy"><b>WRITE</b></span> setsmooth;
+        <span style="color:navy"><b>PROPERTY</b></span> options: canvasoptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                     <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> paintdevice: paintdevicety <span style="color:navy"><b>READ</b></span> fdrawinfo.paintdevice;
+        <span style="color:navy"><b>PROPERTY</b></span> gchandle: ptruint <span style="color:navy"><b>READ</b></span> getgchandle;
+        <span style="color:navy"><b>PROPERTY</b></span> ppmm: real <span style="color:navy"><b>READ</b></span> fdrawinfo.gc.ppmm <span style="color:navy"><b>WRITE</b></span> setppmm;
+        <span style="color:navy"><b>PROPERTY</b></span> statestamp: longword <span style="color:navy"><b>READ</b></span> fdrawinfo.statestamp;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

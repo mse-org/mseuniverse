@@ -1,0 +1,67 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZDbcGenericResolver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzresolverparameter" name="tzresolverparameter">TZResolverParameter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ColumnIndex: Integer; const ColumnName: string;
+           ColumnType: TZSQLType; NewValue: Boolean; const DefaultValue: string);
+        
+         <span style="color:navy"><b>PROPERTY</b></span> ColumnIndex: Integer <span style="color:navy"><b>READ</b></span> FColumnIndex <span style="color:navy"><b>WRITE</b></span> FColumnIndex;
+         <span style="color:navy"><b>PROPERTY</b></span> ColumnName: string <span style="color:navy"><b>READ</b></span> FColumnName <span style="color:navy"><b>WRITE</b></span> FColumnName;
+         <span style="color:navy"><b>PROPERTY</b></span> ColumnType: TZSQLType <span style="color:navy"><b>READ</b></span> FColumnType <span style="color:navy"><b>WRITE</b></span> FColumnType;
+         <span style="color:navy"><b>PROPERTY</b></span> NewValue: Boolean <span style="color:navy"><b>READ</b></span> FNewValue <span style="color:navy"><b>WRITE</b></span> FNewValue;
+         <span style="color:navy"><b>PROPERTY</b></span> DefaultValue: string <span style="color:navy"><b>READ</b></span> FDefaultValue <span style="color:navy"><b>WRITE</b></span> FDefaultValue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzgenericcachedresolver" name="tzgenericcachedresolver">TZGenericCachedResolver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tinterfacedobject">TInterfacedObject</a>, IZCachedResolver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Statement: IZStatement; const Metadata: IZResultSetMetadata);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> FormWhereClause (Columns: TObjectList;
+           OldRowAccessor: TZRowAccessor): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> FormInsertStatement (Columns: TObjectList;
+           {%H-}NewRowAccessor: TZRowAccessor): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> FormUpdateStatement (Columns: TObjectList;
+           OldRowAccessor, NewRowAccessor: TZRowAccessor): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> FormDeleteStatement (Columns: TObjectList;
+           OldRowAccessor: TZRowAccessor): string;
+         <span style="color:navy"><b>FUNCTION</b></span> FormCalculateStatement (Columns: TObjectList): string; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> CalculateDefaults (Sender: IZCachedResultSet;
+           RowAccessor: TZRowAccessor);
+         <span style="color:navy"><b>PROCEDURE</b></span> PostUpdates (Sender: IZCachedResultSet;
+           UpdateType: TZRowUpdateType;
+           OldRowAccessor, NewRowAccessor: TZRowAccessor); <span style="color:teal"><b>VIRTUAL</b></span>;
+         {BEGIN of PATCH [1185969]: Do tasks after posting updates. ie: Updating AutoInc fields in MySQL }
+         <span style="color:navy"><b>PROCEDURE</b></span> UpdateAutoIncrementFields (Sender: IZCachedResultSet;
+           UpdateType: TZRowUpdateType;
+           OldRowAccessor, NewRowAccessor: TZRowAccessor; Resolver: IZCachedResolver); <span style="color:teal"><b>VIRTUAL</b></span>;
+         {END of PATCH [1185969]: Do tasks after posting updates. ie: Updating AutoInc fields in MySQL }
+         <span style="color:navy"><b>PROCEDURE</b></span> RefreshCurrentRow (Sender: IZCachedResultSet; RowAccessor: TZRowAccessor); //FOS+ 07112006
+        
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

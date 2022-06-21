@@ -1,0 +1,160 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedbdispwidgets;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdispfielddatalink" name="tdispfielddatalink">tdispfielddatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddatalink">tfielddatalink</a>,idbeditinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: idbdispfieldlink);
+        <span style="color:navy"><b>PROCEDURE</b></span> fixupproperties (filer: tfiler); //<span style="color:navy"><b>READ</b></span> moved properties
+        <span style="color:navy"><b>PROCEDURE</b></span> recordchanged (afield: tfield); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblabel" name="tdblabel">tdblabel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlabel">tcustomlabel</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options; //first
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> defaultlabelwidgetwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> defaultlabelwidgetheight;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultlabeloptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> textflags;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringdisp" name="tdbstringdisp">tdbstringdisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomstringdisp">tcustomstringdisp</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbstringdisplb" name="tdbstringdisplb">tdbstringdisplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbstringdisp">tdbstringdisp</a>,idbdispfieldlink,ireccontrol,
+                               ilookupbufferfieldinfo)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> keyvalue: integer <span style="color:navy"><b>READ</b></span> fkeyvalue <span style="color:navy"><b>WRITE</b></span> setkeyvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer
+                                                 <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupkeyfieldno 
+                                                 <span style="color:navy"><b>WRITE</b></span> flookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupvaluefieldno
+                                                 <span style="color:navy"><b>WRITE</b></span> flookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerdisp" name="tdbintegerdisp">tdbintegerdisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomintegerdisp">tcustomintegerdisp</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbintegerdisplb" name="tdbintegerdisplb">tdbintegerdisplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbintegerdisp">tdbintegerdisp</a>,idbdispfieldlink,ireccontrol,
+                            ilookupbufferfieldinfo)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> keyvalue: integer <span style="color:navy"><b>READ</b></span> fkeyvalue <span style="color:navy"><b>WRITE</b></span> setkeyvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer 
+                                               <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupkeyfieldno 
+                                               <span style="color:navy"><b>WRITE</b></span> flookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupvaluefieldno
+                                               <span style="color:navy"><b>WRITE</b></span> flookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbbooleandisp" name="tdbbooleandisp">tdbbooleandisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombooleandisp">tcustombooleandisp</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbrealdisp" name="tdbrealdisp">tdbrealdisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrealdisp">tcustomrealdisp</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbrealdisplb" name="tdbrealdisplb">tdbrealdisplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbrealdisp">tdbrealdisp</a>,idbdispfieldlink,ireccontrol,
+                         ilookupbufferfieldinfo)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> keyvalue: integer <span style="color:navy"><b>READ</b></span> fkeyvalue <span style="color:navy"><b>WRITE</b></span> setkeyvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupkeyfieldno <span style="color:navy"><b>WRITE</b></span> flookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupvaluefieldno <span style="color:navy"><b>WRITE</b></span> flookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimedisp" name="tdbdatetimedisp">tdbdatetimedisp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdatetimedisp">tcustomdatetimedisp</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbdatetimedisplb" name="tdbdatetimedisplb">tdbdatetimedisplb</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbdatetimedisp">tdbdatetimedisp</a>,idbdispfieldlink,ireccontrol,
+                                         ilookupbufferfieldinfo)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> keyvalue: integer <span style="color:navy"><b>READ</b></span> fkeyvalue <span style="color:navy"><b>WRITE</b></span> setkeyvalue;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> lookupbuffer: tcustomlookupbuffer <span style="color:navy"><b>READ</b></span> flookupbuffer <span style="color:navy"><b>WRITE</b></span> setlookupbuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupkeyfieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupkeyfieldno <span style="color:navy"><b>WRITE</b></span> flookupkeyfieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> lookupvaluefieldno: lookupbufferfieldnoty <span style="color:navy"><b>READ</b></span> flookupvaluefieldno <span style="color:navy"><b>WRITE</b></span> flookupvaluefieldno <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbbarcode" name="tdbbarcode">tdbbarcode</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombarcode1">tcustombarcode1</a>,idbdispfieldlink,ireccontrol)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datalink: tdispfielddatalink <span style="color:navy"><b>READ</b></span> fdatalink <span style="color:navy"><b>WRITE</b></span> setdatalink;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbar;
+        <span style="color:navy"><b>PROPERTY</b></span> colorspace;
+        <span style="color:navy"><b>PROPERTY</b></span> fontbar;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

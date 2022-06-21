@@ -1,0 +1,249 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mselookupbuffer;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupbufferdatalink" name="tlookupbufferdatalink">tlookupbufferdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsedatalink">tmsedatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomlookupbuffer);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupbufferfieldsdatalink" name="tlookupbufferfieldsdatalink">tlookupbufferfieldsdatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupbufferdatalink">tlookupbufferdatalink</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdblookupbuffer);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupbuffermemodatalink" name="tlookupbuffermemodatalink">tlookupbuffermemodatalink</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlookupbufferdatalink">tlookupbufferdatalink</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomlookupbuffer" name="tcustomlookupbuffer">tcustomlookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearbuffer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkbuffer; //automatically called
+        <span style="color:navy"><b>PROCEDURE</b></span> loadbuffer;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> find (const fieldno: integer; const avalue: integer;
+              out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const fieldno: integer; const avalue: realty;
+                      out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const fieldno: integer; const avalue: int64;
+                      out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const fieldno: integer; const avalue: msestring;
+                      out aindex: integer;
+                      const caseinsensitive: boolean;
+                      const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> findphys (const fieldno: integer; const avalue: integer;
+              out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findphys (const fieldno: integer; const avalue: realty;
+                      out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findphys (const fieldno: integer; const avalue: int64;
+                      out aindex: integer; const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findphys (const fieldno: integer; const avalue: msestring;
+                      out aindex: integer;
+                      const caseinsensitive: boolean;
+                      const filter: lbfiltereventty = nil): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> integervaluephys (const fieldno,aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> integervaluelog (const fieldno,aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> integerindex (const fieldno,aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> integerindexar (const fieldno: integer): integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> integerar (const fieldno: integer): integerarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> floatvaluephys (const fieldno,aindex: integer): realty;
+        <span style="color:navy"><b>FUNCTION</b></span> floatvaluelog (const fieldno,aindex: integer): realty;
+        <span style="color:navy"><b>FUNCTION</b></span> floatindex (const fieldno,aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> floatindexar (const fieldno: integer): integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> floatar (const fieldno: integer): realarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> int64valuephys (const fieldno,aindex: integer): int64;
+        <span style="color:navy"><b>FUNCTION</b></span> int64valuelog (const fieldno,aindex: integer): int64;
+        <span style="color:navy"><b>FUNCTION</b></span> int64index (const fieldno,aindex: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> int64indexar (const fieldno: integer): integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> int64ar (const fieldno: integer): int64arty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> textvaluephys (const fieldno,aindex: integer): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> textvaluelog (const fieldno,aindex: integer;
+                            const caseinsensitive: boolean): msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> textindex (const fieldno,aindex: integer;
+                           const caseinsensitive: boolean): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> textindexar (const fieldno: integer;
+                                 const caseinsensitive: boolean): integerarty;
+        <span style="color:navy"><b>FUNCTION</b></span> textar (const fieldno: integer): msestringarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> lookupinteger (const integerkeyfieldno,integerfieldno,
+                                 keyvalue: integer;
+                                 const adefault: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupinteger (const int64keyfieldno,integerfieldno: integer;
+                                 const keyvalue: int64;
+                                 const adefault: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupinteger (const stringkeyfieldno,integerfieldno: integer;
+                                 const keyvalue: msestring;
+                                 const adefault: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupint64 (const integerkeyfieldno,int64fieldno,
+                                 keyvalue: integer;
+                                 const adefault: int64 = 0): int64; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupint64 (const int64keyfieldno,int64fieldno: integer;
+                                 const keyvalue: int64;
+                                 const adefault: int64 = 0): int64; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupint64 (const stringkeyfieldno,int64fieldno: integer;
+                                 const keyvalue: msestring;
+                                 const adefault: int64 = 0): int64; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookuptext (const integerkeyfieldno,textfieldno,
+                               keyvalue: integer;
+                               const adefault: msestring = ''): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookuptext (const int64keyfieldno,textfieldno: integer;
+                              const keyvalue: int64;
+                              const adefault: msestring = ''): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookuptext (const stringkeyfieldno,textfieldno: integer;
+                              const keyvalue: msestring;
+                              const adefault: msestring = ''): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupfloat (const integerkeyfieldno,floatfieldno,keyvalue: integer;
+                             const adefault: realty = emptyreal): realty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupfloat (const int64keyfieldno,floatfieldno: integer;
+                                     const keyvalue: int64;
+                                     const adefault: realty = emptyreal): realty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> lookupfloat (const stringkeyfieldno,floatfieldno: integer;
+                                   const keyvalue: msestring;
+                                   const adefault: realty = emptyreal): realty; <span style="color:teal"><b>OVERLOAD</b></span>;
+                                
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> addrow (const integervalues: array of integer;
+                         const textvalues: array of msestring;
+                         const floatvalues: array of realty;
+                         const int64values: array of int64);
+        <span style="color:navy"><b>PROCEDURE</b></span> addrows (const integervalues: array of integerarty;
+                         const textvalues: array of msestringarty;
+                         const floatvalues: array of realarty;
+                         const int64values: array of int64arty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamestext: stringarty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesfloat: stringarty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesinteger: stringarty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesint64: stringarty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcounttext: integer <span style="color:navy"><b>READ</b></span> getfieldcounttext
+                                             <span style="color:navy"><b>WRITE</b></span> setfieldcounttext <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountfloat: integer <span style="color:navy"><b>READ</b></span> getfieldcountfloat
+                                             <span style="color:navy"><b>WRITE</b></span> setfieldcountfloat <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountinteger: integer <span style="color:navy"><b>READ</b></span> getfieldcountinteger 
+                                             <span style="color:navy"><b>WRITE</b></span> setfieldcountinteger <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountint64: integer <span style="color:navy"><b>READ</b></span> getfieldcountint64 
+                                             <span style="color:navy"><b>WRITE</b></span> setfieldcountint64 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> integervalue[const fieldno,aindex: integer]: integer 
+                                        <span style="color:navy"><b>READ</b></span> integervaluephys;
+        <span style="color:navy"><b>PROPERTY</b></span> floatvalue[const fieldno,aindex: integer]: realty 
+                                        <span style="color:navy"><b>READ</b></span> floatvaluephys;
+        <span style="color:navy"><b>PROPERTY</b></span> int64value[const fieldno,aindex: integer]: int64 
+                                        <span style="color:navy"><b>READ</b></span> int64valuephys;
+        <span style="color:navy"><b>PROPERTY</b></span> textvalue[const fieldno,aindex: integer]: msestring 
+                                        <span style="color:navy"><b>READ</b></span> textvaluephys;
+        <span style="color:navy"><b>PROPERTY</b></span> beforeload: lookupbuffereventty <span style="color:navy"><b>READ</b></span> fbeforeload <span style="color:navy"><b>WRITE</b></span> fbeforeload;
+        <span style="color:navy"><b>PROPERTY</b></span> afterload: lookupbuffereventty <span style="color:navy"><b>READ</b></span> fafterload <span style="color:navy"><b>WRITE</b></span> fafterload;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlookupbuffer" name="tlookupbuffer">tlookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlookupbuffer">tcustomlookupbuffer</a>)
+      PUBLIC
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> addrow (const integervalues: array of integer;
+                         const textvalues: array of msestring;
+                         const floatvalues: array of realty;
+                         const int64values: array of int64);
+        <span style="color:navy"><b>PROCEDURE</b></span> addrows (const integervalues: array of integerarty;
+                         const textvalues: array of msestringarty;
+                         const floatvalues: array of realarty;
+                         const int64values: array of int64arty);
+        
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcounttext;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountint64;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldcountfloat;
+        <span style="color:navy"><b>PROPERTY</b></span> beforeload;
+        <span style="color:navy"><b>PROPERTY</b></span> afterload;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatalookupbuffer" name="tdatalookupbuffer">tdatalookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomlookupbuffer">tcustomlookupbuffer</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> count: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> beforeload;
+        <span style="color:navy"><b>PROPERTY</b></span> afterload;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdblookupbuffer" name="tcustomdblookupbuffer">tcustomdblookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalookupbuffer">tdatalookupbuffer</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearbuffer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datasource: tdatasource <span style="color:navy"><b>READ</b></span> getdatasource <span style="color:navy"><b>WRITE</b></span> setdatasource;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamestext: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesfloat: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesinteger: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesint64: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> textfields: tdbfieldnamearrayprop <span style="color:navy"><b>READ</b></span> ftextfields <span style="color:navy"><b>WRITE</b></span> settextfields;
+        <span style="color:navy"><b>PROPERTY</b></span> integerfields: tdbfieldnamearrayprop <span style="color:navy"><b>READ</b></span> fintegerfields <span style="color:navy"><b>WRITE</b></span> setintegerfields;
+        <span style="color:navy"><b>PROPERTY</b></span> floatfields: tdbfieldnamearrayprop <span style="color:navy"><b>READ</b></span> ffloatfields <span style="color:navy"><b>WRITE</b></span> setfloatfields;
+        <span style="color:navy"><b>PROPERTY</b></span> int64fields: tdbfieldnamearrayprop <span style="color:navy"><b>READ</b></span> fint64fields <span style="color:navy"><b>WRITE</b></span> setint64fields;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb: lbdboptionsty <span style="color:navy"><b>READ</b></span> foptionsdb <span style="color:navy"><b>WRITE</b></span> foptionsdb <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdblookupbuffer" name="tdblookupbuffer">tdblookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdblookupbuffer">tcustomdblookupbuffer</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> textfields;
+        <span style="color:navy"><b>PROPERTY</b></span> integerfields;
+        <span style="color:navy"><b>PROPERTY</b></span> int64fields;
+        <span style="color:navy"><b>PROPERTY</b></span> floatfields;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbmemolookupbuffer" name="tdbmemolookupbuffer">tdbmemolookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdblookupbuffer">tcustomdblookupbuffer</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> datasource;
+        <span style="color:navy"><b>PROPERTY</b></span> textfields;
+        <span style="color:navy"><b>PROPERTY</b></span> integerfields;
+        <span style="color:navy"><b>PROPERTY</b></span> floatfields;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

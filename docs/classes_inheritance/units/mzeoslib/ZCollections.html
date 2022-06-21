@@ -1,0 +1,142 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZCollections;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tziterator" name="tziterator">TZIterator</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZIterator)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Col: IZCollection);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> HasNext: Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> Next: IZInterface;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcollection" name="tzcollection">TZCollection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZCollection, IZClonnable)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Clone: IZInterface; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ToString: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Get (Index: Integer): IZInterface;
+         <span style="color:navy"><b>PROCEDURE</b></span> Put (Index: Integer; const Item: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (const Item: IZInterface): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCount: Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIterator: IZIterator;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> First: IZInterface;
+         <span style="color:navy"><b>FUNCTION</b></span> Last: IZInterface;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Add (const Item: IZInterface): Integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> Insert (Index: Integer; const Item: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> Remove (const Item: IZInterface): Integer;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Index1, Index2: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Contains (const Item: IZInterface): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> ContainsAll (const Col: IZCollection): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> AddAll (const Col: IZCollection): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> RemoveAll (const Col: IZCollection): Boolean;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Integer]: IZInterface <span style="color:navy"><b>READ</b></span> Get <span style="color:navy"><b>WRITE</b></span> Put; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzunmodifiablecollection" name="tzunmodifiablecollection">TZUnmodifiableCollection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZCollection, IZClonnable)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const Collection: IZCollection);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Clone: IZInterface; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ToString: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Get (Index: Integer): IZInterface;
+         <span style="color:navy"><b>PROCEDURE</b></span> Put (Index: Integer; const Item: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (const Item: IZInterface): Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCount: Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> GetIterator: IZIterator;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> First: IZInterface;
+         <span style="color:navy"><b>FUNCTION</b></span> Last: IZInterface;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Add (const Item: IZInterface): Integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> Insert (Index: Integer; const Item: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> Remove (const Item: IZInterface): Integer;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Index1, Index2: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Contains (const Item: IZInterface): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> ContainsAll (const Col: IZCollection): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> AddAll (const Col: IZCollection): Boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> RemoveAll (const Col: IZCollection): Boolean;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Integer]: IZInterface <span style="color:navy"><b>READ</b></span> Get <span style="color:navy"><b>WRITE</b></span> Put; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhashmap" name="tzhashmap">TZHashMap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZHashMap, IZClonnable)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Clone: IZInterface; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Get (const Key: IZInterface): IZInterface;
+         <span style="color:navy"><b>PROCEDURE</b></span> Put (const Key: IZInterface; const Value: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> GetKeys: IZCollection;
+         <span style="color:navy"><b>FUNCTION</b></span> GetValues: IZCollection;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCount: Integer;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Remove (const Key: IZInterface): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Keys: IZCollection <span style="color:navy"><b>READ</b></span> GetKeys;
+         <span style="color:navy"><b>PROPERTY</b></span> Values: IZCollection <span style="color:navy"><b>READ</b></span> GetValues;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzstack" name="tzstack">TZStack</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractobject">TZAbstractObject</a>, IZStack, IZClonnable)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Clone: IZInterface; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ToString: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Peek: IZInterface;
+         <span style="color:navy"><b>FUNCTION</b></span> Pop: IZInterface;
+         <span style="color:navy"><b>PROCEDURE</b></span> Push (const Value: IZInterface);
+         <span style="color:navy"><b>FUNCTION</b></span> GetCount: Integer;
+        
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

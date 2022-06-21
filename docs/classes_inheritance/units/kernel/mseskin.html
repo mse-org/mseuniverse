@@ -1,0 +1,942 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseskin;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskincolor" name="tskincolor">tskincolor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvirtualpersistent">tvirtualpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> rgb: colorty <span style="color:navy"><b>READ</b></span> frgb <span style="color:navy"><b>WRITE</b></span> frgb;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskincolors" name="tskincolors">tskincolors</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setcolors;
+        <span style="color:navy"><b>PROCEDURE</b></span> restorecolors;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow: colorty <span style="color:navy"><b>READ</b></span> fframecolors.edges.shadow.effectcolor
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.shadow.effectcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow: colorty <span style="color:navy"><b>READ</b></span> fframecolors.edges.shadow.color
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.shadow.color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight: colorty <span style="color:navy"><b>READ</b></span> fframecolors.edges.light.color
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.light.color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight: colorty <span style="color:navy"><b>READ</b></span> fframecolors.edges.light.effectcolor
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.light.effectcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth: integer <span style="color:navy"><b>READ</b></span> fframecolors.edges.shadow.effectwidth
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.shadow.effectwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth: integer <span style="color:navy"><b>READ</b></span> fframecolors.edges.light.effectwidth
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.edges.light.effectwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe: colorty <span style="color:navy"><b>READ</b></span> fframecolors.frame
+                   <span style="color:navy"><b>WRITE</b></span> fframecolors.frame <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> edittext: colorty <span style="color:navy"><b>READ</b></span> feditfontcolors.text
+                   <span style="color:navy"><b>WRITE</b></span> feditfontcolors.text <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> edittextbackground: colorty <span style="color:navy"><b>READ</b></span> feditfontcolors.textbackground
+                   <span style="color:navy"><b>WRITE</b></span> feditfontcolors.textbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> editselectedtext: colorty <span style="color:navy"><b>READ</b></span> feditfontcolors.selectedtext
+                   <span style="color:navy"><b>WRITE</b></span> feditfontcolors.selectedtext <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> editselectedtextbackground: colorty
+                    <span style="color:navy"><b>READ</b></span> feditfontcolors.selectedtextbackground
+                  <span style="color:navy"><b>WRITE</b></span> feditfontcolors.selectedtextbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskinfontalias" name="tskinfontalias">tskinfontalias</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistent">townedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> name: string <span style="color:navy"><b>READ</b></span> fname <span style="color:navy"><b>WRITE</b></span> fname;
+        <span style="color:navy"><b>PROPERTY</b></span> alias: string <span style="color:navy"><b>READ</b></span> falias <span style="color:navy"><b>WRITE</b></span> falias;
+        <span style="color:navy"><b>PROPERTY</b></span> ancestor: string <span style="color:navy"><b>READ</b></span> fancestor <span style="color:navy"><b>WRITE</b></span> fancestor;
+        <span style="color:navy"><b>PROPERTY</b></span> mode: fontaliasmodety <span style="color:navy"><b>READ</b></span> fmode <span style="color:navy"><b>WRITE</b></span> fmode
+                                                           <span style="color:navy"><b>DEFAULT</b></span> fam_overwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> fheight <span style="color:navy"><b>WRITE</b></span> fheight <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidth <span style="color:navy"><b>WRITE</b></span> fwidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> options: fontoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> xscale: real <span style="color:navy"><b>READ</b></span> fxscale <span style="color:navy"><b>WRITE</b></span> fxscale;
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfontcomp <span style="color:navy"><b>READ</b></span> ftemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskinfontaliass" name="tskinfontaliass">tskinfontaliass</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomskincontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setfontalias;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskinextender" name="tskinextender">tskinextender</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span>  destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateskin (const ainfo: skininfoty; var handled: boolean);
+                                             <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> removeskin (const ainfo: skininfoty; var handled: boolean); <span style="color:teal"><b>VIRTUAL</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> master: tcustomskincontroller <span style="color:navy"><b>READ</b></span> fmaster <span style="color:navy"><b>WRITE</b></span> setmaster;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskinfont" name="tskinfont">tskinfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> updatefont (const adest: tfont);
+      PUBLISHED
+        
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> fcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorbackground: colorty <span style="color:navy"><b>READ</b></span> fcolorbackground
+                                <span style="color:navy"><b>WRITE</b></span> fcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_color: colorty <span style="color:navy"><b>READ</b></span> fshadow_color
+                                     <span style="color:navy"><b>WRITE</b></span> fshadow_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shiftx: integer <span style="color:navy"><b>READ</b></span> fshadow_shiftx write
+                     fshadow_shiftx <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> shadow_shifty: integer <span style="color:navy"><b>READ</b></span> fshadow_shifty write
+                     fshadow_shifty <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_color: colorty <span style="color:navy"><b>READ</b></span> fgloss_color
+                      <span style="color:navy"><b>WRITE</b></span> fgloss_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shiftx: integer <span style="color:navy"><b>READ</b></span> fgloss_shiftx write
+                     fgloss_shiftx <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> gloss_shifty: integer <span style="color:navy"><b>READ</b></span> fgloss_shifty write
+                     fgloss_shifty <span style="color:navy"><b>DEFAULT</b></span> -1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_color: colorty <span style="color:navy"><b>READ</b></span> fgrayed_color
+                                     <span style="color:navy"><b>WRITE</b></span> fgrayed_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_colorshadow: colorty <span style="color:navy"><b>READ</b></span> fgrayed_colorshadow
+                                     <span style="color:navy"><b>WRITE</b></span> fgrayed_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shiftx: integer <span style="color:navy"><b>READ</b></span> fgrayed_shiftx write
+                     fgrayed_shiftx <span style="color:navy"><b>DEFAULT</b></span> 1;
+        <span style="color:navy"><b>PROPERTY</b></span> grayed_shifty: integer <span style="color:navy"><b>READ</b></span> fgrayed_shifty write
+                     fgrayed_shifty <span style="color:navy"><b>DEFAULT</b></span> 1;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace: integer <span style="color:navy"><b>READ</b></span> fextraspace <span style="color:navy"><b>WRITE</b></span> fextraspace <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> style: fontstylesty <span style="color:navy"><b>READ</b></span> fstyle <span style="color:navy"><b>WRITE</b></span> fstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfontcomp <span style="color:navy"><b>READ</b></span> ftemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomskincontroller" name="tcustomskincontroller">tcustomskincontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> updateskin (const ainfo: skininfoty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> order: integer <span style="color:navy"><b>READ</b></span> forder <span style="color:navy"><b>WRITE</b></span> forder <span style="color:navy"><b>DEFAULT</b></span> 0; //first!
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> extenders: integer <span style="color:navy"><b>READ</b></span> getextenders <span style="color:navy"><b>WRITE</b></span> setextenders;
+        <span style="color:navy"><b>PROPERTY</b></span> groups: string <span style="color:navy"><b>READ</b></span> fgroups <span style="color:navy"><b>WRITE</b></span> setgroups;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdate: beforeskinupdateeventty <span style="color:navy"><b>READ</b></span> fonbeforeupdate
+                                      <span style="color:navy"><b>WRITE</b></span> fonbeforeupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterupdate: skincontrollereventty <span style="color:navy"><b>READ</b></span> fonafterupdate
+                                      <span style="color:navy"><b>WRITE</b></span> fonafterupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivate: notifyeventty <span style="color:navy"><b>READ</b></span> fonactivate <span style="color:navy"><b>WRITE</b></span> fonactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> ondeactivate: notifyeventty <span style="color:navy"><b>READ</b></span> fondeactivate <span style="color:navy"><b>WRITE</b></span> fondeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> colors: tskincolors <span style="color:navy"><b>READ</b></span> fcolors <span style="color:navy"><b>WRITE</b></span> setcolors;
+        <span style="color:navy"><b>PROPERTY</b></span> fontalias: tskinfontaliass <span style="color:navy"><b>READ</b></span> ffontalias <span style="color:navy"><b>WRITE</b></span> setfontalias;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> font_default: tskinfont index ord (stf_default)           //0
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_empty: tskinfont index ord (stf_empty)               //1
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_unicode: tskinfont index ord (stf_unicode)           //2
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_menu: tskinfont index ord (stf_menu)                 //3
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_message: tskinfont index ord (stf_message)           //4
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_hint: tskinfont index ord (stf_hint)                 //5
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_report: tskinfont index ord (stf_report)             //6
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_proportional: tskinfont index ord (stf_proportional) //7
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_fixed: tskinfont index ord (stf_fixed)               //8
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_helvetica: tskinfont index ord (stf_helvetica)       //9
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_roman: tskinfont index ord (stf_roman)               //10
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        <span style="color:navy"><b>PROPERTY</b></span> font_courier: tskinfont index ord (stf_courier)           //11
+                              <span style="color:navy"><b>READ</b></span> getskinfont <span style="color:navy"><b>WRITE</b></span> setskinfont;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> hotkey_fontstylesadd: fontstylesty <span style="color:navy"><b>READ</b></span> fhotkey_fontstylesadd
+                                 <span style="color:navy"><b>WRITE</b></span> sethotkey_fontstylesadd <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> hotkey_fontstylesremove: fontstylesty <span style="color:navy"><b>READ</b></span> fhotkey_fontstylesremove
+                                 <span style="color:navy"><b>WRITE</b></span> sethotkey_fontstylesremove <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> hotkey_color: colorty <span style="color:navy"><b>READ</b></span> fhotkey_color <span style="color:navy"><b>WRITE</b></span> sethotkey_color
+                                                               <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> hotkey_colorbackground: colorty <span style="color:navy"><b>READ</b></span> fhotkey_colorbackground
+                                  <span style="color:navy"><b>WRITE</b></span> sethotkey_colorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskincontroller" name="tskincontroller">tskincontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomskincontroller">tcustomskincontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createbutton_font;
+        <span style="color:navy"><b>PROCEDURE</b></span> createdatabutton_font;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_width: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svwidth
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_horz.svwidth <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_color: colorty
+                           <span style="color:navy"><b>READ</b></span> fsb_horz.svcolor
+                         <span style="color:navy"><b>WRITE</b></span> fsb_horz.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_colorpattern: colorty
+                           <span style="color:navy"><b>READ</b></span> fsb_horz.svcolorpattern
+                         <span style="color:navy"><b>WRITE</b></span> fsb_horz.svcolorpattern <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_colorpatternclicked: colorty
+                           <span style="color:navy"><b>READ</b></span> fsb_horz.svcolorpatternclicked
+                         <span style="color:navy"><b>WRITE</b></span> fsb_horz.svcolorpatternclicked <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_colorglyph: colorty
+                             <span style="color:navy"><b>READ</b></span> fsb_horz.svcolorglyph
+                           <span style="color:navy"><b>WRITE</b></span> fsb_horz.svcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_buttonendlength: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svbuttonendlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_horz.svbuttonendlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_buttonlength: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svbuttonlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_horz.svbuttonlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_buttonminlength: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svbuttonminlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_horz.svbuttonminlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_indentstart: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svindentstart
+                                       <span style="color:navy"><b>WRITE</b></span> fsb_horz.svindentstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_indentend: int32 <span style="color:navy"><b>READ</b></span> fsb_horz.svindentend
+                                       <span style="color:navy"><b>WRITE</b></span> fsb_horz.svindentend <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_face: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svface
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_face;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_face1: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svface1
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_face1;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_face2: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svface2
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_face2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_facebutton: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svfacebu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_facebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_faceendbutton: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svfaceendbu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_faceendbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_frame: tframecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svframe
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_framebutton: tframecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svframebu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_framebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_frameendbutton1: tframecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svframeendbu1
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_frameendbutton1;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_horz_frameendbutton2: tframecomp <span style="color:navy"><b>READ</b></span> fsb_horz.svframeendbu2
+                             <span style="color:navy"><b>WRITE</b></span> setsb_horz_frameendbutton2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_width: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svwidth
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_vert.svwidth <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_color: colorty <span style="color:navy"><b>READ</b></span> fsb_vert.svcolor
+                         <span style="color:navy"><b>WRITE</b></span> fsb_vert.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_colorpattern: colorty <span style="color:navy"><b>READ</b></span> fsb_vert.svcolorpattern
+                         <span style="color:navy"><b>WRITE</b></span> fsb_vert.svcolorpattern <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_colorpatternclicked: colorty
+                         <span style="color:navy"><b>READ</b></span> fsb_vert.svcolorpatternclicked
+                         <span style="color:navy"><b>WRITE</b></span> fsb_vert.svcolorpatternclicked <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_colorglyph: colorty
+                             <span style="color:navy"><b>READ</b></span> fsb_vert.svcolorglyph
+                           <span style="color:navy"><b>WRITE</b></span> fsb_vert.svcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_buttonendlength: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svbuttonendlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_vert.svbuttonendlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_buttonlength: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svbuttonlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_vert.svbuttonlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_buttonminlength: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svbuttonminlength
+                                      <span style="color:navy"><b>WRITE</b></span> fsb_vert.svbuttonminlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_indentstart: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svindentstart
+                                       <span style="color:navy"><b>WRITE</b></span> fsb_vert.svindentstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_indentend: int32 <span style="color:navy"><b>READ</b></span> fsb_vert.svindentend
+                                       <span style="color:navy"><b>WRITE</b></span> fsb_vert.svindentend <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_face: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svface
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_face;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_face1: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svface1
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_face1;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_face2: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svface2
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_face2;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_facebutton: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svfacebu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_facebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_faceendbutton: tfacecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svfaceendbu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_faceendbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_frame: tframecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svframe
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_framebutton: tframecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svframebu
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_framebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_frameendbutton1: tframecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svframeendbu1
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_frameendbutton1;
+        <span style="color:navy"><b>PROPERTY</b></span> sb_vert_frameendbutton2: tframecomp <span style="color:navy"><b>READ</b></span> fsb_vert.svframeendbu2
+                             <span style="color:navy"><b>WRITE</b></span> setsb_vert_frameendbutton2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> stepbutton_color: colorty <span style="color:navy"><b>READ</b></span> fstepbutton.svcolor
+                             <span style="color:navy"><b>WRITE</b></span> fstepbutton.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> stepbutton_frame: tframecomp <span style="color:navy"><b>READ</b></span> fstepbutton.svframe
+                             <span style="color:navy"><b>WRITE</b></span> setstepbutton_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> stepbutton_face: tfacecomp <span style="color:navy"><b>READ</b></span> fstepbutton.svface
+                             <span style="color:navy"><b>WRITE</b></span> setstepbutton_face;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> widget_color: colorty <span style="color:navy"><b>READ</b></span> fwidgetcolor.svcolor
+                             <span style="color:navy"><b>WRITE</b></span> fwidgetcolor.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> widget_colorcaptionframe: colorty
+                             <span style="color:navy"><b>READ</b></span> fwidgetcolor.svcolorcaptionframe
+                      <span style="color:navy"><b>WRITE</b></span> fwidgetcolor.svcolorcaptionframe <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_color: colorty <span style="color:navy"><b>READ</b></span> fsplitter.svcolor.svcolor
+                              <span style="color:navy"><b>WRITE</b></span> fsplitter.svcolor.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_colorcaptionframe: colorty
+                              <span style="color:navy"><b>READ</b></span> fsplitter.svcolor.svcolorcaptionframe
+                   <span style="color:navy"><b>WRITE</b></span> fsplitter.svcolor.svcolorcaptionframe <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_colorgrip: colorty <span style="color:navy"><b>READ</b></span> fsplitter.svcolorgrip
+                              <span style="color:navy"><b>WRITE</b></span> fsplitter.svcolorgrip <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_grip: stockbitmapty <span style="color:navy"><b>READ</b></span> fsplitter.svgrip
+                              <span style="color:navy"><b>WRITE</b></span> fsplitter.svgrip <span style="color:navy"><b>DEFAULT</b></span> stb_default;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_face: tfacecomp <span style="color:navy"><b>READ</b></span> fsplitter.svwidget.svface
+                                                 <span style="color:navy"><b>WRITE</b></span> setsplitter_face;
+        <span style="color:navy"><b>PROPERTY</b></span> splitter_frame: tframecomp <span style="color:navy"><b>READ</b></span> fsplitter.svwidget.svframe
+                                                 <span style="color:navy"><b>WRITE</b></span> setsplitter_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> dispwidget_color: colorty <span style="color:navy"><b>READ</b></span> fdispwidget.svcolor.svcolor
+                              <span style="color:navy"><b>WRITE</b></span> fdispwidget.svcolor.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> dispwidget_colorcaptionframe: colorty
+                              <span style="color:navy"><b>READ</b></span> fdispwidget.svcolor.svcolorcaptionframe
+                   <span style="color:navy"><b>WRITE</b></span> fdispwidget.svcolor.svcolorcaptionframe <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> dispwidget_face: tfacecomp <span style="color:navy"><b>READ</b></span> fdispwidget.svwidget.svface
+                                                 <span style="color:navy"><b>WRITE</b></span> setdispwidget_face;
+        <span style="color:navy"><b>PROPERTY</b></span> dispwidget_frame: tframecomp <span style="color:navy"><b>READ</b></span> fdispwidget.svwidget.svframe
+                                                 <span style="color:navy"><b>WRITE</b></span> setdispwidget_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_face: tfacecomp <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svwidget.svface
+                                                      <span style="color:navy"><b>WRITE</b></span> setdataedit_face;
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_frame: tframecomp <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svwidget.svframe
+                                                         <span style="color:navy"><b>WRITE</b></span> setdataedit_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_text: msestring <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_text
+                                                <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_color: colorty <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_color
+                            <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_fontstyle: fontstylesty
+                             <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_fontstyle
+                               <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_fontstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_textflags: textflagsty
+                       <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_textflags
+                                <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_textflags <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_textcolor: colorty
+                               <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_textcolor
+                        <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_textcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> dataedit_empty_textcolorbackground: colorty
+                          <span style="color:navy"><b>READ</b></span> fdataedit.svedit.svempty_textcolorbackground
+             <span style="color:navy"><b>WRITE</b></span> fdataedit.svedit.svempty_textcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> edit_face: tfacecomp <span style="color:navy"><b>READ</b></span> fedit.svwidget.svface
+                                                      <span style="color:navy"><b>WRITE</b></span> setedit_face;
+        <span style="color:navy"><b>PROPERTY</b></span> edit_frame: tframecomp <span style="color:navy"><b>READ</b></span> fedit.svwidget.svframe
+                                                         <span style="color:navy"><b>WRITE</b></span> setedit_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_text: msestring <span style="color:navy"><b>READ</b></span> fedit.svempty_text
+                                                <span style="color:navy"><b>WRITE</b></span> fedit.svempty_text;
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_color: colorty <span style="color:navy"><b>READ</b></span> fedit.svempty_color
+                            <span style="color:navy"><b>WRITE</b></span> fedit.svempty_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_fontstyle: fontstylesty
+                             <span style="color:navy"><b>READ</b></span> fedit.svempty_fontstyle
+                               <span style="color:navy"><b>WRITE</b></span> fedit.svempty_fontstyle <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_textflags: textflagsty
+                       <span style="color:navy"><b>READ</b></span> fedit.svempty_textflags
+                                <span style="color:navy"><b>WRITE</b></span> fedit.svempty_textflags <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_textcolor: colorty
+                               <span style="color:navy"><b>READ</b></span> fedit.svempty_textcolor
+                        <span style="color:navy"><b>WRITE</b></span> fedit.svempty_textcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> edit_empty_textcolorbackground: colorty
+                          <span style="color:navy"><b>READ</b></span> fedit.svempty_textcolorbackground
+             <span style="color:navy"><b>WRITE</b></span> fedit.svempty_textcolorbackground <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> booleanedit_face: tfacecomp
+                  <span style="color:navy"><b>READ</b></span> fbooleanedit.svgraphdataedit.svwidget.svface
+                                                        <span style="color:navy"><b>WRITE</b></span> setbooleanedit_face;
+        <span style="color:navy"><b>PROPERTY</b></span> booleanedit_frame: tframecomp
+                     <span style="color:navy"><b>READ</b></span> fbooleanedit.svgraphdataedit.svwidget.svframe
+                                                     <span style="color:navy"><b>WRITE</b></span> setbooleanedit_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> booleanedit_optionsadd: buttonoptionsty
+                             <span style="color:navy"><b>READ</b></span> fbooleanedit.svoptionsadd
+                                     <span style="color:navy"><b>WRITE</b></span> fbooleanedit.svoptionsadd default[];
+        <span style="color:navy"><b>PROPERTY</b></span> booleanedit_optionsremove: buttonoptionsty
+                            <span style="color:navy"><b>READ</b></span> fbooleanedit.svoptionsremove
+                                     <span style="color:navy"><b>WRITE</b></span> fbooleanedit.svoptionsremove default[];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> container_face: tfacecomp <span style="color:navy"><b>READ</b></span> fcontainer.svwidget.svface
+                                                   <span style="color:navy"><b>WRITE</b></span> setcontainer_face;
+        <span style="color:navy"><b>PROPERTY</b></span> container_frame: tframecomp <span style="color:navy"><b>READ</b></span> fcontainer.svwidget.svframe
+                                                   <span style="color:navy"><b>WRITE</b></span> setcontainer_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> groupbox_face: tfacecomp <span style="color:navy"><b>READ</b></span> fgroupbox.svwidget.svface
+                                                       <span style="color:navy"><b>WRITE</b></span> setgroupbox_face;
+        <span style="color:navy"><b>PROPERTY</b></span> groupbox_frame: tframecomp <span style="color:navy"><b>READ</b></span> fgroupbox.svwidget.svframe
+                                                            <span style="color:navy"><b>WRITE</b></span> setgroupbox_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> grid_face: tfacecomp <span style="color:navy"><b>READ</b></span> fgrid.svwidget.svface <span style="color:navy"><b>WRITE</b></span> setgrid_face;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_frame: tframecomp <span style="color:navy"><b>READ</b></span> fgrid.svwidget.svframe
+                                                        <span style="color:navy"><b>WRITE</b></span> setgrid_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_fixrows_face: tfacecomp <span style="color:navy"><b>READ</b></span> fgrid.svfixrows.svface
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_fixrows_face;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_fixrows_frame: tframecomp <span style="color:navy"><b>READ</b></span> fgrid.svfixrows.svframe
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_fixrows_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_fixcols_face: tfacecomp <span style="color:navy"><b>READ</b></span> fgrid.svfixcols.svface
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_fixcols_face;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_fixcols_frame: tframecomp <span style="color:navy"><b>READ</b></span> fgrid.svfixcols.svframe
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_fixcols_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_datacols_face: tfacecomp <span style="color:navy"><b>READ</b></span> fgrid.svdatacols.svface
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_datacols_face;
+        <span style="color:navy"><b>PROPERTY</b></span> grid_datacols_frame: tframecomp <span style="color:navy"><b>READ</b></span> fgrid.svdatacols.svframe
+                                 <span style="color:navy"><b>WRITE</b></span> setgrid_datacols_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> button_color: colorty <span style="color:navy"><b>READ</b></span> fbutton.svcolor <span style="color:navy"><b>WRITE</b></span> fbutton.svcolor
+                                                       <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> button_face: tfacecomp <span style="color:navy"><b>READ</b></span> fbutton.svwidget.svface
+                                                             <span style="color:navy"><b>WRITE</b></span> setbutton_face;
+        <span style="color:navy"><b>PROPERTY</b></span> button_frame: tframecomp <span style="color:navy"><b>READ</b></span> fbutton.svwidget.svframe
+                                                      <span style="color:navy"><b>WRITE</b></span> setbutton_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> button_font: toptionalfont <span style="color:navy"><b>READ</b></span> getbutton_font <span style="color:navy"><b>WRITE</b></span> setbutton_font;
+        <span style="color:navy"><b>PROPERTY</b></span> button_optionsadd: buttonoptionsty <span style="color:navy"><b>READ</b></span> fbutton.svoptionsadd
+                                     <span style="color:navy"><b>WRITE</b></span> fbutton.svoptionsadd default[];
+        <span style="color:navy"><b>PROPERTY</b></span> button_optionsremove: buttonoptionsty <span style="color:navy"><b>READ</b></span> fbutton.svoptionsremove
+                                     <span style="color:navy"><b>WRITE</b></span> fbutton.svoptionsremove default[];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_color: colorty <span style="color:navy"><b>READ</b></span> fdatabutton.svcolor
+                                       <span style="color:navy"><b>WRITE</b></span> fdatabutton.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_face: tfacecomp <span style="color:navy"><b>READ</b></span> fdatabutton.svwidget.svface
+                                                   <span style="color:navy"><b>WRITE</b></span> setdatabutton_face;
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_frame: tframecomp <span style="color:navy"><b>READ</b></span> fdatabutton.svwidget.svframe
+                                                   <span style="color:navy"><b>WRITE</b></span> setdatabutton_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_font: toptionalfont <span style="color:navy"><b>READ</b></span> getdatabutton_font
+                                                   <span style="color:navy"><b>WRITE</b></span> setdatabutton_font;
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_optionsadd: buttonoptionsty
+                                    <span style="color:navy"><b>READ</b></span> fdatabutton.svoptionsadd
+                                     <span style="color:navy"><b>WRITE</b></span> fdatabutton.svoptionsadd default[];
+        <span style="color:navy"><b>PROPERTY</b></span> databutton_optionsremove: buttonoptionsty
+                            <span style="color:navy"><b>READ</b></span> fbooleanedit.svoptionsremove
+                                     <span style="color:navy"><b>WRITE</b></span> fdatabutton.svoptionsremove default[];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> slider_color: colorty <span style="color:navy"><b>READ</b></span> fslider.svcolor
+                                       <span style="color:navy"><b>WRITE</b></span> fslider.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_face: tfacecomp <span style="color:navy"><b>READ</b></span> fslider.svwidget.svface
+                                                   <span style="color:navy"><b>WRITE</b></span> setslider_face;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_frame: tframecomp <span style="color:navy"><b>READ</b></span> fslider.svwidget.svframe
+                                                           <span style="color:navy"><b>WRITE</b></span> setslider_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_width: int32 <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svwidth
+                                      <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svwidth <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_color: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svcolor
+                         <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_colorpattern: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svcolorpattern
+                         <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svcolorpattern <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_colorpatternclicked: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svcolorpatternclicked
+                  <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svcolorpatternclicked <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_colorglyph: colorty
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svcolorglyph
+                           <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_buttonendlength: int32
+                              <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svbuttonendlength
+                                <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svbuttonendlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_buttonlength: int32
+                        <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svbuttonlength
+                                  <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svbuttonlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_buttonminlength: int32
+                        <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svbuttonminlength
+                               <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svbuttonminlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_indentstart: int32
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svindentstart
+                                    <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svindentstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_indentend: int32 <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svindentend
+                                       <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svindentend <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_face: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svface
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_face;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_face1: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svface1
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_face1;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_face2: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svface2
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_face2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_facebutton: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svfacebu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_facebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_faceendbutton: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svfaceendbu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_faceendbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_frame: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svframe
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_framebutton: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svframebu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_framebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_frameendbutton1: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svframeendbu1
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_frameendbutton1;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_horz_frameendbutton2: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_horz.svframeendbu2
+                             <span style="color:navy"><b>WRITE</b></span> setssb_horz_frameendbutton2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_width: int32 <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svwidth
+                                      <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svwidth <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_color: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svcolor
+                               <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_colorpattern: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svcolorpattern
+                         <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svcolorpattern <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_colorpatternclicked: colorty
+                           <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svcolorpatternclicked
+                   <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svcolorpatternclicked <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_colorglyph: colorty
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svcolorglyph
+                           <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_buttonendlength: int32
+                      <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svbuttonendlength
+                               <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svbuttonendlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_buttonlength: int32
+                        <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svbuttonlength
+                                  <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svbuttonlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_buttonminlength: int32
+                        <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svbuttonminlength
+                               <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svbuttonminlength <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_indentstart: int32
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svindentstart
+                                    <span style="color:navy"><b>WRITE</b></span> fslider.svsb_horz.svindentstart <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_indentend: int32 <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svindentend
+                                       <span style="color:navy"><b>WRITE</b></span> fslider.svsb_vert.svindentend <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_face: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svface
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_face;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_face1: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svface1
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_face1;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_face2: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svface2
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_face2;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_facebutton: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svfacebu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_facebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_faceendbutton: tfacecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svfaceendbu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_faceendbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_frame: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svframe
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_framebutton: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svframebu
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_framebutton;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_frameendbutton1: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svframeendbu1
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_frameendbutton1;
+        <span style="color:navy"><b>PROPERTY</b></span> slider_sb_vert_frameendbutton2: tframecomp
+                             <span style="color:navy"><b>READ</b></span> fslider.svsb_vert.svframeendbu2
+                             <span style="color:navy"><b>WRITE</b></span> setssb_vert_frameendbutton2;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> framebutton_color: colorty <span style="color:navy"><b>READ</b></span> fframebutton.svcolor
+                                <span style="color:navy"><b>WRITE</b></span> fframebutton.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> framebutton_colorglyph: colorty <span style="color:navy"><b>READ</b></span> fframebutton.svcolorglyph
+                                <span style="color:navy"><b>WRITE</b></span> fframebutton.svcolorglyph <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> framebutton_face: tfacecomp <span style="color:navy"><b>READ</b></span> fframebutton.svface
+                                                   <span style="color:navy"><b>WRITE</b></span> setframebutton_face;
+        <span style="color:navy"><b>PROPERTY</b></span> framebutton_frame: tframecomp <span style="color:navy"><b>READ</b></span> fframebutton.svframe
+                                                   <span style="color:navy"><b>WRITE</b></span> setframebutton_frame;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgethorz.svface
+                                                 <span style="color:navy"><b>WRITE</b></span> settabbar_horz_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgethorz.svframe
+                                                 <span style="color:navy"><b>WRITE</b></span> settabbar_horz_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_color: colorty <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svcolor
+                                  <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_coloractive: colorty
+                        <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svcoloractive
+                        <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svcoloractive <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horz_tab_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svface
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horz_tab_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_faceactive: tfacecomp
+                                    <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svfaceactive
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horz_tab_faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_shift: integer <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svshift
+                          <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svshift <span style="color:navy"><b>DEFAULT</b></span> defaulttabshift;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_level: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_level
+                <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_level <span style="color:navy"><b>DEFAULT</b></span> defaultedgelevel;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colordkshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colordkshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colordkshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colorshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colorshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colorlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colorlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colorlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colorhighlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colorhighlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colorhighlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colordkwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colordkwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colordkwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_colorhlwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_colorhlwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_colorhlwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_imagelist: timagelist
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_imagelist
+                   <span style="color:navy"><b>WRITE</b></span> settabbar_horz_tab_edge_imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_imageoffset: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_imageoffset
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_imageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horz_tab_edge_imagepaintshift: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorz.svsedge_imagepaintshift
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorz.svsedge_imagepaintshift <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgethorzopo.svface
+                                                 <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_frame: tframecomp
+                       <span style="color:navy"><b>READ</b></span> ftabbar.svwidgethorzopo.svframe
+                                                 <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_color: colorty <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svcolor
+                           <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_coloractive: colorty
+                          <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svcoloractive
+                         <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svcoloractive <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_frame: tframecomp
+                                  <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_tab_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svface
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_tab_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_faceactive: tfacecomp
+                                    <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svfaceactive
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_tab_faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_shift: integer <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svshift
+                       <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svshift <span style="color:navy"><b>DEFAULT</b></span> defaulttabshift;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_level: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_level
+                <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_level <span style="color:navy"><b>DEFAULT</b></span> defaultedgelevel;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colordkshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colordkshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colordkshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colorshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colorshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colorlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colorlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colorlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colorhighlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colorhighlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colorhighlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colordkwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colordkwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colordkwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_colorhlwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_colorhlwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_colorhlwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_imagelist: timagelist
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_imagelist
+                   <span style="color:navy"><b>WRITE</b></span> settabbar_horzopo_tab_edge_imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_imageoffset: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_imageoffset
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_imageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_horzopo_tab_edge_imagepaintshift: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabhorzopo.svsedge_imagepaintshift
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabhorzopo.svsedge_imagepaintshift <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgetvert.svface
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vert_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgetvert.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vert_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_color: colorty <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svcolor
+                                    <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svcolor
+                                    <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_coloractive: colorty
+                                    <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svcoloractive
+                      <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svcoloractive <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vert_tab_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svface
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vert_tab_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_faceactive: tfacecomp
+                                  <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svfaceactive
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vert_tab_faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_shift: integer <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svshift
+                           <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svshift <span style="color:navy"><b>DEFAULT</b></span> defaulttabshift;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_level: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_level
+                <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_level <span style="color:navy"><b>DEFAULT</b></span> defaultedgelevel;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colordkshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colordkshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colordkshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colorshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colorshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colorlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colorlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colorlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colorhighlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colorhighlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colorhighlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colordkwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colordkwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colordkwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_colorhlwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_colorhlwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_colorhlwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_imagelist: timagelist
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_imagelist
+                   <span style="color:navy"><b>WRITE</b></span> settabbar_vert_tab_edge_imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_imageoffset: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_imageoffset
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_imageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vert_tab_edge_imagepaintshift: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvert.svsedge_imagepaintshift
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvert.svsedge_imagepaintshift <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabbar.svwidgetvertopo.svface
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_frame: tframecomp
+                      <span style="color:navy"><b>READ</b></span> ftabbar.svwidgetvertopo.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_color: colorty <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svcolor
+                              <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svcolor <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_coloractive: colorty
+                              <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svcoloractive
+                        <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svcoloractive <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_frame: tframecomp
+                          <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svframe
+                                    <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_tab_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_face: tfacecomp
+                            <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svface
+                              <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_tab_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_faceactive: tfacecomp
+                              <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svfaceactive
+                              <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_tab_faceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_shift: integer <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svshift
+                     <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svshift <span style="color:navy"><b>DEFAULT</b></span> defaulttabshift;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_level: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_level
+                <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_level <span style="color:navy"><b>DEFAULT</b></span> defaultedgelevel;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colordkshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colordkshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colordkshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colorshadow: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colorshadow
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colorshadow <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colorlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colorlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colorlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colorhighlight: colorty
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colorhighlight
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colorhighlight <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colordkwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colordkwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colordkwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_colorhlwidth: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_colorhlwidth
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_colorhlwidth <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_imagelist: timagelist
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_imagelist
+                   <span style="color:navy"><b>WRITE</b></span> settabbar_vertopo_tab_edge_imagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_imageoffset: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_imageoffset
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_imageoffset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> tabbar_vertopo_tab_edge_imagepaintshift: int32
+                   <span style="color:navy"><b>READ</b></span> ftabbar.svtabvertopo.svsedge_imagepaintshift
+                   <span style="color:navy"><b>WRITE</b></span> ftabbar.svtabvertopo.svsedge_imagepaintshift <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_horz_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftoolbar_horz.svwidget.svface
+                                             <span style="color:navy"><b>WRITE</b></span> settoolbar_horz_face;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_horz_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftoolbar_horz.svwidget.svframe
+                                             <span style="color:navy"><b>WRITE</b></span> settoolbar_horz_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_horz_buttonface: tfacecomp <span style="color:navy"><b>READ</b></span> ftoolbar_horz.svbuttonface
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_horz_buttonface;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_horz_buttonframe: tframecomp
+                             <span style="color:navy"><b>READ</b></span> ftoolbar_horz.svbuttonframe
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_horz_buttonframe;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_horz_buttonframesep: tframecomp
+                             <span style="color:navy"><b>READ</b></span> ftoolbar_horz.svbuttonframesep
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_horz_buttonframesep;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_vert_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftoolbar_vert.svwidget.svface
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_vert_face;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_vert_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftoolbar_vert.svwidget.svframe
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_vert_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_vert_buttonface: tfacecomp <span style="color:navy"><b>READ</b></span> ftoolbar_vert.svbuttonface
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_vert_buttonface;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_vert_buttonframe: tframecomp
+                             <span style="color:navy"><b>READ</b></span> ftoolbar_vert.svbuttonframe
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_vert_buttonframe;
+        <span style="color:navy"><b>PROPERTY</b></span> toolbar_vert_buttonframesep: tframecomp
+                             <span style="color:navy"><b>READ</b></span> ftoolbar_vert.svbuttonframesep
+                                 <span style="color:navy"><b>WRITE</b></span> settoolbar_vert_buttonframesep;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_face: tfacecomp <span style="color:navy"><b>READ</b></span> ftabpage.svwidget.svface
+                                                     <span style="color:navy"><b>WRITE</b></span> settabpage_face;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_frame: tframecomp <span style="color:navy"><b>READ</b></span> ftabpage.svwidget.svframe
+                                                      <span style="color:navy"><b>WRITE</b></span> settabpage_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_colortab: colorty <span style="color:navy"><b>READ</b></span> ftabpage.svcolortab
+                                    <span style="color:navy"><b>WRITE</b></span> ftabpage.svcolortab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_coloractive: colorty <span style="color:navy"><b>READ</b></span> ftabpage.svcoloractivetab
+                                <span style="color:navy"><b>WRITE</b></span> ftabpage.svcoloractivetab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_facetab: tfacecomp <span style="color:navy"><b>READ</b></span> ftabpage.svfacetab
+                                                     <span style="color:navy"><b>WRITE</b></span> settabpage_facetab;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_faceactivetab: tfacecomp <span style="color:navy"><b>READ</b></span> ftabpage.svfaceactivetab
+                                                     <span style="color:navy"><b>WRITE</b></span> settabpage_faceactivetab;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_fonttab: tfontcomp <span style="color:navy"><b>READ</b></span> ftabpage.svfonttab
+                                                     <span style="color:navy"><b>WRITE</b></span> settabpage_fonttab;
+        <span style="color:navy"><b>PROPERTY</b></span> tabpage_fontactivetab: tfontcomp <span style="color:navy"><b>READ</b></span> ftabpage.svfontactivetab
+                                                     <span style="color:navy"><b>WRITE</b></span> settabpage_fontactivetab;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_options: skinmenuoptionsty <span style="color:navy"><b>READ</b></span> fpopupmenu.options
+                     <span style="color:navy"><b>WRITE</b></span> fpopupmenu.options <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_face: tfacecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svface
+                                    <span style="color:navy"><b>WRITE</b></span> setpopupmenu_face;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_frame: tframecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svframe
+                                           <span style="color:navy"><b>WRITE</b></span> setpopupmenu_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_itemface: tfacecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svitemface
+                                           <span style="color:navy"><b>WRITE</b></span> setpopupmenu_itemface;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_itemframe: tframecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svitemframe
+                                           <span style="color:navy"><b>WRITE</b></span> setpopupmenu_itemframe;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_itemfaceactive: tfacecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svitemfaceactive
+                                           <span style="color:navy"><b>WRITE</b></span> setpopupmenu_itemfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_itemframeactive: tframecomp
+                <span style="color:navy"><b>READ</b></span> fpopupmenu.svitemframeactive <span style="color:navy"><b>WRITE</b></span> setpopupmenu_itemframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_font: tfontcomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svfont
+                                      <span style="color:navy"><b>WRITE</b></span> setpopupmenu_font;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_fontactive: tfontcomp
+                                      <span style="color:navy"><b>READ</b></span> fpopupmenu.svfontactive
+                                      <span style="color:navy"><b>WRITE</b></span> setpopupmenu_fontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_separatorframe: tframecomp read
+                      fpopupmenu.svseparatorframe <span style="color:navy"><b>WRITE</b></span> setpopupmenu_separatorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> popupmenu_checkboxframe: tframecomp <span style="color:navy"><b>READ</b></span> fpopupmenu.svcheckboxframe
+                                      <span style="color:navy"><b>WRITE</b></span> setpopupmenu_checkboxframe;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_options: skinmenuoptionsty <span style="color:navy"><b>READ</b></span> fmainmenu.ma.options
+                     <span style="color:navy"><b>WRITE</b></span> fmainmenu.ma.options <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_face: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_face;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_frame: tframecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_itemface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svitemface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_itemface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_itemframe: tframecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svitemframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_itemframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_itemfaceactive: tfacecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svitemfaceactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_itemfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_itemframeactive: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svitemframeactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_itemframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_font: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svfont
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_font;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_fontactive: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svfontactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_fontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_separatorframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svseparatorframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_separatorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_checkboxframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svmain.svcheckboxframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_checkboxframe;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupframe: tframecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupitemface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svitemface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupitemface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupitemframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svitemframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupitemframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupitemfaceactive: tfacecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svitemfaceactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupitemfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupitemframeactive: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svitemframeactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupitemframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupfont: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svfont
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupfont;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupfontactive: tfontcomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svfontactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupfontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupseparatorframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svseparatorframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupseparatorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu_popupcheckboxframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenu.svpopup.svcheckboxframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenu_popupcheckboxframe;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_face: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svwidget.svface
+                                                 <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_face;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_frame: tframecomp
+                              <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svwidget.svframe
+                                                 <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_itemface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svitemface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_itemface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_itemframe: tframecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svitemframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_itemframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_itemfaceactive: tfacecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svitemfaceactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_itemfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_itemframeactive: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svitemframeactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_itemframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_font: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svfont
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_font;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_fontactive: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svfontactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_fontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_separatorframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svseparatorframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_separatorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_checkboxframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svmain.svcheckboxframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_checkboxframe;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupframe: tframecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupitemface: tfacecomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svitemface
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupitemface;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupitemframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svitemframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupitemframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupitemfaceactive: tfacecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svitemfaceactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupitemfaceactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupitemframeactive: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svitemframeactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupitemframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupfont: tfontcomp <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svfont
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupfont;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupfontactive: tfontcomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svfontactive
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupfontactive;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupseparatorframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svseparatorframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupseparatorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenuwidget_popupcheckboxframe: tframecomp
+                                      <span style="color:navy"><b>READ</b></span> fmainmenuwidget.svmenu.svpopup.svcheckboxframe
+                                      <span style="color:navy"><b>WRITE</b></span> setmainmenuwidget_popupcheckboxframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tskinhandler" name="tskinhandler">tskinhandler</a><span style="color:navy"> = <b>CLASS</b></span>
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

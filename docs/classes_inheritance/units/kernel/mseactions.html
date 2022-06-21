@@ -1,0 +1,150 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseactions;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#taction" name="taction">taction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomaction">tcustomaction</a>,iimagelistinfo,iactionlink)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut <span style="color:navy"><b>WRITE</b></span> setshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts1: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcuts1;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> getimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut <span style="color:navy"><b>WRITE</b></span> setshortcut
+                                     stored false <span style="color:navy"><b>DEFAULT</b></span> ord (key_none) ;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcut1
+                                      stored false <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> state;
+        <span style="color:navy"><b>PROPERTY</b></span> group;
+        <span style="color:navy"><b>PROPERTY</b></span> tagaction;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorglyph;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> imagecheckedoffset;
+        <span style="color:navy"><b>PROPERTY</b></span> hint;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onexecuteaction;
+        <span style="color:navy"><b>PROPERTY</b></span> onupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onasyncevent;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink;
+        ndif}
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tshortcutaction" name="tshortcutaction">tshortcutaction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistent">townedeventpersistent</a>,iactionlink)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> shortcutsdefault: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut
+                                                <span style="color:navy"><b>WRITE</b></span> setshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcuts1default: shortcutarty <span style="color:navy"><b>READ</b></span> finfo.shortcut1
+                                                <span style="color:navy"><b>WRITE</b></span> setshortcuts1;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> action: taction <span style="color:navy"><b>READ</b></span> faction <span style="color:navy"><b>WRITE</b></span> setaction;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcutdefault: shortcutty <span style="color:navy"><b>READ</b></span> getshortcutdefault
+                                             <span style="color:navy"><b>WRITE</b></span> setshortcutdefault
+                                                      stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1default: shortcutty <span style="color:navy"><b>READ</b></span> getshortcut1default
+                                             <span style="color:navy"><b>WRITE</b></span> setshortcut1default
+                                                      stored false <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> dispname: msestring <span style="color:navy"><b>READ</b></span> fdispname <span style="color:navy"><b>WRITE</b></span> fdispname;
+        <span style="color:navy"><b>PROPERTY</b></span> hint: msestring <span style="color:navy"><b>READ</b></span> finfo.hint <span style="color:navy"><b>WRITE</b></span> finfo.hint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tshortcutactions" name="tshortcutactions">tshortcutactions</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedeventpersistentarrayprop">townedeventpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tshortcutcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tshortcutaction <span style="color:navy"><b>READ</b></span> getitems;
+                                                        default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsysshortcuts" name="tsysshortcuts">tsysshortcuts</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerarrayprop">tintegerarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const adatapo: psysshortcutaty);
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: sysshortcutty]: shortcutty <span style="color:navy"><b>READ</b></span> getitems
+                            <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tassistiveshortcuts" name="tassistiveshortcuts">tassistiveshortcuts</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynarrayarrayprop">tdynarrayarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent; const adatapo: passistiveshortcutaty);
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: assistiveshortcutty]: shortcutarty <span style="color:navy"><b>READ</b></span> getitems
+                            <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tshortcutcontroller" name="tshortcutcontroller">tshortcutcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,istatfile)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doafterupdate;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> actions: tshortcutactions <span style="color:navy"><b>READ</b></span> factions <span style="color:navy"><b>WRITE</b></span> setactions;
+        <span style="color:navy"><b>PROPERTY</b></span> sysshortcuts: tsysshortcuts <span style="color:navy"><b>READ</b></span> fsysshortcuts
+                                                 <span style="color:navy"><b>WRITE</b></span> setsysshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> sysshortcuts1: tsysshortcuts <span style="color:navy"><b>READ</b></span> fsysshortcuts1
+                                                 <span style="color:navy"><b>WRITE</b></span> setsysshortcuts1;
+        <span style="color:navy"><b>PROPERTY</b></span> assistiveshortcuts: tassistiveshortcuts <span style="color:navy"><b>READ</b></span> fassistiveshortcuts
+                                                        <span style="color:navy"><b>WRITE</b></span> setassistiveshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> assistiveshortcuts1: tassistiveshortcuts <span style="color:navy"><b>READ</b></span> fassistiveshortcuts1
+                                                        <span style="color:navy"><b>WRITE</b></span> setassistiveshortcuts1;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterupdate: shortcutcontrollereventty <span style="color:navy"><b>READ</b></span> fonafterupdate
+                                     <span style="color:navy"><b>WRITE</b></span> fonafterupdate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomhelpcontroller" name="tcustomhelpcontroller">tcustomhelpcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> onhelp: helpcontrollereventty <span style="color:navy"><b>READ</b></span> fonhelp <span style="color:navy"><b>WRITE</b></span> fonhelp;
+        <span style="color:navy"><b>PROPERTY</b></span> onhelp1: helpcontrollerprocty <span style="color:navy"><b>READ</b></span> fonhelp1 <span style="color:navy"><b>WRITE</b></span> fonhelp1;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut: shortcutty <span style="color:navy"><b>READ</b></span> fshortcut <span style="color:navy"><b>WRITE</b></span> setshortcut
+                                                       <span style="color:navy"><b>DEFAULT</b></span> ord (key_none) ;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1: shortcutty <span style="color:navy"><b>READ</b></span> fshortcut1 <span style="color:navy"><b>WRITE</b></span> setshortcut1
+                                                       <span style="color:navy"><b>DEFAULT</b></span> ord (key_none);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thelpcontroller" name="thelpcontroller">thelpcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomhelpcontroller">tcustomhelpcontroller</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onhelp;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut;
+        <span style="color:navy"><b>PROPERTY</b></span> shortcut1;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

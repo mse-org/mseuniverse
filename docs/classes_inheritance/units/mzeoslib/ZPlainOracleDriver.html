@@ -1,0 +1,548 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainOracleDriver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzoracle9iplaindriver" name="tzoracle9iplaindriver">TZOracle9iPlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractplaindriver">TZAbstractPlainDriver</a>, IZPlainDriver,
+    IZOraclePlainDriver)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>FUNCTION</b></span> GetUnicodeCodePageName: String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadCodePages; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Initialize (const Location: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> EnvNlsCreate (var envhpp: POCIEnv; mode: ub4; ctxp: Pointer;
+           malocfp: Pointer; ralocfp: Pointer; mfreefp: Pointer; xtramemsz: size_T;
+           usrmempp: PPointer; charset, ncharset: ub2): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ServerAttach (srvhp: POCIServer; errhp: POCIError; dblink: text;
+           dblink_len: sb4; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ServerDetach (srvhp: POCIServer; errhp: POCIError;
+           mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ServerRelease (hndlp: POCIHandle;
+           errhp: POCIError; bufp: text; bufsz: ub4; hndltype: ub1; version:pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ServerVersion (hndlp: POCIHandle; errhp: POCIError; bufp: text;
+           bufsz: ub4; hndltype: ub1): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> SessionBegin (svchp: POCISvcCtx; errhp: POCIError;
+           usrhp: POCISession; credt: ub4; mode: ub4):sword;
+         <span style="color:navy"><b>FUNCTION</b></span> SessionEnd (svchp: POCISvcCtx; errhp: POCIError;
+           usrhp: POCISession; mode: ub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TransStart (svchp: POCISvcCtx; errhp: POCIError; timeout: word;
+           flags: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TransRollback (svchp: POCISvcCtx; errhp: POCIError;
+           flags: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TransCommit (svchp: POCISvcCtx; errhp: POCIError;
+           flags: ub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Ping (svchp: POCISvcCtx; errhp: POCIError; mode: ub4 = OCI_DEFAULT): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> PasswordChange (svchp: POCISvcCtx; errhp: POCIError;
+           user_name: text; usernm_len: ub4; opasswd: text; opasswd_len: ub4;
+           npasswd: text; npasswd_len: sb4; mode: ub4): sword;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> ClientVersion (major_version, minor_version, update_num,
+           patch_num, port_update_num: psword);
+        
+         <span style="color:navy"><b>FUNCTION</b></span> HandleAlloc (parenth: POCIHandle; var hndlpp: POCIHandle;
+           atype: ub4; xtramem_sz: size_T; usrmempp: PPointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> HandleFree (hndlp: Pointer; atype: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ErrorGet (hndlp: Pointer; recordno: ub4; sqlstate: text;
+           var errcodep: sb4; bufp: text; bufsiz: ub4; atype: ub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> AttrSet (trgthndlp: POCIHandle; trghndltyp: ub4;
+           attributep: Pointer; size: ub4; attrtype: ub4; errhp: POCIError): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> AttrGet (trgthndlp: POCIHandle; trghndltyp: ub4;
+           attributep: Pointer; sizep: Pointer; attrtype: ub4;
+           errhp: POCIError): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NlsNumericInfoGet (envhp: POCIEnv; errhp: POCIError; val: psb4; item: ub2): sword;
+         {statement api}
+         <span style="color:navy"><b>FUNCTION</b></span> StmtPrepare (stmtp: POCIStmt; errhp: POCIError; stmt: text;
+           stmt_len: ub4; language:ub4; mode: ub4):sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtPrepare2 (svchp: POCISvcCtx; var stmtp: POCIStmt; errhp: POCIError;
+           stmt: text; stmt_len: ub4; key: text; key_len: ub4;
+           language:ub4; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtRelease (stmtp: POCIStmt; errhp: POCIError; key: text; key_len: ub4;
+           mode: ub4):sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtExecute (svchp: POCISvcCtx; stmtp: POCIStmt;
+           errhp: POCIError; iters: ub4; rowoff: ub4; snap_in: POCISnapshot;
+           snap_out: POCISnapshot; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ParamGet (hndlp: Pointer; htype: ub4; errhp: POCIError;
+           var parmdpp: Pointer; pos: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtFetch (stmtp: POCIStmt; errhp: POCIError; nrows: ub4;
+           orientation: ub2; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtFetch2 (stmtp: POCIStmt; errhp: POCIError; const nrows: ub4;
+           const orientation: ub2; const fetchOffset: sb4; const mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DefineByPos (stmtp: POCIStmt; var defnpp: POCIDefine;
+           errhp: POCIError; position: ub4; valuep: Pointer; value_sz: sb4; dty: ub2;
+           indp: Pointer; rlenp: Pointer; rcodep: Pointer; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> BindByPos (stmtp: POCIStmt; var bindpp: POCIBind;
+           errhp: POCIError; position: ub4; valuep: Pointer; value_sz: sb4; dty: ub2;
+           indp: Pointer; alenp: Pointer; rcodep: Pointer; maxarr_len: ub4;
+           curelep: Pointer; mode: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> BindObject (bindp: POCIBind; errhp: POCIError;
+                         const _type: POCIType; pgvpp: PPointer;
+                         pvszsp: pub4; indpp: PPointer;
+                         indszp: pub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DefineObject (defnpp: POCIDefine; errhp: POCIError;
+           _type: POCIHandle; pgvpp, pvszsp, indpp, indszp: pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ResultSetToStmt (rsetdp: POCIHandle; errhp: POCIError): sword;
+         {descriptors}
+         <span style="color:navy"><b>FUNCTION</b></span> DescriptorAlloc (const parenth: POCIEnv; var descpp: POCIDescriptor;
+           const htype: ub4; const xtramem_sz: integer; usrmempp: Pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DescriptorFree (const descp: Pointer; const htype: ub4): sword;
+         {Lob}
+         <span style="color:navy"><b>FUNCTION</b></span> LobOpen (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; mode: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobRead (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; var amtp: ub4; offset: ub4; bufp: Pointer; bufl: ub4;
+           ctxp: Pointer; cbfp: Pointer; csid: ub2; csfrm: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobTrim (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; newlen: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobWrite (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; var amtp: ub4; offset: ub4; bufp: Pointer; bufl: ub4;
+           piece: ub1; ctxp: Pointer; cbfp: Pointer; csid: ub2; csfrm: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobCreateTemporary (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; csid: ub2; csfrm: ub1; lobtype: ub1;
+           cache: LongBool; duration: OCIDuration): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobIsTemporary (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; var is_temporary: LongBool): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobFreeTemporary (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobCharSetForm ( envhp: POCIEnv; errhp: POCIError;
+             const locp: POCILobLocator; csfrm: pub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobCharSetId ( envhp: POCIEnv; errhp: POCIError;
+             const locp: POCILobLocator; csid: pub2): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobClose (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator): sword;
+         {DateTime api}
+         <span style="color:navy"><b>FUNCTION</b></span> IntervalGetYearMonth (hndl: POCIHandle; err: POCIError; yr,mnth: psb4;
+                             const int_result: POCIInterval): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> IntervalGetDaySecond (hndl: POCIHandle; err:  POCIError; dy: psb4;
+           hr, mm, ss, fsec: psb4; const int_result: POCIInterval): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeConstruct (hndl: POCIEnv; err: POCIError;
+           datetime: POCIDateTime; year: sb2; month: ub1; day: ub1; hour: ub1;
+           min: ub1; sec: ub1; fsec: ub4; timezone: text;
+           timezone_length: size_t): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeGetDate (hndl: POCIEnv; err: POCIError;
+           const date: POCIDateTime; var year: sb2; var month: ub1;
+           var day: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeGetTime (hndl: POCIEnv; err: POCIError;
+           datetime: POCIDateTime; var hour: ub1; var minute: ub1; var sec: ub1;
+           var fsec: ub4): sword;
+        
+         {object api}
+         <span style="color:navy"><b>FUNCTION</b></span> TypeByRef (env: POCIEnv; err: POCIError; type_ref: POCIRef;
+           pin_duration: OCIDuration; get_option: OCITypeGetOpt;
+           tdo: PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectNew (env: POCIEnv; err: POCIError; const svc: POCISvcCtx;
+                            typecode: OCITypeCode; tdo: POCIType; table: Pointer;
+                            duration: OCIDuration; value: Longbool;
+                            instance: PPointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectPin (env: POCIEnv; err: POCIError;
+           const object_ref: POCIRef; const corhdl: POCIComplexObject;
+           const pin_option: OCIPinOpt; const pin_duration: OCIDuration;
+           const lock_option: OCILockOpt; _object: PPointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectUnpin (env: POCIEnv; err: POCIError;
+           const _object: Pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectFree (hndl: POCIEnv; err: POCIError;
+           instance: POCIHandle;flags :ub2):sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetTypeRef (env: POCIEnv; err: POCIError;
+           const instance:pointer; type_ref: POCIRef): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DescribeAny (svchp: POCISvcCtx; errhp: POCIError;
+           objptr: Pointer; objnm_len: ub4; objptr_typ: ub1; info_level: ub1;
+           objtyp: ub1; dschp: POCIDescribe): sword;
+        (* unused api
+        <span style="color:navy"><b>FUNCTION</b></span> ObjectUnmark (env: POCIEnv; err: POCIError;
+           const _object:pointer): sword;
+        <span style="color:navy"><b>FUNCTION</b></span> ObjectUnmarkByRef (env: POCIEnv; err: POCIError;
+           const ref: POCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectMarkDeleteByRef (env: POCIEnv; err: POCIError;
+           const object_ref:POCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectMarkDelete (env: POCIEnv; err: POCIError;
+           const instance:pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectFlush (env: POCIEnv; err: POCIError;
+           const _object: pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectRefresh (env: POCIEnv; err: POCIError;
+           _object: pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectCopy (env: POCIEnv; err: POCIError; const svc: POCISvcCtx;
+           const source, null_source, target, null_target: pointer; const tdo: POCIType;
+           const duration: OCIDuration; const option: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetObjectRef (env: POCIEnv; err: POCIError;
+           const _object: pointer; object_ref: POCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectMakeObjectRef (env: POCIEnv; err: POCIError;
+           const svc: POCISvcCtx; const table: pointer; const values: PPointer;
+           const array_len: ub4; object_ref: POCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetPrimaryKeyTypeRef (env: POCIEnv; err: POCIError;
+           const svc:POCISvcCtx; const table: pointer; type_ref: POCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetInd (env: POCIEnv; err: POCIError;
+           const instance: pointer; null_struct: PPointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectExists (env: POCIEnv; err: POCIError; const ins: pointer;
+           exist: PBoolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetProperty (envh: POCIEnv; errh: POCIError;
+           const obj: pointer; const propertyId: OCIObjectPropId;
+           _property: pointer; size: Pub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectIsLocked (env: POCIEnv; err: POCIError; const ins: pointer;
+           lock: Pboolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectIsDirty (env: POCIEnv; err: POCIError; const ins: pointer;
+           dirty: PBoolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectPinTable (env: POCIEnv; err: POCIError;
+           const svc:POCISvcCtx; const schema_name: Poratext; const s_n_length: ub4;
+           const object_name: Poratext; const o_n_length:ub4;
+           const scope_obj_ref: POCIRef; const pin_duration: OCIDuration;
+           _object: PPointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectArrayPin (env: POCIEnv; err: POCIError;
+           const ref_array: PPOCIRef; const array_size: ub4;
+           const cor_array: PPOCIComplexObject; const cor_array_size: ub4;
+           const pin_option: OCIPinOpt; const pin_duration: OCIDuration;
+           const lock: OCILockOpt; obj_array: PPointer;
+           pos: Pub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> CacheFlush (env: POCIEnv; err: POCIError; const svc:POCISvcCtx;
+           const context: pointer; const get: TOCICacheFlushGet;
+           ref: PPOCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> CacheRefresh (env: POCIEnv; err: POCIError;
+           const svc:POCISvcCtx; const option: OCIRefreshOpt; const context: pointer;
+           get: TOCICacheRefreshGet; ref: PPOCIRef): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> CacheUnpin (env: POCIEnv; err: POCIError;
+           const svc:POCISvcCtx): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> CacheFree (env: POCIEnv; err: POCIError;
+           const svc: POCISvcCtx): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> CacheUnmark (env: POCIEnv; err: POCIError;
+           const svc: POCISvcCtx): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DurationBegin (env: POCIEnv; err: POCIError;
+           svc: POCISvcCtx; const parent: OCIDuration;
+           dur: POCIDuration): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DurationEnd (env: POCIEnv; err: POCIError; svc: POCISvcCtx;
+           duration: OCIDuration): sword;
+         { < ori.h}
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TransDetach (svchp: POCISvcCtx; errhp: POCIError;
+           flags: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TransPrepare (svchp: POCISvcCtx; errhp: POCIError;
+           flags: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TransForget (svchp: POCISvcCtx; errhp: POCIError;
+           flags: ub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> Break (svchp: POCISvcCtx; errhp:POCIError): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> Reset (svchp: POCISvcCtx; errhp:POCIError): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeAssign (hndl: POCIEnv; err: POCIError;
+           const from: POCIDateTime;_to: POCIDateTime): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeCheck (hndl: POCIEnv; err: POCIError;
+           const date: POCIDateTime; var valid: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeCompare (hndl: POCIEnv; err: POCIError;
+           const date1: POCIDateTime; const date2: POCIDateTime;
+           var _result: sword): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeConvert (hndl: POCIEnv; err: POCIError;
+           indate: POCIDateTime; outdate: POCIDateTime): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeFromText (hndl: POCIEnv; err: POCIError;
+           const date_str: text; d_str_length: size_t; const fmt: text;
+           fmt_length: ub1; const lang_name: text; lang_length: size_t;
+           date: POCIDateTime): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeGetTimeZoneOffset (hndl: POCIEnv; err: POCIError;
+           const datetime: POCIDateTime; var hour: sb1; var minute: sb1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeSysTimeStamp (hndl: POCIEnv; err: POCIError;
+           sys_date: POCIDateTime): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeToText (hndl: POCIEnv; err: POCIError;
+           const date: POCIDateTime; const fmt: text; fmt_length: ub1;
+           fsprec: ub1; const lang_name: text; lang_length: size_t;
+           var buf_size: ub4; buf: text): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> DateTimeGetTimeZoneName (hndl: POCIEnv; err: POCIError;
+           datetime: POCIDateTime; var buf: ub1; var buflen: ub4): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> LobAppend (svchp: POCISvcCtx; errhp: POCIError; dst_locp,
+           src_locp: POCILobLocator): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobAssign (svchp: POCISvcCtx; errhp: POCIError;
+           src_locp: POCILobLocator; var dst_locpp: POCILobLocator): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobCopy (svchp: POCISvcCtx; errhp: POCIError;
+           dst_locp: POCILobLocator; src_locp: POCILobLocator; amount: ub4;
+           dst_offset: ub4; src_offset: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobEnableBuffering (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobDisableBuffering (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobErase (svchp: POCISvcCtx; errhp: POCIError; locp: POCILobLocator;
+           var amount: ub4; offset: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobFileExists (svchp: POCISvcCtx; errhp: POCIError;
+           filep: POCILobLocator; var flag: Boolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobFileGetName (envhp: POCIEnv; errhp: POCIError;
+           filep: POCILobLocator; dir_alias: text; var d_length: ub2; filename: text;
+           var f_length: ub2): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobFileSetName (envhp: POCIEnv; errhp: POCIError;
+           var filep: POCILobLocator; dir_alias: text; d_length: ub2; filename: text;
+           f_length: ub2): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobFlushBuffer (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; flag: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobGetLength (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; var lenp: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobIsOpen (svchp: POCISvcCtx; errhp: POCIError;
+           locp: POCILobLocator; var flag: LongBool): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobLoadFromFile (svchp: POCISvcCtx; errhp: POCIError;
+           dst_locp: POCILobLocator; src_locp: POCILobLocator; amount: ub4;
+           dst_offset: ub4; src_offset: ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> LobLocatorIsInit (envhp: POCIEnv; errhp: POCIError;
+          locp: POCILobLocator; var is_initialized: LongBool): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> StmtGetPieceInfo (stmtp: POCIStmt; errhp: POCIError;
+           var hndlpp: Pointer; var typep: ub4; var in_outp: ub1; var iterp: ub4;
+           var idxp: ub4; var piecep: ub1): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> StmtSetPieceInfo (handle: Pointer; typep: ub4; errhp: POCIError;
+           buf: Pointer; var alenp: ub4; piece: ub1; indp: Pointer;
+           var rcodep: ub2): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NumberInc (err: POCIError; number: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberDec (err: POCIError; number: POCINumber): sword;
+         <span style="color:navy"><b>PROCEDURE</b></span> NumberSetZero (err: POCIError; number: POCINumber);
+         <span style="color:navy"><b>PROCEDURE</b></span> NumberSetPi (err: POCIError; number: POCINumber);
+         <span style="color:navy"><b>FUNCTION</b></span>  NumberAdd (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberSub (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberMul (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberDiv (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberMod (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberIntPower (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberShift (err: POCIError; const number: POCINumber;
+           const nDig: sword; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberNeg (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberToText (err: POCIError; const number: POCINumber;
+           const fmt: Poratext; fmt_length: ub4; const nls_params: Poratext;
+           nls_p_length: ub4; buf_size: pub4; buf: poratext): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberFromText (err: POCIError; const str: poratext;
+           str_length: ub4; const fmt: poratext; fmt_length: ub4;
+           const nls_params: poratext; nls_p_length: ub4; number: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberToInt (err: POCIError; const number: POCINumber;
+           rsl_length: uword; rsl_flag: uword; rsl: Pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberFromInt (err: POCIError; const inum: Pointer;
+           inum_length: uword; inum_s_flag: uword; number: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberToReal (err: POCIError; const number: POCINumber;
+           rsl_length: uword; rsl: Pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberToRealArray (err: POCIError; const number: PPOCINumber;
+           elems: uword; rsl_length: uword; rsl: Pointer): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberFromReal (err: POCIError; const rnum: Pointer;
+           rnum_length: uword; number: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberCmp (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: psword): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberSign (err: POCIError; const number: POCINumber;
+           _result: psword): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberIsZero (err: POCIError; const number: POCINumber;
+           _Result: pboolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberIsInt (err: POCIError; const number: POCINumber;
+           _result: Pboolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberAssign (err: POCIError; const from: POCINumber;
+           _to: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberAbs (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberCeil (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberFloor (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberSqrt (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberTrunc (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberPower (err: POCIError; const base: POCINumber;
+           const number: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberRound (err: POCIError; const number: POCINumber;
+           decplace: sword; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberPrec (err: POCIError; const number: POCINumber;
+           nDigs: sword; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberSin (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberArcSin (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberHypSin (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberCos (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberArcCos (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberHypCos (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberTan (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberArcTan (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberArcTan2 (err: POCIError; const number1: POCINumber;
+           const number2: POCINumber; _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberHypTan (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberExp (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberLn (err: POCIError; const number: POCINumber;
+           _result: POCINumber): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> NumberLog (err: POCIError; const base: POCINumber;
+           const number: POCINumber; _result: POCINumber): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> TableSize (hndl: POCIEnv; err: POCIError; const tbl: POCITable;
+                         size: psb4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TableExists (hndl: POCIEnv; err: POCIError; const tbl: POCITable;
+                                  index: sb4; exists: PBoolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TableDelete (hndl: POCIEnv; err: POCIError; index: sb4;
+                           tbl: POCITable): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TableFirst (hndl: POCIEnv; err: POCIError; const tbl: POCITable;
+                                  index: sb4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TableLast (hndl: POCIEnv; err: POCIError; const tbl: POCITable;
+                                  index: sb4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TableNext (hndl: POCIEnv; err: POCIError; index: sb4;
+           const tbl: POCITable; next_index: psb4; exists: PBoolean): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TablePrev (hndl: POCIEnv; err: POCIError; index: sb4;
+           const tbl: POCITable; prev_index: psb4; exists: PBoolean): sword;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectSetAttr (env: POCIEnv; err: POCIError; instance: Pointer;
+                       null_struct: pointer; tdo: POCIType; const names: PPAnsiChar;
+                       const lengths: pub4; const name_count: ub4;
+                       const indexes: pub4; const index_count: ub4;
+                       const null_status: POCIInd; const attr_null_struct: Pointer;
+                       const attr_value: Pointer): sword; cdecl;
+         <span style="color:navy"><b>FUNCTION</b></span> ObjectGetAttr (env: POCIEnv; err: POCIError; instance: Pointer;
+                       null_struct: Pointer; tdo: POCIType;
+                       const names: PPoratext; const lengths: pub4;
+                       const name_count: ub4; const indexes: pub4;
+                       const index_count: ub4; attr_null_status: POCIInd;
+                       attr_null_struct, attr_value: PPointer;
+                       attr_tdo: PPOCIType): sword;
+         {ociap.h}
+         {ort.h}
+         <span style="color:navy"><b>FUNCTION</b></span> TypeIterNew (env: POCIEnv; err: POCIError; const tdo: POCIType;
+                           iterator_ort: PPOCITypeIter):sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeIterSet (env: POCIEnv; err: POCIError; const tdo: POCIType;
+                                   iterator_ort: POCITypeIter): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeIterFree (env: POCIEnv; err: POCIError;
+                             iterator_ort: POCITypeIter): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeByName (env: POCIEnv; err: POCIError; const svc: POCISvcCtx;
+           schema_name: Poratext; const s_length: ub4; const type_name: Poratext;
+           const t_length: ub4; version_name: Poratext; const v_length: ub4;
+           const pin_duration: OCIDuration; const get_option: OCITypeGetOpt;
+           tdo: PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeArrayByName (env: POCIEnv; err: POCIError; svc: POCISvcCtx;
+           array_len: ub4; schema_name:  PPoratext; s_length: Pub4;
+           type_name: PPoratext; t_length: Pub4; version_name: PPoratext;
+           v_length: Pub4; pin_duration: OCIDuration; get_option: OCITypeGetOpt;
+           tdo: PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeArrayByRef (env: POCIEnv; err: POCIError; array_len: ub4;
+           type_ref: PPOCIRef; pin_duration: OCIDuration; get_option: OCITypeGetOpt;
+           tdo: PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeName (env: POCIEnv; err: POCIError; tdo: POCIType;
+           n_length: Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeSchema (env: POCIEnv; err: POCIError; const tdo: POCIType;
+           n_length: Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeTypeCode (env: POCIEnv; err: POCIError;
+                       const tdo: POCIType): OCITypeCode;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeCollTypeCode (env:POCIEnv; err:POCIError;
+           const tdo: POCIType): OCITypeCode;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeVersion (env: POCIEnv; err: POCIError; const tdo: POCIType;
+           v_length: Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeAttrs (env: POCIEnv; err: POCIError;
+           const tdo:POCIType): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethods (env: POCIEnv; err: POCIError;
+           const tdo: POCIType): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemName (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem; n_length:Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemTypeCode (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): OCITypeCode;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemType (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem; elem_tdo:PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemFlags (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemNumPrec (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): ub1;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemNumScale (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): sb1;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemLength (env: POCIEnv; err: POCIError;
+           const elem:POCITypeElem): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemCharSetID (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): ub2;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemCharSetForm (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): ub2;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemParameterizedType (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem; type_stored: PPOCIType): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemExtTypeCode (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): OCITypeCode;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeAttrByName (env: POCIEnv; err: POCIError;
+           const tdo: POCIType; const name: Poratext; const n_length: ub4;
+           elem: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeAttrNext (env: POCIEnv; err: POCIError;
+           iterator_ort: POCITypeIter; elem: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeCollElem (env: POCIEnv; err: POCIError; const tdo:POCIType;
+           element: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeCollSize (env: POCIEnv; err: POCIError; const tdo: POCIType;
+           num_elems: Pub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeCollExtTypeCode (env: POCIEnv; err: POCIError;
+           const tdo:POCIType; sqt_code: POCITypeCode): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodOverload (env: POCIEnv; err: POCIError;
+           const tdo: POCIType; const method_name: Poratext;
+           const m_length: ub4): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodByName (env: POCIEnv; err: POCIError;
+           const tdo: POCIType; const method_name: Poratext; const m_length: ub4;
+           mdos: PPOCITypeMethod): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodNext (env: POCIEnv; err: POCIError;
+           iterator_ort: POCITypeIter; mdo: PPOCITypeMethod): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodName (env:POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod; n_length: Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodEncap (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod): OCITypeEncap;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodFlags (env: POCIEnv; err: POCIError;
+             const mdo:POCITypeMethod): OCITypeMethodFlag;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodMap (env: POCIEnv; err: POCIError; const tdo: POCIType;
+           mdo: PPOCITypeMethod): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodOrder (env: POCIEnv; err: POCIError;
+           const tdo: POCIType; mdo: PPOCITypeMethod): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeMethodParams (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod): ub4;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeResult (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod; elem: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeParamByPos (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod; const position: ub4;
+           elem: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeParamByName (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod; const name: Poratext; const n_length: ub4;
+           elem:PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeParamPos (env: POCIEnv; err: POCIError;
+           const mdo: POCITypeMethod; const name: Poratext; const n_length: ub4;
+           position: Pub4; elem: PPOCITypeElem): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemParamMode (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem): OCITypeParamMode;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeElemDefaultValue (env: POCIEnv; err: POCIError;
+           const elem: POCITypeElem; d_v_length: Pub4): poratext;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeVTInit (env: POCIEnv; err: POCIError): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeVTInsert (env: POCIEnv; err: POCIError;
+           const schema_name: Poratext; const s_n_length: ub4;
+           const type_name: Poratext; const t_n_length: ub4;
+           const user_version:Poratext; const u_v_length:ub4): sword;
+         <span style="color:navy"><b>FUNCTION</b></span> TypeVTSelect (env: POCIEnv; err: POCIError;
+           const schema_name: Poratext; const s_n_length: ub4;
+           const type_name: Poratext; const t_n_length: ub4; user_version: PPoratext;
+           u_v_length: Pub4; version: Pub2): sword;  *)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

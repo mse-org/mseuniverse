@@ -1,0 +1,260 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesqlresult;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbcol" name="tdbcol">tdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvirtualpersistent">tvirtualpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const asqlresult: tsqlresult;
+               const acursor: tsqlcursor; const afielddef: tfielddef); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> datatype: tfieldtype <span style="color:navy"><b>READ</b></span> fdatatype;
+        <span style="color:navy"><b>PROPERTY</b></span> fieldname: ansistring <span style="color:navy"><b>READ</b></span> ffieldname;
+        <span style="color:navy"><b>PROPERTY</b></span> size: integer <span style="color:navy"><b>READ</b></span> fdatasize;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asvariant: variant <span style="color:navy"><b>READ</b></span> getasvariant;
+        <span style="color:navy"><b>PROPERTY</b></span> asboolean: boolean <span style="color:navy"><b>READ</b></span> getasboolean;
+        <span style="color:navy"><b>PROPERTY</b></span> ascurrency: currency <span style="color:navy"><b>READ</b></span> getascurrency;
+        <span style="color:navy"><b>PROPERTY</b></span> aslargeint: largeint <span style="color:navy"><b>READ</b></span> getaslargeint;
+        <span style="color:navy"><b>PROPERTY</b></span> asdatetime: tdatetime <span style="color:navy"><b>READ</b></span> getasdatetime1;
+        <span style="color:navy"><b>PROPERTY</b></span> asfloat: double <span style="color:navy"><b>READ</b></span> getasfloat1;
+        <span style="color:navy"><b>PROPERTY</b></span> asinteger: longint <span style="color:navy"><b>READ</b></span> getasinteger;
+        <span style="color:navy"><b>PROPERTY</b></span> asstring: ansistring <span style="color:navy"><b>READ</b></span> getasstring1;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestring: msestring <span style="color:navy"><b>READ</b></span> getasmsestring1;
+        <span style="color:navy"><b>PROPERTY</b></span> assql: msestring <span style="color:navy"><b>READ</b></span> getassql1;
+        <span style="color:navy"><b>PROPERTY</b></span> asid: int64 <span style="color:navy"><b>READ</b></span> getasid;
+        <span style="color:navy"><b>PROPERTY</b></span> asguiid: tguid <span style="color:navy"><b>READ</b></span> getasguid;
+        <span style="color:navy"><b>PROPERTY</b></span> isnull: boolean <span style="color:navy"><b>READ</b></span> getisnull;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringdbcol" name="tstringdbcol">tstringdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> getasmsestring;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tguiddbcol" name="tguiddbcol">tguiddbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnumericdbcol" name="tnumericdbcol">tnumericdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlongintdbcol" name="tlongintdbcol">tlongintdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericdbcol">tnumericdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> getasinteger;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tlargeintdbcol" name="tlargeintdbcol">tlargeintdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericdbcol">tnumericdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: largeint <span style="color:navy"><b>READ</b></span> getaslargeint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsmallintdbcol" name="tsmallintdbcol">tsmallintdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericdbcol">tnumericdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> getasinteger;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tworddbcol" name="tworddbcol">tworddbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnumericdbcol">tnumericdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: integer <span style="color:navy"><b>READ</b></span> getasinteger;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tautoincdbcol" name="// tautoincdbcol">// tautoincdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfloatdbcol" name="tfloatdbcol">tfloatdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: double <span style="color:navy"><b>READ</b></span> getasfloat;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcurrencydbcol" name="tcurrencydbcol">tcurrencydbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: currency <span style="color:navy"><b>READ</b></span> getascurrency;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleandbcol" name="tbooleandbcol">tbooleandbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: boolean <span style="color:navy"><b>READ</b></span> getasboolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimedbcol" name="tdatetimedbcol">tdatetimedbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfloatdbcol">tfloatdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: tdatetime <span style="color:navy"><b>READ</b></span> getasdatetime;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tdatedbcol" name="// tdatedbcol">// tdatedbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// ttimedbcol" name="// ttimedbcol">// ttimedbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tbinarydbcol" name="// tbinarydbcol">// tbinarydbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tbytesdbcol" name="// tbytesdbcol">// tbytesdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tvarbytesdbcol" name="// tvarbytesdbcol">// tvarbytesdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tbcddbcol" name="// tbcddbcol">// tbcddbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tblobdbcol" name="tblobdbcol">tblobdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: ansistring <span style="color:navy"><b>READ</b></span> getasstring;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemodbcol" name="tmemodbcol">tmemodbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tblobdbcol">tblobdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: msestring <span style="color:navy"><b>READ</b></span> getasmsestring;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tvariantdbcol" name="tvariantdbcol">tvariantdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: variant <span style="color:navy"><b>READ</b></span> getvariantvar;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#// tgraphicdbcol" name="// tgraphicdbcol">// tgraphicdbcol</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdbcol">tdbcol</a>);
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbcols" name="tdbcols">tdbcols</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const agetname: getnamefuncty);
+        <span style="color:navy"><b>FUNCTION</b></span> findcol (const aname: ansistring): tdbcol;
+        <span style="color:navy"><b>FUNCTION</b></span> findcolindex (const aname: ansistring): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> colbyname (const aname: ansistring): tdbcol;
+        <span style="color:navy"><b>FUNCTION</b></span> colsbyname (const anames: array of ansistring): dbcolarty;
+        <span style="color:navy"><b>FUNCTION</b></span> colsindexbyname (const anames: array of ansistring): integerarty;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdbcol <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlresultconnector" name="tsqlresultconnector">tsqlresultconnector</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> col: tdbcol <span style="color:navy"><b>READ</b></span> getcol;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> source: tsqlresult <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> colname: dbcolnamety <span style="color:navy"><b>READ</b></span> fcolname <span style="color:navy"><b>WRITE</b></span> setcolname;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlresultfielddef" name="tsqlresultfielddef">tsqlresultfielddef</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddef">tfielddef</a>)
+      PUBLIC
+        estructor destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> connector: tsqlresultconnector <span style="color:navy"><b>READ</b></span> fconnector <span style="color:navy"><b>WRITE</b></span> setconnector;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlresultfielddefs" name="tsqlresultfielddefs">tsqlresultfielddefs</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfielddefs">tfielddefs</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqlresult" name="tsqlresult">tsqlresult</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcursorsqlstatement">tcursorsqlstatement</a>,isqlpropertyeditor,
+                     isqlclient,itransactionclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> prepare; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> unprepare; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> open (const aparams: array of variant);
+        <span style="color:navy"><b>PROCEDURE</b></span> open ();
+        <span style="color:navy"><b>PROCEDURE</b></span> close;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; //frees buffers, does not unprepare
+        <span style="color:navy"><b>PROCEDURE</b></span> refresh (const aparams: array of variant);
+        <span style="color:navy"><b>PROCEDURE</b></span> refresh;
+        <span style="color:navy"><b>PROCEDURE</b></span> next;
+        <span style="color:navy"><b>FUNCTION</b></span> countrest (): int32; //including current record
+        <span style="color:navy"><b>FUNCTION</b></span> rowsaffected: integer; //-1 if not supported
+        <span style="color:navy"><b>FUNCTION</b></span> rowsreturned: integer; //-1 if not supported
+        <span style="color:navy"><b>FUNCTION</b></span> asvariant (const aclose: boolean = false): variant; 
+        <span style="color:navy"><b>FUNCTION</b></span> asvariantar (const aclose: boolean = false): variantarty;
+        <span style="color:navy"><b>FUNCTION</b></span> asvariantarar (const aclose: boolean = false): variantararty;
+        <span style="color:navy"><b>PROCEDURE</b></span> loaddatalists (const datalists: array of tdatalist);
+        <span style="color:navy"><b>PROPERTY</b></span> datacols: tdbcols <span style="color:navy"><b>READ</b></span> fdatacols;
+        <span style="color:navy"><b>PROPERTY</b></span> cols[const index: int32]: tdbcol <span style="color:navy"><b>READ</b></span> getcols <span style="color:navy"><b>WRITE</b></span> setcols; default;
+        <span style="color:navy"><b>PROPERTY</b></span> bof: boolean <span style="color:navy"><b>READ</b></span> fbof;
+        <span style="color:navy"><b>PROPERTY</b></span> eof: boolean <span style="color:navy"><b>READ</b></span> feof;
+      PUBLISHED
+        
+        <span style="color:navy"><b>PROPERTY</b></span> beforeopen: tmsesqlscript <span style="color:navy"><b>READ</b></span> fbeforeopen <span style="color:navy"><b>WRITE</b></span> setbeforeopen;
+        <span style="color:navy"><b>PROPERTY</b></span> afteropen: tmsesqlscript <span style="color:navy"><b>READ</b></span> fafteropen <span style="color:navy"><b>WRITE</b></span> setafteropen;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> getactive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> fielddefs: tsqlresultfielddefs <span style="color:navy"><b>READ</b></span> ffielddefs <span style="color:navy"><b>WRITE</b></span> setfielddefs;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeopen: sqlresulteventty <span style="color:navy"><b>READ</b></span> fonbeforeopen <span style="color:navy"><b>WRITE</b></span> fonbeforeopen;
+        <span style="color:navy"><b>PROPERTY</b></span> onafteropen: sqlresulteventty <span style="color:navy"><b>READ</b></span> fonafteropen <span style="color:navy"><b>WRITE</b></span> fonafteropen;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> params;
+        <span style="color:navy"><b>PROPERTY</b></span> sql;
+        <span style="color:navy"><b>PROPERTY</b></span> database;
+        <span style="color:navy"><b>PROPERTY</b></span> transaction;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> statementtype <span style="color:navy"><b>DEFAULT</b></span> stselect;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterexecute;
+        <span style="color:navy"><b>PROPERTY</b></span> onerror;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdbcolnamearrayprop" name="tdbcolnamearrayprop">tdbcolnamearrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringarrayprop">tstringarrayprop</a>,idbcolinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const afieldtypes: fieldtypesty;
+                              const agetsqlresult: getsqlresultfuncty);
+        <span style="color:navy"><b>PROPERTY</b></span> fieldtypes: fieldtypesty <span style="color:navy"><b>READ</b></span> ffieldtypes <span style="color:navy"><b>WRITE</b></span> ffieldtypes;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsqllookupbuffer" name="tsqllookupbuffer">tsqllookupbuffer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalookupbuffer">tdatalookupbuffer</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamestext: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesfloat: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesinteger: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fieldnamesint64: stringarty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearbuffer; <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> source: tsqlresult <span style="color:navy"><b>READ</b></span> fsource <span style="color:navy"><b>WRITE</b></span> setsource;
+        <span style="color:navy"><b>PROPERTY</b></span> textcols: tdbcolnamearrayprop <span style="color:navy"><b>READ</b></span> ftextcols <span style="color:navy"><b>WRITE</b></span> settextcols;
+        <span style="color:navy"><b>PROPERTY</b></span> integercols: tdbcolnamearrayprop <span style="color:navy"><b>READ</b></span> fintegercols <span style="color:navy"><b>WRITE</b></span> setintegercols;
+        <span style="color:navy"><b>PROPERTY</b></span> int64cols: tdbcolnamearrayprop <span style="color:navy"><b>READ</b></span> fint64cols <span style="color:navy"><b>WRITE</b></span> setint64cols;
+        <span style="color:navy"><b>PROPERTY</b></span> floatcols: tdbcolnamearrayprop <span style="color:navy"><b>READ</b></span> ffloatcols <span style="color:navy"><b>WRITE</b></span> setfloatcols;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdb: lbsqoptionsty <span style="color:navy"><b>READ</b></span> foptionsdb <span style="color:navy"><b>WRITE</b></span> foptionsdb <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

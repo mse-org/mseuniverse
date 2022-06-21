@@ -1,0 +1,84 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory db</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT modbcconn;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#todbccursor" name="todbccursor">TODBCCursor</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlcursor">TSQLCursor</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const aowner: icursorclient; const aname: ansistring;
+                                           const Connection:TODBCConnection);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> close; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#todbchandle" name="todbchandle">TODBCHandle</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlhandle">TSQLHandle</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TODBCEnvironment" name="todbcenvironment">TODBCEnvironment</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#todbcconnection" name="todbcconnection">TODBCConnection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsqlconnection">TSQLConnection</a>,iblobconnection)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> AllocateCursorHandle (const aowner: icursorclient;
+                                const aname: ansistring): TSQLCursor; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> DeAllocateCursorHandle (var cursor:TSQLCursor); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> preparestatement (const cursor: tsqlcursor; 
+                       const atransaction : tsqltransaction;
+                       const asql: msestring; const aparams : tmseparams); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> UnPrepareStatement (cursor:TSQLCursor); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> AddFieldDefs (const cursor:TSQLCursor; 
+                                   const FieldDefs:TFieldDefs); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Fetch (cursor:TSQLCursor):boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> loadfield (const cursor: tsqlcursor;
+           const datatype: tfieldtype; const fieldnum: integer; //null based
+           const buffer: pointer; var bufsize: integer;
+                                     const aisutf8: boolean): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeFldBuffers (cursor:TSQLCursor); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Environment:TODBCEnvironment <span style="color:navy"><b>READ</b></span> FEnvironment;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Driver:string <span style="color:navy"><b>READ</b></span> FDriver <span style="color:navy"><b>WRITE</b></span> FDriver;    // will be passed as DRIVER connection parameter
+         <span style="color:navy"><b>PROPERTY</b></span> FileDSN:string <span style="color:navy"><b>READ</b></span> FFileDSN <span style="color:navy"><b>WRITE</b></span> FFileDSN; // will be passed as FILEDSN parameter
+         <span style="color:navy"><b>PROPERTY</b></span> Password;     // will be passed as PWD connection parameter
+         <span style="color:navy"><b>PROPERTY</b></span> Transaction;
+         <span style="color:navy"><b>PROPERTY</b></span> UserName;     // will be passed as UID connection parameter
+         <span style="color:navy"><b>PROPERTY</b></span> CharSet;
+         <span style="color:navy"><b>PROPERTY</b></span> HostName;     // ignored
+         <span style="color:navy"><b>PROPERTY</b></span> Connected;
+         <span style="color:navy"><b>PROPERTY</b></span> Role;
+         <span style="color:navy"><b>PROPERTY</b></span> DatabaseName; // will be passed as DSN connection parameter
+         <span style="color:navy"><b>PROPERTY</b></span> KeepConnection;
+         <span style="color:navy"><b>PROPERTY</b></span> Params;       // will be added to connection string
+         <span style="color:navy"><b>PROPERTY</b></span> ongetcredentials;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#eodbcexception" name="eodbcexception">EODBCException</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">Exception</a>)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

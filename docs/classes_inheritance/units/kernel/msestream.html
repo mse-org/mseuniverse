@@ -1,0 +1,273 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msestream;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomcryptohandler" name="tcustomcryptohandler">tcustomcryptohandler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> flush (const astream: tmsefilestream); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> encrypt (const adata: string; const base64: boolean = false;
+                    const maxlinelength: integer = defaultbase64linelength): string;
+                                           <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> encrypt (const adata: pointer; adatalength: integer;
+                         const base64: boolean = false;
+                    const maxlinelength: integer = defaultbase64linelength): string;
+                                           <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> decrypt (const adata: string; const base64: boolean = false): string;
+        <span style="color:navy"><b>FUNCTION</b></span> encrypttext (const atext: msestring;
+                                    const base64: boolean = false;
+                   const maxlinelength: integer = defaultbase64linelength): string;
+        <span style="color:navy"><b>FUNCTION</b></span> decrypttext (const adata: string;
+                                    const base64: boolean = false): msestring;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> chain: tcustomcryptohandler <span style="color:navy"><b>READ</b></span> fchain <span style="color:navy"><b>WRITE</b></span> setchain;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsefilestream" name="tmsefilestream">tmsefilestream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thandlestream">thandlestream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const afilename: filenamety;
+                           const aopenmode: fileopenmodety = fm_read;
+                           const accessmode: fileaccessmodesty = [];
+                           const rights: filerightsty = defaultfilerights); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createtransaction (const afilename: filenamety;
+                           rights: filerightsty = defaultfilerights); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createtempfile (const prefix: filenamety;
+                                                       out afilename: filenamety);
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ahandle: integer); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>; //allways called
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aopenmode: fileopenmodety); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createstringcopy (const adata: string); //implies fm_read
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> trycreate (out ainstance: tmsefilestream;
+                  const afilename: filenamety;
+                  const aopenmode: fileopenmodety = fm_read;
+                  const accessmode: fileaccessmodesty = [];
+                  const rights: filerightsty = defaultfilerights): syserrorty;
+        <span style="color:navy"><b>FUNCTION</b></span> releasehandle (): filehandlety <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> read (var buffer; count: longint): longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> write (const buffer; count: longint): longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> seek (const offset: int64; origin: tseekorigin): int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readdatastring: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writedatastring (const value: rawbytestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isopen: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> filename: filenamety <span style="color:navy"><b>READ</b></span> ffilename;
+        <span style="color:navy"><b>PROPERTY</b></span> openmode: fileopenmodety <span style="color:navy"><b>READ</b></span> fopenmode;
+        <span style="color:navy"><b>PROPERTY</b></span> transactionname: filenamety <span style="color:navy"><b>READ</b></span> ftransactionname;
+        <span style="color:navy"><b>FUNCTION</b></span> close: boolean; //false on commit error
+        <span style="color:navy"><b>PROCEDURE</b></span> cancel; //calls close without commit, removes intermediate file
+        <span style="color:navy"><b>PROCEDURE</b></span> flushbuffer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> flush; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setsize (const newsize: int64); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> ismemorystream: boolean <span style="color:navy"><b>READ</b></span> fismemorystream;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;         //only for memorystream
+        <span style="color:navy"><b>PROPERTY</b></span> capacity: ptrint <span style="color:navy"><b>READ</b></span> getcapacity <span style="color:navy"><b>WRITE</b></span> setcapacity;
+        <span style="color:navy"><b>PROPERTY</b></span> filerights: filerightsty <span style="color:navy"><b>READ</b></span> getfilerights <span style="color:navy"><b>WRITE</b></span> setfilerights;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptohandler: tcustomcryptohandler <span style="color:navy"><b>READ</b></span> fcryptohandler
+                                                        <span style="color:navy"><b>WRITE</b></span> setcryptohandler;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustombufstream" name="tcustombufstream">tcustombufstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsefilestream">tmsefilestream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ahandle: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createdata (const adata: rawbytestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;        //only for memorystream
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setsize (const newsize: int64); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> flushbuffer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> buflen: integer <span style="color:navy"><b>READ</b></span> fbuflen <span style="color:navy"><b>WRITE</b></span> setbuflen <span style="color:navy"><b>DEFAULT</b></span> defaultbuflen;
+        <span style="color:navy"><b>PROPERTY</b></span> usewritebuffer: boolean <span style="color:navy"><b>READ</b></span> fusewritebuffer
+                                            <span style="color:navy"><b>WRITE</b></span> setusewritebuffer <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> eof: boolean <span style="color:navy"><b>READ</b></span> geteof;
+        <span style="color:navy"><b>PROPERTY</b></span> bufpo: pchar <span style="color:navy"><b>READ</b></span> getbufpo;
+        <span style="color:navy"><b>PROCEDURE</b></span> skip (const adist: integer); //skips characters
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbufstream" name="tbufstream">tbufstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombufstream">tcustombufstream</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextstream" name="ttextstream">ttextstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustombufstream">tcustombufstream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ahandle: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> trycreate (out ainstance: ttextstream;
+                  const afilename: filenamety;
+                  const aopenmode: fileopenmodety = fm_read;
+                  const accessmode: fileaccessmodesty = [];
+                  const rights: filerightsty = defaultfilerights): syserrorty;
+        <span style="color:navy"><b>PROCEDURE</b></span> return;    //setzt filepointer auf letzte readln position
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writestr (const value: string); //no encoding
+        <span style="color:navy"><b>PROCEDURE</b></span> writestrln (const value: string); //no encoding
+        <span style="color:navy"><b>FUNCTION</b></span> readstrln (var value: string): boolean; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writetotext (var dest: text);   //no encoding
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const value: string); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const value: msestring); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const value: real); <span style="color:teal"><b>REINTRODUCE</b></span>;  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const value: integer); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const value: boolean); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> write (const values: array of const); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: string); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: real);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: integer);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: boolean);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: msestringarty);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const value: stringarty);  <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writeln (const values: array of const); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> readln: boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (var value: string): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (var value: msestring): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (out value: integer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (out value: boolean): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (out value: real): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (out value: msestringarty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readln (out value: stringarty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writestrings (const value: stringarty);
+        <span style="color:navy"><b>PROCEDURE</b></span> writemsestrings (const value: msestringarty);
+        <span style="color:navy"><b>FUNCTION</b></span> readstrings: stringarty;
+        <span style="color:navy"><b>FUNCTION</b></span> readmsestrings: msestringarty;
+        <span style="color:navy"><b>FUNCTION</b></span> readmsedatastring: msestring; //returns remainig data
+        <span style="color:navy"><b>FUNCTION</b></span> readstring (const default: string): string;
+        <span style="color:navy"><b>FUNCTION</b></span> readinteger (default: integer; min: integer = minint;
+                                 max: integer = maxint): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> readboolean (default: boolean): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readreal (default: real; min: real = -bigreal;
+                                 max: real = bigreal): real;
+        <span style="color:navy"><b>FUNCTION</b></span> findnext (const substring: string): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> linecount: integer;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> resetsearch;
+        <span style="color:navy"><b>FUNCTION</b></span> searchnext: boolean; //true wenn gefunden
+        <span style="color:navy"><b>PROPERTY</b></span> nativesearchtext: string <span style="color:navy"><b>READ</b></span> fsearchtext <span style="color:navy"><b>WRITE</b></span> setsearchtext;
+        <span style="color:navy"><b>PROPERTY</b></span> msesearchtext: msestring <span style="color:navy"><b>READ</b></span> getmsesearchtext
+                                                          <span style="color:navy"><b>WRITE</b></span> setmsesearchtext;
+        <span style="color:navy"><b>PROPERTY</b></span> searchoptions: searchoptionsty <span style="color:navy"><b>READ</b></span> fsearchoptions
+                                                           <span style="color:navy"><b>WRITE</b></span> setsearchoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> searchpos: longword <span style="color:navy"><b>READ</b></span> fsearchpos <span style="color:navy"><b>WRITE</b></span> fsearchpos;
+        <span style="color:navy"><b>PROPERTY</b></span> searchfoundpos: longword <span style="color:navy"><b>READ</b></span> fsearchfoundpos;
+        <span style="color:navy"><b>PROPERTY</b></span> searchlinestartpos: longword <span style="color:navy"><b>READ</b></span> fsearchlinestartpos
+                                                         <span style="color:navy"><b>WRITE</b></span> fsearchlinestartpos;
+        <span style="color:navy"><b>PROPERTY</b></span> searchlinenumber: longword <span style="color:navy"><b>READ</b></span> fsearchlinenumber
+                                                          <span style="color:navy"><b>WRITE</b></span> fsearchlinenumber;
+        <span style="color:navy"><b>PROPERTY</b></span> searchabortpo: pboolean <span style="color:navy"><b>READ</b></span> fsearchabortpo <span style="color:navy"><b>WRITE</b></span> fsearchabortpo;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> notopen: boolean <span style="color:navy"><b>READ</b></span> getnotopen;
+        <span style="color:navy"><b>PROPERTY</b></span> encoding: charencodingty <span style="color:navy"><b>READ</b></span> fencoding <span style="color:navy"><b>WRITE</b></span> fencoding
+                                                              <span style="color:navy"><b>DEFAULT</b></span> ce_locale;
+        <span style="color:navy"><b>FUNCTION</b></span> foundeolstyle: eolstylety; //found by readln
+        <span style="color:navy"><b>PROPERTY</b></span> eolstyle: eolstylety <span style="color:navy"><b>READ</b></span> feolstyle
+                                   <span style="color:navy"><b>WRITE</b></span> seteolstyle <span style="color:navy"><b>DEFAULT</b></span> eol_default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextdatastream" name="ttextdatastream">ttextdatastream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttextstream">ttextstream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (ahandle: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readcsvstring (out value: msestring): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readcsvvalues (out values: msestringarty): boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: array of const); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: msestringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: stringarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: integerarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: realarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: int64arty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> writerecord (const fields: booleanarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readrecord (fields: array of pointer; types: string): boolean; //true if no error
+        <span style="color:navy"><b>PROPERTY</b></span> separator: msechar <span style="color:navy"><b>READ</b></span> fseparator <span style="color:navy"><b>WRITE</b></span> fseparator <span style="color:navy"><b>DEFAULT</b></span> ',';
+        <span style="color:navy"><b>PROPERTY</b></span> quotechar: msechar <span style="color:navy"><b>READ</b></span> fquotechar <span style="color:navy"><b>WRITE</b></span> fquotechar <span style="color:navy"><b>DEFAULT</b></span> '"';
+        <span style="color:navy"><b>PROPERTY</b></span> forcequote: boolean <span style="color:navy"><b>READ</b></span> fforcequote <span style="color:navy"><b>WRITE</b></span> fforcequote <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tresourcefilestream" name="tresourcefilestream">tresourcefilestream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsefilestream">tmsefilestream</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> WriteResourceHeader (resourcetyp: word;
+                  const ResName: string; out FixupInfo: Integer);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcryptfilestream" name="tcryptfilestream">tcryptfilestream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfilestream">tfilestream</a>)      //seek nicht erlaubt!
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const aFileName: string; Mode: Word);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringcopystream" name="tstringcopystream">tstringcopystream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmemorystream">tmemorystream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adata: string);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readdatastring: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextstringcopystream" name="ttextstringcopystream">ttextstringcopystream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttextdatastream">ttextdatastream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adata: string);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemorycopystream" name="tmemorycopystream">tmemorycopystream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmemorystream">tmemorystream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adata: pointer; const asize: integer);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringbufferstream" name="tstringbufferstream">tstringbufferstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmemorystream">tmemorystream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adata: string);
+        <span style="color:navy"><b>PROPERTY</b></span> data: string <span style="color:navy"><b>READ</b></span> getdata;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttextstringbufferstream" name="ttextstringbufferstream">ttextstringbufferstream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttextdatastream">ttextdatastream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adata: string;
+                                   const aopenmode: fileopenmodety = fm_create);
+        <span style="color:navy"><b>PROPERTY</b></span> data: string <span style="color:navy"><b>READ</b></span> getdata;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

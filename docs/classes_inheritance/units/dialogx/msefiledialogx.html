@@ -1,0 +1,348 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory dialogx</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msefiledialogx;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfilelistitem" name="tfilelistitem">tfilelistitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistitem">tlistitem</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const aowner: tcustomitemlist);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfileitemlist" name="tfileitemlist">tfileitemlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#titemviewlist">titemviewlist</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfilelistviewx" name="tfilelistviewx">tfilelistviewx</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlistview">tlistview</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aowner: TComponent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> readlist;
+         <span style="color:navy"><b>PROCEDURE</b></span> updir;
+         <span style="color:navy"><b>FUNCTION</b></span> filecount: integer;
+         <span style="color:navy"><b>PROPERTY</b></span> directory: filenamety <span style="color:navy"><b>READ</b></span> fdirectory <span style="color:navy"><b>WRITE</b></span> setdirectory;
+         <span style="color:navy"><b>PROPERTY</b></span> includeattrib: fileattributesty <span style="color:navy"><b>READ</b></span> fincludeattrib <span style="color:navy"><b>WRITE</b></span> fincludeattrib <span style="color:navy"><b>DEFAULT</b></span> [fa_all];
+         <span style="color:navy"><b>PROPERTY</b></span> excludeattrib: fileattributesty <span style="color:navy"><b>READ</b></span> fexcludeattrib <span style="color:navy"><b>WRITE</b></span> fexcludeattrib <span style="color:navy"><b>DEFAULT</b></span> [fa_hidden];
+         <span style="color:navy"><b>PROPERTY</b></span> maskar: filenamearty <span style="color:navy"><b>READ</b></span> fmaskar <span style="color:navy"><b>WRITE</b></span> fmaskar;
+         <span style="color:navy"><b>PROPERTY</b></span> mask: filenamety <span style="color:navy"><b>READ</b></span> getmask <span style="color:navy"><b>WRITE</b></span> setmask;
+         <span style="color:navy"><b>PROPERTY</b></span> path: filenamety <span style="color:navy"><b>READ</b></span> getpath <span style="color:navy"><b>WRITE</b></span> setpath;
+         <span style="color:navy"><b>PROPERTY</b></span> selectednames: filenamearty <span style="color:navy"><b>READ</b></span> getselectednames <span style="color:navy"><b>WRITE</b></span> setselectednames;
+         <span style="color:navy"><b>PROPERTY</b></span> checksubdir: Boolean <span style="color:navy"><b>READ</b></span> getchecksubdir <span style="color:navy"><b>WRITE</b></span> setchecksubdir;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultlistviewoptionsfile;
+         <span style="color:navy"><b>PROPERTY</b></span> optionsfile: filelistviewoptionsty <span style="color:navy"><b>READ</b></span> foptionsfile <span style="color:navy"><b>WRITE</b></span> setoptionsfile <span style="color:navy"><b>DEFAULT</b></span> defaultfilelistviewoptions;
+         <span style="color:navy"><b>PROPERTY</b></span> filelist: tfiledatalist <span style="color:navy"><b>READ</b></span> ffilelist <span style="color:navy"><b>WRITE</b></span> setfilelist;
+         <span style="color:navy"><b>PROPERTY</b></span> onlist<span style="color:navy"><b>READ</b></span>: notifyeventty read fonlistread <span style="color:navy"><b>WRITE</b></span> fonlistread;
+         <span style="color:navy"><b>PROPERTY</b></span> ongetfileicon: getfileiconeventty <span style="color:navy"><b>READ</b></span> fongetfileicon <span style="color:navy"><b>WRITE</b></span> fongetfileicon;
+         <span style="color:navy"><b>PROPERTY</b></span> oncheckfile: checkfileeventty <span style="color:navy"><b>READ</b></span> foncheckfile <span style="color:navy"><b>WRITE</b></span> foncheckfile;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfiledialogxcontroller" name="tfiledialogxcontroller">tfiledialogxcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const aowner: tmsecomponent = nil; const onchange: proceventty = nil);
+           <span style="color:teal"><b>REINTRODUCE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> readstatvalue (const reader: tstatreader);
+         <span style="color:navy"><b>PROCEDURE</b></span> readstatstate (const reader: tstatreader);
+         <span style="color:navy"><b>PROCEDURE</b></span> readstatoptions (const reader: tstatreader);
+         <span style="color:navy"><b>PROCEDURE</b></span> writestatvalue (const writer: tstatwriter);
+         <span style="color:navy"><b>PROCEDURE</b></span> writestatstate (const writer: tstatwriter);
+         <span style="color:navy"><b>PROCEDURE</b></span> writestatoptions (const writer: tstatwriter);
+         <span style="color:navy"><b>FUNCTION</b></span> actcaption (const dialogkind: filedialogkindty): msestring;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (dialogkind: filedialogkindty = fdk_none): modalresultty;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (dialogkind: filedialogkindty; const acaption: msestring; aoptions: filedialogoptionsty): modalresultty;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (const dialogkind: filedialogkindty; const acaption: msestring): modalresultty;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (const dialogkind: filedialogkindty; const aoptions: filedialogoptionsty): modalresultty;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (var avalue: filenamety; dialogkind: filedialogkindty = fdk_none): Boolean;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (var avalue: filenamety; const dialogkind: filedialogkindty; const acaption: msestring): Boolean;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (var avalue: filenamety; const dialogkind: filedialogkindty; const acaption: msestring; aoptions: filedialogoptionsty): Boolean;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> canoverwrite (): Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>PROCEDURE</b></span> componentevent (const event: tcomponentevent);
+         <span style="color:navy"><b>PROPERTY</b></span> history: msestringarty <span style="color:navy"><b>READ</b></span> fhistory <span style="color:navy"><b>WRITE</b></span> fhistory;
+         <span style="color:navy"><b>PROPERTY</b></span> filenames: filenamearty <span style="color:navy"><b>READ</b></span> ffilenames <span style="color:navy"><b>WRITE</b></span> ffilenames;
+         <span style="color:navy"><b>PROPERTY</b></span> filenamescust: filenamearty <span style="color:navy"><b>READ</b></span> ffilenamescust <span style="color:navy"><b>WRITE</b></span> ffilenamescust;
+         <span style="color:navy"><b>PROPERTY</b></span> syscommandline: filenamety <span style="color:navy"><b>READ</b></span> getsysfilename; deprecated;
+         <span style="color:navy"><b>PROPERTY</b></span> sysfilename: filenamety <span style="color:navy"><b>READ</b></span> getsysfilename;
+         <span style="color:navy"><b>PROPERTY</b></span> params: msestring <span style="color:navy"><b>READ</b></span> fparams;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> filename: filenamety <span style="color:navy"><b>READ</b></span> getfilename <span style="color:navy"><b>WRITE</b></span> setfilename;
+         <span style="color:navy"><b>PROPERTY</b></span> lastdir: filenamety <span style="color:navy"><b>READ</b></span> flastdir <span style="color:navy"><b>WRITE</b></span> setlastdir;
+         <span style="color:navy"><b>PROPERTY</b></span> basedir: filenamety <span style="color:navy"><b>READ</b></span> fbasedir <span style="color:navy"><b>WRITE</b></span> fbasedir;
+         <span style="color:navy"><b>PROPERTY</b></span> fontheight: integer <span style="color:navy"><b>READ</b></span> ffontheight <span style="color:navy"><b>WRITE</b></span> ffontheight;
+         <span style="color:navy"><b>PROPERTY</b></span> fontname: msestring <span style="color:navy"><b>READ</b></span> ffontname <span style="color:navy"><b>WRITE</b></span> ffontname;
+         <span style="color:navy"><b>PROPERTY</b></span> fontcolor: colorty <span style="color:navy"><b>READ</b></span> ffontcolor <span style="color:navy"><b>WRITE</b></span> ffontcolor;
+         <span style="color:navy"><b>PROPERTY</b></span> backcolor: colorty <span style="color:navy"><b>READ</b></span> fbackcolor <span style="color:navy"><b>WRITE</b></span> fbackcolor;
+         <span style="color:navy"><b>PROPERTY</b></span> filter: filenamety <span style="color:navy"><b>READ</b></span> ffilter <span style="color:navy"><b>WRITE</b></span> ffilter;
+         <span style="color:navy"><b>PROPERTY</b></span> nopanel: Boolean <span style="color:navy"><b>READ</b></span> fnopanel <span style="color:navy"><b>WRITE</b></span> fnopanel;
+         <span style="color:navy"><b>PROPERTY</b></span> icon: tmaskedbitmap <span style="color:navy"><b>READ</b></span> ficon <span style="color:navy"><b>WRITE</b></span> seticon;
+         <span style="color:navy"><b>PROPERTY</b></span> compact: Boolean <span style="color:navy"><b>READ</b></span> fcompact <span style="color:navy"><b>WRITE</b></span> fcompact;
+         <span style="color:navy"><b>PROPERTY</b></span> showoptions: Boolean <span style="color:navy"><b>READ</b></span> fshowoptions <span style="color:navy"><b>WRITE</b></span> fshowoptions;
+         <span style="color:navy"><b>PROPERTY</b></span> hidehistory: Boolean <span style="color:navy"><b>READ</b></span> fhidehistory <span style="color:navy"><b>WRITE</b></span> fhidehistory;
+         <span style="color:navy"><b>PROPERTY</b></span> hideicons: Boolean <span style="color:navy"><b>READ</b></span> fhideicons <span style="color:navy"><b>WRITE</b></span> fhideicons;
+         <span style="color:navy"><b>PROPERTY</b></span> showhidden: Boolean <span style="color:navy"><b>READ</b></span> fshowhidden <span style="color:navy"><b>WRITE</b></span> fshowhidden;
+         <span style="color:navy"><b>PROPERTY</b></span> filterlist: tdoublemsestringdatalist <span style="color:navy"><b>READ</b></span> ffilterlist <span style="color:navy"><b>WRITE</b></span> setfilterlist;
+         <span style="color:navy"><b>PROPERTY</b></span> filterindex: integer <span style="color:navy"><b>READ</b></span> ffilterindex <span style="color:navy"><b>WRITE</b></span> ffilterindex <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> include: fileattributesty <span style="color:navy"><b>READ</b></span> finclude <span style="color:navy"><b>WRITE</b></span> finclude <span style="color:navy"><b>DEFAULT</b></span> [fa_all];
+         <span style="color:navy"><b>PROPERTY</b></span> exclude: fileattributesty <span style="color:navy"><b>READ</b></span> fexclude <span style="color:navy"><b>WRITE</b></span> fexclude <span style="color:navy"><b>DEFAULT</b></span> [fa_hidden];
+         <span style="color:navy"><b>PROPERTY</b></span> colwidth: integer <span style="color:navy"><b>READ</b></span> fcolwidth <span style="color:navy"><b>WRITE</b></span> fcolwidth <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> defaultext: filenamety <span style="color:navy"><b>READ</b></span> fdefaultext <span style="color:navy"><b>WRITE</b></span> setdefaultext;
+         <span style="color:navy"><b>PROPERTY</b></span> options: filedialogoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> defaultfiledialogoptions;
+         <span style="color:navy"><b>PROPERTY</b></span> historymaxcount: integer <span style="color:navy"><b>READ</b></span> fhistorymaxcount <span style="color:navy"><b>WRITE</b></span> sethistorymaxcount <span style="color:navy"><b>DEFAULT</b></span> defaulthistorymaxcount;
+         <span style="color:navy"><b>PROPERTY</b></span> captionopen: msestring <span style="color:navy"><b>READ</b></span> fcaptionopen <span style="color:navy"><b>WRITE</b></span> fcaptionopen;
+         <span style="color:navy"><b>PROPERTY</b></span> captionsave: msestring <span style="color:navy"><b>READ</b></span> fcaptionsave <span style="color:navy"><b>WRITE</b></span> fcaptionsave;
+         <span style="color:navy"><b>PROPERTY</b></span> captionnew: msestring <span style="color:navy"><b>READ</b></span> fcaptionnew <span style="color:navy"><b>WRITE</b></span> fcaptionnew;
+         <span style="color:navy"><b>PROPERTY</b></span> captiondir: msestring <span style="color:navy"><b>READ</b></span> fcaptiondir <span style="color:navy"><b>WRITE</b></span> fcaptiondir;
+         <span style="color:navy"><b>PROPERTY</b></span> group: integer <span style="color:navy"><b>READ</b></span> fgroup <span style="color:navy"><b>WRITE</b></span> fgroup <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+         <span style="color:navy"><b>PROPERTY</b></span> ongetfilename: setstringeventty <span style="color:navy"><b>READ</b></span> fongetfilename <span style="color:navy"><b>WRITE</b></span> fongetfilename;
+         <span style="color:navy"><b>PROPERTY</b></span> ongetfileicon: getfileiconeventty <span style="color:navy"><b>READ</b></span> fongetfileicon <span style="color:navy"><b>WRITE</b></span> fongetfileicon;
+         <span style="color:navy"><b>PROPERTY</b></span> oncheckfile: checkfileeventty <span style="color:navy"><b>READ</b></span> foncheckfile <span style="color:navy"><b>WRITE</b></span> foncheckfile;
+         <span style="color:navy"><b>PROPERTY</b></span> onbeforeexecute: filedialogbeforeexecuteeventty <span style="color:navy"><b>READ</b></span> fonbeforeexecute <span style="color:navy"><b>WRITE</b></span> fonbeforeexecute;
+         <span style="color:navy"><b>PROPERTY</b></span> onafterexecute: filedialogafterexecuteeventty <span style="color:navy"><b>READ</b></span> fonafterexecute <span style="color:navy"><b>WRITE</b></span> fonafterexecute;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfiledialogx" name="tfiledialogx">tfiledialogx</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialog">tdialog</a>, istatfile)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aowner: TComponent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute: modalresultty;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (const akind: filedialogkindty): modalresultty;
+           <span style="color:teal"><b>REINTRODUCE</b></span>;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (const akind: filedialogkindty; const aoptions: filedialogoptionsty): modalresultty;
+           <span style="color:teal"><b>REINTRODUCE</b></span>;
+           <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> componentevent (const event: tcomponentevent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+         <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+         <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+         <span style="color:navy"><b>PROPERTY</b></span> controller: tfiledialogxcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+         <span style="color:navy"><b>PROPERTY</b></span> dialogkind: filedialogkindty <span style="color:navy"><b>READ</b></span> fdialogkind <span style="color:navy"><b>WRITE</b></span> fdialogkind <span style="color:navy"><b>DEFAULT</b></span> fdk_none;
+         <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1 <span style="color:navy"><b>WRITE</b></span> foptionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultfiledialogoptionsedit1;
+        
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfilenameeditcontroller" name="tfilenameeditcontroller">tfilenameeditcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstringdialogcontroller">tstringdialogcontroller</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const aowner: tcustomfilenameedit1);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomfilenameedit1" name="tcustomfilenameedit1">tcustomfilenameedit1</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdialogstringed">tcustomdialogstringed</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aowner: TComponent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> componentevent (const event: tcomponentevent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> controller: tfiledialogxcontroller <span style="color:navy"><b>READ</b></span> fcontroller <span style="color:navy"><b>WRITE</b></span> setcontroller;
+         <span style="color:navy"><b>PROPERTY</b></span> sysvalue: filenamety <span style="color:navy"><b>READ</b></span> getsysvalue <span style="color:navy"><b>WRITE</b></span> setsysvalue;
+         <span style="color:navy"><b>PROPERTY</b></span> sysvaluequoted: filenamety <span style="color:navy"><b>READ</b></span> getsysvaluequoted <span style="color:navy"><b>WRITE</b></span> setsysvalue;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> optionsedit1 <span style="color:navy"><b>DEFAULT</b></span> defaultfiledialogoptionsedit1;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomfilenameedit" name="tcustomfilenameedit">tcustomfilenameedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomfilenameedit1">tcustomfilenameedit1</a>)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aowner: TComponent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy;
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomremotefilenameedit" name="tcustomremotefilenameedit">tcustomremotefilenameedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomfilenameedit1">tcustomfilenameedit1</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROPERTY</b></span> dialog: tfiledialogx <span style="color:navy"><b>READ</b></span> fdialog <span style="color:navy"><b>WRITE</b></span> setfiledialog;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfilenameeditx" name="tfilenameeditx">tfilenameeditx</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomfilenameedit">tcustomfilenameedit</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> frame;
+         <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+         <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+         <span style="color:navy"><b>PROPERTY</b></span> Value;
+         <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+         <span style="color:navy"><b>PROPERTY</b></span> controller;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tremotefilenameeditx" name="tremotefilenameeditx">tremotefilenameeditx</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomremotefilenameedit">tcustomremotefilenameedit</a>)
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> frame;
+         <span style="color:navy"><b>PROPERTY</b></span> passwordchar;
+         <span style="color:navy"><b>PROPERTY</b></span> maxlength;
+         <span style="color:navy"><b>PROPERTY</b></span> Value;
+         <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+         <span style="color:navy"><b>PROPERTY</b></span> dialog;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdirdropdownedit" name="tdirdropdownedit">tdirdropdownedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdropdownwidgetedit">tdropdownwidgetedit</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROPERTY</b></span> showhiddenfiles: Boolean <span style="color:navy"><b>READ</b></span> getshowhiddenfiles <span style="color:navy"><b>WRITE</b></span> setshowhiddenfiles;
+         <span style="color:navy"><b>PROPERTY</b></span> checksubdir: Boolean <span style="color:navy"><b>READ</b></span> getchecksubdir <span style="color:navy"><b>WRITE</b></span> setchecksubdir;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> options: dirdropdowneditoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdirtreeview" name="tdirtreeview">tdirtreeview</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>, icaptionframe)
+      PUBLIC
+        
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (aowner: TComponent);
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy ();
+           <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> refresh ();
+         <span style="color:navy"><b>PROPERTY</b></span> dirview: tdirtreefo <span style="color:navy"><b>READ</b></span> fdirview;
+         <span style="color:navy"><b>PROPERTY</b></span> path: filenamety <span style="color:navy"><b>READ</b></span> getpath <span style="color:navy"><b>WRITE</b></span> setpath;
+         <span style="color:navy"><b>PROPERTY</b></span> root: filenamety <span style="color:navy"><b>READ</b></span> froot <span style="color:navy"><b>WRITE</b></span> setroot;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+         <span style="color:navy"><b>PROPERTY</b></span> options: dirtreeoptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+         <span style="color:navy"><b>PROPERTY</b></span> optionstree: treeitemeditoptionsty <span style="color:navy"><b>READ</b></span> getoptionstree <span style="color:navy"><b>WRITE</b></span> setoptionstree <span style="color:navy"><b>DEFAULT</b></span> [teo_treecolnavig, teo_enteronimageclick];
+         <span style="color:navy"><b>PROPERTY</b></span> optionsedit: optionseditty <span style="color:navy"><b>READ</b></span> getoptionsedit <span style="color:navy"><b>WRITE</b></span> setoptionsedit <span style="color:navy"><b>DEFAULT</b></span> [oe_readonly, oe_undoonesc, oe_checkmrcancel, oe_forcereturncheckvalue, oe_hintclippedtext, oe_locate];
+         <span style="color:navy"><b>PROPERTY</b></span> col_color: colorty <span style="color:navy"><b>READ</b></span> getcol_color <span style="color:navy"><b>WRITE</b></span> setcol_color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+         <span style="color:navy"><b>PROPERTY</b></span> col_coloractive: colorty <span style="color:navy"><b>READ</b></span> getcol_coloractive <span style="color:navy"><b>WRITE</b></span> setcol_coloractive <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+         <span style="color:navy"><b>PROPERTY</b></span> col_colorfocused: colorty <span style="color:navy"><b>READ</b></span> getcol_colorfocused <span style="color:navy"><b>WRITE</b></span> setcol_colorfocused <span style="color:navy"><b>DEFAULT</b></span> cl_active;
+         <span style="color:navy"><b>PROPERTY</b></span> col_options: coloptionsty <span style="color:navy"><b>READ</b></span> getcell_options <span style="color:navy"><b>WRITE</b></span> setcell_options <span style="color:navy"><b>DEFAULT</b></span> [co_readonly, co_fill, co_savevalue];
+         <span style="color:navy"><b>PROPERTY</b></span> onpathchanged: dirtreepatheventty <span style="color:navy"><b>READ</b></span> fonpathchanged <span style="color:navy"><b>WRITE</b></span> fonpathchanged;
+         <span style="color:navy"><b>PROPERTY</b></span> onpathselected: dirtreepatheventty <span style="color:navy"><b>READ</b></span> fonpathselected <span style="color:navy"><b>WRITE</b></span> fonpathselected;
+         <span style="color:navy"><b>PROPERTY</b></span> onselectionchanged: listitemeventty <span style="color:navy"><b>READ</b></span> fonselectionchanged <span style="color:navy"><b>WRITE</b></span> fonselectionchanged;
+         <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetsubfocus;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfiledialogxfo" name="tfiledialogxfo">tfiledialogxfo</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseform">tmseform</a>)
+      PUBLIC
+         tlayouter2: tlayouter;
+         dir: tdirdropdownedit;
+         up: tstockglyphbutton;
+         back: tstockglyphbutton;
+         forward: tstockglyphbutton;
+         filename: thistoryedit;
+         filter: tdropdownlistedit;
+         showhidden: tbooleanedit;
+         list_log: tstringgrid;
+         home: TButton;
+         createdir: TButton;
+         cancel: TButton;
+         ok: TButton;
+         bcompact: tbooleanedit;
+         tsplitter1: tsplitter;
+         listview: tfilelistviewx;
+         blateral: tbooleanedit;
+         placespan: tstringdisp;
+         places: tstringgrid;
+         tsplitter3: tsplitter;
+         placescust: tstringgrid;
+         labtest: tlabel;
+         bnoicon: tbooleanedit;
+        bshowoptions: tbooleanedit;
+        tsplitter2: tsplitter;
+        bhidehistory: tbooleanedit;
+        tbitmapcomp1: tbitmapcomp;
+        imImage: timage;
+        iconslist: timagelist;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadImage (const AFileName: msestring);
+         <span style="color:navy"><b>PROCEDURE</b></span> createdironexecute (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> listviewselectionchanged (const Sender: tcustomlistview);
+         <span style="color:navy"><b>PROCEDURE</b></span> listviewitemevent (const Sender: tcustomlistview; const index: integer; var info: celleventinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> listviewonkeydown (const Sender: twidget; var info: keyeventinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> upaction (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> dironsetvalue (const Sender: TObject; var avalue: mseString; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> filenamesetvalue (const Sender: TObject; var avalue: mseString; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> listviewonlistread (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> filteronafterclosedropdown (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> filteronsetvalue (const Sender: TObject; var avalue: msestring; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> filepathentered (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> okonexecute (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> layoutev (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> showhiddenonsetvalue (const Sender: TObject; var avalue: Boolean; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> dirshowhint (const Sender: TObject; var info: hintinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> copytoclip (const Sender: TObject; var avalue: msestring);
+         <span style="color:navy"><b>PROCEDURE</b></span> pastefromclip (const Sender: TObject; var avalue: msestring);
+         <span style="color:navy"><b>PROCEDURE</b></span> homeaction (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> backexe (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> forwardexe (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> buttonshowhint (const Sender: TObject; var ainfo: hintinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> oncellev (const Sender: TObject; var info: celleventinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> ondrawcell (const Sender: tcol; const Canvas: tcanvas; var cellinfo: cellinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> onsetcomp (const Sender: TObject; var avalue: Boolean; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> oncreat (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> onbefdrop (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> oncellevplaces (const Sender: TObject; var info: celleventinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> ondrawcellplace (const Sender: tcol; const Canvas: tcanvas; var cellinfo: cellinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> onlayout (const Sender: tcustomgrid);
+         <span style="color:navy"><b>PROCEDURE</b></span> onformcreated (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> onlateral (const Sender: TObject; var avalue: Boolean; var accept: Boolean);
+         <span style="color:navy"><b>PROCEDURE</b></span> afterclosedrop (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> onresize (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> onchangdir (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> ondrawcellplacescust (const Sender: tcol; const Canvas: tcanvas; var cellinfo: cellinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> oncellevcustplaces (const Sender: TObject; var info: celleventinfoty);
+         <span style="color:navy"><b>PROCEDURE</b></span> onmovesplit (const Sender: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> onsetvalnoicon (const Sender: TObject; var avalue: Boolean; var accept: Boolean);
+         dialogoptions: filedialogoptionsty;
+         defaultext: filenamety;
+         filenames: filenamearty;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

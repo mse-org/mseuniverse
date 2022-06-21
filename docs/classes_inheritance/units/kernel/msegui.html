@@ -1,0 +1,1171 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msegui;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomframe" name="tcustomframe">tcustomframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#toptionalpersistent">toptionalpersistent</a>,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iframe); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> scale (const ascale: real); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkwidgetsize (var asize: sizety); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const aid: int32; var info: hintinfoty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> paintbackground (const canvas: tcanvas;
+                  const arect: rectty; const clip: boolean; const move: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintoverlay (const canvas: tcanvas; const arect: rectty);
+        <span style="color:navy"><b>FUNCTION</b></span> pointinmask (const pos: pointty; const arect: rectty): boolean;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> outerframedim: sizety; //widgetsize - framesize
+        <span style="color:navy"><b>FUNCTION</b></span> outerframecx: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> outerframecy: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> frameframedim: sizety; //widgetsize - (paintsize + paintframe)
+        <span style="color:navy"><b>FUNCTION</b></span> frameframecx: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> frameframecy: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> paintframedim: sizety; //widgetsize - paintsize
+        <span style="color:navy"><b>FUNCTION</b></span> paintframecx: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> paintframecy: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> innerframedim: sizety; //widgetsize - innersize
+        <span style="color:navy"><b>FUNCTION</b></span> innerframecx: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> innerframecy: int32;
+        <span style="color:navy"><b>FUNCTION</b></span> outerframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> paintframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> paintframedelta: framety;   //paintframe-outerframe
+        <span style="color:navy"><b>FUNCTION</b></span> innerframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> cellframe: framety; //innerframe without paintframedelta
+        <span style="color:navy"><b>FUNCTION</b></span> pointincaption (const point: pointty): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initgridframe; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> changedirection (const oldvalue: graphicdirectionty;
+                                                 const newvalue: graphicdirectionty);
+        <span style="color:navy"><b>PROPERTY</b></span> intf: iframe <span style="color:navy"><b>READ</b></span> fintf;
+        <span style="color:navy"><b>PROPERTY</b></span> levelo: integer <span style="color:navy"><b>READ</b></span> fi.levelo <span style="color:navy"><b>WRITE</b></span> setlevelo
+                          stored islevelostored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli: integer <span style="color:navy"><b>READ</b></span> fi.leveli <span style="color:navy"><b>WRITE</b></span> setleveli
+                          stored islevelistored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth: integer <span style="color:navy"><b>READ</b></span> fi.framewidth <span style="color:navy"><b>WRITE</b></span> setframewidth
+                          stored isframewidthstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe: colorty <span style="color:navy"><b>READ</b></span> fi.colorframe <span style="color:navy"><b>WRITE</b></span> setcolorframe
+                          stored iscolorframestored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive: colorty <span style="color:navy"><b>READ</b></span> fi.colorframeactive
+                          <span style="color:navy"><b>WRITE</b></span> setcolorframeactive
+                          stored iscolorframeactivestored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled: colorty <span style="color:navy"><b>READ</b></span> fi.colorframedisabled
+                          <span style="color:navy"><b>WRITE</b></span> setcolorframedisabled
+                          stored iscolorframedisabledstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse: colorty <span style="color:navy"><b>READ</b></span> fi.colorframemouse
+                          <span style="color:navy"><b>WRITE</b></span> setcolorframemouse
+                          stored iscolorframemousestored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked: colorty <span style="color:navy"><b>READ</b></span> fi.colorframeclicked
+                          <span style="color:navy"><b>WRITE</b></span> setcolorframeclicked
+                          stored iscolorframeclickedstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault: colorty <span style="color:navy"><b>READ</b></span> fi.colorframedefault
+                          <span style="color:navy"><b>WRITE</b></span> setcolorframedefault
+                          stored iscolorframe<span style="color:navy"><b>DEFAULT</b></span>stored default cl_default;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow: colorty <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.shadow.effectcolor
+                   <span style="color:navy"><b>WRITE</b></span> setcolordkshadow
+                          stored iscolordkshadowstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow: colorty <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.shadow.color
+                          <span style="color:navy"><b>WRITE</b></span> setcolorshadow
+                          stored iscolorshadowstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight: colorty <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.light.color
+                          <span style="color:navy"><b>WRITE</b></span> setcolorlight
+                          stored iscolorlightstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight: colorty <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.light.effectcolor
+                          <span style="color:navy"><b>WRITE</b></span> setcolorhighlight
+                          stored iscolorhighlightstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth: integer <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.shadow.effectwidth
+                          <span style="color:navy"><b>WRITE</b></span> setcolordkwidth
+                          stored iscolordkwidthstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth: integer <span style="color:navy"><b>READ</b></span> fi.framecolors.edges.light.effectwidth
+                          <span style="color:navy"><b>WRITE</b></span> setcolorhlwidth
+                          stored iscolorhlwidthstored <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges: edgesty <span style="color:navy"><b>READ</b></span> fi.hiddenedges
+                             <span style="color:navy"><b>WRITE</b></span> sethiddenedges <span style="color:navy"><b>DEFAULT</b></span> [];
+        
+        <span style="color:navy"><b>PROPERTY</b></span> framei: framety <span style="color:navy"><b>READ</b></span> fi.innerframe <span style="color:navy"><b>WRITE</b></span> setframei;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left: integer <span style="color:navy"><b>READ</b></span> fi.innerframe.left <span style="color:navy"><b>WRITE</b></span> setframei_left
+                          stored isfileftstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top: integer <span style="color:navy"><b>READ</b></span> fi.innerframe.top  <span style="color:navy"><b>WRITE</b></span> setframei_top
+                          stored isfitopstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right: integer <span style="color:navy"><b>READ</b></span> fi.innerframe.right <span style="color:navy"><b>WRITE</b></span> setframei_right
+                          stored isfirightstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom: integer <span style="color:navy"><b>READ</b></span> fi.innerframe.bottom
+                          <span style="color:navy"><b>WRITE</b></span> setframei_bottom
+                          stored isfibottomstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameo: framety <span style="color:navy"><b>READ</b></span> fi.outerframe <span style="color:navy"><b>WRITE</b></span> setframeo;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left: integer <span style="color:navy"><b>READ</b></span> fi.outerframe.left <span style="color:navy"><b>WRITE</b></span> setframeo_left
+                          stored isfoleftstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top: integer <span style="color:navy"><b>READ</b></span> fi.outerframe.top  <span style="color:navy"><b>WRITE</b></span> setframeo_top
+                          stored isfotopstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right: integer <span style="color:navy"><b>READ</b></span> fi.outerframe.right <span style="color:navy"><b>WRITE</b></span> setframeo_right
+                          stored isforightstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom: integer <span style="color:navy"><b>READ</b></span> fi.outerframe.bottom
+                          <span style="color:navy"><b>WRITE</b></span> setframeo_bottom
+                          stored isfobottomstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list: timagelist <span style="color:navy"><b>READ</b></span> fi.frameimage_list
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_list stored isframeimage_liststored;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_left
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_left
+                         stored isframeimage_leftstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_top
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_top
+                         stored isframeimage_topstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_right
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_right
+                         stored isframeimage_rightstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_bottom
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_bottom
+                         stored isframeimage_bottomstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset: imagenrty <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.offset
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offset
+                         stored isframeimage_offsetstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1: imagenrty <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.offset1
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offset1
+                         stored isframeimage_offset1stored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled: imagenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.disabled
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offsetdisabled
+                         stored isframeimage_offsetdisabledstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse: imagenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.mouse
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offsetmouse
+                         stored isframeimage_offsetmousestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked: imagenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.clicked
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offsetclicked
+                         stored isframeimage_offsetclickedstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive: imagenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.active
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offsetactive
+                         stored isframeimage_offsetactivestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused: imagenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameimage_offsets.focused
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offsetfocused
+                         stored isframeimage_offsetfocusedstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list: tfacelist <span style="color:navy"><b>READ</b></span> fi.frameface_list
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_list stored isframeface_liststored;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset: facenrty <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.offset
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offset
+                         stored isframeface_offsetstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.offset1
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offset1
+                         stored isframeface_offset1stored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.disabled
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offsetdisabled
+                 stored isframeface_offsetdisabledstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.mouse
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offsetmouse
+                         stored isframeface_offsetmousestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.clicked
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offsetclicked
+                         stored isframeface_offsetclickedstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.active
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offsetactive
+                         stored isframeface_offsetactivestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused: facenrty
+                         <span style="color:navy"><b>READ</b></span> fi.frameface_offsets.focused
+                         <span style="color:navy"><b>WRITE</b></span> setframeface_offsetfocused
+                         stored isframeface_offsetfocusedstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin: frameskinoptionsty <span style="color:navy"><b>READ</b></span> fi.optionsskin
+                         <span style="color:navy"><b>WRITE</b></span> setoptionsskin stored isoptionsskinstored <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist: int32 <span style="color:navy"><b>READ</b></span> fi.focusrectdist
+                              <span style="color:navy"><b>WRITE</b></span> setfocusrectdist
+                                        stored isfocusrectdiststored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace: int32 <span style="color:navy"><b>READ</b></span> fi.extraspace
+                              <span style="color:navy"><b>WRITE</b></span> setextraspace
+                                        stored isextraspacestored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist: int32 <span style="color:navy"><b>READ</b></span> fi.imagedist
+                              <span style="color:navy"><b>WRITE</b></span> setimagedist
+                                        stored isimagediststored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1: int32 <span style="color:navy"><b>READ</b></span> fi.imagedist1
+                              <span style="color:navy"><b>WRITE</b></span> setimagedist1
+                                        stored isimagedist1stored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2: int32 <span style="color:navy"><b>READ</b></span> fi.imagedist2
+                              <span style="color:navy"><b>WRITE</b></span> setimagedist2
+                                        stored isimagedist2stored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient: colorty <span style="color:navy"><b>READ</b></span> fi.colorclient <span style="color:navy"><b>WRITE</b></span> setcolorclient
+                         stored iscolorclientstored <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops: framelocalpropsty <span style="color:navy"><b>READ</b></span> flocalprops
+                         <span style="color:navy"><b>WRITE</b></span> setlocalprops {<span style="color:navy"><b>DEFAULT</b></span> []};
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1: framelocalprops1ty <span style="color:navy"><b>READ</b></span> flocalprops1
+                         <span style="color:navy"><b>WRITE</b></span> setlocalprops1 {<span style="color:navy"><b>DEFAULT</b></span> []};
+        <span style="color:navy"><b>PROPERTY</b></span> template: tframecomp <span style="color:navy"><b>READ</b></span> ftemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tframe" name="tframe">tframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomframe">tcustomframe</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> levelo;
+        <span style="color:navy"><b>PROPERTY</b></span> leveli;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframe;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeactive;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframemouse;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframeclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> colorframedefault;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo_bottom;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_left;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_right;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_top;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offset1;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetdisabled;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetmouse;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetclicked;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetactive;
+        <span style="color:navy"><b>PROPERTY</b></span> frameface_offsetfocused;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> focusrectdist;
+        <span style="color:navy"><b>PROPERTY</b></span> extraspace;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagedist2;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> colorclient;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorshadow;
+        <span style="color:navy"><b>PROPERTY</b></span> colorlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhighlight;
+        <span style="color:navy"><b>PROPERTY</b></span> colordkwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> colorhlwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenedges;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> localprops1; //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tframetemplate" name="tframetemplate">tframetemplate</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistenttemplate">tpersistenttemplate</a>,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: tmsecomponent;
+                       const onchange: notifyeventty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paintbackground (const acanvas: tcanvas; const arect: rectty;
+                                      const astate: framestateflagsty = []);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintoverlay (const acanvas: tcanvas; const arect: rectty;
+                             const astate: framestateflagsty = []);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintbackgroundframe (const acanvas: tcanvas; const arect: rectty;
+                                      const astate: framestateflagsty = []);
+        <span style="color:navy"><b>PROCEDURE</b></span> paintoverlayframe (const acanvas: tcanvas; const arect: rectty;
+                             const astate: framestateflagsty = []);
+        <span style="color:navy"><b>FUNCTION</b></span> paintframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> innerframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> paintframedim: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> innerframedim: sizety;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROPERTY</b></span> framei: framety <span style="color:navy"><b>READ</b></span> fi.ba.innerframe;
+        <span style="color:navy"><b>PROPERTY</b></span> frameo: framety <span style="color:navy"><b>READ</b></span> fi.ba.outerframe;
+        <span style="color:navy"><b>PROPERTY</b></span> clientsizeextend: sizety <span style="color:navy"><b>READ</b></span> fclientsizeextend
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tframecomp" name="tframecomp">tframecomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttemplatecontainer">ttemplatecontainer</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> template: tframetemplate <span style="color:navy"><b>READ</b></span> gettemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfadecolorarrayprop" name="tfadecolorarrayprop">tfadecolorarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcolorarrayprop">tcolorarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfadeopacolorarrayprop" name="tfadeopacolorarrayprop">tfadeopacolorarrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcolorarrayprop">tcolorarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfacebitmap" name="tfacebitmap">tfacebitmap</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmaskedbitmap">tmaskedbitmap</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomface);
+        <span style="color:navy"><b>PROPERTY</b></span> pos: pointty <span style="color:navy"><b>READ</b></span> fpos <span style="color:navy"><b>WRITE</b></span> setpos;
+        <span style="color:navy"><b>PROPERTY</b></span> center: pointty <span style="color:navy"><b>READ</b></span> getcenter <span style="color:navy"><b>WRITE</b></span> setcenter;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> x: int32 <span style="color:navy"><b>READ</b></span> fpos.x <span style="color:navy"><b>WRITE</b></span> setx <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> y: int32 <span style="color:navy"><b>READ</b></span> fpos.y <span style="color:navy"><b>WRITE</b></span> sety <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomface" name="tcustomface">tcustomface</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#toptionalpersistent">toptionalpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: twidget); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const intf: iface); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checktemplate (const sender: tobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas; const arect: rectty);
+        <span style="color:navy"><b>PROPERTY</b></span> options: faceoptionsty <span style="color:navy"><b>READ</b></span> fi.options <span style="color:navy"><b>WRITE</b></span> setoptions
+                        stored isoptionsstored <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left: integer <span style="color:navy"><b>READ</b></span> fi.framei.left <span style="color:navy"><b>WRITE</b></span> setframei_left
+                                        stored isframei_leftstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top: integer <span style="color:navy"><b>READ</b></span> fi.framei.top <span style="color:navy"><b>WRITE</b></span> setframei_top
+                                        stored isframei_topstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right: integer <span style="color:navy"><b>READ</b></span> fi.framei.right <span style="color:navy"><b>WRITE</b></span> setframei_right
+                                        stored isframei_rightstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom: integer <span style="color:navy"><b>READ</b></span> fi.framei.bottom <span style="color:navy"><b>WRITE</b></span> setframei_bottom
+                                        stored isframei_bottomstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> image: tfacebitmap <span style="color:navy"><b>READ</b></span> fi.image <span style="color:navy"><b>WRITE</b></span> setimage
+                                                       stored isimagestored;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_pos: trealarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_pos <span style="color:navy"><b>WRITE</b></span> setfade_pos
+                                                            stored isfaposstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_color: tfadecolorarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_color
+                                   <span style="color:navy"><b>WRITE</b></span> setfade_color stored isfacolorstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_direction: graphicdirectionty <span style="color:navy"><b>READ</b></span> fi.fade_direction
+                         <span style="color:navy"><b>WRITE</b></span> setfade_direction
+                         stored isfadirectionstored <span style="color:navy"><b>DEFAULT</b></span> gd_right ;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacity: colorty <span style="color:navy"><b>READ</b></span> fi.fade_opacity
+                         <span style="color:navy"><b>WRITE</b></span> setfade_opacity
+                         stored isfaopacitystored <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opapos: trealarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_opapos
+                            <span style="color:navy"><b>WRITE</b></span> setfade_opapos stored isfaopaposstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacolor: tfadeopacolorarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_opacolor
+                            <span style="color:navy"><b>WRITE</b></span> setfade_opacolor stored isfaopacolorstored;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list: timagelist <span style="color:navy"><b>READ</b></span> fi.frameimage_list
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_list stored isframeimage_liststored;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_offset
+                         <span style="color:navy"><b>WRITE</b></span> setframeimage_offset
+                         stored isframeimage_offsetstored <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> localprops: facelocalpropsty <span style="color:navy"><b>READ</b></span> flocalprops
+                         <span style="color:navy"><b>WRITE</b></span> setlocalprops {<span style="color:navy"><b>DEFAULT</b></span> []};
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfacecomp <span style="color:navy"><b>READ</b></span> ftemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tface" name="tface">tface</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomface">tcustomface</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> image;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_pos;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_color;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opapos;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacolor;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_direction;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacity;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset;
+        <span style="color:navy"><b>PROPERTY</b></span> localprops;          //before template
+        <span style="color:navy"><b>PROPERTY</b></span> template;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfacearrayprop" name="tfacearrayprop">tfacearrayprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iface); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tface <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfacelist" name="tfacelist">tfacelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas; const aindex: int32;
+                                                        const dest: rectty);
+        <span style="color:navy"><b>FUNCTION</b></span> lookup (const aindex: int32): int32;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> list: tfacearrayprop <span style="color:navy"><b>READ</b></span> flist <span style="color:navy"><b>WRITE</b></span> setlist;
+        <span style="color:navy"><b>PROPERTY</b></span> indexlookup: msestring <span style="color:navy"><b>READ</b></span> findexlookup <span style="color:navy"><b>WRITE</b></span> setindexlookup;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfacetemplate" name="tfacetemplate">tfacetemplate</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistenttemplate">tpersistenttemplate</a>,iface1)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const owner: tmsecomponent;
+                                        const onchange: notifyeventty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas; const arect: rectty);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: faceoptionsty <span style="color:navy"><b>READ</b></span> fi.options <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> framei_left: integer <span style="color:navy"><b>READ</b></span> fi.framei.left
+                                             <span style="color:navy"><b>WRITE</b></span> setframei_left <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_top: integer <span style="color:navy"><b>READ</b></span> fi.framei.top
+                                             <span style="color:navy"><b>WRITE</b></span> setframei_top <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_right: integer <span style="color:navy"><b>READ</b></span> fi.framei.right
+                                             <span style="color:navy"><b>WRITE</b></span> setframei_right <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> framei_bottom: integer <span style="color:navy"><b>READ</b></span> fi.framei.bottom
+                                             <span style="color:navy"><b>WRITE</b></span> setframei_bottom <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> image: tfacebitmap <span style="color:navy"><b>READ</b></span> fi.image <span style="color:navy"><b>WRITE</b></span> setimage;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_pos: trealarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_pos <span style="color:navy"><b>WRITE</b></span> setfade_pos;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_color: tfadecolorarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_color
+                                                        <span style="color:navy"><b>WRITE</b></span> setfade_color;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opapos: trealarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_opapos
+                         <span style="color:navy"><b>WRITE</b></span> setfade_opapos;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacolor: tfadeopacolorarrayprop <span style="color:navy"><b>READ</b></span> fi.fade_opacolor
+                                                        <span style="color:navy"><b>WRITE</b></span> setfade_opacolor;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_direction: graphicdirectionty <span style="color:navy"><b>READ</b></span> fi.fade_direction
+                     <span style="color:navy"><b>WRITE</b></span> setfade_direction <span style="color:navy"><b>DEFAULT</b></span> gd_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fade_opacity: colorty <span style="color:navy"><b>READ</b></span> fi.fade_opacity
+                   <span style="color:navy"><b>WRITE</b></span> setfade_opacity <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_list: timagelist <span style="color:navy"><b>READ</b></span> fi.frameimage_list
+                          <span style="color:navy"><b>WRITE</b></span> setframeimage_list;
+        <span style="color:navy"><b>PROPERTY</b></span> frameimage_offset: integer <span style="color:navy"><b>READ</b></span> fi.frameimage_offset
+                          <span style="color:navy"><b>WRITE</b></span> setframeimage_offset <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint: beforefacepainteventty <span style="color:navy"><b>READ</b></span> fonbeforepaint
+                                                            <span style="color:navy"><b>WRITE</b></span> fonbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint: afterfacepainteventty <span style="color:navy"><b>READ</b></span> fonafterpaint
+                                                            <span style="color:navy"><b>WRITE</b></span> fonafterpaint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfacecomp" name="tfacecomp">tfacecomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttemplatecontainer">ttemplatecontainer</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> template: tfacetemplate <span style="color:navy"><b>READ</b></span> gettemplate <span style="color:navy"><b>WRITE</b></span> settemplate;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfont" name="twidgetfont">twidgetfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetfontempty" name="twidgetfontempty">twidgetfontempty</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidgetevent" name="twidgetevent">twidgetevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcomponentevent">tcomponentevent</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twidget" name="twidget">twidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>,iscrollframe,iface,iassistiveclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                                       const aparentwidget: twidget); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcomponent;
+                           const aparentwidget: twidget;
+                           const aiswidget: boolean{ = true}); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> createandinit (const aowner: tcomponent;
+                                      const aparentwidget: twidget;
+                                                const aiswidget: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> afterconstruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewcomponent (const ascale: real); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> initnewwidget (const ascale: real); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createframe;
+        <span style="color:navy"><b>PROCEDURE</b></span> createface;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontempty;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkautosize ();
+        <span style="color:navy"><b>PROCEDURE</b></span> updatehotkeys () <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> isloading: boolean;      //checks ws_loadlock and csdestroing too
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate; //sets ws_loadlock and noinvalidate
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>FUNCTION</b></span> canmouseinteract: boolean; //checks csdesigning and cssubcomponent
+        <span style="color:navy"><b>FUNCTION</b></span> canassistive (): boolean <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetstate: widgetstatesty;                 //iframe
+        <span style="color:navy"><b>PROPERTY</b></span> widgetstate1: widgetstates1ty <span style="color:navy"><b>READ</b></span> fwidgetstate1;
+        <span style="color:navy"><b>FUNCTION</b></span> hasparent: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;               //tcomponent
+        <span style="color:navy"><b>FUNCTION</b></span> getparentcomponent: tcomponent; <span style="color:teal"><b>OVERRIDE</b></span>;   //tcomponent
+        <span style="color:navy"><b>FUNCTION</b></span> hascaret: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> canwindow: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> windowallocated: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> ownswindow: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> updaterect: rectty; //invalidated area, origin = clientpos
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beforeclosequery (var amodalresult: modalresultty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget = nil): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canparentclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> forceclose: boolean; //newfocus=nil, sets ws1_forceclose, true if ok
+        <span style="color:navy"><b>FUNCTION</b></span> canparentclose: boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canfocus: boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> setfocus (aactivate: boolean = true): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;//true if ok
+        <span style="color:navy"><b>PROCEDURE</b></span> parentfocus; //sets focus to self or focusable parent
+        <span style="color:navy"><b>PROCEDURE</b></span> nextfocus; //sets inputfocus to then next appropriate widget
+        <span style="color:navy"><b>FUNCTION</b></span> findtabfocus (const ataborder: integer): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> firsttabfocus: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> lasttabfocus: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> nexttaborder (const down: boolean = false;
+                                             nowrap: boolean = false): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> focusback (const aactivate: boolean = true): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> parentcolor: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> actualcolor: colorty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> actualopaquecolor: colorty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> backgroundcolor: colorty;
+        <span style="color:navy"><b>FUNCTION</b></span> translatecolor (const acolor: colorty): colorty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> widgetevent (const event: twidgetevent); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendwidgetevent (const event: twidgetevent);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> release (const nomodaldefer: boolean=false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> show (const modallevel: modallevelty;
+                 const transientfor: twindow = nil): modalresultty;
+                                                         <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> show (const modallevel: modallevelty;
+                 const transientfor: twidget): modalresultty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> show (const modal: boolean = false;
+                 const transientfor: twindow = nil): modalresultty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endmodal;
+        <span style="color:navy"><b>PROCEDURE</b></span> hide;
+        <span style="color:navy"><b>PROCEDURE</b></span> activate (const abringtofront: boolean = true;
+                           const aforce: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> bringtofront;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendtoback;
+        <span style="color:navy"><b>PROCEDURE</b></span> stackunder (const predecessor: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> setchildorder (const achildren: widgetarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const canvas: tcanvas); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> update; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollwidgets (const dist: pointty);
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollrect (const dist: pointty; const rect: rectty;
+                                     scrollcaret: boolean); //origin = paintrect.pos
+        <span style="color:navy"><b>PROCEDURE</b></span> scroll (const dist: pointty);
+        <span style="color:navy"><b>PROCEDURE</b></span> clampinview (const arect: rectty;
+                                 const bottomright: boolean = false); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> getcaret;
+        <span style="color:navy"><b>PROCEDURE</b></span> scrollcaret (const dist: pointty);
+        <span style="color:navy"><b>FUNCTION</b></span> mousecaptured: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> capturemouse (grab: boolean = true): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> releasemouse (const grab: boolean = false);
+        <span style="color:navy"><b>FUNCTION</b></span> capturekeyboard: boolean; //true for new grab
+        <span style="color:navy"><b>PROCEDURE</b></span> releasekeyboard;
+        <span style="color:navy"><b>PROCEDURE</b></span> synctofontheight; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> dragevent (var info: draginfoty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dolayout (const sender: twidget); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidatewidget;     //invalidates whole widget
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidate;           //invalidates clientrect
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidaterect (const rect: rectty;
+                    const org: originty = org_client; const noclip: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidateframestate;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidateframestaterect (const rect: rectty;
+                    const aframe: tcustomframe; const org: originty = org_client);
+        <span style="color:navy"><b>FUNCTION</b></span> hasoverlappingsiblings (arect: rectty): boolean; //origin = pos
+        
+        <span style="color:navy"><b>FUNCTION</b></span> window: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> rootwidget: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> parentofcontainer: twidget;
+        <span style="color:navy"><b>PROPERTY</b></span> parentwidget: twidget <span style="color:navy"><b>READ</b></span> fparentwidget <span style="color:navy"><b>WRITE</b></span> setparentwidget;
+        <span style="color:navy"><b>FUNCTION</b></span> getrootwidgetpath: widgetarty; //root widget is last
+        <span style="color:navy"><b>FUNCTION</b></span> widgetcount: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> parentwidgetindex: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> indexofwidget (const awidget: twidget): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> checkdescendent (awidget: twidget): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> checkancestor (awidget: twidget): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> containswidget (awidget: twidget): boolean;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> widgets[const index: integer]: twidget <span style="color:navy"><b>READ</b></span> getwidgets;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetatpos (var info: widgetatposinfoty): twidget; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetatpos (const pos: pointty): twidget; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetatpos (const pos: pointty;
+                        const state: widgetstatesty): twidget; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> container: twidget <span style="color:navy"><b>READ</b></span> getcontainer;
+        <span style="color:navy"><b>FUNCTION</b></span> containeroffset: pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> childrencount: integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> visiblechildrencount: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> children[const index: integer]: twidget <span style="color:navy"><b>READ</b></span> getchildwidgets;
+                                                                           default;
+        <span style="color:navy"><b>FUNCTION</b></span> findtagchild (const atag: integer;
+                                     const aclass: widgetclassty): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> findchild (const aname: ansistring): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> childatpos (const pos: pointty;
+                        const clientorigin: boolean = true): twidget; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> gettaborderedwidgets: widgetarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getvisiblewidgets: widgetarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getcornerwidget (const side: graphicdirectionty;
+                                             const visibleonly: boolean): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> getsortxchildren (const banded: boolean = false): widgetarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getsortychildren (const banded: boolean = false): widgetarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getlogicalchildren: widgetarty; <span style="color:teal"><b>VIRTUAL</b></span>; //children of container
+        <span style="color:navy"><b>PROCEDURE</b></span> addlogicalchildren (var achildren: widgetarty);
+        <span style="color:navy"><b>FUNCTION</b></span> findlogicalchild (const aname: ansistring): twidget;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> focusedchild: twidget <span style="color:navy"><b>READ</b></span> ffocusedchild;
+        <span style="color:navy"><b>PROPERTY</b></span> focusedchildbefore: twidget <span style="color:navy"><b>READ</b></span> ffocusedchildbefore;
+        <span style="color:navy"><b>FUNCTION</b></span> enteredchild (): twidget;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> mouseeventwidget (const info: mouseeventinfoty): twidget;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const awidget: twidget;
+                                       const apos: pointty); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> iswidgetclick (const info: mouseeventinfoty;
+                                         const caption: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> iswidgetdblclick (const info: mouseeventinfoty;
+                                         const caption: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> iswidgetdblclicked (const info: mouseeventinfoty;
+                                         const caption: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isclick (const info: mouseeventinfoty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isdblclick (const info: mouseeventinfoty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isdblclicked (const info: mouseeventinfoty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isleftbuttondown (const info: mouseeventinfoty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> isleftbuttondown (const info: mouseeventinfoty;
+                           const akeyshiftstate: shiftstatesty): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> widgetmousepos (const ainfo: mouseeventinfoty): pointty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> rootpos: pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> rootwidgetrect: rectty;
+        <span style="color:navy"><b>PROPERTY</b></span> screenpos: pointty <span style="color:navy"><b>READ</b></span> getscreenpos <span style="color:navy"><b>WRITE</b></span> setscreenpos;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> clientpostowidgetpos (const apos: pointty): pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetpostoclientpos (const apos: pointty): pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetpostopaintpos (const apos: pointty): pointty;
+        <span style="color:navy"><b>FUNCTION</b></span> paintpostowidgetpos (const apos: pointty): pointty;
+        <span style="color:navy"><b>PROCEDURE</b></span> scale (const ascale: real); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> widgetrect: rectty <span style="color:navy"><b>READ</b></span> fwidgetrect <span style="color:navy"><b>WRITE</b></span> setwidgetrect;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetscreenrect: rectty;        //screen origin
+        <span style="color:navy"><b>FUNCTION</b></span> widgetclientrect: rectty;        //origin = clientrect.pos
+        
+        <span style="color:navy"><b>PROPERTY</b></span> pos: pointty <span style="color:navy"><b>READ</b></span> fwidgetrect.pos <span style="color:navy"><b>WRITE</b></span> setpos;
+        <span style="color:navy"><b>PROPERTY</b></span> size: sizety <span style="color:navy"><b>READ</b></span> fwidgetrect.size <span style="color:navy"><b>WRITE</b></span> setsize;
+        <span style="color:navy"><b>PROPERTY</b></span> minsize: sizety <span style="color:navy"><b>READ</b></span> fminsize <span style="color:navy"><b>WRITE</b></span> setminsize;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetminsize: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> widgetmaxsize: sizety;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> maxsize: sizety <span style="color:navy"><b>READ</b></span> fmaxsize <span style="color:navy"><b>WRITE</b></span> setmaxsize;
+        <span style="color:navy"><b>FUNCTION</b></span> maxclientsize: sizety; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> minscrollsize: sizety; //uses cache
+        <span style="color:navy"><b>FUNCTION</b></span> minshrinksize: sizety; //uses cache
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_x: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.x <span style="color:navy"><b>WRITE</b></span> setbounds_x;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_y: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.y <span style="color:navy"><b>WRITE</b></span> setbounds_y;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.cx <span style="color:navy"><b>WRITE</b></span> setbounds_cx
+                       {<span style="color:navy"><b>DEFAULT</b></span> defaultwidgetwidth} stored true;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.cy <span style="color:navy"><b>WRITE</b></span> setbounds_cy
+                       {<span style="color:navy"><b>DEFAULT</b></span> defaultwidgetheight} stored true;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cxmin: integer <span style="color:navy"><b>READ</b></span> fminsize.cx
+                                           <span style="color:navy"><b>WRITE</b></span> setbounds_cxmin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cymin: integer <span style="color:navy"><b>READ</b></span> fminsize.cy
+                                           <span style="color:navy"><b>WRITE</b></span> setbounds_cymin <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cxmax: integer <span style="color:navy"><b>READ</b></span> fmaxsize.cx
+                                           <span style="color:navy"><b>WRITE</b></span> setbounds_cxmax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cymax: integer <span style="color:navy"><b>READ</b></span> fmaxsize.cy
+                                           <span style="color:navy"><b>WRITE</b></span> setbounds_cymax <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> left: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.x <span style="color:navy"><b>WRITE</b></span> setbounds_x;
+        <span style="color:navy"><b>PROPERTY</b></span> right: integer <span style="color:navy"><b>READ</b></span> getright <span style="color:navy"><b>WRITE</b></span> setright;
+        <span style="color:navy"><b>PROPERTY</b></span> top: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.y <span style="color:navy"><b>WRITE</b></span> setbounds_y;
+        <span style="color:navy"><b>PROPERTY</b></span> bottom: integer <span style="color:navy"><b>READ</b></span> getbottom <span style="color:navy"><b>WRITE</b></span> setbottom;
+        <span style="color:navy"><b>PROPERTY</b></span> width: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.cx <span style="color:navy"><b>WRITE</b></span> setbounds_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> height: integer <span style="color:navy"><b>READ</b></span> fwidgetrect.cy <span style="color:navy"><b>WRITE</b></span> setbounds_cy;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setclippedwidgetrect (arect: rectty);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> anchors: anchorsty <span style="color:navy"><b>READ</b></span> fanchors <span style="color:navy"><b>WRITE</b></span> setanchors
+                                                           <span style="color:navy"><b>DEFAULT</b></span> defaultanchors;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultfocuschild: twidget <span style="color:navy"><b>READ</b></span> getdefaultfocuschild
+                                                     <span style="color:navy"><b>WRITE</b></span> setdefaultfocuschild;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> framedim: sizety;                //widgetrect.size - paintrect.size
+        <span style="color:navy"><b>FUNCTION</b></span> framedimnoscrollbar: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> clientframewidth: sizety;        //widgetrect.size - clientrect.size
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientframewidth: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> innerframewidth: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> framerect: rectty;               //origin = pos
+        <span style="color:navy"><b>FUNCTION</b></span> framepos: pointty;               //origin = pos
+        <span style="color:navy"><b>PROPERTY</b></span> framesize: sizety <span style="color:navy"><b>READ</b></span> getframesize <span style="color:navy"><b>WRITE</b></span> setframesize;
+        <span style="color:navy"><b>PROPERTY</b></span> framewidth: integer <span style="color:navy"><b>READ</b></span> geframewidth <span style="color:navy"><b>WRITE</b></span> setframewidth;
+        <span style="color:navy"><b>PROPERTY</b></span> frameheight: integer <span style="color:navy"><b>READ</b></span> getframeheight <span style="color:navy"><b>WRITE</b></span> setframeheight;
+        <span style="color:navy"><b>FUNCTION</b></span> frameinnerrect: rectty;          //origin = pos
+        
+        <span style="color:navy"><b>FUNCTION</b></span> paintrect: rectty;               //origin = pos
+        <span style="color:navy"><b>FUNCTION</b></span> paintclientrect: rectty;         //origin = clientrect
+        <span style="color:navy"><b>FUNCTION</b></span> paintpos: pointty;               //origin = pos
+        <span style="color:navy"><b>PROPERTY</b></span> paintsize: sizety <span style="color:navy"><b>READ</b></span> getpaintsize <span style="color:navy"><b>WRITE</b></span> setpaintsize;
+        <span style="color:navy"><b>PROPERTY</b></span> paintwidth: integer <span style="color:navy"><b>READ</b></span> getpaintwidth <span style="color:navy"><b>WRITE</b></span> setpaintwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> paintheight: integer <span style="color:navy"><b>READ</b></span> getpaintheight <span style="color:navy"><b>WRITE</b></span> setpaintheight;
+        <span style="color:navy"><b>FUNCTION</b></span> clippedpaintrect: rectty;        //origin = pos,
+        <span style="color:navy"><b>FUNCTION</b></span> innerpaintrect: rectty;          //origin = pos
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> setanchordwidgetsize (const asize: sizety);
+        <span style="color:navy"><b>FUNCTION</b></span> widgetsizerect: rectty;          //pos = nullpoint
+        <span style="color:navy"><b>FUNCTION</b></span> paintsizerect: rectty;           //pos = nullpoint
+        <span style="color:navy"><b>FUNCTION</b></span> clientsizerect: rectty;          //pos = nullpoint
+        <span style="color:navy"><b>FUNCTION</b></span> containerclientsizerect: rectty; //pos = nullpoint
+        
+        <span style="color:navy"><b>PROPERTY</b></span> clientrect: rectty <span style="color:navy"><b>READ</b></span> getclientrect; //origin = paintrect.pos
+        <span style="color:navy"><b>PROCEDURE</b></span> changeclientsize (const delta: sizety); //asynchronous
+        <span style="color:navy"><b>PROPERTY</b></span> clientsize: sizety <span style="color:navy"><b>READ</b></span> getclientsize <span style="color:navy"><b>WRITE</b></span> setclientsize;
+        <span style="color:navy"><b>PROPERTY</b></span> clientwidth: integer <span style="color:navy"><b>READ</b></span> getclientwidth <span style="color:navy"><b>WRITE</b></span> setclientwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> clientheight: integer <span style="color:navy"><b>READ</b></span> getclientheight <span style="color:navy"><b>WRITE</b></span> setclientheight;
+        <span style="color:navy"><b>PROPERTY</b></span> clientpos: pointty <span style="color:navy"><b>READ</b></span> getclientpos; //origin = paintrect.pos;
+        <span style="color:navy"><b>FUNCTION</b></span> clientwidgetrect: rectty;        //origin = pos
+        <span style="color:navy"><b>FUNCTION</b></span> clientwidgetpos: pointty;        //origin = pos
+        <span style="color:navy"><b>FUNCTION</b></span> clientparentpos: pointty;        //origin = parentwidget.pos
+        <span style="color:navy"><b>PROPERTY</b></span> parentclientpos: pointty <span style="color:navy"><b>READ</b></span> getparentclientpos
+                                                       <span style="color:navy"><b>WRITE</b></span> setparentclientpos;
+        <span style="color:navy"><b>FUNCTION</b></span> paintparentrect: rectty;         //origin = parentwidget.pos
+        <span style="color:navy"><b>FUNCTION</b></span> paintparentpos: pointty;         //origin = parentwidget.pos
+        <span style="color:navy"><b>FUNCTION</b></span> parentpaintpos: pointty;         //origin = parentwidget.paintpos
+        <span style="color:navy"><b>FUNCTION</b></span> refpos (const aorigin: originty): pointty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> paintrectparent: rectty;         //origin = paintpos,
+        <span style="color:navy"><b>FUNCTION</b></span> clientrectparent: rectty;        //origin = paintpos,
+        <span style="color:navy"><b>FUNCTION</b></span> innerparentrect: rectty;         //origin = parentwidget.pos
+        <span style="color:navy"><b>FUNCTION</b></span> innerwidgetrect: rectty;         //origin = pos
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientrect: rectty;         //origin = clientpos
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientsize: sizety;
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientpos: pointty;         //origin = clientpos
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientframe: framety;
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientpaintpos: pointty;    //origin = paintpos
+        <span style="color:navy"><b>FUNCTION</b></span> innerclientwidgetpos: pointty;   //origin = pos
+        <span style="color:navy"><b>PROCEDURE</b></span> innertopaintsize (var asize: sizety);
+        <span style="color:navy"><b>PROCEDURE</b></span> outertopaintsize (var asize: sizety);
+        <span style="color:navy"><b>PROCEDURE</b></span> painttowidgetsize (var asize: sizety);
+        <span style="color:navy"><b>PROCEDURE</b></span> widgettopaintsize (var asize: sizety);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tcustomframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+        <span style="color:navy"><b>PROPERTY</b></span> face: tcustomface <span style="color:navy"><b>READ</b></span> getface <span style="color:navy"><b>WRITE</b></span> setface;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getcanvas (aorigin: originty = org_client): tcanvas;
+        <span style="color:navy"><b>FUNCTION</b></span> showing: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> isenabled: boolean;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> entered: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> activeentered: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> activefocused (): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> focused: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> clicked: boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> changedirection (const avalue: graphicdirectionty;
+                                             var dest: graphicdirectionty); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> placexorder (const startx: integer; const dist: array of integer;
+                     const awidgets: array of twidget;
+                     const endmargin: integer = minint);
+        <span style="color:navy"><b>PROCEDURE</b></span> placeyorder (const starty: integer; const dist: array of integer;
+                     const awidgets: array of twidget;
+                     const endmargin: integer = minint);
+        <span style="color:navy"><b>FUNCTION</b></span> alignx (const mode: widgetalignmodety;
+                             const awidgets: array of twidget;
+                             const glue: widgetalignmodety = wam_none;
+                             const margin: integer = 0): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> aligny (const mode: widgetalignmodety;
+                             const awidgets: array of twidget;
+                             const glue: widgetalignmodety = wam_none;
+                             const margin: integer = 0): integer;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget: optionswidgetty <span style="color:navy"><b>READ</b></span> foptionswidget
+                      <span style="color:navy"><b>WRITE</b></span> setoptionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget1: optionswidget1ty <span style="color:navy"><b>READ</b></span> foptionswidget1
+                      <span style="color:navy"><b>WRITE</b></span> setoptionswidget1 <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidget1;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin: optionsskinty <span style="color:navy"><b>READ</b></span> foptionsskin
+                                                 <span style="color:navy"><b>WRITE</b></span> setoptionsskin <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>FUNCTION</b></span> actualcursor (const apos: pointty): cursorshapety; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> cursor: cursorshapety <span style="color:navy"><b>READ</b></span> fcursor <span style="color:navy"><b>WRITE</b></span> setcursor
+                                                       <span style="color:navy"><b>DEFAULT</b></span> cr_default;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor
+                                                     <span style="color:navy"><b>DEFAULT</b></span> defaultwidgetcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> true;
+        <span style="color:navy"><b>PROPERTY</b></span> taborder: integer <span style="color:navy"><b>READ</b></span> ftaborder <span style="color:navy"><b>WRITE</b></span> settaborder <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> hint: msestring <span style="color:navy"><b>READ</b></span> gethint <span style="color:navy"><b>WRITE</b></span> sethint stored ishintstored;
+        <span style="color:navy"><b>PROPERTY</b></span> zorder: integer <span style="color:navy"><b>READ</b></span> getzorder <span style="color:navy"><b>WRITE</b></span> setzorder;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onnavigrequest: navigrequesteventty <span style="color:navy"><b>READ</b></span> fonnavigrequest
+                                                        <span style="color:navy"><b>WRITE</b></span> fonnavigrequest;
+        <span style="color:navy"><b>PROPERTY</b></span> skingroup: integer <span style="color:navy"><b>READ</b></span> fskingroup <span style="color:navy"><b>WRITE</b></span> fskingroup <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeupdateskin;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterupdateskin;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twindowevent" name="twindowevent">twindowevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseevent">tmseevent</a>)
+      PUBLIC
+        fwinid: winidty;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (akind: eventkindty; winid: winidty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treparentevent" name="treparentevent">treparentevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twindowevent">twindowevent</a>)
+      PUBLIC
+        fparent: winidty;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (akind: eventkindty; winid: winidty;
+                           aparent: winidty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twindow" name="twindow">twindow</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#teventobject">teventobject</a>,icanvas)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: twidget; const agdi: pgdifunctionaty = nil);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> destroywindow;
+        <span style="color:navy"><b>PROCEDURE</b></span> recreatewindow ();
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronscroll (const method: notifyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronscroll (const method: notifyeventty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> beginmodal: boolean; <span style="color:teal"><b>OVERLOAD</b></span>;//true if window destroyed
+        <span style="color:navy"><b>PROCEDURE</b></span> endmodal;
+        <span style="color:navy"><b>FUNCTION</b></span> modal: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> modalwindowbefore: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> transientforstackactive: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> activate (const force: boolean = false);
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> deactivateintermediate: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> reactivate (const force: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> update;
+        <span style="color:navy"><b>FUNCTION</b></span> candefocus: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> nofocus;
+        <span style="color:navy"><b>PROPERTY</b></span> focuscount: longword <span style="color:navy"><b>READ</b></span> ffocuscount;
+        <span style="color:navy"><b>FUNCTION</b></span> close: boolean; <span style="color:teal"><b>OVERLOAD</b></span>; //true if ok
+        <span style="color:navy"><b>FUNCTION</b></span> close (const amodalresult: modalresultty): boolean;
+                                 <span style="color:teal"><b>OVERLOAD</b></span>;//true if ok
+        <span style="color:navy"><b>PROCEDURE</b></span> beginmoving; //lock window rect modification
+        <span style="color:navy"><b>PROCEDURE</b></span> endmoving;
+        <span style="color:navy"><b>PROCEDURE</b></span> bringtofront;
+        <span style="color:navy"><b>PROCEDURE</b></span> bringtofrontlocal;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendtoback;
+        <span style="color:navy"><b>PROCEDURE</b></span> sendtobacklocal;
+        <span style="color:navy"><b>PROCEDURE</b></span> stackunder (const predecessor: twindow);
+        <span style="color:navy"><b>PROCEDURE</b></span> stackover (const predecessor: twindow);
+        <span style="color:navy"><b>FUNCTION</b></span> stackedunder (const avisible: boolean = false): twindow; //nil if top
+        <span style="color:navy"><b>FUNCTION</b></span> stackedover (const avisible: boolean = false): twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> hastransientfor: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> istransientfor (const base: twindow): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> defaulttransientfor: twindow;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> capturemouse: boolean; //true for new grab
+        <span style="color:navy"><b>PROCEDURE</b></span> releasemouse;
+        <span style="color:navy"><b>FUNCTION</b></span> mousecaptured: boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> postkeyevent (const akey: keyty;
+             const ashiftstate: shiftstatesty = []; const release: boolean = false;
+                       const achars: msestring = '');
+        
+        <span style="color:navy"><b>FUNCTION</b></span> winid: winidty;
+        <span style="color:navy"><b>FUNCTION</b></span> haswinid: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> state: windowstatesty;
+        <span style="color:navy"><b>FUNCTION</b></span> visible: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> activating: boolean; //in internalactivate proc
+        <span style="color:navy"><b>FUNCTION</b></span> normalwindowrect: rectty;
+        <span style="color:navy"><b>PROPERTY</b></span> updateregion: regionty <span style="color:navy"><b>READ</b></span> fupdateregion.region;
+        <span style="color:navy"><b>FUNCTION</b></span> updaterect: rectty;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> registermovenotification (sender: iobjectlink);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregistermovenotification (sender: iobjectlink);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> options: windowoptionsty <span style="color:navy"><b>READ</b></span> foptions;
+        <span style="color:navy"><b>FUNCTION</b></span> ispopup: boolean; {$ifdef FPC}inline;{$endif}
+        <span style="color:navy"><b>PROPERTY</b></span> owner: twidget <span style="color:navy"><b>READ</b></span> fownerwidget;
+        <span style="color:navy"><b>PROPERTY</b></span> focusedwidget: twidget <span style="color:navy"><b>READ</b></span> ffocusedwidget;
+        <span style="color:navy"><b>FUNCTION</b></span> firstfocuswidget (): twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> lastfocuswidget (): twidget;
+        <span style="color:navy"><b>PROPERTY</b></span> transientfor: twindow <span style="color:navy"><b>READ</b></span> ftransientfor;
+        <span style="color:navy"><b>PROPERTY</b></span> modalfor: boolean <span style="color:navy"><b>READ</b></span> getmodalfor;
+        <span style="color:navy"><b>PROPERTY</b></span> modalresult: modalresultty <span style="color:navy"><b>READ</b></span> fmodalresult <span style="color:navy"><b>WRITE</b></span> setmodalresult;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonendmodal: boolean <span style="color:navy"><b>READ</b></span> getbuttonendmodal <span style="color:navy"><b>WRITE</b></span> setbuttonendmodal;
+        <span style="color:navy"><b>PROPERTY</b></span> globalshortcuts: boolean <span style="color:navy"><b>READ</b></span> getglobalshortcuts <span style="color:navy"><b>WRITE</b></span> setglobalshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> localshortcuts: boolean <span style="color:navy"><b>READ</b></span> getlocalshortcuts <span style="color:navy"><b>WRITE</b></span> setlocalshortcuts;
+        <span style="color:navy"><b>PROPERTY</b></span> windowpos: windowposty <span style="color:navy"><b>READ</b></span> getwindowpos <span style="color:navy"><b>WRITE</b></span> setwindowpos;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> fcaption <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> container: winidty <span style="color:navy"><b>READ</b></span> fcontainer
+                                         <span style="color:navy"><b>WRITE</b></span> setcontainer <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> syscontainer: syswindowty <span style="color:navy"><b>READ</b></span> fsyscontainer
+                                         <span style="color:navy"><b>WRITE</b></span> setsyscontainer <span style="color:navy"><b>DEFAULT</b></span> sywi_none;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> screenpos: pointty <span style="color:navy"><b>READ</b></span> getscreenpos <span style="color:navy"><b>WRITE</b></span> setscreenpos;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedwidgetrect: rectty <span style="color:navy"><b>READ</b></span> getdecoratedwidgetrect
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedwidgetrect;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedpos: pointty <span style="color:navy"><b>READ</b></span> getdecoratedpos
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedpos;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedsize: sizety <span style="color:navy"><b>READ</b></span> getdecoratedsize
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedsize;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedbounds_x: integer <span style="color:navy"><b>READ</b></span> getdecoratedbounds_x
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedbounds_x;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedbounds_y: integer <span style="color:navy"><b>READ</b></span> getdecoratedbounds_y
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedbounds_y;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedbounds_cx: integer <span style="color:navy"><b>READ</b></span> getdecoratedbounds_cx
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedbounds_cx;
+        <span style="color:navy"><b>PROPERTY</b></span> decoratedbounds_cy: integer <span style="color:navy"><b>READ</b></span> getdecoratedbounds_cy
+                                          <span style="color:navy"><b>WRITE</b></span> setdecoratedbounds_cy;
+        <span style="color:navy"><b>PROPERTY</b></span> opacity: realty <span style="color:navy"><b>READ</b></span> fopacity <span style="color:navy"><b>WRITE</b></span> setopacity;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twindowrectevent" name="twindowrectevent">twindowrectevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twindowevent">twindowevent</a>)
+      PUBLIC
+        frect: rectty;
+        forigin: pointty;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (akind: eventkindty; winid: winidty;
+                             const rect: rectty; const aorigin: pointty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmouseevent" name="tmouseevent">tmouseevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twindowevent">twindowevent</a>)
+      PUBLIC
+        fpos: pointty;
+        fbutton: mousebuttonty;
+        fwheel: mousewheelty;
+        fshiftstate: shiftstatesty;
+        freflected: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> timestamp: longword <span style="color:navy"><b>READ</b></span> ftimestamp; //usec, 0 -> invalid
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const winid: winidty; const release: boolean;
+                           const button: mousebuttonty; const wheel: mousewheelty;
+                           const pos: pointty; const shiftstate: shiftstatesty;
+                           atimestamp: longword; const reflected: boolean = false);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmouseenterevent" name="tmouseenterevent">tmouseenterevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmouseevent">tmouseevent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const winid: winidty; const pos: pointty;
+                           const shiftstate: shiftstatesty; atimestamp: longword);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tkeyevent" name="tkeyevent">tkeyevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#twindowevent">twindowevent</a>)
+      PUBLIC
+        fkey: keyty;
+        fkeynomod: keyty;
+        fchars: msestring;
+        fbutton: mousebuttonty;
+        fshiftstate: shiftstatesty;
+        fposted: boolean;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const winid: winidty; const release: boolean;
+                       const key,keynomod: keyty; const shiftstate: shiftstatesty;
+                       const chars: msestring; const atimestamp: longword;
+                       const posted: boolean = false);
+        <span style="color:navy"><b>PROPERTY</b></span> timestamp: longword <span style="color:navy"><b>READ</b></span> ftimestamp; //usec
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tresizeevent" name="tresizeevent">tresizeevent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobjectevent">tobjectevent</a>)
+      PUBLIC
+        size: sizety;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const dest: ievent; const asize: sizety);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tguiapplication" name="tguiapplication">tguiapplication</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomapplication">tcustomapplication</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> destroyforms;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsgui: guiappoptionsty <span style="color:navy"><b>READ</b></span> foptionsgui
+                                                     <span style="color:navy"><b>WRITE</b></span> foptionsgui <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> forcezorder: boolean <span style="color:navy"><b>READ</b></span> getforcezorder <span style="color:navy"><b>WRITE</b></span> setforcezorder;
+        <span style="color:navy"><b>PROCEDURE</b></span> langchanged; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> settimer (const us: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> findwindow (aid: winidty; out window: twindow): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkwindowrect (winid: winidty; var rect: rectty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> createform (instanceclass: widgetclassty; var reference): twidget;
+        <span style="color:navy"><b>PROCEDURE</b></span> invalidate; //invalidates all registered forms
+        <span style="color:navy"><b>PROCEDURE</b></span> processmessages; <span style="color:teal"><b>OVERRIDE</b></span>; //handle with care!
+        <span style="color:navy"><b>FUNCTION</b></span> idle: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> modallevel: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> unlockall: integer <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> relockall (count: integer) <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginnoignorewaitevents;
+        <span style="color:navy"><b>PROCEDURE</b></span> endnoignorewaitevents;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginwait (const aprocessmessages: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endwait; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> waiting: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> waitescaped: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> resetwaitdialog;
+        <span style="color:navy"><b>FUNCTION</b></span> waitdialog (const athread: tthreadcomp = nil; const atext: msestring = '';
+                        const caption: msestring = '';
+                        const acancelaction: notifyeventty = nil;
+                        const aexecuteaction: notifyeventty = nil;
+                        const aidleaction: waitidleeventty = nil;
+                        const acontinueaction: notifyeventty = nil): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> terminatewait;
+        <span style="color:navy"><b>PROCEDURE</b></span> cancelwait;
+        <span style="color:navy"><b>FUNCTION</b></span> waitstarted: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> waitcanceled: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> waitterminated: boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> showexception (e: exception; const leadingtext: msestring = ''); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> showasyncexception (e: exception; const leadingtext: msestring = '');
+        <span style="color:navy"><b>PROCEDURE</b></span> errormessage (const amessage: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> hintwidgetclass: widgetclassty <span style="color:navy"><b>READ</b></span> fhintwidgetclass
+                                                         <span style="color:navy"><b>WRITE</b></span> fhintwidgetclass;
+        <span style="color:navy"><b>PROCEDURE</b></span> inithintinfo (var info: hintinfoty; const ahintedwidget: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> initwidgethintinfo (var info: hintinfoty;
+                                            const ahintedwidget: twidget);
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const sender: twidget; const hint: msestring;
+              const aposrect: rectty; const aplacement: captionposty = cp_bottomleft;
+                   const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
+                   const aflags: hintflagsty = defaulthintflags);
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const sender: twidget; const hint: msestring;
+                   const apos: pointty;
+                   const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
+                   const aflags: hintflagsty = defaulthintflags);
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const sender: twidget; const info: hintinfoty);
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const sender: twidget; const hint: msestring);
+        <span style="color:navy"><b>PROCEDURE</b></span> showhint (const sender: twidget; const hintwidget: twidget;
+                  const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
+                   const aflags: hintflagsty = defaulthintflags);
+        <span style="color:navy"><b>PROCEDURE</b></span> hidehint;
+        <span style="color:navy"><b>PROCEDURE</b></span> restarthint (const sender: twidget);
+        <span style="color:navy"><b>FUNCTION</b></span> hintedwidget: twidget; //last hinted widget
+        <span style="color:navy"><b>FUNCTION</b></span> activehintedwidget: twidget; //nil if no hint active
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> help (const sender: tmsecomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> registerhelphandler (const ahandler: helpeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisterhelphandler (const ahandler: helpeventty);
+        <span style="color:navy"><b>FUNCTION</b></span> activehelpcontext: msestring;
+        <span style="color:navy"><b>FUNCTION</b></span> mousehelpcontext: msestring;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> activate ();
+        <span style="color:navy"><b>FUNCTION</b></span> screenrect (const awindow: twindow = nil): rectty;
+        <span style="color:navy"><b>FUNCTION</b></span> workarea (const awindow: twindow = nil): rectty;
+        <span style="color:navy"><b>FUNCTION</b></span> ppmm (const awindow: twindow = nil): complexty;
+        <span style="color:navy"><b>PROPERTY</b></span> activewindow: twindow <span style="color:navy"><b>READ</b></span> factivewindow;
+        <span style="color:navy"><b>PROPERTY</b></span> lastactivewindow: twindow <span style="color:navy"><b>READ</b></span> flastactivewindow;
+        <span style="color:navy"><b>PROPERTY</b></span> inactivewindow: twindow <span style="color:navy"><b>READ</b></span> finactivewindow;
+        <span style="color:navy"><b>FUNCTION</b></span> normalactivewindow: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> regularactivewindow: twindow; //first no transientfor window
+        <span style="color:navy"><b>FUNCTION</b></span> unreleasedactivewindow: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> activewidget: twidget;
+        <span style="color:navy"><b>FUNCTION</b></span> activerootwidget: twidget;
+        <span style="color:navy"><b>PROPERTY</b></span> lastshowmenuwidget: twidget <span style="color:navy"><b>READ</b></span> flastshowmenuwidget;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> windowatpos (const pos: pointty): twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> findwidget (const namepath: string; out awidget: twidget): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> sortzorder ();
+        <span style="color:navy"><b>PROCEDURE</b></span> packwindowzorder ();
+        
+        <span style="color:navy"><b>FUNCTION</b></span> windowar: windowarty;
+        <span style="color:navy"><b>FUNCTION</b></span> winidar: winidarty;
+        <span style="color:navy"><b>FUNCTION</b></span> windowcount: integer;
+        <span style="color:navy"><b>PROPERTY</b></span> windows[const index: integer]: twindow <span style="color:navy"><b>READ</b></span> getwindows;
+        <span style="color:navy"><b>FUNCTION</b></span> bottomwindow: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> topwindow: twindow;
+        <span style="color:navy"><b>FUNCTION</b></span> candefocus (const caller: tobject = nil): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronkeypress (const method: keyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronkeypress (const method: keyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronshortcut (const method: keyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronshortcut (const method: keyeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronwidgetactivechanged (const method: widgetchangeeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronwidgetactivechanged (const method: widgetchangeeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronwindowactivechanged (const method: windowchangeeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronwindowactivechanged (const method: windowchangeeventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronwindowdestroyed (const method: windoweventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronwindowdestroyed (const method: windoweventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronwiniddestroyed (const method: winideventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronwiniddestroyed (const method: winideventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registeronapplicationactivechanged (const method: booleaneventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregisteronapplicationactivechanged (const method: booleaneventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> registersyseventhandler (const method: syseventhandlereventty);
+        <span style="color:navy"><b>PROCEDURE</b></span> unregistersyseventhandler (const method: syseventhandlereventty);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> terminate (const sender: twindow = nil): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> terminating: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> deinitializing: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> shortcutting: boolean; //widget is in doshortcut procedure
+        <span style="color:navy"><b>PROPERTY</b></span> caret: tcaret <span style="color:navy"><b>READ</b></span> fcaret;
+        <span style="color:navy"><b>PROPERTY</b></span> mouse: tmouse <span style="color:navy"><b>READ</b></span> fmouse;
+        <span style="color:navy"><b>PROCEDURE</b></span> mouseparkevent; //simulates mouseparkevent
+        <span style="color:navy"><b>PROCEDURE</b></span> delayedmouseshift (const ashift: pointty);
+        <span style="color:navy"><b>PROCEDURE</b></span> calcmousewheeldelta (var info: mousewheeleventinfoty;
+                    const fmin,fmax,deltamin,deltamax: real);
+        <span style="color:navy"><b>FUNCTION</b></span> mousewheelacceleration (const avalue: real): real; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> mousewheelacceleration (const avalue: integer): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearkeyhistory; //called by matching shortcut sequence
+        <span style="color:navy"><b>PROPERTY</b></span> keyhistory: keyinfoarty <span style="color:navy"><b>READ</b></span> fkeyhistory;
+        <span style="color:navy"><b>PROPERTY</b></span> lastinputtimestamp: longword <span style="color:navy"><b>READ</b></span> flastinputtimestamp;
+        <span style="color:navy"><b>PROPERTY</b></span> lastshiftstate: shiftstatesty <span style="color:navy"><b>READ</b></span> flastshiftstate;
+        <span style="color:navy"><b>PROPERTY</b></span> lastkey: keyty <span style="color:navy"><b>READ</b></span> flastkey;
+        <span style="color:navy"><b>PROPERTY</b></span> lastbutton: mousebuttonty <span style="color:navy"><b>READ</b></span> flastbutton;
+        <span style="color:navy"><b>PROPERTY</b></span> mouseeventinfo: pmouseeventinfoty <span style="color:navy"><b>READ</b></span> fmouseeventinfo;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheeleventinfo: pmousewheeleventinfoty
+                                                  <span style="color:navy"><b>READ</b></span> fmousewheeleventinfo;
+        <span style="color:navy"><b>PROPERTY</b></span> keyeventinfo: pkeyeventinfoty <span style="color:navy"><b>READ</b></span> fkeyeventinfo;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> cursorshape: cursorshapety <span style="color:navy"><b>READ</b></span> fcursorshape <span style="color:navy"><b>WRITE</b></span> setcursorshape;
+        <span style="color:navy"><b>PROPERTY</b></span> widgetcursorshape: cursorshapety <span style="color:navy"><b>READ</b></span> fwidgetcursorshape write
+                                             setwidgetcursorshape;
+        <span style="color:navy"><b>PROCEDURE</b></span> updatecursorshape; //restores cursorshape of mousewidget
+        <span style="color:navy"><b>PROPERTY</b></span> mousewidget: twidget <span style="color:navy"><b>READ</b></span> fmousewidget;
+        <span style="color:navy"><b>PROPERTY</b></span> clientmousewidget: twidget <span style="color:navy"><b>READ</b></span> fclientmousewidget;
+        <span style="color:navy"><b>PROPERTY</b></span> mousecapturewidget: twidget <span style="color:navy"><b>READ</b></span> fmousecapturewidget;
+        <span style="color:navy"><b>PROPERTY</b></span> keyboardcapturewidget: twidget <span style="color:navy"><b>READ</b></span> fkeyboardcapturewidget;
+        <span style="color:navy"><b>PROPERTY</b></span> mainwindow: twindow <span style="color:navy"><b>READ</b></span> fmainwindow <span style="color:navy"><b>WRITE</b></span> setmainwindow;
+        <span style="color:navy"><b>PROPERTY</b></span> th<span style="color:navy"><b>READ</b></span>: threadty read fthread;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> buttonpresswidgetbefore: twidget <span style="color:navy"><b>READ</b></span> fbuttonpresswidgetbefore;
+        <span style="color:navy"><b>PROPERTY</b></span> buttonreleasewidgetbefore: twidget <span style="color:navy"><b>READ</b></span> fbuttonreleasewidgetbefore;
+        <span style="color:navy"><b>PROPERTY</b></span> dblclicktime: integer <span style="color:navy"><b>READ</b></span> fdblclicktime <span style="color:navy"><b>WRITE</b></span> fdblclicktime default
+                      defaultdblclicktime; //us
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheelsensitivity: real <span style="color:navy"><b>READ</b></span> fmousewheelsensitivity
+                                                       <span style="color:navy"><b>WRITE</b></span> fmousewheelsensitivity;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheelfrequmin: real <span style="color:navy"><b>READ</b></span> fmousewheelfrequmin
+                                                       <span style="color:navy"><b>WRITE</b></span> fmousewheelfrequmin;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheelfrequmax: real <span style="color:navy"><b>READ</b></span> fmousewheelfrequmax
+                                                       <span style="color:navy"><b>WRITE</b></span> fmousewheelfrequmax;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheeldeltamin: real <span style="color:navy"><b>READ</b></span> fmousewheeldeltamin
+                                                       <span style="color:navy"><b>WRITE</b></span> fmousewheeldeltamin;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheeldeltamax: real <span style="color:navy"><b>READ</b></span> fmousewheeldeltamax
+                                                       <span style="color:navy"><b>WRITE</b></span> fmousewheeldeltamax;
+        <span style="color:navy"><b>PROPERTY</b></span> mousewheelaccelerationmax: real <span style="color:navy"><b>READ</b></span> fmousewheelaccelerationmax
+                                                   <span style="color:navy"><b>WRITE</b></span> fmousewheelaccelerationmax;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

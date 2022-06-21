@@ -1,0 +1,208 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msechartedit;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomchartedit" name="tcustomchartedit">tcustomchartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomchart">tcustomchart</a>,iobjectpicker)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkvalue: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only: boolean read getreadonly <span style="color:navy"><b>WRITE</b></span> setreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace: integer <span style="color:navy"><b>READ</b></span> factivetrace
+                                <span style="color:navy"><b>WRITE</b></span> setactivetrace <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit: optionseditty <span style="color:navy"><b>READ</b></span> foptionsedit <span style="color:navy"><b>WRITE</b></span> setoptionsedit
+                                                       <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1: optionsedit1ty <span style="color:navy"><b>READ</b></span> foptionsedit1 <span style="color:navy"><b>WRITE</b></span> foptionsedit1
+                                                    <span style="color:navy"><b>DEFAULT</b></span> defaultchartoptionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> snapdist: integer <span style="color:navy"><b>READ</b></span> fsnapdist <span style="color:navy"><b>WRITE</b></span> fsnapdist
+                                                   <span style="color:navy"><b>DEFAULT</b></span> defaultsnapdist;
+        <span style="color:navy"><b>PROPERTY</b></span> options: charteditoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                      <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetmarker: markerseteventty <span style="color:navy"><b>READ</b></span> fonsetmarker <span style="color:navy"><b>WRITE</b></span> fonsetmarker;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerentered: notifyeventty <span style="color:navy"><b>READ</b></span> fonmarkerentered
+                                                             <span style="color:navy"><b>WRITE</b></span> fonmarkerentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ontracehint: tracehinteventty <span style="color:navy"><b>READ</b></span> fontracehint <span style="color:navy"><b>WRITE</b></span> fontracehint;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerhint: markerhinteventty <span style="color:navy"><b>READ</b></span> fonmarkerhint
+                                                              <span style="color:navy"><b>WRITE</b></span> fonmarkerhint;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultcharteditoptionswidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomxychartedit" name="tcustomxychartedit">tcustomxychartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomchartedit">tcustomchartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> value: complexarty <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> valueitems[const index: integer]: complexty <span style="color:navy"><b>READ</b></span> getvalueitems
+                                                            <span style="color:navy"><b>WRITE</b></span> setvalueitems;
+        <span style="color:navy"><b>PROPERTY</b></span> reitems[const index: integer]: real <span style="color:navy"><b>READ</b></span> getreitems <span style="color:navy"><b>WRITE</b></span> setreitems;
+        <span style="color:navy"><b>PROPERTY</b></span> imitems[const index: integer]: real <span style="color:navy"><b>READ</b></span> getimitems <span style="color:navy"><b>WRITE</b></span> setimitems;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered
+                                                      <span style="color:navy"><b>WRITE</b></span> fondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setcomplexareventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#txychartedit" name="txychartedit">txychartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomxychartedit">tcustomxychartedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> traces;
+        <span style="color:navy"><b>PROPERTY</b></span> colorchart;
+        <span style="color:navy"><b>PROPERTY</b></span> facechart;
+        <span style="color:navy"><b>PROPERTY</b></span> framechart;
+        <span style="color:navy"><b>PROPERTY</b></span> xstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ystart;
+        <span style="color:navy"><b>PROPERTY</b></span> xrange;
+        <span style="color:navy"><b>PROPERTY</b></span> yrange;
+        <span style="color:navy"><b>PROPERTY</b></span> xdials;
+        <span style="color:navy"><b>PROPERTY</b></span> ydials;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> snapdist;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captionx;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captiony;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionschart;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetmarker;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ontracehint;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerhint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomorderedxychartedit" name="tcustomorderedxychartedit">tcustomorderedxychartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomxychartedit">tcustomxychartedit</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#torderedxychartedit" name="torderedxychartedit">torderedxychartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomorderedxychartedit">tcustomorderedxychartedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> traces;
+        <span style="color:navy"><b>PROPERTY</b></span> colorchart;
+        <span style="color:navy"><b>PROPERTY</b></span> facechart;
+        <span style="color:navy"><b>PROPERTY</b></span> framechart;
+        <span style="color:navy"><b>PROPERTY</b></span> xstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ystart;
+        <span style="color:navy"><b>PROPERTY</b></span> xrange;
+        <span style="color:navy"><b>PROPERTY</b></span> yrange;
+        <span style="color:navy"><b>PROPERTY</b></span> xdials;
+        <span style="color:navy"><b>PROPERTY</b></span> ydials;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> snapdist;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captionx;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captiony;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionschart;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetmarker;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ontracehint;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerhint;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomxserieschartedit" name="tcustomxserieschartedit">tcustomxserieschartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomchartedit">tcustomchartedit</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> value: realarty <span style="color:navy"><b>READ</b></span> getvalue <span style="color:navy"><b>WRITE</b></span> setvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> valueitems[const index: integer]: real <span style="color:navy"><b>READ</b></span> getvalueitems
+                                                            <span style="color:navy"><b>WRITE</b></span> setvalueitems;
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered: notifyeventty <span style="color:navy"><b>READ</b></span> fondataentered
+                                                      <span style="color:navy"><b>WRITE</b></span> fondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue: setrealareventty <span style="color:navy"><b>READ</b></span> fonsetvalue <span style="color:navy"><b>WRITE</b></span> fonsetvalue;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#txserieschartedit" name="txserieschartedit">txserieschartedit</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomxserieschartedit">tcustomxserieschartedit</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> traces;
+        <span style="color:navy"><b>PROPERTY</b></span> colorchart;
+        <span style="color:navy"><b>PROPERTY</b></span> facechart;
+        <span style="color:navy"><b>PROPERTY</b></span> framechart;
+        <span style="color:navy"><b>PROPERTY</b></span> xstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ystart;
+        <span style="color:navy"><b>PROPERTY</b></span> xrange;
+        <span style="color:navy"><b>PROPERTY</b></span> yrange;
+        <span style="color:navy"><b>PROPERTY</b></span> xdials;
+        <span style="color:navy"><b>PROPERTY</b></span> ydials;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaintbackground;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> ondataentered;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> activetrace;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsedit1;
+        <span style="color:navy"><b>PROPERTY</b></span> snapdist;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captionx;
+        <span style="color:navy"><b>PROPERTY</b></span> tracehint_captiony;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> optionschart;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetmarker;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerentered;
+        <span style="color:navy"><b>PROPERTY</b></span> ontracehint;
+        <span style="color:navy"><b>PROPERTY</b></span> onmarkerhint;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

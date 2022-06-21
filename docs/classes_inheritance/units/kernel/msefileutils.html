@@ -1,0 +1,72 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msefileutils;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomfiledatalist" name="tcustomfiledatalist">tcustomfiledatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicdatalist">tdynamicdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: fileinfoty): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> adddirectory (const directoryname: filenamety;
+             ainfolevel: fileinfolevelty = fil_name; const amask: filenamearty = nil;
+             const aincludeattrib: fileattributesty = [fa_all];
+             const aexcludeattrib: fileattributesty = [];
+             const aoptions: dirstreamoptionsty = [];
+             const acheckproc: checkfileeventty = nil;
+             const noexception: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> adddirectory (const directoryname: filenamety;
+             ainfolevel: fileinfolevelty; const amask: filenamety;
+             const aincludeattrib: fileattributesty = [fa_all];
+             const aexcludeattrib: fileattributesty = [];
+             const aoptions: dirstreamoptionsty = [];
+             const acheckproc: checkfileeventty = nil;
+             const noexception: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        {$ifndef FPC}
+        <span style="color:navy"><b>FUNCTION</b></span> adddirectory1 (const directoryname: filenamety;
+             ainfolevel: fileinfolevelty = fil_name; const amask: filenamearty = nil;
+             const aincludeattrib: fileattributesty = [fa_all];
+             const aexcludeattrib: fileattributesty = [];
+             const aoptions: dirstreamoptionsty = [];
+             const acheckproc: checkfileeventty = nil;
+             const noexception: boolean = false): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> adddirectory2 (const directoryname: filenamety;
+             ainfolevel: fileinfolevelty; const amask: filenamety;
+             const aincludeattrib: fileattributesty = [fa_all];
+             const aexcludeattrib: fileattributesty = [];
+             const aoptions: dirstreamoptionsty = [];
+             const acheckproc: checkfileeventty = nil;
+             const noexception: boolean = false): boolean;
+        {$endif}
+        <span style="color:navy"><b>FUNCTION</b></span> itempo (const index: integer): pfileinfoty;
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const filename: filenamety): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> isdir (index: integer): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: fileinfoty <span style="color:navy"><b>READ</b></span> getitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> options: filelistoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfiledatalist" name="tfiledatalist">tfiledatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomfiledatalist">tcustomfiledatalist</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

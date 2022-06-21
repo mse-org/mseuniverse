@@ -1,0 +1,112 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msetimer;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trepeater" name="trepeater">trepeater</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tsimpletimer">tsimpletimer</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const adelay: longword; const ainterval: longword;
+                           const aontimer: notifyeventty);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttimer" name="ttimer">ttimer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> restart;
+        <span style="color:navy"><b>PROCEDURE</b></span> firependingandstop;
+        <span style="color:navy"><b>PROCEDURE</b></span> fireandstop;
+        <span style="color:navy"><b>PROCEDURE</b></span> fire;
+        <span style="color:navy"><b>PROPERTY</b></span> singleshot: boolean <span style="color:navy"><b>READ</b></span> getsingleshot <span style="color:navy"><b>WRITE</b></span> setsingleshot;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> interval: integer <span style="color:navy"><b>READ</b></span> getinterval <span style="color:navy"><b>WRITE</b></span> setinterval <span style="color:navy"><b>DEFAULT</b></span> 1000000;
+        <span style="color:navy"><b>PROPERTY</b></span> options: timeroptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> ontimer: notifyeventty <span style="color:navy"><b>READ</b></span> fontimer <span style="color:navy"><b>WRITE</b></span> fontimer;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tanimitem" name="tanimitem">tanimitem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedobject">tlinkedobject</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: iobjectlink; const atimer: tanimtimer;
+                         const aontick: animtickeventty;
+                         const ainterval: flo64; //seconds
+                         const akind: animkindty = ank_single;
+                         const aoptions: animoptionsty = [ano_enabled];
+                                        const atickus: int32 = 0); //0 = default
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent; const atimer: tanimtimer;
+                         const aontick: animtickeventty;
+                         const ainterval: flo64; //seconds
+                         const akind: animkindty = ank_single;
+                         const aoptions: animoptionsty = [ano_enabled];
+                                        const atickus: int32 = 0); //0 = default
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> reset ();
+        <span style="color:navy"><b>PROCEDURE</b></span> restart ();
+        <span style="color:navy"><b>PROPERTY</b></span> kind: animkindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind;
+        <span style="color:navy"><b>PROPERTY</b></span> options: animoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> fenabled <span style="color:navy"><b>WRITE</b></span> setenabled;
+        <span style="color:navy"><b>PROPERTY</b></span> tickus: int32 <span style="color:navy"><b>READ</b></span> ftickus <span style="color:navy"><b>WRITE</b></span> settickus <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> time: flo64 <span style="color:navy"><b>READ</b></span> ftime <span style="color:navy"><b>WRITE</b></span> ftime;
+        <span style="color:navy"><b>PROPERTY</b></span> down: boolean <span style="color:navy"><b>READ</b></span> getdown <span style="color:navy"><b>WRITE</b></span> setdown;
+        <span style="color:navy"><b>PROPERTY</b></span> value: flo64 <span style="color:navy"><b>READ</b></span> getvalue;
+        <span style="color:navy"><b>PROPERTY</b></span> interval: flo64 <span style="color:navy"><b>READ</b></span> finterval <span style="color:navy"><b>WRITE</b></span> finterval; //seconds
+        <span style="color:navy"><b>PROPERTY</b></span> timer: tanimtimer <span style="color:navy"><b>READ</b></span> ftimer <span style="color:navy"><b>WRITE</b></span> settimer;
+        <span style="color:navy"><b>PROPERTY</b></span> ontick: animtickeventty <span style="color:navy"><b>READ</b></span> fontick <span style="color:navy"><b>WRITE</b></span> fontick;
+        <span style="color:navy"><b>PROPERTY</b></span> onstart: notifyeventty <span style="color:navy"><b>READ</b></span> fonstart <span style="color:navy"><b>WRITE</b></span> fonstart;
+        <span style="color:navy"><b>PROPERTY</b></span> onstop: notifyeventty <span style="color:navy"><b>READ</b></span> fonstop <span style="color:navy"><b>WRITE</b></span> fonstop;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tanimtimer" name="tanimtimer">tanimtimer</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> enabledcount: int32 <span style="color:navy"><b>READ</b></span> fenabledcount;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> tickus: int32 <span style="color:navy"><b>READ</b></span> gettickus <span style="color:navy"><b>WRITE</b></span> settickus <span style="color:navy"><b>DEFAULT</b></span> defaultanimtick;
+        <span style="color:navy"><b>PROPERTY</b></span> highres: boolean <span style="color:navy"><b>READ</b></span> gethighres <span style="color:navy"><b>WRITE</b></span> sethighres <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> fenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tanimitemcomp" name="tanimitemcomp">tanimitemcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> reset ();
+        <span style="color:navy"><b>PROCEDURE</b></span> restart ();
+        <span style="color:navy"><b>PROPERTY</b></span> time: flo64 <span style="color:navy"><b>READ</b></span> gettime <span style="color:navy"><b>WRITE</b></span> settime;
+        <span style="color:navy"><b>PROPERTY</b></span> down: boolean <span style="color:navy"><b>READ</b></span> getdown <span style="color:navy"><b>WRITE</b></span> setdown;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> kind: animkindty <span style="color:navy"><b>READ</b></span> getkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> ank_single;
+        <span style="color:navy"><b>PROPERTY</b></span> interval: flo64 <span style="color:navy"><b>READ</b></span> getinterval <span style="color:navy"><b>WRITE</b></span> setinterval; //seconds
+        <span style="color:navy"><b>PROPERTY</b></span> enabled: boolean <span style="color:navy"><b>READ</b></span> getenabled <span style="color:navy"><b>WRITE</b></span> setenabled <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> timer: tanimtimer <span style="color:navy"><b>READ</b></span> gettimer <span style="color:navy"><b>WRITE</b></span> settimer;
+        <span style="color:navy"><b>PROPERTY</b></span> tickus: int32 <span style="color:navy"><b>READ</b></span> gettickus <span style="color:navy"><b>WRITE</b></span> settickus <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> ontick: animtickeventty <span style="color:navy"><b>READ</b></span> getontick <span style="color:navy"><b>WRITE</b></span> setontick;
+        <span style="color:navy"><b>PROPERTY</b></span> onstart: notifyeventty <span style="color:navy"><b>READ</b></span> getonstart <span style="color:navy"><b>WRITE</b></span> setonstart;
+        <span style="color:navy"><b>PROPERTY</b></span> onstop: notifyeventty <span style="color:navy"><b>READ</b></span> getonstop <span style="color:navy"><b>WRITE</b></span> setonstop;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

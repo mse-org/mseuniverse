@@ -1,0 +1,85 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory fpccompatibility</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msefptiffcmn;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TTiffIFD" name="ttiffifd">TTiffIFD</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         IFDStart: DWord; // tiff position
+         IFDNext: DWord; // tiff position
+         Artist: String;
+         BitsPerSample: DWord; // tiff position of entry
+         BitsPerSampleArray: array of Word;
+         CellLength: DWord;
+         CellWidth: DWord;
+         ColorMap: DWord;// tiff position of entry
+         Compression: DWord;
+         Predictor: Word;
+         Copyright: string;
+         DateAndTime: string;
+         DocumentName: string;
+         ExtraSamples: DWord;// tiff position of entry
+         FillOrder: DWord;
+         HostComputer: string;
+         ImageDescription: string;
+         ImageHeight: DWord;
+         ImageIsMask: Boolean;
+         ImageIsPage: Boolean;
+         ImageIsThumbNail: Boolean;
+         ImageWidth: DWord;
+         Make_ScannerManufacturer: string;
+         Model_Scanner: string;
+         Orientation: DWord;
+         PageNumber: word; // the page number starting at 0, the total number of pages is PageCount
+         PageCount: word; // see PageNumber
+         PageName: string;
+         PhotoMetricInterpretation: DWord;
+         PlanarConfiguration: DWord;
+         ResolutionUnit: DWord;
+         RowsPerStrip: DWord;
+         SamplesPerPixel: DWord;
+         Software: string;
+         StripByteCounts: DWord;// tiff position of entry
+         StripOffsets: DWord; // tiff position of entry
+         TileWidth: DWord;
+         TileLength: DWord; // = Height
+         TileOffsets: DWord; // tiff position of entry
+         TileByteCounts: DWord; // tiff position of entry
+         Tresholding: DWord;
+         XResolution: TTiffRational;
+         YResolution: TTiffRational;
+         Img: TFPCustomImage;
+         FreeImg: boolean;
+         RedBits: word;
+         GreenBits: word;
+         BlueBits: word;
+         GrayBits: word;
+         AlphaBits: word;
+         BytesPerPixel: Word;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (IFD: TTiffIFD);
+         <span style="color:navy"><b>PROCEDURE</b></span> ReadFPImgExtras (Src: TFPCustomImage);
+         <span style="color:navy"><b>FUNCTION</b></span> ImageLength: DWord; {$ifdef FPC}inline;{$endif}
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

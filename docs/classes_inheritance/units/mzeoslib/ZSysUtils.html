@@ -1,0 +1,52 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZSysUtils;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsortedlist" name="tzsortedlist">TZSortedList</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#{$ifdef tlist_is_deprecated}tobject{$else}tlist{$endif}">{$IFDEF TLIST_IS_DEPRECATED}TObject{$ELSE}TList{$ENDIF}</a>)
+      PUBLIC
+        $IFDEF TLIST_IS_DEPRECATED}
+         <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>PROCEDURE</b></span> Error (const Msg: string; Data: NativeInt); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>PROCEDURE</b></span> Error (Msg: PResStringRec; Data: NativeInt); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Add (Item: Pointer): Integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Index1, Index2: Integer);
+         <span style="color:navy"><b>FUNCTION</b></span> Extract (Item: Pointer): Pointer; <span style="color:teal"><b>INLINE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> First: Pointer; <span style="color:teal"><b>INLINE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (Item: Pointer): Integer;
+         <span style="color:navy"><b>PROCEDURE</b></span> Insert (Index: Integer; Item: Pointer);
+         <span style="color:navy"><b>FUNCTION</b></span> Last: Pointer;
+         <span style="color:navy"><b>FUNCTION</b></span> Remove (Item: Pointer): Integer; <span style="color:teal"><b>INLINE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> FCount <span style="color:navy"><b>WRITE</b></span> SetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Integer]: Pointer <span style="color:navy"><b>READ</b></span> Get <span style="color:navy"><b>WRITE</b></span> Put; default;
+         <span style="color:navy"><b>PROPERTY</b></span> List: TPointerList <span style="color:navy"><b>READ</b></span> FList;
+         <span style="color:navy"><b>PROPERTY</b></span> Capacity: Integer <span style="color:navy"><b>READ</b></span> FCapacity <span style="color:navy"><b>WRITE</b></span> SetCapacity;
+        $ENDIF}
+         <span style="color:navy"><b>PROCEDURE</b></span> Sort (Compare: TZListSortCompare);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#eargumentexception" name="eargumentexception">EArgumentException</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#exception">Exception</a>);
+</pre>//---------------<br>
+  <pre>END.
+</pre>

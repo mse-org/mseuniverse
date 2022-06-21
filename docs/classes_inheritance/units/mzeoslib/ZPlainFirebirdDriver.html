@@ -1,0 +1,291 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZPlainFirebirdDriver;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdbasedriver" name="tzfirebirdbasedriver">TZFirebirdBaseDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractplaindriver">TZAbstractPlainDriver</a>, IZPlainDriver,
+    IZInterbasePlainDriver)
+      PUBLIC
+         FIREBIRD_API : TZFIREBIRD_API;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+         {$IFDEF ENABLE_INTERBASE_CRYPT}
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         {$ENDIF}
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetFirebirdAPI: TZFirebird_API;
+         <span style="color:navy"><b>FUNCTION</b></span> GetCodePageArray: TWordDynArray;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_attach_database (status_vector: PISC_STATUS;
+           db_name_length: Short; db_name: PAnsiChar; db_handle: PISC_DB_HANDLE;
+           parm_buffer_length: Short; parm_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_detach_database (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_drop_database (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE): ISC_STATUS;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> isc_create_database (status_vector: PISC_STATUS; db_name_len: Smallint;
+           db_name: PAnsiChar; handle: PISC_DB_HANDLE; dpb_len: Smallint; dpb: PAnsiChar;
+           db_type: Smallint{UNUSED}): ISC_STATUS;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> isc_database_info (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; item_list_buffer_length: Short;
+           item_list_buffer: PByte; result_buffer_length: Short;
+           result_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_transaction_info (status_vector: PISC_STATUS;
+           tr_handle: PISC_TR_HANDLE; item_list_buffer_length: Short;
+           item_list_buffer: PAnsiChar; result_buffer_length: Short;
+           result_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_gen_sdl (status_vector: PISC_STATUS;
+           isc_array_desc: PISC_ARRAY_DESC; isc_arg3: PShort;
+           isc_arg4: PAnsiChar; isc_arg5: PShort): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_get_slice (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; trans_handle: PISC_TR_HANDLE;
+           array_id: PISC_QUAD; descriptor: PISC_ARRAY_DESC;
+           dest_array: PVoid; slice_length: ISC_LONG): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_lookup_bounds (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; trans_handle: PISC_TR_HANDLE;
+           table_name, column_name: PAnsiChar;
+           descriptor: PISC_ARRAY_DESC): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_lookup_desc (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; trans_handle: PISC_TR_HANDLE;
+           table_name, column_name: PAnsiChar;
+           descriptor: PISC_ARRAY_DESC): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_set_desc (status_vector: PISC_STATUS;
+           table_name: PAnsiChar; column_name: PAnsiChar;
+           sql_dtype, sql_length, sql_dimensions: PShort;
+           descriptor: PISC_ARRAY_DESC): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_array_put_slice (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; trans_handle: PISC_TR_HANDLE;
+           array_id: PISC_QUAD; descriptor: PISC_ARRAY_DESC;
+           source_array: PVoid; slice_length: PISC_LONG): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_free (isc_arg1: PAnsiChar): ISC_LONG;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_sqlcode (status_vector: PISC_STATUS): ISC_LONG;
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_sql_interprete (sqlcode: Short; buffer: PAnsiChar;
+           buffer_length: Short);
+         <span style="color:navy"><b>FUNCTION</b></span> isc_interprete (buffer: PAnsiChar; status_vector: PPISC_STATUS): ISC_STATUS; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_start_transaction (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE; db_handle_count: Short;
+           db_handle: PISC_DB_HANDLE; tpb_length: Word; tpb_address: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_start_multiple (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE; db_handle_count: Short;
+           teb_vector_address: PISC_TEB): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_rollback_transaction (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_rollback_retaining (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_commit_retaining (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_commit_transaction (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_allocate_statement (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; stmt_handle: PISC_STMT_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_alloc_statement2 (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; stmt_handle: PISC_STMT_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_describe (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; dialect: Word; xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_describe_bind (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; dialect: Word; xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_execute (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE; stmt_handle: PISC_STMT_HANDLE; dialect: Word;
+           xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_execute2 (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE; stmt_handle: PISC_STMT_HANDLE; dialect: Word;
+           in_xsqlda, out_xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_execute_immediate (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; tran_handle: PISC_TR_HANDLE; length: Word;
+           statement: PAnsiChar; dialect: Word; xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_fetch (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; dialect: Word; xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_free_statement (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; options: Word): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_prepare (status_vector: PISC_STATUS;
+           tran_handle: PISC_TR_HANDLE; stmt_handle: PISC_STMT_HANDLE;
+           length: Word; statement: PAnsiChar; dialect: Word; xsqlda: PXSQLDA): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_set_cursor_name (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; cursor_name: PAnsiChar; _type: Word): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_dsql_sql_info (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; item_length: Short; items: PAnsiChar;
+           buffer_length: Short; buffer: PAnsiChar): ISC_STATUS;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> fb_dsql_set_timeout (status_vector: PISC_STATUS;
+           stmt_handle: PISC_STMT_HANDLE; milliseconds: ISC_ULONG): ISC_STATUS;
+        
+        
+                                 FB_API_HANDLE*,
+                                 void**);
+        
+        
+         { Blob processing routines }
+        
+         <span style="color:navy"><b>FUNCTION</b></span> isc_open_blob2 (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; tran_handle: PISC_TR_HANDLE;
+           blob_handle: PISC_BLOB_HANDLE; blob_id: PISC_QUAD; bpb_length: Short;
+           bpb_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_create_blob2 (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; tran_handle: PISC_TR_HANDLE;
+           blob_handle: PISC_BLOB_HANDLE; blob_id: PISC_QUAD; bpb_length: Short;
+           bpb_address: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_blob_info (status_vector: PISC_STATUS;
+           blob_handle: PISC_BLOB_HANDLE; item_list_buffer_length: Short;
+           item_list_buffer: PAnsiChar; result_buffer_length: Short; result_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_close_blob (status_vector: PISC_STATUS;
+           blob_handle: PISC_BLOB_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_cancel_blob (status_vector: PISC_STATUS;
+           blob_handle: PISC_BLOB_HANDLE): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_get_segment (status_vector: PISC_STATUS;
+           blob_handle: PISC_BLOB_HANDLE; actual_seg_length: PWord;
+           seg_buffer_length: Word; seg_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_put_segment (status_vector: PISC_STATUS;
+           blob_handle: PISC_BLOB_HANDLE; seg_buffer_len: Word; seg_buffer: PAnsiChar): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_event_block (event_buffer: PPAnsiChar; result_buffer: PPAnsiChar;
+           id_count: Word; event_list: array of PAnsiChar): ISC_LONG;
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_event_counts (event_counts: PARRAY_ISC_EVENTCOUNTS;
+           buffer_length: Short; event_buffer: PAnsiChar; result_buffer: PAnsiChar);
+         <span style="color:navy"><b>FUNCTION</b></span> isc_cancel_events (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; event_id: PISC_LONG): ISC_STATUS;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_que_events (status_vector: PISC_STATUS;
+           db_handle: PISC_DB_HANDLE; event_id: PISC_LONG; length: Short;
+           event_buffer: PAnsiChar; event_function: TISC_CALLBACK;
+           event_function_arg: PVoid): ISC_STATUS;
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_decode_date (ib_date: PISC_QUAD; tm_date: PCTimeStructure);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_encode_date (tm_date: PCTimeStructure; ib_date: PISC_QUAD);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_decode_sql_date (ib_date: PISC_DATE; tm_date: PCTimeStructure);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_decode_sql_time (ib_time: PISC_TIME; tm_date: PCTimeStructure);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_decode_timestamp (ib_timestamp: PISC_TIMESTAMP;
+           tm_date: PCTimeStructure);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_encode_sql_date (tm_date: PCTimeStructure;
+           ib_date: PISC_DATE);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_encode_sql_time (tm_date: PCTimeStructure;
+           ib_time: PISC_TIME);
+         <span style="color:navy"><b>PROCEDURE</b></span> isc_encode_timestamp (tm_date: PCTimeStructure;
+           ib_timestamp: PISC_TIMESTAMP);
+         <span style="color:navy"><b>FUNCTION</b></span> isc_vax_integer (buffer: PAnsiChar; length: Short): ISC_LONG;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_portable_integer (ptr: pbyte; length: Short): ISC_INT64;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_get_client_version: String;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_get_client_major_version: Integer;
+         <span style="color:navy"><b>FUNCTION</b></span> isc_get_client_minor_version: Integer;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinterbase6plaindriver" name="tzinterbase6plaindriver">TZInterbase6PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird10plaindriver" name="tzfirebird10plaindriver">TZFirebird10PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird15plaindriver" name="tzfirebird15plaindriver">TZFirebird15PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdd15plaindriver" name="tzfirebirdd15plaindriver">TZFirebirdD15PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebird15plaindriver">TZFirebird15PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird20plaindriver" name="tzfirebird20plaindriver">TZFirebird20PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdd20plaindriver" name="tzfirebirdd20plaindriver">TZFirebirdD20PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebird20plaindriver">TZFirebird20PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird21plaindriver" name="tzfirebird21plaindriver">TZFirebird21PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdd21plaindriver" name="tzfirebirdd21plaindriver">TZFirebirdD21PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebird21plaindriver">TZFirebird21PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird25plaindriver" name="tzfirebird25plaindriver">TZFirebird25PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdbasedriver">TZFirebirdBaseDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdd25plaindriver" name="tzfirebirdd25plaindriver">TZFirebirdD25PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebird25plaindriver">TZFirebird25PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebird30plaindriver" name="tzfirebird30plaindriver">TZFirebird30PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebird25plaindriver">TZFirebird25PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzfirebirdd30plaindriver" name="tzfirebirdd30plaindriver">TZFirebirdD30PlainDriver</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzfirebirdd25plaindriver">TZFirebirdD25PlainDriver</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> GetProtocol: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetDescription: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

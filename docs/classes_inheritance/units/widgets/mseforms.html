@@ -1,0 +1,420 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mseforms;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tformscrollbox" name="tformscrollbox">tformscrollbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscrollingwidgetnwr">tscrollingwidgetnwr</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustommseform); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dolayout (const sender: twidget); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onscroll;
+        <span style="color:navy"><b>PROPERTY</b></span> onscrolled;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        <span style="color:navy"><b>PROPERTY</b></span> oncalcminscrollsize;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultcontaineroptionswidget;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommseform" name="tcustommseform">tcustommseform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomeventwidget">tcustomeventwidget</a>,istatfile,idockcontroller
+                                 {$ifdef mse_with_ifi},iififormlink{$endif})
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;  <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> afterconstruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> freeinstance <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> reload (const callafterload: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> writestate (writer: twriter); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> insertwidget (const widget: twidget; const apos: pointty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dolayout (const sender: twidget); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> childrencount: integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> beforeclosequery (var amodalresult: modalresultty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> doonclose; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canclose (const newfocus: twidget): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> close (const amodalresult: modalresultty = mr_windowclosed): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> beforedestruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultformwidgetoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswindow: windowoptionsty <span style="color:navy"><b>READ</b></span> foptionswindow
+                                               <span style="color:navy"><b>WRITE</b></span> setoptionswindow <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu: tmainmenu <span style="color:navy"><b>READ</b></span> fmainmenu <span style="color:navy"><b>WRITE</b></span> setmainmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> font: twidgetfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty: twidgetfontempty <span style="color:navy"><b>READ</b></span> getfontempty
+                       <span style="color:navy"><b>WRITE</b></span> setfontempty stored isfontemptystored;
+        <span style="color:navy"><b>PROPERTY</b></span> options: formoptionsty <span style="color:navy"><b>READ</b></span> getoptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                              <span style="color:navy"><b>DEFAULT</b></span> defaultformoptions;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> statfile: tstatfile <span style="color:navy"><b>READ</b></span> fstatfile <span style="color:navy"><b>WRITE</b></span> setstatfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname: msestring <span style="color:navy"><b>READ</b></span> getstatvarname <span style="color:navy"><b>WRITE</b></span> fstatvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority: integer <span style="color:navy"><b>READ</b></span> fstatpriority
+                                            <span style="color:navy"><b>WRITE</b></span> fstatpriority <span style="color:navy"><b>DEFAULT</b></span> 0;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> getcaption <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> icon: tmaskedbitmap <span style="color:navy"><b>READ</b></span> ficon <span style="color:navy"><b>WRITE</b></span> seticon;
+        <span style="color:navy"><b>PROPERTY</b></span> windowopacity: realty <span style="color:navy"><b>READ</b></span> fwindowopacity <span style="color:navy"><b>WRITE</b></span> setwindowopacity;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncreate: notifyeventty <span style="color:navy"><b>READ</b></span> foncreate <span style="color:navy"><b>WRITE</b></span> foncreate;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreated: notifyeventty <span style="color:navy"><b>READ</b></span> foncreated <span style="color:navy"><b>WRITE</b></span> foncreated;
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded: notifyeventty <span style="color:navy"><b>READ</b></span> fonloaded <span style="color:navy"><b>WRITE</b></span> fonloaded;
+        <span style="color:navy"><b>PROPERTY</b></span> oneventloopstart: notifyeventty <span style="color:navy"><b>READ</b></span> foneventloopstart
+                                        <span style="color:navy"><b>WRITE</b></span> foneventloopstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroy: notifyeventty <span style="color:navy"><b>READ</b></span> fondestroy <span style="color:navy"><b>WRITE</b></span> fondestroy;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroyed: notifyeventty <span style="color:navy"><b>READ</b></span> fondestroyed <span style="color:navy"><b>WRITE</b></span> fondestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeclosequery: closequeryeventty <span style="color:navy"><b>READ</b></span> fonbeforeclosequery
+                                             <span style="color:navy"><b>WRITE</b></span> fonbeforeclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclosequery: closequeryeventty <span style="color:navy"><b>READ</b></span> fonclosequery
+                                             <span style="color:navy"><b>WRITE</b></span> fonclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclose: notifyeventty <span style="color:navy"><b>READ</b></span> fonclose <span style="color:navy"><b>WRITE</b></span> fonclose;
+        <span style="color:navy"><b>PROPERTY</b></span> onidle: idleeventty <span style="color:navy"><b>READ</b></span> fonidle <span style="color:navy"><b>WRITE</b></span> fonidle;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminatequery: terminatequeryeventty <span style="color:navy"><b>READ</b></span> fonterminatequery
+                      <span style="color:navy"><b>WRITE</b></span> fonterminatequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminated: notifyeventty <span style="color:navy"><b>READ</b></span> fonterminated
+                      <span style="color:navy"><b>WRITE</b></span> fonterminated;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint: painteventty <span style="color:navy"><b>READ</b></span> getonbeforepaint
+                                                             <span style="color:navy"><b>WRITE</b></span> setonbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint: painteventty <span style="color:navy"><b>READ</b></span> getonpaint <span style="color:navy"><b>WRITE</b></span> setonpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint: painteventty <span style="color:navy"><b>READ</b></span> getonafterpaint
+                                                               <span style="color:navy"><b>WRITE</b></span> setonafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onstatupdate: statupdateeventty <span style="color:navy"><b>READ</b></span> fonstatupdate
+                                                                <span style="color:navy"><b>WRITE</b></span> fonstatupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>READ</b></span>: statreadeventty read fonstatread <span style="color:navy"><b>WRITE</b></span> fonstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbefore<span style="color:navy"><b>READ</b></span>: notifyeventty read fonstatbeforeread
+                                                            <span style="color:navy"><b>WRITE</b></span> fonstatbeforeread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafter<span style="color:navy"><b>READ</b></span>: notifyeventty read fonstatafterread
+                                                            <span style="color:navy"><b>WRITE</b></span> fonstatafterread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstat<span style="color:navy"><b>WRITE</b></span>: statwriteeventty <span style="color:navy"><b>READ</b></span> fonstatwrite write fonstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforewrite: notifyeventty <span style="color:navy"><b>READ</b></span> fonstatbeforewrite
+                                                    <span style="color:navy"><b>WRITE</b></span> fonstatbeforewrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterwrite: notifyeventty <span style="color:navy"><b>READ</b></span> fonstatafterwrite
+                                                    <span style="color:navy"><b>WRITE</b></span> fonstatafterwrite;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onwidgetactivechanged: widgetchangeeventty
+                          <span style="color:navy"><b>READ</b></span> fonwidgetactivechanged <span style="color:navy"><b>WRITE</b></span> fonwidgetactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowactivechanged: windowchangeeventty
+                           <span style="color:navy"><b>READ</b></span> fonwindowactivechanged <span style="color:navy"><b>WRITE</b></span> fonwindowactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowdestroyed: windoweventty <span style="color:navy"><b>READ</b></span> fonwindowdestroyed
+                                                           <span style="color:navy"><b>WRITE</b></span> fonwindowdestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onapplicationactivechanged: booleaneventty
+                 <span style="color:navy"><b>READ</b></span> fonapplicationactivechanged <span style="color:navy"><b>WRITE</b></span> fonapplicationactivechanged;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta: fontheightdeltaeventty <span style="color:navy"><b>READ</b></span> fonfontheightdelta
+                          <span style="color:navy"><b>WRITE</b></span> fonfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout: notifyeventty <span style="color:navy"><b>READ</b></span> getonlayout <span style="color:navy"><b>WRITE</b></span> setonlayout;
+        <span style="color:navy"><b>PROPERTY</b></span> onsysevent: syseventeventty <span style="color:navy"><b>READ</b></span> fonsysevent <span style="color:navy"><b>WRITE</b></span> setonsysevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onsyswindowevent: syseventeventty <span style="color:navy"><b>READ</b></span> fonsyswindowevent
+                                              <span style="color:navy"><b>WRITE</b></span> setonsyswindowevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onapplicationevent: applicationeventeventty
+                              <span style="color:navy"><b>READ</b></span> fonapplicationevent <span style="color:navy"><b>WRITE</b></span> setonapplicationevent;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> container: tformscrollbox <span style="color:navy"><b>READ</b></span> fscrollbox <span style="color:navy"><b>WRITE</b></span> setscrollbox;
+        fdef mse_with_ifi}
+        <span style="color:navy"><b>PROPERTY</b></span> ifilink: tififormlinkcomp <span style="color:navy"><b>READ</b></span> fifilink <span style="color:navy"><b>WRITE</b></span> setifilink;
+        ndif}
+        <span style="color:navy"><b>PROPERTY</b></span> activatortarget: tactivator <span style="color:navy"><b>READ</b></span> factivatortarget
+                                                  <span style="color:navy"><b>WRITE</b></span> setactivatortarget;
+        <span style="color:navy"><b>PROPERTY</b></span> taborderoverride: ttaborderoverride <span style="color:navy"><b>READ</b></span> ftaborderoverride
+                                                       <span style="color:navy"><b>WRITE</b></span> settaborderoverride;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmseformwidget" name="tmseformwidget">tmseformwidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommseform">tcustommseform</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswindow;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> icon;
+        <span style="color:navy"><b>PROPERTY</b></span> windowopacity;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncreate;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreated;
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded;
+        <span style="color:navy"><b>PROPERTY</b></span> oneventloopstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroy;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclose;
+        <span style="color:navy"><b>PROPERTY</b></span> onidle;
+        <span style="color:navy"><b>PROPERTY</b></span> onwidgetactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowdestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onapplicationactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminatequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminated;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmove;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onshow;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onenter;
+        <span style="color:navy"><b>PROPERTY</b></span> onexit;
+        <span style="color:navy"><b>PROPERTY</b></span> onfocusedwidgetchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> ondeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onhide;
+        <span style="color:navy"><b>PROPERTY</b></span> onevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oncomponentevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onasyncevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onstatupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforeread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforewrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterwrite;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onsysevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onsyswindowevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onapplicationevent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmseform" name="tmseform">tmseform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseformwidget">tmseformwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmainform" name="tmainform">tmainform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseform">tmseform</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultmainformoptions;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswindow <span style="color:navy"><b>DEFAULT</b></span> defaultmainformoptionswindow;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tformdockcontroller" name="tformdockcontroller">tformdockcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tnochildrendockcontroller">tnochildrendockcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdockform);
+        <span style="color:navy"><b>FUNCTION</b></span> childicon (): tmaskedbitmap <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsdockform: optionsdockformty <span style="color:navy"><b>READ</b></span> foptionsdockform
+                          <span style="color:navy"><b>WRITE</b></span> setoptionsdockform <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsdockform;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdockform" name="tcustomdockform">tcustomdockform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommseform">tcustommseform</a>,idocktarget)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy (); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> activate (const abringtofront: boolean = true;
+                                    const aforce: boolean = false); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canfocus: boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> dragevent (var info: draginfoty); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> dockingareacaption: msestring <span style="color:navy"><b>READ</b></span> fdockingareacaption
+                                                        <span style="color:navy"><b>WRITE</b></span> setdockingareacaption;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dragdock: tformdockcontroller <span style="color:navy"><b>READ</b></span> fdragdock <span style="color:navy"><b>WRITE</b></span> setdragdock;
+        <span style="color:navy"><b>PROPERTY</b></span> frame: tgripframe <span style="color:navy"><b>READ</b></span> getframe <span style="color:navy"><b>WRITE</b></span> setframe;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockformwidget" name="tdockformwidget">tdockformwidget</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdockform">tcustomdockform</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswindow;
+        <span style="color:navy"><b>PROPERTY</b></span> mainmenu;
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> fontempty;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> statfile;
+        <span style="color:navy"><b>PROPERTY</b></span> statvarname;
+        <span style="color:navy"><b>PROPERTY</b></span> statpriority;
+        <span style="color:navy"><b>PROPERTY</b></span> caption;
+        <span style="color:navy"><b>PROPERTY</b></span> icon;
+        <span style="color:navy"><b>PROPERTY</b></span> dockingareacaption;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> oncreate;
+        <span style="color:navy"><b>PROPERTY</b></span> oncreated;
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded;
+        <span style="color:navy"><b>PROPERTY</b></span> oneventloopstart;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroy;
+        <span style="color:navy"><b>PROPERTY</b></span> ondestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclosequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onclose;
+        <span style="color:navy"><b>PROPERTY</b></span> onidle;
+        <span style="color:navy"><b>PROPERTY</b></span> onwidgetactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onwindowdestroyed;
+        <span style="color:navy"><b>PROPERTY</b></span> onapplicationactivechanged;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminatequery;
+        <span style="color:navy"><b>PROPERTY</b></span> onterminated;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onclientmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onchildmouseevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onmousewheelevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeydown;
+        <span style="color:navy"><b>PROPERTY</b></span> onkeyup;
+        <span style="color:navy"><b>PROPERTY</b></span> onshortcut;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforepaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onpaint;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterpaint;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onmove;
+        <span style="color:navy"><b>PROPERTY</b></span> onresize;
+        <span style="color:navy"><b>PROPERTY</b></span> onshow;
+        <span style="color:navy"><b>PROPERTY</b></span> onactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onenter;
+        <span style="color:navy"><b>PROPERTY</b></span> onexit;
+        <span style="color:navy"><b>PROPERTY</b></span> onfocusedwidgetchanged;
+        <span style="color:navy"><b>PROPERTY</b></span> ondeactivate;
+        <span style="color:navy"><b>PROPERTY</b></span> onhide;
+        <span style="color:navy"><b>PROPERTY</b></span> onevent;
+        <span style="color:navy"><b>PROPERTY</b></span> oncomponentevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onasyncevent;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onstatupdate;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforeread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterread;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatwrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatbeforewrite;
+        <span style="color:navy"><b>PROPERTY</b></span> onstatafterwrite;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onfontheightdelta;
+        <span style="color:navy"><b>PROPERTY</b></span> onlayout;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onsysevent;
+        <span style="color:navy"><b>PROPERTY</b></span> onsyswindowevent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockform" name="tdockform">tdockform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdockformwidget">tdockformwidget</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdockformscrollbox" name="tdockformscrollbox">tdockformscrollbox</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tformscrollbox">tformscrollbox</a>,idocktarget)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcustomdockform); <span style="color:teal"><b>REINTRODUCE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsubform" name="tsubform">tsubform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlayouter">tlayouter</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean);
+                                          <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> onloaded;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tscrollboxform" name="tscrollboxform">tscrollboxform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tscrollbox">tscrollbox</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent; load: boolean);
+                                          <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttabformfonttab" name="ttabformfonttab">ttabformfonttab</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttabformfontactivetab" name="ttabformfontactivetab">ttabformfontactivetab</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttabform" name="ttabform">ttabform</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmseform">tmseform</a>,itabpage,iimagelistinfo)
+      PUBLIC
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfonttab;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfontactivetab;
+        <span style="color:navy"><b>FUNCTION</b></span> isactivepage: boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> tabwidget: tcustomtabwidget <span style="color:navy"><b>READ</b></span> ftabwidget;
+        <span style="color:navy"><b>PROPERTY</b></span> tabindex: integer <span style="color:navy"><b>READ</b></span> gettabindex <span style="color:navy"><b>WRITE</b></span> settabindex;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> colortab: colorty <span style="color:navy"><b>READ</b></span> getcolortab
+                                         <span style="color:navy"><b>WRITE</b></span> setcolortab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> coloractivetab: colorty <span style="color:navy"><b>READ</b></span> getcoloractivetab
+                                         <span style="color:navy"><b>WRITE</b></span> setcoloractivetab <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> facetab: tfacecomp <span style="color:navy"><b>READ</b></span> getfacetab <span style="color:navy"><b>WRITE</b></span> setfacetab;
+        <span style="color:navy"><b>PROPERTY</b></span> faceactivetab: tfacecomp <span style="color:navy"><b>READ</b></span> getfaceactivetab
+                                                     <span style="color:navy"><b>WRITE</b></span> setfaceactivetab;
+        <span style="color:navy"><b>PROPERTY</b></span> fonttab: ttabformfonttab <span style="color:navy"><b>READ</b></span> getfonttab1 <span style="color:navy"><b>WRITE</b></span> setfonttab1
+                                                             stored isfonttabstored;
+        <span style="color:navy"><b>PROPERTY</b></span> fontactivetab: ttabformfontactivetab <span style="color:navy"><b>READ</b></span> getfontactivetab1
+                               <span style="color:navy"><b>WRITE</b></span> setfontactivetab1 stored isfontactivetabstored;
+        <span style="color:navy"><b>PROPERTY</b></span> tabhint: msestring <span style="color:navy"><b>READ</b></span> gettabhint <span style="color:navy"><b>WRITE</b></span> settabhint;
+        <span style="color:navy"><b>PROPERTY</b></span> tabnoface: boolean <span style="color:navy"><b>READ</b></span> gettabnoface
+                                           <span style="color:navy"><b>WRITE</b></span> settabnoface <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> getimagelist <span style="color:navy"><b>WRITE</b></span> setimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenr: imagenrty <span style="color:navy"><b>READ</b></span> getimagenr <span style="color:navy"><b>WRITE</b></span> setimagenr <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> imagenrdisabled: imagenrty <span style="color:navy"><b>READ</b></span> getimagenrdisabled
+                                                <span style="color:navy"><b>WRITE</b></span> setimagenrdisabled <span style="color:navy"><b>DEFAULT</b></span> -2;
+        <span style="color:navy"><b>PROPERTY</b></span> onselect: notifyeventty <span style="color:navy"><b>READ</b></span> fonselect <span style="color:navy"><b>WRITE</b></span> fonselect;
+        <span style="color:navy"><b>PROPERTY</b></span> ondeselect: notifyeventty <span style="color:navy"><b>READ</b></span> fondeselect <span style="color:navy"><b>WRITE</b></span> fondeselect;
+        <span style="color:navy"><b>PROPERTY</b></span> invisible: boolean <span style="color:navy"><b>READ</b></span> getinvisible <span style="color:navy"><b>WRITE</b></span> setinvisible <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> visible <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> optionsskin;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

@@ -1,0 +1,531 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory fpccompatibility</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT mclasses;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpersistentbridge" name="tpersistentbridge">tpersistentbridge</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tclassespersistent">TClassesPersistent</a>)
+<pre>
+    <a href="../../unitslist.html#tpersistent" name="tpersistent">tpersistent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject{">TObject{</a>,IFPObserved})
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: TClassesPersistent); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: tpersistentbridge); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcomponent" name="tcomponent">tcomponent</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent{">tpersistent{</a>,IUnknown,IInterfaceComponentReference})
+      PUBLIC
+        fndef fpdocsystem}
+        ndif}
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteState (Writer: twriter); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AOwner: tcomponent); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeforeDestruction; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DestroyComponents;
+         <span style="color:navy"><b>PROCEDURE</b></span> Destroying;
+         <span style="color:navy"><b>FUNCTION</b></span> ExecuteAction (Action: TBasicAction): Boolean; <span style="color:teal"><b>DYNAMIC</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> FindComponent (const AName: string): tcomponent;
+         <span style="color:navy"><b>FUNCTION</b></span> findtagcomponent (const atag: int32;
+                                     const aclass: tcomponentclass): tcomponent;
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeNotification (AComponent: tcomponent);
+         <span style="color:navy"><b>PROCEDURE</b></span> RemoveFreeNotification (AComponent: tcomponent);
+         <span style="color:navy"><b>PROCEDURE</b></span> FreeOnRelease;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNamePath: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetParentComponent: tcomponent; <span style="color:teal"><b>DYNAMIC</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> HasParent: Boolean; <span style="color:teal"><b>DYNAMIC</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> InsertComponent (AComponent: tcomponent);
+         <span style="color:navy"><b>PROCEDURE</b></span> RemoveComponent (AComponent: tcomponent);
+         <span style="color:navy"><b>FUNCTION</b></span> SafeCallException (ExceptObject: TObject;
+           ExceptAddr: Pointer): HResult; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetSubComponent (ASubComponent: Boolean);
+         <span style="color:navy"><b>FUNCTION</b></span> UpdateAction (Action: TBasicAction): Boolean; <span style="color:teal"><b>DYNAMIC</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Components[Index: Integer]: tcomponent <span style="color:navy"><b>READ</b></span> GetComponent;
+         <span style="color:navy"><b>PROPERTY</b></span> ComponentCount: Integer <span style="color:navy"><b>READ</b></span> GetComponentCount;
+         <span style="color:navy"><b>PROPERTY</b></span> ComponentIndex: Integer <span style="color:navy"><b>READ</b></span> GetComponentIndex <span style="color:navy"><b>WRITE</b></span> SetComponentIndex;
+         <span style="color:navy"><b>PROPERTY</b></span> ComponentState: TComponentState <span style="color:navy"><b>READ</b></span> FComponentState;
+         <span style="color:navy"><b>PROPERTY</b></span> ComponentStyle: TComponentStyle <span style="color:navy"><b>READ</b></span> FComponentStyle;
+         <span style="color:navy"><b>PROPERTY</b></span> DesignInfo: Longint <span style="color:navy"><b>READ</b></span> FDesignInfo <span style="color:navy"><b>WRITE</b></span> FDesignInfo;
+         <span style="color:navy"><b>PROPERTY</b></span> Owner: tcomponent <span style="color:navy"><b>READ</b></span> FOwner;
+         <span style="color:navy"><b>PROPERTY</b></span> VCLComObject: Pointer <span style="color:navy"><b>READ</b></span> FVCLComObject <span style="color:navy"><b>WRITE</b></span> FVCLComObject;
+         <span style="color:navy"><b>PROPERTY</b></span> tagpo: pointer <span style="color:navy"><b>READ</b></span> ftagpo <span style="color:navy"><b>WRITE</b></span> ftagpo;
+      PUBLISHED
+         <span style="color:navy"><b>PROPERTY</b></span> Name: TComponentName <span style="color:navy"><b>READ</b></span> FName <span style="color:navy"><b>WRITE</b></span> SetName stored False;
+         <span style="color:navy"><b>PROPERTY</b></span> Tag: PtrInt <span style="color:navy"><b>READ</b></span> FTag <span style="color:navy"><b>WRITE</b></span> FTag <span style="color:navy"><b>DEFAULT</b></span> 0;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcollectionitem" name="tcollectionitem">TCollectionItem</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">TPersistent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ACollection: TCollection); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNamePath: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Collection: TCollection <span style="color:navy"><b>READ</b></span> FCollection <span style="color:navy"><b>WRITE</b></span> SetCollection;
+         <span style="color:navy"><b>PROPERTY</b></span> ID: Integer <span style="color:navy"><b>READ</b></span> FID;
+         <span style="color:navy"><b>PROPERTY</b></span> Index: Integer <span style="color:navy"><b>READ</b></span> GetIndex <span style="color:navy"><b>WRITE</b></span> SetIndex;
+         <span style="color:navy"><b>PROPERTY</b></span> DisplayName: string <span style="color:navy"><b>READ</b></span> GetDisplayName <span style="color:navy"><b>WRITE</b></span> SetDisplayName;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TCollectionEnumerator" name="tcollectionenumerator">TCollectionEnumerator</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ACollection: TCollection);
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrent: TCollectionItem;
+         <span style="color:navy"><b>FUNCTION</b></span> MoveNext: Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Current: TCollectionItem <span style="color:navy"><b>READ</b></span> GetCurrent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcollection" name="tcollection">TCollection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">TPersistent</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AItemClass: TCollectionItemClass);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Owner: TPersistent;
+         <span style="color:navy"><b>FUNCTION</b></span> Add: TCollectionItem;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: TPersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginUpdate; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndUpdate; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer);
+         <span style="color:navy"><b>FUNCTION</b></span> GetEnumerator: TCollectionEnumerator;
+         <span style="color:navy"><b>FUNCTION</b></span> GetNamePath: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Insert (Index: Integer): TCollectionItem;
+         <span style="color:navy"><b>FUNCTION</b></span> FindItemID (ID: Integer): TCollectionItem;
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Const Index1, index2: integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> Sort (Const Compare : TCollectionSortCompare);
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> ItemClass: TCollectionItemClass <span style="color:navy"><b>READ</b></span> FItemClass;
+         <span style="color:navy"><b>PROPERTY</b></span> Items[Index: Integer]: TCollectionItem <span style="color:navy"><b>READ</b></span> GetItem <span style="color:navy"><b>WRITE</b></span> SetItem;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#townedcollection" name="townedcollection">TOwnedCollection</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcollection">TCollection</a>)
+      PUBLIC
+         Constructor Create (AOwner: TPersistent;AItemClass: TCollectionItemClass);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfiler" name="tfiler">tfiler</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineProperty (const Name: string;
+           ReadData: TReaderProc; WriteData: TWriterProc;
+           HasData: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineBinaryProperty (const Name: string;
+           ReadData, WriteData: TStreamProc;
+           HasData: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Root: tcomponent <span style="color:navy"><b>READ</b></span> FRoot <span style="color:navy"><b>WRITE</b></span> SetRoot;
+         <span style="color:navy"><b>PROPERTY</b></span> LookupRoot: tcomponent <span style="color:navy"><b>READ</b></span> FLookupRoot;
+         <span style="color:navy"><b>PROPERTY</b></span> Ancestor: tpersistent <span style="color:navy"><b>READ</b></span> FAncestor <span style="color:navy"><b>WRITE</b></span> FAncestor;
+         <span style="color:navy"><b>PROPERTY</b></span> IgnoreChildren: Boolean <span style="color:navy"><b>READ</b></span> FIgnoreChildren <span style="color:navy"><b>WRITE</b></span> FIgnoreChildren;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TAbstractObjectReader" name="tabstractobjectreader">TAbstractObjectReader</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> NextValue: TValueType; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadValue: TValueType; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginRootComponent; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginComponent (var Flags: TFilerFlags; var AChildPos: Integer;
+           var CompClassName, CompName: String); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> BeginProperty: String; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Read (var Buf; Count: LongInt); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         { All ReadXXX methods are called _after_ the value type has been read! }
+         <span style="color:navy"><b>PROCEDURE</b></span> ReadBinary (const DestData: TMemoryStream); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        fndef FPUNONE}
+         <span style="color:navy"><b>FUNCTION</b></span> ReadFloat: Extended; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadSingle: Single; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadDate: TDateTime; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        ndif}
+         <span style="color:navy"><b>FUNCTION</b></span> ReadCurrency: Currency; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadIdent (ValueType: TValueType): String; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt8: ShortInt; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt16: SmallInt; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt32: LongInt; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt64: Int64; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadSet (EnumType: ptypeinfo): Integer; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadStr: String; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadString (StringType: TValueType): String; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Readutf8String (StringType: TValueType): utf8String;
+                                                              <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadWideString: WideString;virtual;abstract;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadUnicodeString: UnicodeString;virtual;abstract;
+         <span style="color:navy"><b>PROCEDURE</b></span> SkipComponent (SkipComponentInfos: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SkipValue; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbinaryobjectreader" name="tbinaryobjectreader">TBinaryObjectReader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tabstractobjectreader">TAbstractObjectReader</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Stream: TStream; BufSize: Integer);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>FUNCTION</b></span> NextValue: TValueType; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadValue: TValueType; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginRootComponent; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginComponent (var Flags: TFilerFlags; var AChildPos: Integer;
+           var CompClassName, CompName: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> BeginProperty: String; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Read (var Buf; Count: LongInt); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> ReadBinary (const DestData: TMemoryStream); <span style="color:teal"><b>OVERRIDE</b></span>;
+        fndef FPUNONE}
+         <span style="color:navy"><b>FUNCTION</b></span> ReadFloat: Extended; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadSingle: Single; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadDate: TDateTime; <span style="color:teal"><b>OVERRIDE</b></span>;
+        ndif}
+         <span style="color:navy"><b>FUNCTION</b></span> ReadCurrency: Currency; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadIdent (ValueType: TValueType): String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt8: ShortInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt16: SmallInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt32: LongInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadInt64: Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadSet (EnumType: ptypeinfo): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadStr: String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadString (StringType: TValueType): String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Readutf8String (StringType: TValueType): utf8String; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadWideString: WideString;override;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadUnicodeString: UnicodeString;override;
+         <span style="color:navy"><b>PROCEDURE</b></span> SkipComponent (SkipComponentInfos: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SkipValue; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#treader" name="treader">treader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfiler">tfiler</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Stream: TStream; BufSize: Integer);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginReferences;
+         <span style="color:navy"><b>PROCEDURE</b></span> CheckValue (Value: TValueType);
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineProperty (const Name: string;
+           AReadData: TReaderProc; WriteData: TWriterProc;
+           HasData: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineBinaryProperty (const Name: string;
+           AReadData, WriteData: TStreamProc;
+           HasData: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> beginoflist (): boolean;
+         <span style="color:navy"><b>FUNCTION</b></span> EndOfList: Boolean;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndReferences;
+         <span style="color:navy"><b>PROCEDURE</b></span> FixupReferences;
+         <span style="color:navy"><b>FUNCTION</b></span> NextValue: TValueType;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TAbstractObjectWriter" name="tabstractobjectwriter">TAbstractObjectWriter</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginCollection; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;  { Ends with the next "EndList" }
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginComponent (Component: TComponent; Flags: TFilerFlags;
+           ChildPos: Integer); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;  { Ends after the second "EndList" }
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginList; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndList; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginProperty (const PropName: String); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndProperty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Write (const Buffer; Count: Longint); <span style="color:teal"><b>VIRTUAL</b></span>;abstract;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteBinary (const Buffer; Count: Longint); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteBoolean (Value: Boolean); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        fndef FPUNONE}
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteFloat (const Value: Extended); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteSingle (const Value: Single); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteDate (const Value: TDateTime); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        ndif}
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteCurrency (const Value: Currency); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteIdent (const Ident: string); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteInteger (Value: Int64); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteUInt64 (Value: QWord); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteVariant (const Value: Variant); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteMethodName (const Name: String); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteSet (Value: LongInt; SetType: Pointer); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteString (const Value: String); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Writeutf8String (const Value: utf8String); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteWideString (const Value: WideString);virtual;abstract;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteUnicodeString (const Value: UnicodeString);virtual;abstract;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbinaryobjectwriter" name="tbinaryobjectwriter">TBinaryObjectWriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tabstractobjectwriter">TAbstractObjectWriter</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Stream: TStream; BufSize: Integer);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginCollection; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginComponent (Component: TComponent; Flags: TFilerFlags;
+           ChildPos: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginList; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndList; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginProperty (const PropName: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndProperty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+         <span style="color:navy"><b>PROCEDURE</b></span> Write (const Buffer; Count: Longint); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteBinary (const Buffer; Count: LongInt); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteBoolean (Value: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+        fndef FPUNONE}
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteFloat (const Value: Extended); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteSingle (const Value: Single); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteDate (const Value: TDateTime); <span style="color:teal"><b>OVERRIDE</b></span>;
+        ndif}
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteCurrency (const Value: Currency); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteIdent (const Ident: string); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteInteger (Value: Int64); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteUInt64 (Value: QWord); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteMethodName (const Name: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteSet (Value: LongInt; SetType: Pointer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteStr (const Value: String);
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteString (const Value: String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Writeutf8String (const Value: utf8String); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteWideString (const Value: WideString); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteUnicodeString (const Value: UnicodeString); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteVariant (const VarValue: Variant);override;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#twriter" name="twriter">twriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tfiler">tfiler</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (ADriver: TAbstractObjectWriter); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Stream: TStream; BufSize: Integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineProperty (const Name: string;
+           ReadData: TReaderProc; AWriteData: TWriterProc;
+           HasData: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> DefineBinaryProperty (const Name: string;
+           ReadData, AWriteData: TStreamProc;
+           HasData: Boolean); <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#TStringsEnumerator" name="tstringsenumerator">TStringsEnumerator</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AStrings: TStrings);
+         <span style="color:navy"><b>FUNCTION</b></span> GetCurrent: String;
+         <span style="color:navy"><b>FUNCTION</b></span> MoveNext: Boolean;
+         <span style="color:navy"><b>PROPERTY</b></span> Current: String <span style="color:navy"><b>READ</b></span> GetCurrent;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstrings" name="tstrings">tstrings</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Add (const S: string): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> AddObject (const S: string; AObject: TObject): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Append (const S: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> AddStrings (TheStrings: tstrings); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> AddStrings (const TheStrings: array of string); <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Assign (Source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> BeginUpdate;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> EndUpdate;
+         <span style="color:navy"><b>FUNCTION</b></span> Equals (Obj: TObject): Boolean; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Equals (TheStrings: tstrings): Boolean; <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Index1, Index2: Integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> GetEnumerator: TStringsEnumerator;
+         <span style="color:navy"><b>FUNCTION</b></span> GetText: PChar; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (const S: string): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOfName (const Name: string): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOfObject (AObject: TObject): Integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Insert (Index: Integer; const S: string); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> InsertObject (Index: Integer; const S: string;
+           AObject: TObject);
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromFile (const FileName: string); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromStream (Stream: TStream); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Move (CurIndex, NewIndex: Integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToFile (const FileName: string); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToStream (Stream: TStream); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SetText (TheText: PChar); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> GetNameValue (Index : Integer; Out AName,AValue : String);
+         <span style="color:navy"><b>FUNCTION</b></span>  ExtractName (Const S:String):String;
+         Property TextLineBreakStyle : TTextLineBreakStyle Read GetLBS Write SetLBS;
+         <span style="color:navy"><b>PROPERTY</b></span> Delimiter: Char <span style="color:navy"><b>READ</b></span> FDelimiter <span style="color:navy"><b>WRITE</b></span> SetDelimiter;
+         <span style="color:navy"><b>PROPERTY</b></span> DelimitedText: string <span style="color:navy"><b>READ</b></span> GetDelimitedText <span style="color:navy"><b>WRITE</b></span> SetDelimitedText;
+         Property StrictDelimiter : Boolean Read FStrictDelimiter Write FStrictDelimiter;
+         <span style="color:navy"><b>PROPERTY</b></span> QuoteChar: Char <span style="color:navy"><b>READ</b></span> FQuoteChar <span style="color:navy"><b>WRITE</b></span> SetQuoteChar;
+         Property NameValueSeparator : Char Read FNameValueSeparator Write SetNameValueSeparator;
+         <span style="color:navy"><b>PROPERTY</b></span> ValueFromIndex[Index: Integer]: string <span style="color:navy"><b>READ</b></span> GetValueFromIndex <span style="color:navy"><b>WRITE</b></span> SetValueFromIndex;
+         <span style="color:navy"><b>PROPERTY</b></span> Capacity: Integer <span style="color:navy"><b>READ</b></span> GetCapacity <span style="color:navy"><b>WRITE</b></span> SetCapacity;
+         <span style="color:navy"><b>PROPERTY</b></span> CommaText: string <span style="color:navy"><b>READ</b></span> GetCommaText <span style="color:navy"><b>WRITE</b></span> SetCommaText;
+         <span style="color:navy"><b>PROPERTY</b></span> Count: Integer <span style="color:navy"><b>READ</b></span> GetCount;
+         <span style="color:navy"><b>PROPERTY</b></span> Names[Index: Integer]: string <span style="color:navy"><b>READ</b></span> GetName;
+         <span style="color:navy"><b>PROPERTY</b></span> Objects[Index: Integer]: TObject <span style="color:navy"><b>READ</b></span> GetObject <span style="color:navy"><b>WRITE</b></span> PutObject;
+         <span style="color:navy"><b>PROPERTY</b></span> Values[const Name: string]: string <span style="color:navy"><b>READ</b></span> GetValue <span style="color:navy"><b>WRITE</b></span> SetValue;
+         <span style="color:navy"><b>PROPERTY</b></span> Strings[Index: Integer]: string <span style="color:navy"><b>READ</b></span> Get <span style="color:navy"><b>WRITE</b></span> Put; default;
+         <span style="color:navy"><b>PROPERTY</b></span> Text: string <span style="color:navy"><b>READ</b></span> GetTextStr <span style="color:navy"><b>WRITE</b></span> SetTextStr;
+         <span style="color:navy"><b>PROPERTY</b></span> StringsAdapter: IStringsAdapter <span style="color:navy"><b>READ</b></span> FAdapter <span style="color:navy"><b>WRITE</b></span> SetStringsAdapter;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringlist" name="tstringlist">tstringlist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstrings">tstrings</a>)
+      PUBLIC
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Add (const S: string): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Delete (Index: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Exchange (Index1, Index2: Integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Find (const S: string; Out Index: Integer): Boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> IndexOf (const S: string): Integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Insert (Index: Integer; const S: string); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Sort; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> CustomSort (CompareFn: TStringListSortCompare); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Duplicates: TDuplicates <span style="color:navy"><b>READ</b></span> FDuplicates <span style="color:navy"><b>WRITE</b></span> FDuplicates;
+         <span style="color:navy"><b>PROPERTY</b></span> Sorted: Boolean <span style="color:navy"><b>READ</b></span> FSorted <span style="color:navy"><b>WRITE</b></span> SetSorted;
+         <span style="color:navy"><b>PROPERTY</b></span> CaseSensitive: Boolean <span style="color:navy"><b>READ</b></span> FCaseSensitive <span style="color:navy"><b>WRITE</b></span> SetCaseSensitive;
+         <span style="color:navy"><b>PROPERTY</b></span> OnChange: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnChange <span style="color:navy"><b>WRITE</b></span> FOnChange;
+         <span style="color:navy"><b>PROPERTY</b></span> OnChanging: TNotifyEvent <span style="color:navy"><b>READ</b></span> FOnChanging <span style="color:navy"><b>WRITE</b></span> FOnChanging;
+         <span style="color:navy"><b>PROPERTY</b></span> OwnsObjects : boolean <span style="color:navy"><b>READ</b></span> FOwnsObjects <span style="color:navy"><b>WRITE</b></span> FOwnsObjects;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstream" name="tstream">TStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#classes.tstream">Classes.TStream</a>)
+<pre>
+    <a href="../../unitslist.html#tstream" name="tstream">TStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tobject">TObject</a>)
+      PUBLIC
+        $endif}
+         
+         <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERLOAD</b></span>;
+          {$if defined (class_bridge)} <span style="color:teal"><b>OVERRIDE</b></span>; {$else} <span style="color:teal"><b>VIRTUAL</b></span>;{$endif}
+        
+         <span style="color:navy"><b>FUNCTION</b></span> read (var buffer; const count: longint;
+                               out acount: longint): syserrorty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+           
+         <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERLOAD</b></span>; 
+          {$if defined (class_bridge)} <span style="color:teal"><b>OVERRIDE</b></span>; {$else} <span style="color:teal"><b>VIRTUAL</b></span>;{$endif}
+        
+         
+         <span style="color:navy"><b>FUNCTION</b></span> write (const buffer; const count: longint;
+                               out acount: longint): syserrorty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+          
+         <span style="color:navy"><b>FUNCTION</b></span> seek (const offset: int64; const origin: tseekorigin;
+                                 out newpos: int64): syserrorty; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+         
+         {$if not defined (class_bridge)}
+         <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>; 
+         <span style="color:navy"><b>FUNCTION</b></span> Seek (Offset: Longint; Origin: Word): Longint; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>; 
+         <span style="color:navy"><b>PROCEDURE</b></span> ReadBuffer (var Buffer; Count: Longint);   
+         <span style="color:navy"><b>FUNCTION</b></span> CopyFrom (Source: TStream; Count: Int64): Int64;
+         <span style="color:navy"><b>PROCEDURE</b></span> ReadResHeader;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadByte : Byte;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadWord : Word;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadDWord : Cardinal;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadQWord : QWord;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadAnsiString : String;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteByte (b : Byte);
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteWord (w : Word);
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteDWord (d : Cardinal);
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteQWord (q : QWord);
+         Procedure WriteAnsiString (const S : String);
+         <span style="color:navy"><b>PROPERTY</b></span> Position: Int64 <span style="color:navy"><b>READ</b></span> GetPosition <span style="color:navy"><b>WRITE</b></span> SetPosition;
+         <span style="color:navy"><b>PROPERTY</b></span> Size: Int64 <span style="color:navy"><b>READ</b></span> GetSize <span style="color:navy"><b>WRITE</b></span> SetSize64;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteBuffer (const Buffer; Count: Longint);
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteResourceHeader (const ResName: string; {!!!:out} var FixupInfo: Integer);
+         <span style="color:navy"><b>PROCEDURE</b></span> FixupResourceHeader (FixupInfo: Integer);
+         {$endif}                     
+         
+         <span style="color:navy"><b>FUNCTION</b></span> tryreadbuffer (var buffer; count: longint): syserrorty;
+         <span style="color:navy"><b>FUNCTION</b></span> trywritebuffer (const buffer; count: longint): syserrorty;
+         <span style="color:navy"><b>FUNCTION</b></span> readdatastring: string; <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> writedatastring (const value: rawbytestring); <span style="color:teal"><b>VIRTUAL</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadComponent (Instance: TComponent): TComponent; //shadows
+         <span style="color:navy"><b>FUNCTION</b></span> ReadComponentRes (Instance: TComponent): TComponent; //shadows
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteComponent (Instance: TComponent); //shadows
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteComponentRes (const ResName: string; Instance: TComponent); //shadows
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteDescendent (Instance, Ancestor: TComponent); //shadows
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteDescendentRes (const ResName: string; Instance, Ancestor: TComponent); //shadows    
+         <span style="color:navy"><b>PROPERTY</b></span> memory: pointer <span style="color:navy"><b>READ</b></span> getmemory; //nil if not suported
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thandlestream" name="thandlestream">THandleStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstream">TStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (AHandle: THandle);
+         <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         
+         <span style="color:navy"><b>PROPERTY</b></span> Handle: filehandlety <span style="color:navy"><b>READ</b></span> FHandle;
+         <span style="color:navy"><b>FUNCTION</b></span> releasehandle (): filehandlety <span style="color:teal"><b>VIRTUAL</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tfilestream" name="tfilestream">TFileStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thandlestream">THandleStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const AFileName: string; Mode: Word); <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const AFileName: string; Mode: Word; Rights: Cardinal);
+                                                 <span style="color:teal"><b>OVERLOAD</b></span>;
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> FileName : String Read FFilename;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustommemorystream" name="tcustommemorystream">TCustomMemoryStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstream">TStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: LongInt): LongInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToStream (Stream: TStream);
+         <span style="color:navy"><b>PROCEDURE</b></span> SaveToFile (const FileName: string);
+         <span style="color:navy"><b>PROPERTY</b></span> memory: Pointer <span style="color:navy"><b>READ</b></span> getmemory;
+         <span style="color:navy"><b>PROPERTY</b></span> position1: ptrint <span style="color:navy"><b>READ</b></span> fposition;
+         <span style="color:navy"><b>PROPERTY</b></span> size1: ptrint <span style="color:navy"><b>READ</b></span> fsize;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmemorystream" name="tmemorystream">TMemoryStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemorystream">TCustomMemoryStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> Clear;
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromStream (Stream: TStream);
+         <span style="color:navy"><b>PROCEDURE</b></span> LoadFromFile (const FileName: string);
+         <span style="color:navy"><b>PROCEDURE</b></span> SetSize ({$ifdef CPU64}const{$endif CPU64} NewSize: PtrInt); <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: LongInt): LongInt; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROPERTY</b></span> Capacity: PtrInt <span style="color:navy"><b>READ</b></span> getcapacity <span style="color:navy"><b>WRITE</b></span> SetCapacity;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tstringstream" name="tstringstream">TStringStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstream">TStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (const AString: string);
+         <span style="color:navy"><b>FUNCTION</b></span> Read (var Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> ReadString (Count: Longint): string;
+         <span style="color:navy"><b>FUNCTION</b></span> Seek (Offset: Longint; Origin: Word): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>;
+         <span style="color:navy"><b>PROCEDURE</b></span> WriteString (const AString: string);
+         <span style="color:navy"><b>PROPERTY</b></span> DataString: string <span style="color:navy"><b>READ</b></span> FDataString;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tresourcestream" name="tresourcestream">TResourceStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemorystream">TCustomMemoryStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Instance: TFPResourceHMODULE; const ResName: WideString; ResType: PWideChar);
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateFromID (Instance: TFPResourceHMODULE; ResID: Integer; ResType: PWideChar);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tresourcestream" name="tresourcestream">TResourceStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustommemorystream">TCustomMemoryStream</a>)
+      PUBLIC
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> Create (Instance: TFPResourceHMODULE; const ResName: string; ResType: PChar);
+         <span style="color:navy"><b>CONSTRUCTOR</b></span> CreateFromID (Instance: TFPResourceHMODULE; ResID: Integer; ResType: PChar);
+         <span style="color:navy"><b>DESTRUCTOR</b></span> Destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#townerstream" name="townerstream">TOwnerStream</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tstream">TStream</a>)
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

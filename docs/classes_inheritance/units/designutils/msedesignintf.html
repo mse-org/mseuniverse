@@ -1,0 +1,132 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory designutils</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedesignintf;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcomponentclasslist" name="tcomponentclasslist">tcomponentclasslist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#torderedrecordlist">torderedrecordlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const value: tcomponentclass): integer;  //-1 if not found
+        <span style="color:navy"><b>FUNCTION</b></span> add (var value: componentclassinfoty): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> itempo (const index: integer): pcomponentclassinfoty;
+        <span style="color:navy"><b>PROCEDURE</b></span> registercomponents (const page: msestring;
+                      const componentclasses: array of tcomponentclass);
+        <span style="color:navy"><b>PROCEDURE</b></span> registercomponenttabhints (const pages: array of msestring;
+                            const hints: array of msestring);
+        <span style="color:navy"><b>FUNCTION</b></span> pagehigh: integer;
+        <span style="color:navy"><b>FUNCTION</b></span> pagenames: comppagearty;
+        <span style="color:navy"><b>PROPERTY</b></span> pagecomporders[const index: integer]: integerarty
+                       <span style="color:navy"><b>READ</b></span> getpagecomporders <span style="color:navy"><b>WRITE</b></span> setpagecomporders;
+        <span style="color:navy"><b>PROCEDURE</b></span> drawcomponenticon (const acomponent: tcomponent;
+                   const canvas: tcanvas; const dest: rectty);
+        <span style="color:navy"><b>PROCEDURE</b></span> updatestat (const filer: tstatfiler);
+        <span style="color:navy"><b>PROPERTY</b></span> selected<span style="color:navy"><b>CLASS</b></span>: tcomponentclass <span style="color:navy"><b>READ</b></span> fselectedclass <span style="color:navy"><b>WRITE</b></span> fselectedclass;
+        <span style="color:navy"><b>PROPERTY</b></span> imagelist: timagelist <span style="color:navy"><b>READ</b></span> fimagelist;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultorder: boolean <span style="color:navy"><b>READ</b></span> fdefaultorder <span style="color:navy"><b>WRITE</b></span> setdefaultorder;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdesignerselections" name="tdesignerselections">tdesignerselections</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trecordlist">trecordlist</a>,idesignerselections)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> change; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> decupdate;
+        <span style="color:navy"><b>FUNCTION</b></span> Add (const Item: Tcomponent): Integer;
+        <span style="color:navy"><b>FUNCTION</b></span> Equals (const List: IDesignerSelections): Boolean; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Get (Index: Integer): Tcomponent;
+        <span style="color:navy"><b>FUNCTION</b></span> GetCount: Integer;
+        <span style="color:navy"><b>FUNCTION</b></span> getarray: componentarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getobjinfoar: objinfoarty;
+        <span style="color:navy"><b>FUNCTION</b></span> getobjecttext: string;
+        <span style="color:navy"><b>FUNCTION</b></span> pastefromobjecttext (const aobjecttext: string;
+                                            aowner,aparent: tcomponent;
+                                    initproc: initcomponentprocty): componentarty;
+        <span style="color:navy"><b>PROCEDURE</b></span> copytoclipboard;
+        <span style="color:navy"><b>FUNCTION</b></span> pastefromclipboard (aowner,aparent: tcomponent;
+                                  initproc: initcomponentprocty): componentarty;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> itempo (const index: integer): pselectedinfoty;
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const ainstance: tcomponent): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> remove (const ainstance: tcomponent): integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (const source: idesignerselections);
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tcomponent
+                   <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+        <span style="color:navy"><b>FUNCTION</b></span> isembedded (const component: tcomponent): boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdesignnotifications" name="tdesignnotifications">tdesignnotifications</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerlist">tpointerlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> ItemDeleted (const ADesigner: IDesigner; const amodule: tmsecomponent;
+                                    const AItem: tcomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> ItemInserted (const ADesigner: IDesigner; const amodule: tmsecomponent;
+                                  const AItem: tcomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> ItemsModified (const ADesigner: IDesigner; const aitem: tobject);
+        <span style="color:navy"><b>PROCEDURE</b></span> componentnamechanging (const adesigner: idesigner;
+                         const amodule: tmsecomponent; const aitem: tcomponent;
+                         const newname: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> moduleclassnamechanging (const adesigner: idesigner;
+                         const amodule: tmsecomponent; const newname: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> instancevarnamechanging (const adesigner: idesigner;
+                         const amodule: tmsecomponent; const newname: string);
+        <span style="color:navy"><b>PROCEDURE</b></span> SelectionChanged (const ADesigner: IDesigner;
+                           const ASelection: IDesignerSelections);
+        <span style="color:navy"><b>PROCEDURE</b></span> moduleactivated (const adesigner: idesigner;
+                               const amodule: tmsecomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> moduledeactivated (const adesigner: idesigner;
+                               const amodule: tmsecomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> moduledestroyed (const adesigner: idesigner;
+                               const amodule: tmsecomponent);
+        <span style="color:navy"><b>PROCEDURE</b></span> methodcreated (const adesigner: idesigner;
+                               const amodule: tmsecomponent;
+                               const aname: string; const atype: ptypeinfo);
+        <span style="color:navy"><b>PROCEDURE</b></span> methodnamechanged (const adesigner: idesigner;
+                               const amodule: tmsecomponent;
+                               const newname,oldname: string; const atypeinfo: ptypeinfo);
+        <span style="color:navy"><b>PROCEDURE</b></span> showobjecttext (const adesigner: idesigner;
+                    const afilename: filenamety; const backupcreated: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> closeobjecttext (const adesigner: idesigner;
+                      const afilename: filenamety; out cancel: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> beforefilesave (const adesigner: idesigner;
+                                      const afilename: filenamety);
+        <span style="color:navy"><b>PROCEDURE</b></span> beforemake (const adesigner: idesigner; const maketag: integer;
+                              var abort: boolean);
+        <span style="color:navy"><b>PROCEDURE</b></span> aftermake (const adesigner: idesigner; const exitcode: integer);
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> Registernotification (const DesignNotification: IDesignNotification);
+        <span style="color:navy"><b>PROCEDURE</b></span> Unregisternotification (const DesignNotification: IDesignNotification);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tunitgroups" name="tunitgroups">tunitgroups</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trecordlist">trecordlist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> registergroups (const adependents: array of string;
+                                           const agroup: array of string);
+        <span style="color:navy"><b>FUNCTION</b></span> getneededunits (const aunitname: string): stringarty;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

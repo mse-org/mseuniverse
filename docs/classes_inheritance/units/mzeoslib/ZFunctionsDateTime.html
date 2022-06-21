@@ -1,0 +1,360 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory mzeoslib</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT ZFunctionsDateTime;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdatefunction" name="tzdatefunction">TZDateFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tztimefunction" name="tztimefunction">TZTimeFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tznowfunction" name="tznowfunction">TZNowFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzencodedatefunction" name="tzencodedatefunction">TZEncodeDateFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzencodetimefunction" name="tzencodetimefunction">TZEncodeTimeFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzcomposedatetimefunction" name="tzcomposedatetimefunction">TZComposeDateTimeFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzincdatefunction" name="tzincdatefunction">TZIncDateFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzinctimefunction" name="tzinctimefunction">TZIncTimeFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzisleapyearfunction" name="tzisleapyearfunction">TZIsLeapYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdateoffunction" name="tzdateoffunction">TZDateOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tztimeoffunction" name="tztimeoffunction">TZTimeOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzyearoffunction" name="tzyearoffunction">TZYearOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmonthoffunction" name="tzmonthoffunction">TZMonthOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdayoffunction" name="tzdayoffunction">TZDayOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhouroffunction" name="tzhouroffunction">TZHourOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminuteoffunction" name="tzminuteoffunction">TZMinuteOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondoffunction" name="tzsecondoffunction">TZSecondOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondoffunction" name="tzmillisecondoffunction">TZMilliSecondOfFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzweekoftheyearfunction" name="tzweekoftheyearfunction">TZWeekOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdayoftheyearfunction" name="tzdayoftheyearfunction">TZDayOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhouroftheyearfunction" name="tzhouroftheyearfunction">TZHourOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminuteoftheyearfunction" name="tzminuteoftheyearfunction">TZMinuteOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondoftheyearfunction" name="tzsecondoftheyearfunction">TZSecondOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondoftheyearfunction" name="tzmillisecondoftheyearfunction">TZMilliSecondOfTheYearFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzweekofthemonthfunction" name="tzweekofthemonthfunction">TZWeekOfTheMonthFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhourofthemonthfunction" name="tzhourofthemonthfunction">TZHourOfTheMonthFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminuteofthemonthfunction" name="tzminuteofthemonthfunction">TZMinuteOfTheMonthFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondofthemonthfunction" name="tzsecondofthemonthfunction">TZSecondOfTheMonthFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondofthemonthfunction" name="tzmillisecondofthemonthfunction">TZMilliSecondOfTheMonthFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdayoftheweekfunction" name="tzdayoftheweekfunction">TZDayOfTheWeekFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhouroftheweekfunction" name="tzhouroftheweekfunction">TZHourOfTheWeekFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminuteoftheweekfunction" name="tzminuteoftheweekfunction">TZMinuteOfTheWeekFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondoftheweekfunction" name="tzsecondoftheweekfunction">TZSecondOfTheWeekFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondoftheweekfunction" name="tzmillisecondoftheweekfunction">TZMilliSecondOfTheWeekFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminuteofthedayfunction" name="tzminuteofthedayfunction">TZMinuteOfTheDayFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondofthedayfunction" name="tzsecondofthedayfunction">TZSecondOfTheDayFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondofthedayfunction" name="tzmillisecondofthedayfunction">TZMilliSecondOfTheDayFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondofthehourfunction" name="tzsecondofthehourfunction">TZSecondOfTheHourFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondofthehourfunction" name="tzmillisecondofthehourfunction">TZMilliSecondOfTheHourFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondoftheminutefunction" name="tzmillisecondoftheminutefunction">TZMilliSecondOfTheMinuteFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzyearsbetweenfunction" name="tzyearsbetweenfunction">TZYearsBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmonthsbetweenfunction" name="tzmonthsbetweenfunction">TZMonthsBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzweeksbetweenfunction" name="tzweeksbetweenfunction">TZWeeksBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzdaysbetweenfunction" name="tzdaysbetweenfunction">TZDaysBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzhoursbetweenfunction" name="tzhoursbetweenfunction">TZHoursBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzminutesbetweenfunction" name="tzminutesbetweenfunction">TZMinutesBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzsecondsbetweenfunction" name="tzsecondsbetweenfunction">TZSecondsBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tzmillisecondsbetweenfunction" name="tzmillisecondsbetweenfunction">TZMillisecondsBetweenFunction</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tzabstractfunction">TZAbstractFunction</a>)
+      PUBLIC
+         <span style="color:navy"><b>FUNCTION</b></span> Execute (Stack: TZExecutionStack;
+           const VariantManager: IZVariantManager): TZVariant; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

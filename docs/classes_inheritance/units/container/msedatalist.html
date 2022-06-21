@@ -1,0 +1,508 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory container</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedatalist;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatalist" name="tdatalist">tdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> listdestroyed (const sender: tdatalist); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> sourcechange (const sender: tdatalist;
+                                              const aindex: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> linkclient (const aclient: idatalistclient);
+        <span style="color:navy"><b>PROCEDURE</b></span> unlinkclient (const aclient: idatalistclient);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> getsourcecount: integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourceinfo (const atag: integer): plistlinkinfoty; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getsourcename (const atag: integer): string;
+        <span style="color:navy"><b>PROCEDURE</b></span> linksource (const source: tdatalist; const atag: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> canlink (const asource: tdatalist;
+                                             const atag: integer): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> size: integer <span style="color:navy"><b>READ</b></span> fsize;
+        <span style="color:navy"><b>PROPERTY</b></span> state: dataliststatesty <span style="color:navy"><b>READ</b></span> fstate;
+        <span style="color:navy"><b>FUNCTION</b></span> datapo: pointer; //calls normalizering,
+        <span style="color:navy"><b>FUNCTION</b></span> datahighpo: pointer; //points to last item
+        <span style="color:navy"><b>FUNCTION</b></span> getitempo (index: integer): pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (sender: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignb (const source: tdatalist); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntob (const dest: tdatalist); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getdatablock (const source: pointer; const destsize: integer): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> setdatablock (const dest: pointer; const sourcesize: integer;
+                                            const acount: integer): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> change (const index: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> checkindexrange (const aindex: integer; const acount: integer = 1);
+        <span style="color:navy"><b>PROCEDURE</b></span> checkindex (var index: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> beginupdate; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> endupdate; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> incupdate;
+        <span style="color:navy"><b>PROCEDURE</b></span> decupdate;
+        <span style="color:navy"><b>FUNCTION</b></span> updating: boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;//loescht daten
+        <span style="color:navy"><b>PROCEDURE</b></span> initdata (const index,anzahl: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> cleardata (index: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> deleting: boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> checkwritedata (const filer: tfiler): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> rearange (const arangelist: tintegerdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> rearange (const arangelist: integerarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> movedata (const fromindex,toindex: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> blockmovedata (const fromindex,toindex,count: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> blockcopydata (const fromindex,toindex,count: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> deletedata (const index: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> deleteitems (index,acount: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insertitems (index,acount: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>VIRTUAL</b></span>;         //true wenn leer
+        
+        <span style="color:navy"><b>FUNCTION</b></span> sort (const comparefunc: sortcomparemethodty;
+                              out arangelist: integerarty;
+                              const dorearange: boolean): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> sort (out arangelist: integerarty;
+                            const dorearange: boolean): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> sort (const compareproc: sortcomparemethodty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> sort: boolean; //true if changed
+        <span style="color:navy"><b>FUNCTION</b></span> sortcaseinsensitive: boolean; //true if changed
+        <span style="color:navy"><b>FUNCTION</b></span> sortcaseinsensitive (out arangelist: integerarty;
+                            const dorearange: boolean): boolean;
+        
+        <span style="color:navy"><b>PROCEDURE</b></span> clean (const start,stop: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clearmemberitem (const subitem: integer;
+                                         const index: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setmemberitem (const subitem: integer;
+                              const index: integer; const avalue: integer); <span style="color:teal"><b>VIRTUAL</b></span>;
+        
+        
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> Fcount <span style="color:navy"><b>WRITE</b></span> Setcount;       //anzahl zeilen
+        <span style="color:navy"><b>PROPERTY</b></span> capacity: integer <span style="color:navy"><b>READ</b></span> Fcapacity <span style="color:navy"><b>WRITE</b></span> Setcapacity;
+        <span style="color:navy"><b>PROPERTY</b></span> onchange: notifyeventty <span style="color:navy"><b>READ</b></span> fonchange <span style="color:navy"><b>WRITE</b></span> fonchange;
+        <span style="color:navy"><b>PROPERTY</b></span> onitemchange: indexeventty <span style="color:navy"><b>READ</b></span> fonitemchange <span style="color:navy"><b>WRITE</b></span> fonitemchange;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> maxcount: integer <span style="color:navy"><b>READ</b></span> fmaxcount
+                          <span style="color:navy"><b>WRITE</b></span> setmaxcount <span style="color:navy"><b>DEFAULT</b></span> bigint; //for ring buffer
+        <span style="color:navy"><b>PROPERTY</b></span> sorted: boolean <span style="color:navy"><b>READ</b></span> getsorted <span style="color:navy"><b>WRITE</b></span> setsorted;
+        <span style="color:navy"><b>PROPERTY</b></span> checkeditem: integer <span style="color:navy"><b>READ</b></span> fcheckeditem <span style="color:navy"><b>WRITE</b></span> setcheckeditem;
+        <span style="color:navy"><b>PROPERTY</b></span> facultative: boolean <span style="color:navy"><b>READ</b></span> getfacultative
+                                         <span style="color:navy"><b>WRITE</b></span> setfacultative <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tnonedatalist" name="tnonedatalist">tnonedatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerdatalist" name="tintegerdatalist">tintegerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        min: integer;
+        max: integer;
+        notcheckedvalue: integer; //used for statread
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: integer): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> number (const start,step: integer); //numeriert daten
+        <span style="color:navy"><b>FUNCTION</b></span> find (value: integer): integer;  //bringt index, -1 wenn nicht gefunden
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: integerarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asbooleanarray: booleanarty <span style="color:navy"><b>READ</b></span> getasbooleanarray <span style="color:navy"><b>WRITE</b></span> setasbooleanarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: integer <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tbooleandatalist" name="tbooleandatalist">tbooleandatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerdatalist">tintegerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: boolean); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: longboolarty <span style="color:navy"><b>READ</b></span> getasarray
+                                                       <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint64datalist" name="tint64datalist">tint64datalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>FUNCTION</b></span> add (const avalue: int64): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const avalue: int64);
+        <span style="color:navy"><b>FUNCTION</b></span> find (const avalue: int64): integer;  //bringt index, -1 wenn nicht gefunden
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: int64); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: int64); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: int64arty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: int64 <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcurrencydatalist" name="tcurrencydatalist">tcurrencydatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>FUNCTION</b></span> add (const avalue: currency): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const avalue: currency);
+        <span style="color:navy"><b>FUNCTION</b></span> find (const avalue: currency): integer;  //bringt index, -1 wenn nicht gefunden
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: currency); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: currency); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: currencyarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: currency <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenumdatalist" name="tenumdatalist">tenumdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerdatalist">tintegerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (agetdefault: getintegereventty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tenum64datalist" name="tenum64datalist">tenum64datalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tint64datalist">tint64datalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (agetdefault: getint64eventty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealdatalist" name="trealdatalist">trealdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        min: realty;
+        max: realty;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignre (const source: tcomplexdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignim (const source: tcomplexdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignre (const source: complexarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignim (const source: complexarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntore (const dest: tcomplexdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntoim (const dest: tcomplexdatalist); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntore (var dest: complexarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntoim (var dest: complexarty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: real): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (index: integer; const item: realty);
+        <span style="color:navy"><b>PROCEDURE</b></span> number (start,step: real);
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: realty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: realty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> minmax (out minval,maxval: realty);
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: realarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: realty <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultzero: boolean <span style="color:navy"><b>READ</b></span> fdefaultzero
+                                            <span style="color:navy"><b>WRITE</b></span> f<span style="color:navy"><b>DEFAULT</b></span>zero default false;
+        <span style="color:navy"><b>PROPERTY</b></span> acceptempty: boolean <span style="color:navy"><b>READ</b></span> facceptempty
+                                            <span style="color:navy"><b>WRITE</b></span> facceptempty <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdatetimedatalist" name="tdatetimedatalist">tdatetimedatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealdatalist">trealdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: tdatetime); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: tdatetime); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcomplexdatalist" name="tcomplexdatalist">tcomplexdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        min: realty;      //for <span style="color:navy"><b>PROPERTY</b></span> editor
+        max: realty;
+        
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignb (const source: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignre (const source: trealdatalist);
+        <span style="color:navy"><b>PROCEDURE</b></span> assignim (const source: trealdatalist);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntoa (const dest: tdatalist);
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntob (const dest: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: complexty): integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: complexty);
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: complexty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: complexty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: complexarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asarrayre: realarty <span style="color:navy"><b>READ</b></span> getasarrayre <span style="color:navy"><b>WRITE</b></span> setasarrayre;
+        <span style="color:navy"><b>PROPERTY</b></span> asarrayim: realarty <span style="color:navy"><b>READ</b></span> getasarrayim <span style="color:navy"><b>WRITE</b></span> setasarrayim;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: complexty <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> defaultzero: boolean <span style="color:navy"><b>READ</b></span> fdefaultzero
+                                                    <span style="color:navy"><b>WRITE</b></span> f<span style="color:navy"><b>DEFAULT</b></span>zero default false;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#trealintdatalist" name="trealintdatalist">trealintdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#trealdatalist">trealdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignb (const source: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntob (const dest: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const valuea: realty; const valueb: integer = 0): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: realintty): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: realty;
+                                    const itemint: integer);
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: realty;
+                          const defaultint: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const defaultvalue: realty;
+                          const defaultint: integer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: realintarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asarraya: realarty <span style="color:navy"><b>READ</b></span> getasarraya <span style="color:navy"><b>WRITE</b></span> setasarraya;
+        <span style="color:navy"><b>PROPERTY</b></span> asarrayb: integerarty <span style="color:navy"><b>READ</b></span> getasarrayb <span style="color:navy"><b>WRITE</b></span> setasarrayb;
+        <span style="color:navy"><b>PROPERTY</b></span> itemsb[index: integer]: integer <span style="color:navy"><b>READ</b></span> Getitemsb <span style="color:navy"><b>WRITE</b></span> Setitemsb;
+        <span style="color:navy"><b>PROPERTY</b></span> doubleitems[index: integer]: realintty <span style="color:navy"><b>READ</b></span> Getdoubleitems
+                        <span style="color:navy"><b>WRITE</b></span> Setdoubleitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerdatalist" name="tpointerdatalist">tpointerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: pointer <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: pointerarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdynamicdatalist" name="tdynamicdatalist">tdynamicdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdynamicpointerdatalist" name="tdynamicpointerdatalist">tdynamicpointerdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicdatalist">tdynamicdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tansistringdatalist" name="tansistringdatalist">tansistringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicpointerdatalist">tdynamicpointerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignopenarray (const data: array of ansistring);
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (index: integer; const item: ansistring);
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: ansistring): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> addtext (const value: ansistring): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: ansistring);
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer; const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> gettext: ansistring;
+        <span style="color:navy"><b>PROCEDURE</b></span> settext (const avalue: ansistring);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: ansistring <span style="color:navy"><b>READ</b></span> Getitems write
+                             setitems; default;
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: stringarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asmsestringarray: msestringarty <span style="color:navy"><b>READ</b></span> getasmsestringarray
+                                   <span style="color:navy"><b>WRITE</b></span> setasmsestringarray;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpoorstringdatalist" name="tpoorstringdatalist">tpoorstringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicpointerdatalist">tdynamicpointerdatalist</a>)
+      PUBLIC
+        feditcharindex: integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignopenarray (const data: array of msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring); <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: tmsestringdatalist): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>ABSTRACT</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const avalue: msestring; const anoparagraph: boolean): integer;
+                                                                   <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> addchars (const value: msestring;
+                       const aoptions: addcharoptionsty = [aco_processeditchars];
+                       const maxchars: integer = 0): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> getastext (const index: integer): msestring; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> setastext (const index: integer;
+                              const avalue: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> gettext: msestring;
+        <span style="color:navy"><b>PROCEDURE</b></span> settext (const avalue: msestring);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> indexof (const value: msestring): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> empty (const index: integer): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;   //true wenn leer
+        <span style="color:navy"><b>FUNCTION</b></span> concatstring (const delim: msestring = '';
+                                 const separator: msestring = '';
+                                 const separatornoparagraph: msestring = ''): msestring;
+        <span style="color:navy"><b>PROCEDURE</b></span> loadfromfile (const filename: filenamety;
+                                   const aencoding: charencodingty = ce_locale);
+        <span style="color:navy"><b>PROCEDURE</b></span> loadfromstream (const stream: ttextstream);
+        <span style="color:navy"><b>PROCEDURE</b></span> savetofile (const filename: filenamety;
+                                   const aencoding: charencodingty = ce_locale);
+        <span style="color:navy"><b>PROCEDURE</b></span> savetostream (const stream: ttextstream);
+        <span style="color:navy"><b>FUNCTION</b></span> dataastextstream: ttextstream;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: msestringarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asstringarray:stringarty <span style="color:navy"><b>READ</b></span> getasstringarray <span style="color:navy"><b>WRITE</b></span> setasstringarray;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: msestring <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> Setitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringdatalist" name="tmsestringdatalist">tmsestringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpoorstringdatalist">tpoorstringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestring): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (acount: integer; const defaultvalue: msestring);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: stringdatalistoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                                  <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoublemsestringdatalist" name="tdoublemsestringdatalist">tdoublemsestringdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpoorstringdatalist">tpoorstringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignb (const source: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntob (const dest: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const valuea: msestring; const valueb: msestring = ''): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: doublemsestringty): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: msestring);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: doublemsestringarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asarraya: msestringarty <span style="color:navy"><b>READ</b></span> getasarraya <span style="color:navy"><b>WRITE</b></span> setasarraya;
+        <span style="color:navy"><b>PROPERTY</b></span> asarrayb: msestringarty <span style="color:navy"><b>READ</b></span> getasarrayb <span style="color:navy"><b>WRITE</b></span> setasarrayb;
+        <span style="color:navy"><b>PROPERTY</b></span> itemsb[index: integer]: msestring <span style="color:navy"><b>READ</b></span> Getitemsb <span style="color:navy"><b>WRITE</b></span> Setitemsb;
+        <span style="color:navy"><b>PROPERTY</b></span> doubleitems[index: integer]: doublemsestringty <span style="color:navy"><b>READ</b></span> Getdoubleitems
+                        <span style="color:navy"><b>WRITE</b></span> Setdoubleitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringintdatalist" name="tmsestringintdatalist">tmsestringintdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpoorstringdatalist">tpoorstringdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assignb (const source: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assigntob (const dest: tdatalist); <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestring): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const valuea: msestring; const valueb: integer): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const value: msestringintty): integer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring);
+                                                           <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> insert (const index: integer; const item: msestring;
+                                 const itemint: integer); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> fill (const acount: integer; const defaultvalue: msestring;
+                          const defaultint: integer);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> asarray: msestringintarty <span style="color:navy"><b>READ</b></span> getasarray <span style="color:navy"><b>WRITE</b></span> setasarray;
+        <span style="color:navy"><b>PROPERTY</b></span> asarraya: msestringarty <span style="color:navy"><b>READ</b></span> getasarraya <span style="color:navy"><b>WRITE</b></span> setasarraya;
+        <span style="color:navy"><b>PROPERTY</b></span> asarrayb: integerarty <span style="color:navy"><b>READ</b></span> getasarrayb <span style="color:navy"><b>WRITE</b></span> setasarrayb;
+        <span style="color:navy"><b>PROPERTY</b></span> itemsb[index: integer]: integer <span style="color:navy"><b>READ</b></span> Getitemsb <span style="color:navy"><b>WRITE</b></span> Setitemsb;
+        <span style="color:navy"><b>PROPERTY</b></span> doubleitems[index: integer]: msestringintty <span style="color:navy"><b>READ</b></span> Getdoubleitems
+                        <span style="color:navy"><b>WRITE</b></span> Setdoubleitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomrowstatelist" name="tcustomrowstatelist">tcustomrowstatelist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdatalist">tdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const ainfolevel: rowinfolevelty); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> checkwritedata (const filer: tfiler): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> change (const aindex: integer); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> assign (source: tpersistent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> infolevel: rowinfolevelty <span style="color:navy"><b>READ</b></span> finfolevel;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> datatype: listdatatypety; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> datapocolmerge: pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> dataporowheight: pointer;
+        <span style="color:navy"><b>FUNCTION</b></span> getitempo (const index: integer): prowstatety;
+        <span style="color:navy"><b>FUNCTION</b></span> getitempocolmerge (const index: integer): prowstatecolmergety;
+        <span style="color:navy"><b>FUNCTION</b></span> getitemporowheight (const index: integer): prowstaterowheightty;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: rowstatety <span style="color:navy"><b>READ</b></span> getrowstate
+                                                   <span style="color:navy"><b>WRITE</b></span> setrowstate; default;
+        <span style="color:navy"><b>PROPERTY</b></span> itemscolmerge[const index: integer]: rowstatecolmergety
+                 <span style="color:navy"><b>READ</b></span> getrowstatecolmerge <span style="color:navy"><b>WRITE</b></span> setrowstatecolmerge;
+        <span style="color:navy"><b>PROPERTY</b></span> itemsrowheight[const index: integer]: rowstaterowheightty
+                 <span style="color:navy"><b>READ</b></span> getrowstaterowheight <span style="color:navy"><b>WRITE</b></span> setrowstaterowheight;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> mergecols (const arow: integer; const astart: longword;
+                                      const acount: longword): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> unmergecols (const arow: integer): boolean;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> color[const index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getcolor
+                                                                 <span style="color:navy"><b>WRITE</b></span> setcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> colorar: integerarty <span style="color:navy"><b>READ</b></span> getcolorar <span style="color:navy"><b>WRITE</b></span> setcolorar;
+        <span style="color:navy"><b>PROPERTY</b></span> font[const index: integer]: rowstatenumty <span style="color:navy"><b>READ</b></span> getfont
+                                                                 <span style="color:navy"><b>WRITE</b></span> setfont;
+        <span style="color:navy"><b>PROPERTY</b></span> fontar: integerarty <span style="color:navy"><b>READ</b></span> getfontar <span style="color:navy"><b>WRITE</b></span> setfontar;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>READ</b></span>only[const index: integer]: boolean read getreadonly
+                                                                 <span style="color:navy"><b>WRITE</b></span> setreadonly;
+        <span style="color:navy"><b>PROPERTY</b></span> selected[const index: integer]: longword <span style="color:navy"><b>READ</b></span> getselected
+                                                                 <span style="color:navy"><b>WRITE</b></span> setselected;
+        <span style="color:navy"><b>PROPERTY</b></span> hidden[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> gethidden <span style="color:navy"><b>WRITE</b></span> sethidden;
+        <span style="color:navy"><b>PROPERTY</b></span> hiddenar: longboolarty <span style="color:navy"><b>READ</b></span> gethiddenar <span style="color:navy"><b>WRITE</b></span> sethiddenar;
+        <span style="color:navy"><b>PROPERTY</b></span> foldlevel[const index: integer]: byte <span style="color:navy"><b>READ</b></span> getfoldlevel
+                                                      <span style="color:navy"><b>WRITE</b></span> setfoldlevel; //0..64
+        <span style="color:navy"><b>PROPERTY</b></span> foldlevelar: integerarty <span style="color:navy"><b>READ</b></span> getfoldlevelar <span style="color:navy"><b>WRITE</b></span> setfoldlevelar;
+        <span style="color:navy"><b>PROPERTY</b></span> foldissum[const index: integer]: boolean <span style="color:navy"><b>READ</b></span> getfoldissum
+                                                      <span style="color:navy"><b>WRITE</b></span> setfoldissum;
+        <span style="color:navy"><b>PROPERTY</b></span> foldissumar: longboolarty <span style="color:navy"><b>READ</b></span> getfoldissumar <span style="color:navy"><b>WRITE</b></span> setfoldissumar;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> height[const index: integer]: integer <span style="color:navy"><b>READ</b></span> getheight;
+        <span style="color:navy"><b>PROPERTY</b></span> merged[const index: integer]: longword <span style="color:navy"><b>READ</b></span> getmerged
+                                                                 <span style="color:navy"><b>WRITE</b></span> setmerged;
+        <span style="color:navy"><b>PROPERTY</b></span> linewidth[const index: integer]: rowlinewidthty
+                                       <span style="color:navy"><b>READ</b></span> getlinewidth{ <span style="color:navy"><b>WRITE</b></span> setlineheight};
+        <span style="color:navy"><b>PROPERTY</b></span> linecolorfix[const index: integer]: rowstatenumty
+                                       <span style="color:navy"><b>READ</b></span> getlinecolorfix <span style="color:navy"><b>WRITE</b></span> setlinecolorfix;
+        <span style="color:navy"><b>PROPERTY</b></span> linecolor[const index: integer]: rowstatenumty
+                                       <span style="color:navy"><b>READ</b></span> getlinecolor <span style="color:navy"><b>WRITE</b></span> setlinecolor;
+        <span style="color:navy"><b>PROPERTY</b></span> foldinfoar: bytearty <span style="color:navy"><b>READ</b></span> getfoldinfoar;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tobjectdatalist" name="tobjectdatalist">tobjectdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdynamicpointerdatalist">tdynamicpointerdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>OVERLOAD</b></span>; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> add (const aitem: tobject): integer;
+        <span style="color:navy"><b>FUNCTION</b></span> extract (const index: integer): tobject; //no finalize
+        <span style="color:navy"><b>PROPERTY</b></span> oncreateobject: createobjecteventty <span style="color:navy"><b>READ</b></span> foncreateobject <span style="color:navy"><b>WRITE</b></span> foncreateobject;
+        <span style="color:navy"><b>PROPERTY</b></span> items[index: integer]: tobject <span style="color:navy"><b>READ</b></span> Getitems <span style="color:navy"><b>WRITE</b></span> setitems; default;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

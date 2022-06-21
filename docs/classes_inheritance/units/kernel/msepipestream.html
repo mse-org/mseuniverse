@@ -1,0 +1,116 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory kernel</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msepipestream;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipewriter" name="tpipewriter">tpipewriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#ttextstream">ttextstream</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create; <span style="color:teal"><b>REINTRODUCE</b></span>;
+        fdef FPC}
+        <span style="color:navy"><b>FUNCTION</b></span> Write (const Buffer; Count: Longint): Longint; <span style="color:teal"><b>OVERRIDE</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        ndif}
+        <span style="color:navy"><b>PROCEDURE</b></span> connect (const ahandle: integer); //does not own handle
+        <span style="color:navy"><b>PROPERTY</b></span> handle: integer <span style="color:navy"><b>READ</b></span> gethandle <span style="color:navy"><b>WRITE</b></span> sethandle; //owns handle
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipereader" name="tpipereader">tpipereader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpipewriter">tpipewriter</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        
+        <span style="color:navy"><b>FUNCTION</b></span> releasehandle: filehandlety <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> Seek (const Offset: Int64; Origin: TSeekOrigin): Int64; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> readdatastring: string; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> appenddatastring (var adata: string; var acount: sizeint);
+        
+        <span style="color:navy"><b>FUNCTION</b></span> readbuffer: string; //does not try to get additional data
+        <span style="color:navy"><b>FUNCTION</b></span> readuln (var value: string): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readuln (var value: string; out hasmoredata: boolean): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> readstrln (var value: string): boolean; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> terminate (const noclosehandle: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> terminateandwait (const noclosehandle: boolean = false);
+        <span style="color:navy"><b>PROCEDURE</b></span> waitfor;
+        <span style="color:navy"><b>FUNCTION</b></span> waitforresponse (timeoutusec: integer = 0;
+                           resetflag: boolean = true): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> active: boolean; //true if handle set and not eof or error
+        <span style="color:navy"><b>PROPERTY</b></span> responseflag: boolean <span style="color:navy"><b>READ</b></span> getresponseflag <span style="color:navy"><b>WRITE</b></span> setresponseflag;
+        <span style="color:navy"><b>PROPERTY</b></span> text: string <span style="color:navy"><b>READ</b></span> fpipebuffer;
+        <span style="color:navy"><b>PROPERTY</b></span> <span style="color:navy"><b>WRITE</b></span>handle: integer <span style="color:navy"><b>READ</b></span> fwritehandle write setwritehandle;
+        <span style="color:navy"><b>PROPERTY</b></span> overloadsleepus: integer <span style="color:navy"><b>READ</b></span> foverloadsleepus
+                      <span style="color:navy"><b>WRITE</b></span> foverloadsleepus <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> options: pipe<span style="color:navy"><b>READ</b></span>eroptionsty read foptions
+                                                  <span style="color:navy"><b>WRITE</b></span> foptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> oninputavailable: pipe<span style="color:navy"><b>READ</b></span>ereventty read foninputavailable
+                                                           <span style="color:navy"><b>WRITE</b></span> foninputavailable;
+        <span style="color:navy"><b>PROPERTY</b></span> onpipebroken: pipe<span style="color:navy"><b>READ</b></span>ereventty read fonpipebroken
+                                                                <span style="color:navy"><b>WRITE</b></span> fonpipebroken;
+        <span style="color:navy"><b>PROPERTY</b></span> owner: tmsecomponent <span style="color:navy"><b>READ</b></span> fowner;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipereadercomp" name="tpipereadercomp">tpipereadercomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> pipe<span style="color:navy"><b>READ</b></span>er: tpipereader read fpipereader;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: pipe<span style="color:navy"><b>READ</b></span>eroptionsty read getopions
+                                             <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> encoding: charencodingty <span style="color:navy"><b>READ</b></span> getencoding <span style="color:navy"><b>WRITE</b></span> setencoding
+                                                              <span style="color:navy"><b>DEFAULT</b></span> ce_locale;
+        <span style="color:navy"><b>PROPERTY</b></span> overloadsleepus: integer <span style="color:navy"><b>READ</b></span> getoverloadsleepus
+                       <span style="color:navy"><b>WRITE</b></span> setoverloadsleepus <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> oninputavailable: pipe<span style="color:navy"><b>READ</b></span>ereventty read getoninputavailable <span style="color:navy"><b>WRITE</b></span> setoninputavailable;
+        <span style="color:navy"><b>PROPERTY</b></span> onpipebroken: pipe<span style="color:navy"><b>READ</b></span>ereventty read getonpipebroken <span style="color:navy"><b>WRITE</b></span> setonpipebroken;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipereaderpers" name="tpipereaderpers">tpipereaderpers</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> pipe<span style="color:navy"><b>READ</b></span>er: tpipereader read fpipereader;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options: pipe<span style="color:navy"><b>READ</b></span>eroptionsty read getopions
+                                             <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> encoding: charencodingty <span style="color:navy"><b>READ</b></span> getencoding <span style="color:navy"><b>WRITE</b></span> setencoding
+                                                              <span style="color:navy"><b>DEFAULT</b></span> ce_locale;
+        <span style="color:navy"><b>PROPERTY</b></span> overloadsleepus: integer <span style="color:navy"><b>READ</b></span> getoverloadsleepus
+                       <span style="color:navy"><b>WRITE</b></span> setoverloadsleepus <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> oninputavailable: pipe<span style="color:navy"><b>READ</b></span>ereventty read getoninputavailable <span style="color:navy"><b>WRITE</b></span> setoninputavailable;
+        <span style="color:navy"><b>PROPERTY</b></span> onpipebroken: pipe<span style="color:navy"><b>READ</b></span>ereventty read getonpipebroken <span style="color:navy"><b>WRITE</b></span> setonpipebroken;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpipewriterpers" name="tpipewriterpers">tpipewriterpers</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistent">tpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent);
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> pipewriter: tpipewriter <span style="color:navy"><b>READ</b></span> fpipewriter;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> encoding: charencodingty <span style="color:navy"><b>READ</b></span> getencoding <span style="color:navy"><b>WRITE</b></span> setencoding
+                                                              <span style="color:navy"><b>DEFAULT</b></span> ce_locale;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

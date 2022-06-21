@@ -1,0 +1,194 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory serialcomm</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msesercomm;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcommreader" name="tcommreader">tcommreader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpipereader">tpipereader</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const apipes: tcustomcommpipes);
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutms: integer <span style="color:navy"><b>READ</b></span> ftimeoutms <span style="color:navy"><b>WRITE</b></span> settimeoutms;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcommwriter" name="tcommwriter">tcommwriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpipewriter">tpipewriter</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomcommpipes);
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutms: integer <span style="color:navy"><b>READ</b></span> ftimeoutms <span style="color:navy"><b>WRITE</b></span> settimeoutms;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsercommwriter" name="tsercommwriter">tsercommwriter</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcommwriter">tcommwriter</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsercommreader" name="tsercommreader">tsercommreader</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcommreader">tcommreader</a>)
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomcommpipes" name="tcustomcommpipes">tcustomcommpipes</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tlinkedpersistent">tlinkedpersistent</a>,ievent)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomcommcomp;
+                                      const acryptkind: cryptoiokindty); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> close;
+        <span style="color:navy"><b>PROCEDURE</b></span> release;
+        {
+        <span style="color:navy"><b>PROCEDURE</b></span> runhandlerapp (const commandline: filenamety);
+        
+        <span style="color:navy"><b>PROPERTY</b></span> handle: integer <span style="color:navy"><b>READ</b></span> gethandle <span style="color:navy"><b>WRITE</b></span> sethandle;
+        <span style="color:navy"><b>PROPERTY</b></span> rx: tcomm<span style="color:navy"><b>READ</b></span>er read frx;
+        <span style="color:navy"><b>PROPERTY</b></span> tx: tcommwriter <span style="color:navy"><b>READ</b></span> ftx;
+        <span style="color:navy"><b>PROPERTY</b></span> rxtimeoutms: integer <span style="color:navy"><b>READ</b></span> getrxtimeoutms <span style="color:navy"><b>WRITE</b></span> setrxtimeoutms;
+        <span style="color:navy"><b>PROPERTY</b></span> txtimeoutms: integer <span style="color:navy"><b>READ</b></span> gettxtimeoutms <span style="color:navy"><b>WRITE</b></span> settxtimeoutms;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> overloadsleepus: integer <span style="color:navy"><b>READ</b></span> getoverloadsleepus
+                       <span style="color:navy"><b>WRITE</b></span> setoverloadsleepus <span style="color:navy"><b>DEFAULT</b></span> -1;
+        <span style="color:navy"><b>PROPERTY</b></span> options<span style="color:navy"><b>READ</b></span>er: pipereaderoptionsty read getoptionsreader
+                                      <span style="color:navy"><b>WRITE</b></span> setoptionsreader <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect: commpipeseventty <span style="color:navy"><b>READ</b></span> fonbeforeconnect
+                                                           <span style="color:navy"><b>WRITE</b></span> fonbeforeconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterconnect: commpipeseventty <span style="color:navy"><b>READ</b></span> fonafterconnect
+                                                           <span style="color:navy"><b>WRITE</b></span> fonafterconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedisconnect: commpipeseventty <span style="color:navy"><b>READ</b></span> fonbeforedisconnect
+                                                           <span style="color:navy"><b>WRITE</b></span> fonbeforedisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdisconnect: commpipeseventty <span style="color:navy"><b>READ</b></span> fonafterdisconnect
+                                                           <span style="color:navy"><b>WRITE</b></span> fonafterdisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> oninputavailable: commpipeseventty <span style="color:navy"><b>READ</b></span> foninputavailable
+                                                        <span style="color:navy"><b>WRITE</b></span> setoninputavailable;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsercommpipes" name="tsercommpipes">tsercommpipes</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomcommpipes">tcustomcommpipes</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> optionsreader;
+        <span style="color:navy"><b>PROPERTY</b></span> overloadsleepus;
+        <span style="color:navy"><b>PROPERTY</b></span> oninputavailable;
+        <span style="color:navy"><b>PROPERTY</b></span> oncommbroken;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomcommcomp" name="tcustomcommcomp">tcustomcommcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tactcomponent">tactcomponent</a>,icommserver)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> calctransmissiontime (const alength: integer): integer; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> factive <span style="color:navy"><b>WRITE</b></span> setactive <span style="color:navy"><b>DEFAULT</b></span> false;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptoio: tcryptoio <span style="color:navy"><b>READ</b></span> fcryptoio <span style="color:navy"><b>WRITE</b></span> setcryptoio;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect: commcompeventty <span style="color:navy"><b>READ</b></span> fonbeforeconnect
+                                                     <span style="color:navy"><b>WRITE</b></span> fonbeforeconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterconnect: commcompeventty <span style="color:navy"><b>READ</b></span> fonafterconnect
+                                                     <span style="color:navy"><b>WRITE</b></span> fonafterconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedisconnect: commcompeventty <span style="color:navy"><b>READ</b></span> fonbeforedisconnect
+                                                     <span style="color:navy"><b>WRITE</b></span> fonbeforedisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdisconnect: commcompeventty <span style="color:navy"><b>READ</b></span> fonafterdisconnect
+                                                     <span style="color:navy"><b>WRITE</b></span> fonafterdisconnect;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasyncserport" name="tasyncserport">tasyncserport</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomrs232">tcustomrs232</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tmsecomponent;  //aowner can be nil
+                                       const aoncheckabort: checkeventty = nil);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> commnr;
+        <span style="color:navy"><b>PROPERTY</b></span> commname;
+        <span style="color:navy"><b>PROPERTY</b></span> baud;
+        <span style="color:navy"><b>PROPERTY</b></span> databits;
+        <span style="color:navy"><b>PROPERTY</b></span> stopbit;
+        <span style="color:navy"><b>PROPERTY</b></span> parity;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsercommcomp" name="tcustomsercommcomp">tcustomsercommcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomcommcomp">tcustomcommcomp</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> calctransmissiontime (const alength: integer): integer; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> pipes: tsercommpipes <span style="color:navy"><b>READ</b></span> fpipes <span style="color:navy"><b>WRITE</b></span> setpipes;
+        <span style="color:navy"><b>PROPERTY</b></span> port: tasyncserport <span style="color:navy"><b>READ</b></span> fport <span style="color:navy"><b>WRITE</b></span> setport;
+        <span style="color:navy"><b>PROPERTY</b></span> options: sercommoptionsty <span style="color:navy"><b>READ</b></span> foptions
+                                             <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsercommcomp" name="tsercommcomp">tsercommcomp</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsercommcomp">tcustomsercommcomp</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> pipes;
+        <span style="color:navy"><b>PROPERTY</b></span> port;
+        <span style="color:navy"><b>PROPERTY</b></span> active;
+        <span style="color:navy"><b>PROPERTY</b></span> activator;
+        <span style="color:navy"><b>PROPERTY</b></span> cryptoio;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforeconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onbeforedisconnect;
+        <span style="color:navy"><b>PROPERTY</b></span> onafterdisconnect;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomsercommchannel" name="tcustomsercommchannel">tcustomsercommchannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsecomponent">tmsecomponent</a>,icommclient)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear;
+        <span style="color:navy"><b>FUNCTION</b></span> transmit (const adata: string; const aresponselength: integer;
+                 const atimeoutus: integer = -1): syserrorty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> transmiteor (const adata: string; const aresponselength: integer = 0;
+                 const atimeoutus: integer = -1): syserrorty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> transmit (const adata: string; const aresponselength: integer;
+                                                            out aresult: string;
+           const atimeoutus: integer = -1): commresponseflagsty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> transmiteor (const adata: string; out aresult: string;
+           const aresponselength: integer = 0;
+           const atimeoutus: integer = -1): commresponseflagsty; <span style="color:teal"><b>VIRTUAL</b></span>; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> sercomm: tcustomcommcomp <span style="color:navy"><b>READ</b></span> fsercomm <span style="color:navy"><b>WRITE</b></span> setsercomm;
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutus: integer <span style="color:navy"><b>READ</b></span> ftimeoutus <span style="color:navy"><b>WRITE</b></span> ftimeoutus <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> onresponse: commresponseeventty <span style="color:navy"><b>READ</b></span> fonresponse <span style="color:navy"><b>WRITE</b></span> fonresponse;
+        <span style="color:navy"><b>PROPERTY</b></span> eor: string <span style="color:navy"><b>READ</b></span> feor <span style="color:navy"><b>WRITE</b></span> feor; //end of record, <span style="color:navy"><b>DEFAULT</b></span> $0a
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tsercommchannel" name="tsercommchannel">tsercommchannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsercommchannel">tcustomsercommchannel</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sercomm;
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutus;
+        <span style="color:navy"><b>PROPERTY</b></span> eor;
+        <span style="color:navy"><b>PROPERTY</b></span> onresponse;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tasynsercommchannel" name="tasynsercommchannel">tasynsercommchannel</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomsercommchannel">tcustomsercommchannel</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> connect; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> disconnect; <span style="color:teal"><b>VIRTUAL</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> sercomm: tcustomsercommcomp <span style="color:navy"><b>READ</b></span> getsercomm <span style="color:navy"><b>WRITE</b></span> setsercomm;
+        <span style="color:navy"><b>PROPERTY</b></span> onsetupcomm: setupcommeventty <span style="color:navy"><b>READ</b></span> fonsetupcomm <span style="color:navy"><b>WRITE</b></span> fonsetupcomm;
+        <span style="color:navy"><b>PROPERTY</b></span> timeoutus;
+        <span style="color:navy"><b>PROPERTY</b></span> eor;
+        <span style="color:navy"><b>PROPERTY</b></span> onresponse;
+        <span style="color:navy"><b>PROPERTY</b></span> connected: boolean <span style="color:navy"><b>READ</b></span> fconnected <span style="color:navy"><b>WRITE</b></span> setconnected
+                                                                <span style="color:navy"><b>DEFAULT</b></span> false;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

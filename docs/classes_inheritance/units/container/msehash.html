@@ -1,0 +1,313 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory container</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msehash;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#thashdatalist" name="thashdatalist">thashdatalist</a><span style="color:navy"> = <b>CLASS</b></span>
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> clear; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> reset; //next next () will return first, next prev() will return last
+        <span style="color:navy"><b>PROPERTY</b></span> datasize: int32 <span style="color:navy"><b>READ</b></span> getdatasize;
+        <span style="color:navy"><b>PROPERTY</b></span> capacity: integer <span style="color:navy"><b>READ</b></span> fcapacity <span style="color:navy"><b>WRITE</b></span> setcapacity;
+        <span style="color:navy"><b>PROPERTY</b></span> count: integer <span style="color:navy"><b>READ</b></span> fcount;
+        <span style="color:navy"><b>PROCEDURE</b></span> mark (out ref: hashoffsetty);
+        <span style="color:navy"><b>PROCEDURE</b></span> release (const ref: hashoffsetty);
+        <span style="color:navy"><b>FUNCTION</b></span> absdata (const ref: ptrint): pointer;
+        <span style="color:navy"><b>PROPERTY</b></span> recsize: int32 <span style="color:navy"><b>READ</b></span> frecsize;
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const aiterator: hashiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegerhashdatalist" name="tintegerhashdatalist">tintegerhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akey: integer): pintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: integer): pintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: integer;
+                                out adata: pintegerhashdataty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: integer): pintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: integer;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pintegerhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pintegerhashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdoubleintegerhashdatalist" name="tdoubleintegerhashdatalist">tdoubleintegerhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akeya,akeyb: integer): pdoubleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akeya,akeyb: integer): pdoubleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akeya,akeyb: integer;
+                                out adata: pdoubleintegerhashdataty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akeya,akeyb: integer): pdoubleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akeya,akeyb: integer;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pdoubleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pdoubleintegerhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pdoubleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pdoubleintegerhashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#ttripleintegerhashdatalist" name="ttripleintegerhashdatalist">ttripleintegerhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akeya,akeyb,akeyc: int32): ptripleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akeya,akeyb,akeyc: int32): ptripleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akeya,akeyb,akeyc: int32;
+                                out adata: ptripleintegerhashdataty): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akeya,akeyb,akeyc: int32): ptripleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akeya,akeyb,akeyc: int32;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ptripleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ptripleintegerhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ptripleintegerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ptripleintegerhashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tint32int32hashdatalist" name="tint32int32hashdatalist">tint32int32hashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tintegerhashdatalist">tintegerhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: int32; const avalue: int32);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: int32; const avalue: int32): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: int32): int32; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: int32; out avalue: int32): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pint32int32hashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pint32int32hashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pint32int32hashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pint32int32hashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerhashdatalist" name="tpointerhashdatalist">tpointerhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akey: pointer): ppointerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: pointer): ppointerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: pointer): ppointerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: pointer;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ppointerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ppointerhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ppointerhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ppointerhashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerint32hashdatalist" name="tpointerint32hashdatalist">tpointerint32hashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointerhashdatalist">tpointerhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: pointer; const avalue: int32);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: pointer; const avalue: int32): boolean;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: pointer): int32; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: pointer; out avalue: int32): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ppointerint32hashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ppointerint32hashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ppointerint32hashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ppointerint32hashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tptruinthashdatalist" name="tptruinthashdatalist">tptruinthashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akey: ptruint): pptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ptruint): pptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint): pptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: ptruint;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pptruinthashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pptruinthashdataty; //wraps to last after first
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointerptruinthashdatalist" name="tpointerptruinthashdatalist">tpointerptruinthashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tptruinthashdatalist">tptruinthashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: ptruint; const avalue: pointer);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ptruint; const avalue: pointer): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: ptruint; const avalue: pointer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint; out avalue: pointer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ppointerptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ppointerptruinthashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ppointerptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ppointerptruinthashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: ptruint;
+                          const aiterator: pointerptruintiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tansistringptruinthashdatalist" name="tansistringptruinthashdatalist">tansistringptruinthashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tptruinthashdatalist">tptruinthashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: ptruint; const avalue: ansistring);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ptruint; const avalue: ansistring): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: ptruint; const avalue: ansistring) <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint): ansistring <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint; out avalue: ansistring): boolean <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pansistringptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pansistringptruinthashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pansistringptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pansistringptruinthashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: ptruint;
+                          const aiterator: ansistringptruintiteratorprocty) <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> setdata (const akey: ptruint; const avalue: ansistring): boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringptruinthashdatalist" name="tmsestringptruinthashdatalist">tmsestringptruinthashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tptruinthashdatalist">tptruinthashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: ptruint; const avalue: msestring);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ptruint; const avalue: msestring): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: ptruint; const avalue: msestring); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint): msestring; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ptruint; out avalue: msestring): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pmsestringptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pmsestringptruinthashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pmsestringptruinthashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pmsestringptruinthashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: ptruint;
+                          const aiterator: msestringptruintiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> setdata (const akey: ptruint; const avalue: msestring): boolean;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tansistringhashdatalist" name="tansistringhashdatalist">tansistringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akey: ansistring): pansistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ansistring): pansistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ansistring): pansistringhashdataty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: lstringty): pansistringhashdataty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: ansistring;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: lstringty;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pansistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pansistringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pansistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pansistringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: ansistring;
+                          const aiterator: ansistringhashiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointeransistringhashdatalist" name="tpointeransistringhashdatalist">tpointeransistringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tansistringhashdatalist">tansistringhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: ansistring; const avalue: pointer); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const keys: array of string;
+                        startindex: pointer = pointer ($00000001)); <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: ansistring; const avalue: pointer): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: ansistring; const avalue: pointer) <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ansistring): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: ansistring; out avalue: pointer): boolean <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: lstringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ppointeransistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ppointeransistringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ppointeransistringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ppointeransistringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: ansistring;
+                          const aiterator: pointeransistringiteratorprocty) <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmsestringhashdatalist" name="tmsestringhashdatalist">tmsestringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#thashdatalist">thashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create ();
+        <span style="color:navy"><b>FUNCTION</b></span> add (const akey: msestring): pmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: msestring): pmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring): pmsestringhashdataty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: lmsestringty): pmsestringhashdataty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring;
+                    out acount: integer): pmsestringhashdataty; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: msestring;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> delete (const akey: lmsestringty;
+                              const all: boolean = false): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pmsestringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pmsestringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: msestring;
+                          const aiterator: msestringiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tpointermsestringhashdatalist" name="tpointermsestringhashdatalist">tpointermsestringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringhashdatalist">tmsestringhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: msestring; const avalue: pointer);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: msestring; const avalue: pointer): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: msestring; const avalue: pointer);
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: pointer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: pointer;
+                                             out acount: integer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: lmsestringty): pointer; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: ppointermsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: ppointermsestringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: ppointermsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: ppointermsestringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: msestring;
+                          const aiterator: pointermsestringiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tintegermsestringhashdatalist" name="tintegermsestringhashdatalist">tintegermsestringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tmsestringhashdatalist">tmsestringhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: msestring; const avalue: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: msestring; const avalue: integer): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: msestring; const avalue: integer);
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring): integer; <span style="color:teal"><b>OVERLOAD</b></span>; //-1 if not found
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: integer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: integer;
+                                             out acount: integer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: lmsestringty): integer; <span style="color:teal"><b>OVERLOAD</b></span>; //-1 if not found
+        <span style="color:navy"><b>FUNCTION</b></span> first: pintegermsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pintegermsestringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pintegermsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pintegermsestringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: msestring;
+                          const aiterator: integermsestringiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tobjectmsestringhashdatalist" name="tobjectmsestringhashdatalist">tobjectmsestringhashdatalist</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpointermsestringhashdatalist">tpointermsestringhashdatalist</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aownsobjects: boolean = true);
+        <span style="color:navy"><b>PROCEDURE</b></span> add (const akey: msestring; const avalue: tobject);
+        <span style="color:navy"><b>FUNCTION</b></span> addunique (const akey: msestring; const avalue: tobject): boolean;
+        <span style="color:navy"><b>PROCEDURE</b></span> delete (const akey: msestring; const avalue: tobject);
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring): tobject; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: tobject): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> find (const akey: msestring; out avalue: tobject;
+                                             out acount: integer): boolean; <span style="color:teal"><b>OVERLOAD</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> first: pobjectmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> next: pobjectmsestringhashdataty; //wraps to first after last
+        <span style="color:navy"><b>FUNCTION</b></span> last: pobjectmsestringhashdataty;
+        <span style="color:navy"><b>FUNCTION</b></span> prev: pobjectmsestringhashdataty; //wraps to last after first
+        <span style="color:navy"><b>PROCEDURE</b></span> iterate (const akey: msestring;
+                          const aiterator: objectmsestringiteratorprocty); <span style="color:teal"><b>OVERLOAD</b></span>;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>

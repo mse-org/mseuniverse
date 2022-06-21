@@ -1,0 +1,227 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"><! iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.61 [en] (X11; I; Linux 2.2.17 i586) [Netscape]">
+   <title>Index-Kopf (HTML-Format)</title>
+    <style type="text/css">
+        A:link      { text-decoration: none; border-style: none; }
+        A:visited   { text-decoration: none; border-style: none; }
+        A:focus     { text-decoration: none; border-style: none; font-style: italic; background-color: white; }
+        A:hover     { text-decoration: none; border-style: none; font-weight: bold; background-color: white; }
+        Img src     { border-style: none; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<a href="javascript:window.history.back()"><Img src="/back.gif" border="0"> Zur&uuml;ck...</a>
+<hr>
+<center><h3>Directory widgets</h3></center>
+<hr>
+<pre style="font-size:large">
+  UNIT msedial;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialpropfont" name="tdialpropfont">tdialpropfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialfont" name="tdialfont">tdialfont</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tparentfont">tparentfont</a>)
+      PUBLIC
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getinstancepo (owner: tobject): pfont; <span style="color:teal"><b>OVERRIDE</b></span>;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialprop" name="tdialprop">tdialprop</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistent">townedpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fli.color <span style="color:navy"><b>WRITE</b></span> setcolor
+                                  <span style="color:navy"><b>DEFAULT</b></span> cl_default;
+        <span style="color:navy"><b>PROPERTY</b></span> widthmm: real <span style="color:navy"><b>READ</b></span> fli.widthmm <span style="color:navy"><b>WRITE</b></span> setwidthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> dashes: string <span style="color:navy"><b>READ</b></span> fli.dashes <span style="color:navy"><b>WRITE</b></span> setdashes;
+        <span style="color:navy"><b>PROPERTY</b></span> indent: integer <span style="color:navy"><b>READ</b></span> fli.indent
+                          <span style="color:navy"><b>WRITE</b></span> setindent <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> length: integer <span style="color:navy"><b>READ</b></span> fli.length
+                          <span style="color:navy"><b>WRITE</b></span> setlength <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> caption: msestring <span style="color:navy"><b>READ</b></span> fli.caption <span style="color:navy"><b>WRITE</b></span> setcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> captionunit: msestring <span style="color:navy"><b>READ</b></span> fli.captionunit <span style="color:navy"><b>WRITE</b></span> setcaptionunit;
+        <span style="color:navy"><b>PROPERTY</b></span> captiondist: integer <span style="color:navy"><b>READ</b></span> fli.captiondist <span style="color:navy"><b>WRITE</b></span> setcaptiondist
+                                            <span style="color:navy"><b>DEFAULT</b></span> 2;
+        <span style="color:navy"><b>PROPERTY</b></span> captionoffset: integer <span style="color:navy"><b>READ</b></span> fli.captionoffset <span style="color:navy"><b>WRITE</b></span> setcaptionoffset
+                                            <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tdialpropfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> escapement: real <span style="color:navy"><b>READ</b></span> fli.escapement <span style="color:navy"><b>WRITE</b></span> setescapement;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tmarkerframe" name="tmarkerframe">tmarkerframe</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tframe">tframe</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: iframe);
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialmarker" name="tdialmarker">tdialmarker</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialprop">tdialprop</a>,iframe,iface)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tobject); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createframe;
+        <span style="color:navy"><b>PROCEDURE</b></span> createface;
+        <span style="color:navy"><b>FUNCTION</b></span> pos: integer;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas);
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> active: boolean <span style="color:navy"><b>READ</b></span> finfo.active;
+        <span style="color:navy"><b>PROPERTY</b></span> limited: boolean <span style="color:navy"><b>READ</b></span> finfo.limited;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> value: realty <span style="color:navy"><b>READ</b></span> finfo.value <span style="color:navy"><b>WRITE</b></span> setvalue {stored false};
+        <span style="color:navy"><b>PROPERTY</b></span> options: dialmarkeroptionsty <span style="color:navy"><b>READ</b></span> finfo.options
+                               <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> hintcaption: msestring <span style="color:navy"><b>READ</b></span> fhintcaption
+                                      <span style="color:navy"><b>WRITE</b></span> fhintcaption;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_color: colorty <span style="color:navy"><b>READ</b></span> finfo.bar_color
+                                              <span style="color:navy"><b>WRITE</b></span> setbar_color <span style="color:navy"><b>DEFAULT</b></span> cl_none;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_width: integer <span style="color:navy"><b>READ</b></span> finfo.bar_width <span style="color:navy"><b>WRITE</b></span> setbar_width
+                                             <span style="color:navy"><b>DEFAULT</b></span> defaultmarkerwidth;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_shift: integer <span style="color:navy"><b>READ</b></span> finfo.bar_shift <span style="color:navy"><b>WRITE</b></span> setbar_shift
+                                             <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_frame: tframe <span style="color:navy"><b>READ</b></span> getbar_frame <span style="color:navy"><b>WRITE</b></span> setbar_frame;
+        <span style="color:navy"><b>PROPERTY</b></span> bar_face: tface <span style="color:navy"><b>READ</b></span> getbar_face <span style="color:navy"><b>WRITE</b></span> setbar_face;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialmarkers" name="tdialmarkers">tdialmarkers</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdialcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint1 (const acanvas: tcanvas);
+        <span style="color:navy"><b>PROCEDURE</b></span> paint2 (const acanvas: tcanvas);
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdialmarker <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialtick" name="tdialtick">tdialtick</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tdialprop">tdialprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> intervalcount: real <span style="color:navy"><b>READ</b></span> getintervalcount <span style="color:navy"><b>WRITE</b></span> setintervalcount
+                                            stored isintervalcountstored;
+        <span style="color:navy"><b>PROPERTY</b></span> interval: real <span style="color:navy"><b>READ</b></span> getinterval <span style="color:navy"><b>WRITE</b></span> setinterval
+                                            stored isintervalstored;
+        <span style="color:navy"><b>PROPERTY</b></span> options: dialtickoptionsty <span style="color:navy"><b>READ</b></span> finfo.options
+                               <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialticks" name="tdialticks">tdialticks</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#townedpersistentarrayprop">townedpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aowner: tcustomdialcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>;
+        <span style="color:navy"><b>CLASS</b></span> <span style="color:navy"><b>FUNCTION</b></span> getitemclasstype: persistentclassty; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROPERTY</b></span> items[const index: integer]: tdialtick <span style="color:navy"><b>READ</b></span> getitems; default;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdialcontroller" name="tcustomdialcontroller">tcustomdialcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tvirtualpersistent">tvirtualpersistent</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: idialcontroller); <span style="color:teal"><b>REINTRODUCE</b></span>; <span style="color:teal"><b>VIRTUAL</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> createfont;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas);
+        <span style="color:navy"><b>PROCEDURE</b></span> afterpaint (const acanvas: tcanvas);
+        <span style="color:navy"><b>PROPERTY</b></span> options: dialoptionsty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions <span style="color:navy"><b>DEFAULT</b></span> [];
+        <span style="color:navy"><b>PROPERTY</b></span> visible: boolean <span style="color:navy"><b>READ</b></span> getvisible <span style="color:navy"><b>WRITE</b></span> setvisible;
+        <span style="color:navy"><b>PROPERTY</b></span> opposite: boolean <span style="color:navy"><b>READ</b></span> getopposite <span style="color:navy"><b>WRITE</b></span> setopposite;
+        <span style="color:navy"><b>PROPERTY</b></span> sideline: boolean <span style="color:navy"><b>READ</b></span> getsideline <span style="color:navy"><b>WRITE</b></span> setsideline;
+        <span style="color:navy"><b>PROPERTY</b></span> boxline: boolean <span style="color:navy"><b>READ</b></span> getboxline <span style="color:navy"><b>WRITE</b></span> setboxline;
+        <span style="color:navy"><b>PROPERTY</b></span> log: boolean <span style="color:navy"><b>READ</b></span> getlog <span style="color:navy"><b>WRITE</b></span> setlog;
+        <span style="color:navy"><b>PROPERTY</b></span> front: boolean <span style="color:navy"><b>READ</b></span> getfront <span style="color:navy"><b>WRITE</b></span> setfront;
+        
+        <span style="color:navy"><b>PROPERTY</b></span> direction: graphicdirectionty <span style="color:navy"><b>READ</b></span> fdirection <span style="color:navy"><b>WRITE</b></span> setdirection
+                                            <span style="color:navy"><b>DEFAULT</b></span> gd_right;
+        <span style="color:navy"><b>PROPERTY</b></span> indent1: integer <span style="color:navy"><b>READ</b></span> findent1 <span style="color:navy"><b>WRITE</b></span> setindent1 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> indent2: integer <span style="color:navy"><b>READ</b></span> findent2 <span style="color:navy"><b>WRITE</b></span> setindent2 <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fitdist: integer <span style="color:navy"><b>READ</b></span> ffitdist <span style="color:navy"><b>WRITE</b></span> setfitdist <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> start: real <span style="color:navy"><b>READ</b></span> fstart <span style="color:navy"><b>WRITE</b></span> setstart;
+        <span style="color:navy"><b>PROPERTY</b></span> shift: real <span style="color:navy"><b>READ</b></span> fshift <span style="color:navy"><b>WRITE</b></span> setshift; //added to start
+        <span style="color:navy"><b>PROPERTY</b></span> range: real <span style="color:navy"><b>READ</b></span> frange <span style="color:navy"><b>WRITE</b></span> setrange; //<span style="color:navy"><b>DEFAULT</b></span> 1.0
+        <span style="color:navy"><b>PROPERTY</b></span> kind: dialdatakindty <span style="color:navy"><b>READ</b></span> fkind <span style="color:navy"><b>WRITE</b></span> setkind <span style="color:navy"><b>DEFAULT</b></span> dtk_real;
+        <span style="color:navy"><b>PROPERTY</b></span> markers: tdialmarkers <span style="color:navy"><b>READ</b></span> fmarkers <span style="color:navy"><b>WRITE</b></span> setmarkers;
+        <span style="color:navy"><b>PROPERTY</b></span> ticks: tdialticks <span style="color:navy"><b>READ</b></span> fticks <span style="color:navy"><b>WRITE</b></span> setticks;
+        <span style="color:navy"><b>PROPERTY</b></span> color: colorty <span style="color:navy"><b>READ</b></span> fcolor <span style="color:navy"><b>WRITE</b></span> setcolor <span style="color:navy"><b>DEFAULT</b></span> defaultdialcolor;
+        <span style="color:navy"><b>PROPERTY</b></span> widthmm: real <span style="color:navy"><b>READ</b></span> fwidthmm <span style="color:navy"><b>WRITE</b></span> setwidthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> font: tdialfont <span style="color:navy"><b>READ</b></span> getfont <span style="color:navy"><b>WRITE</b></span> setfont stored isfontstored;
+        <span style="color:navy"><b>PROPERTY</b></span> angle: real <span style="color:navy"><b>READ</b></span> fangle <span style="color:navy"><b>WRITE</b></span> setangle; //0 -linear, 1 -> 360 grad
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdialcontrollers" name="tcustomdialcontrollers">tcustomdialcontrollers</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpersistentarrayprop">tpersistentarrayprop</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: idialcontroller);
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatread (const reader: tstatreader);
+        <span style="color:navy"><b>PROCEDURE</b></span> dostatwrite (const writer: tstatwriter);
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> start: real <span style="color:navy"><b>READ</b></span> fstart <span style="color:navy"><b>WRITE</b></span> setstart;
+        <span style="color:navy"><b>PROPERTY</b></span> range: real <span style="color:navy"><b>READ</b></span> frange <span style="color:navy"><b>WRITE</b></span> setrange;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdialcontroller" name="tdialcontroller">tdialcontroller</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdialcontroller">tcustomdialcontroller</a>)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (const aintf: idialcontroller); <span style="color:teal"><b>OVERRIDE</b></span>;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> options <span style="color:navy"><b>DEFAULT</b></span> defaultdialcontrolleroptions; //first!
+        <span style="color:navy"><b>PROPERTY</b></span> color;
+        <span style="color:navy"><b>PROPERTY</b></span> widthmm;
+        <span style="color:navy"><b>PROPERTY</b></span> direction;
+        <span style="color:navy"><b>PROPERTY</b></span> indent1;
+        <span style="color:navy"><b>PROPERTY</b></span> indent2;
+        <span style="color:navy"><b>PROPERTY</b></span> start;
+        <span style="color:navy"><b>PROPERTY</b></span> range;
+        <span style="color:navy"><b>PROPERTY</b></span> kind;
+        <span style="color:navy"><b>PROPERTY</b></span> markers;
+        <span style="color:navy"><b>PROPERTY</b></span> ticks;
+        <span style="color:navy"><b>PROPERTY</b></span> font;
+        <span style="color:navy"><b>PROPERTY</b></span> angle;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tcustomdial" name="tcustomdial">tcustomdial</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tpublishedwidget">tpublishedwidget</a>,idialcontroller)
+      PUBLIC
+        <span style="color:navy"><b>CONSTRUCTOR</b></span> create (aowner: tcomponent); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>DESTRUCTOR</b></span> destroy; <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>PROCEDURE</b></span> paint (const acanvas: tcanvas); <span style="color:teal"><b>OVERRIDE</b></span>;
+        <span style="color:navy"><b>FUNCTION</b></span> fit (const asides: rectsidesty = allrectsides): boolean;
+        <span style="color:navy"><b>PROPERTY</b></span> dial: tdialcontroller <span style="color:navy"><b>READ</b></span> fdial <span style="color:navy"><b>WRITE</b></span> setdial;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe: framety <span style="color:navy"><b>READ</b></span> ffitframe <span style="color:navy"><b>WRITE</b></span> setfitframe;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_left: integer <span style="color:navy"><b>READ</b></span> ffitframe.left
+                               <span style="color:navy"><b>WRITE</b></span> setfitframe_left <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_top: integer <span style="color:navy"><b>READ</b></span> ffitframe.top
+                               <span style="color:navy"><b>WRITE</b></span> setfitframe_top <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_right: integer <span style="color:navy"><b>READ</b></span> ffitframe.right
+                               <span style="color:navy"><b>WRITE</b></span> setfitframe_right <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_bottom: integer <span style="color:navy"><b>READ</b></span> ffitframe.bottom
+                               <span style="color:navy"><b>WRITE</b></span> setfitframe_bottom <span style="color:navy"><b>DEFAULT</b></span> 0;
+        <span style="color:navy"><b>PROPERTY</b></span> options: optionsdialty <span style="color:navy"><b>READ</b></span> foptions <span style="color:navy"><b>WRITE</b></span> setoptions
+                                                      <span style="color:navy"><b>DEFAULT</b></span> defaultoptionsdial;
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> color <span style="color:navy"><b>DEFAULT</b></span> cl_transparent;
+        <span style="color:navy"><b>PROPERTY</b></span> optionswidget <span style="color:navy"><b>DEFAULT</b></span> defaultoptionswidgetnofocus;
+    END;
+</pre>//---------------<br>
+<pre>
+    <a href="../../unitslist.html#tdial" name="tdial">tdial</a><span style="color:navy"> = <b>CLASS</b></span> (<a href="../../unitslist.html#tcustomdial">tcustomdial</a>)
+      PUBLISHED
+        <span style="color:navy"><b>PROPERTY</b></span> dial;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cy <span style="color:navy"><b>DEFAULT</b></span> 15;
+        <span style="color:navy"><b>PROPERTY</b></span> bounds_cx <span style="color:navy"><b>DEFAULT</b></span> 100;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_left;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_top;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_right;
+        <span style="color:navy"><b>PROPERTY</b></span> fitframe_bottom;
+        <span style="color:navy"><b>PROPERTY</b></span> options;
+    END;
+</pre>//---------------<br>
+  <pre>END.
+</pre>
