@@ -1,0 +1,198 @@
+object fsilverskinmo: tfsilverskinmo
+  bounds_cx = 483
+  bounds_cy = 172
+  left = 622
+  top = 281
+  moduleclassname = 'tmsedatamodule'
+  object fadevertkonvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      15132390
+      10395294
+    )
+    template.fade_direction = gd_down
+    left = 24
+    top = 16
+  end
+  object fadehorzconvex: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    left = 24
+    top = 40
+  end
+  object fadehorzconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_left
+    left = 144
+    top = 40
+  end
+  object fadevertconcave: tfacecomp
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      14408667
+      13158600
+    )
+    template.fade_direction = gd_up
+    left = 144
+    top = 16
+  end
+  object skin: tskincontroller
+    active = True
+    extenders = 0
+    fontalias.count = 1
+    fontalias.items = <    
+      item
+        xscale = 1
+      end>
+    font_default.template = tfontcomp1
+    sb_horz_colorglyph = -1610612734
+    sb_horz_face = fadevertkonvex
+    sb_horz_face1 = fadevertkonvex
+    sb_horz_face2 = fadevertkonvex
+    sb_horz_facebutton = fadevertconcave
+    sb_horz_faceendbutton = fadevertconcave
+    sb_horz_frame = tframecomp2
+    sb_horz_framebutton = tframecomp2
+    sb_horz_frameendbutton1 = tframecomp2
+    sb_horz_frameendbutton2 = tframecomp2
+    sb_vert_colorglyph = -1610612734
+    sb_vert_face = fadevertkonvex
+    sb_vert_face1 = fadevertkonvex
+    sb_vert_face2 = fadevertkonvex
+    sb_vert_facebutton = fadevertconcave
+    sb_vert_faceendbutton = fadevertconcave
+    sb_vert_frame = tframecomp2
+    sb_vert_framebutton = tframecomp2
+    sb_vert_frameendbutton1 = tframecomp2
+    sb_vert_frameendbutton2 = tframecomp2
+    stepbutton_frame = tframecomp2
+    stepbutton_face = fadehorzconvex
+    widget_color = -1610612733
+    dispwidget_face = fadevertkonvex
+    dataedit_face = fadevertkonvex
+    dataedit_frame = tframecomp2
+    dataedit_empty_color = -1610612730
+    dataedit_empty_textcolor = -1610612730
+    edit_face = fadevertkonvex
+    edit_frame = tframecomp2
+    edit_empty_color = -1610612730
+    booleanedit_face = fadevertkonvex
+    booleanedit_frame = tframecomp2
+    container_face = fadevertkonvex
+    groupbox_face = fadehorzconcave
+    groupbox_frame = tframecomp2
+    grid_face = fadevertkonvex
+    grid_fixrows_face = fadevertkonvex
+    grid_fixcols_face = fadevertkonvex
+    grid_datacols_face = fadevertkonvex
+    button_face = fadevertkonvex
+    button_frame = tframecomp2
+    button_font.color = -1610612734
+    button_font.colorselect = -1610612734
+    button_font.localprops = [flp_color, flp_colorselect]
+    databutton_face = fadevertkonvex
+    databutton_frame = tframecomp2
+    slider_face = fadevertkonvex
+    slider_frame = tframecomp2
+    slider_sb_horz_colorglyph = -1610612734
+    slider_sb_horz_face = fadevertkonvex
+    slider_sb_horz_facebutton = fadevertconcave
+    slider_sb_horz_faceendbutton = fadevertconcave
+    slider_sb_horz_frame = tframecomp2
+    slider_sb_horz_framebutton = tframecomp2
+    slider_sb_horz_frameendbutton1 = tframecomp2
+    slider_sb_horz_frameendbutton2 = tframecomp2
+    slider_sb_vert_colorglyph = -1610612734
+    slider_sb_vert_face = fadevertkonvex
+    slider_sb_vert_facebutton = fadehorzconvex
+    slider_sb_vert_faceendbutton = fadehorzconvex
+    framebutton_colorglyph = -1610612730
+    framebutton_face = fadevertkonvex
+    tabbar_horz_face = fadevertconcave
+    tabbar_horz_tab_face = fadevertkonvex
+    tabbar_horzopo_face = fadevertconcave
+    tabbar_horzopo_tab_face = fadevertkonvex
+    tabbar_vert_face = fadehorzconcave
+    tabbar_vert_tab_face = fadevertkonvex
+    tabbar_vertopo_face = fadehorzconcave
+    tabbar_vertopo_tab_face = fadevertkonvex
+    popupmenu_face = fadehorzconcave
+    mainmenu_face = fadevertconcave
+    left = 24
+    top = 72
+  end
+  object tfontcomp1: tfontcomp
+    template.color = -1610612734
+    template.xscale = 1
+    left = 264
+    top = 120
+  end
+  object tframecomp2: tframecomp
+    template.framei_left = 4
+    template.framei_top = 2
+    template.framei_right = 4
+    template.framei_bottom = 2
+    template.frameimage_list = timagelist3
+    template.frameimage_left = -4
+    template.frameimage_top = -4
+    template.frameimage_right = -4
+    template.frameimage_bottom = -4
+    left = 300
+    top = 76
+  end
+  object timagelist3: timagelist
+    width = 4
+    height = 4
+    options = [bmo_masked, bmo_graymask]
+    count = 8
+    cornermask_topleft = #2#1
+    cornermask_bottomleft = #2#1
+    cornermask_bottomright = #2#1
+    cornermask_topright = #2#1
+    left = 320
+    top = 48
+    image = {
+      00000000120000000C0000000C000000E8000000000000000000000000000000
+      0000000000000000000000000000000000000000FFFFFF028B8B8B02A5A5A501
+      000000038B8B8B01FFFFFF048B8B8B01FFFFFF02A5A5A501000000038B8B8B01
+      FFFFFF038B8B8B01FFFFFF03A5A5A50100000003FFFFFF018B8B8B01FFFFFF02
+      8B8B8B01FFFFFF03A5A5A50100000003FFFFFF028B8B8B03FFFFFF068B8B8B01
+      FFFFFF038B8B8B02FFFFFF068B8B8B01FFFFFF038B8B8B01FFFFFF018B8B8B01
+      FFFFFF048B8B8B01FFFFFF048B8B8B07FFFFFF04D6D6D6018B8B8B03FFFFFF02
+      8B8B8B0400000004FFFFFF028B8B8B01FFFFFF04D6D6D60100000004FFFFFF03
+      8B8B8B01FFFFFF0400000004FFFFFF038B8B8B01FFFFFF040000000490000000
+      0000FFFFFF000000FF00000000FF0000FF000000FF000000FF000000FF000000
+      00FF0000FF000000FF0000000000FFFF00000000000000FF000000FF00000000
+      000000FF000000FF000000000000FF00000000FFFFFFFFFFFFFF0000000000FF
+      FFFF0000FFFFFFFF000000000000FF000000000000000000000000FF00000000
+      00000000000000FF0000000000000000
+    }
+  end
+end
