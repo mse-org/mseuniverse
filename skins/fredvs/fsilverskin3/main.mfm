@@ -1,0 +1,315 @@
+object skin_demo: tmainfo
+  bounds_x = 275
+  bounds_y = 404
+  bounds_cx = 655
+  bounds_cy = 246
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    655
+    246
+  )
+  caption = 'fsilver skin'
+  windowopacity = -Inf
+  oneventloopstart = initit
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    color = -2147483645
+    bounds_x = 176
+    bounds_y = 16
+    bounds_cx = 122
+    bounds_cy = 45
+    state = [as_localcaption, as_localcolor, as_localonexecute]
+    caption = 'Button 2'
+  end
+  object tstringedit1: tstringedit
+    color = -2147483645
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 6
+    bounds_x = 320
+    bounds_y = 160
+    bounds_cx = 308
+    bounds_cy = 23
+    value = 'Write something here...'
+    reffontheight = 17
+  end
+  object tbooleanedit1: tbooleanedit
+    color = -2147483645
+    frame.caption = 'Take hollyday'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      79
+      1
+    )
+    taborder = 1
+    bounds_x = 440
+    bounds_y = 136
+    bounds_cx = 100
+    bounds_cy = 19
+  end
+  object tbooleaneditradio1: tbooleaneditradio
+    color = -2147483645
+    frame.caption = 'red'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      22
+      1
+    )
+    taborder = 3
+    bounds_x = 320
+    bounds_y = 80
+    bounds_cx = 43
+    bounds_cy = 19
+  end
+  object tbooleaneditradio2: tbooleaneditradio
+    color = -2147483645
+    frame.caption = 'green'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      36
+      1
+    )
+    taborder = 4
+    bounds_x = 320
+    bounds_y = 104
+    bounds_cx = 57
+    bounds_cy = 19
+  end
+  object tbooleaneditradio3: tbooleaneditradio
+    color = -2147483645
+    frame.caption = 'blue'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      0
+      27
+      1
+    )
+    taborder = 5
+    bounds_x = 320
+    bounds_y = 128
+    bounds_cx = 48
+    bounds_cy = 19
+  end
+  object tslider1: tslider
+    color = -2147483645
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 7
+    bounds_x = 368
+    bounds_y = 192
+    bounds_cx = 256
+    bounds_cy = 36
+    scrollbar.face.localprops = []
+  end
+  object tmemoedit1: tmemoedit
+    color = -2147483645
+    frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
+    taborder = 2
+    bounds_x = 384
+    bounds_y = 8
+    bounds_cx = 252
+    bounds_cy = 119
+    value = 'The quick brown fox, jumps over the lazy dog...'
+    reffontheight = 17
+  end
+  object tmainmenuwidget1: tmainmenuwidget
+    optionswidget1 = [ow1_autoscale, ow1_autowidth]
+    color = -2147483645
+    frame.levelo = 1
+    frame.leveli = -1
+    frame.caption = 'tmainmenuwidget'
+    frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
+    frame.outerframe = (
+      0
+      20
+      0
+      0
+    )
+    taborder = 9
+    bounds_x = 2
+    bounds_y = -20
+    bounds_cx = 108
+    bounds_cy = 43
+    menu.menu.submenu.count = 3
+    menu.menu.submenu.items = <    
+      item
+        submenu.count = 3
+        submenu.items = <        
+          item
+            submenu.count = 3
+            submenu.items = <            
+              item
+                caption = 'Open &A'
+                state = [as_localcaption]
+              end            
+              item
+                caption = 'Open &B'
+                state = [as_localcaption]
+              end            
+              item
+                caption = 'Open &C'
+                state = [as_localcaption]
+              end>
+            caption = '&Open'
+            state = [as_localcaption]
+          end        
+          item
+            caption = '&Close'
+            state = [as_localcaption]
+          end        
+          item
+            caption = '&Exit'
+            state = [as_localcaption, as_localonexecute]
+          end>
+        caption = '&File'
+        state = [as_localcaption]
+      end    
+      item
+        submenu.count = 4
+        submenu.items = <        
+          item
+            caption = 'One'
+            state = [as_localcaption]
+          end        
+          item
+            caption = 'Two'
+            state = [as_localcaption]
+          end        
+          item
+            caption = 'Three'
+            state = [as_localcaption]
+          end        
+          item
+            caption = 'Four'
+            state = [as_localcaption]
+          end>
+        caption = 'item&2'
+        state = [as_localcaption]
+      end    
+      item
+        caption = 'Other'
+        state = [as_localcaption]
+      end>
+    menu.menu.font.name = 'stf_menu'
+    menu.menu.font.localprops = [flp_color, flp_style]
+    menu.menu.fontactive.color = 7882752
+    menu.menu.fontactive.style = [fs_bold]
+    menu.menu.fontactive.name = 'stf_menu'
+    menu.menu.fontactive.localprops = [flp_color]
+  end
+  object demogrid: tstringgrid
+    frame.localprops = [frl_fileft, frl_fitop, frl_firight, frl_fibottom]
+    frame.localprops1 = []
+    taborder = 8
+    bounds_x = 8
+    bounds_y = 80
+    bounds_cx = 292
+    bounds_cy = 134
+    datacols.count = 5
+    datacols.items = <    
+      item
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end    
+      item
+        datalist.data = (
+          ''
+          ''
+          ''
+          ''
+          ''
+          ''
+        )
+        valuefalse = '0'
+        valuetrue = '1'
+      end>
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 30
+        numstep = 1
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 19
+        numstep = 1
+      end>
+    rowcount = 6
+    datarowheight = 19
+    statpriority = 1
+    reffontheight = 17
+  end
+  object tbutton2: tbutton
+    color = -2147483645
+    taborder = 10
+    bounds_x = 32
+    bounds_y = 32
+    bounds_cx = 106
+    bounds_cy = 37
+    state = [as_localcaption, as_localcolor, as_localonexecute]
+    caption = 'Button 1'
+  end
+end
