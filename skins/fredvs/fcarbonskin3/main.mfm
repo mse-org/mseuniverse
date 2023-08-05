@@ -2,14 +2,14 @@ object skin_demo: tmainfo
   bounds_x = 242
   bounds_y = 277
   bounds_cx = 655
-  bounds_cy = 233
+  bounds_cy = 272
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
     655
-    233
+    272
   )
   caption = 'fcarbon skin'
   windowopacity = -Inf
@@ -116,7 +116,7 @@ object skin_demo: tmainfo
     bounds_x = 344
     bounds_y = 192
     bounds_cx = 264
-    bounds_cy = 28
+    bounds_cy = 52
     scrollbar.face.localprops = []
   end
   object tmemoedit1: tmemoedit
@@ -227,9 +227,9 @@ object skin_demo: tmainfo
     frame.localprops1 = []
     taborder = 8
     bounds_x = 8
-    bounds_y = 80
+    bounds_y = 88
     bounds_cx = 292
-    bounds_cy = 134
+    bounds_cy = 142
     datacols.count = 5
     datacols.items = <    
       item

@@ -73,7 +73,10 @@ object fcarbonskinmo: tfcarbonskinmo
         xscale = 1
       end>
     font_default.template = tfontcomp1
+    sb_horz_width = 30
     sb_horz_colorglyph = -1610612730
+    sb_horz_buttonlength = 30
+    sb_horz_buttonminlength = 30
     sb_horz_face = fadevertkonvex
     sb_horz_face1 = fadevertkonvex
     sb_horz_face2 = fadevertkonvex
@@ -83,7 +86,10 @@ object fcarbonskinmo: tfcarbonskinmo
     sb_horz_framebutton = tframecomp2
     sb_horz_frameendbutton1 = tframecomp2
     sb_horz_frameendbutton2 = tframecomp2
+    sb_vert_width = 30
     sb_vert_colorglyph = -1610612730
+    sb_vert_buttonlength = 30
+    sb_vert_buttonminlength = 30
     sb_vert_face = fadevertkonvex
     sb_vert_face1 = fadevertkonvex
     sb_vert_face2 = fadevertkonvex
@@ -124,7 +130,10 @@ object fcarbonskinmo: tfcarbonskinmo
     databutton_frame = tframecomp2
     slider_face = fadevertkonvex
     slider_frame = tframecomp2
+    slider_sb_horz_width = 30
     slider_sb_horz_colorglyph = -1610612730
+    slider_sb_horz_buttonlength = 30
+    slider_sb_horz_buttonminlength = 30
     slider_sb_horz_face = fadevertkonvex
     slider_sb_horz_facebutton = fadehorzconvex
     slider_sb_horz_faceendbutton = fadehorzconvex
@@ -132,7 +141,10 @@ object fcarbonskinmo: tfcarbonskinmo
     slider_sb_horz_framebutton = tframecomp2
     slider_sb_horz_frameendbutton1 = tframecomp2
     slider_sb_horz_frameendbutton2 = tframecomp2
+    slider_sb_vert_width = 30
     slider_sb_vert_colorglyph = -1610612730
+    slider_sb_vert_buttonlength = 30
+    slider_sb_vert_buttonminlength = 30
     slider_sb_vert_face = fadevertkonvex
     slider_sb_vert_facebutton = fadehorzconvex
     slider_sb_vert_faceendbutton = fadehorzconvex

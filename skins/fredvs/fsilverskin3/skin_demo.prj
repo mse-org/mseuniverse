@@ -837,10 +837,10 @@ findhistory=12
 findoptions=1
 editpos=6
  0,3
- 0,-1073741823
- 9,3
- 0,-1073741823
  0,0
+ 0,-1073741823
+ 0,-1073741823
+ 0,-1073741823
  0,-1073741823
 bookmarks0=0
 bookmarks1=0
@@ -884,15 +884,15 @@ nomenumodules=2
 [sourcefo.files_tab]
 order=6
  0
+ 4
  5
  1
  2
  3
- 4
 firsttab=0
-index=3
+index=0
 [layout]
-windowlayout=578
+windowlayout=579
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -906,8 +906,8 @@ windowlayout=578
  ny=0
  ncx=0
  ncy=0
- x=-106
- y=205
+ x=5
+ y=72
  cx=1390
  cy=724
  rcx=0
@@ -1297,7 +1297,7 @@ windowlayout=578
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=objectinspectorfo
+ stackedunder=confdebuggerfo
  parent=
  mdistate=3
  nx=0
@@ -1354,8 +1354,9 @@ windowlayout=578
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/fsilverskin3/fsilverskin.pas
- history=9
+ value=/home/fred/fsilverskin3/main.pas
+ history=10
+  /home/fred/fsilverskin3/load_fsilverskin.pas
   /home/fred/fsilverskin3/skin_demo.pas
   /home/fred/fsilverskin3/main.pas
   /home/fred/fsilverskin2/fsilverskin.pas
@@ -1388,20 +1389,20 @@ windowlayout=578
  [sourcefo.files_tab]
  order=6
   0
+  4
   5
   1
   2
   3
-  4
  firsttab=0
- index=3
+ index=0
  [confideufo.usedefaulteditoroptions]
  value=0
  [cpuc86_64fo]
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=targetconsolefo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0

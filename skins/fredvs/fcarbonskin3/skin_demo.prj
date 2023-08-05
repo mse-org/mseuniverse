@@ -884,12 +884,12 @@ findhistory=12
  writeln
 findoptions=1
 editpos=6
- 0,10
+ 0,6
  0,0
- 44,6
+ 0,7
  0,-1073741823
  0,-1073741823
- 0,-1073741823
+ 0,0
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
@@ -897,12 +897,12 @@ bookmarks3=0
 bookmarks4=0
 bookmarks5=0
 sourcefiles=6
- ${PROJECTDIR}/main.pas
- ${PROJECTDIR}/load_fcarbonskin.pas
- ${PROJECTDIR}/fcarbonskin.pas
+ /home/fred/fcarbonskin3/main.pas
+ /home/fred/fcarbonskin3/load_fcarbonskin.pas
+ /home/fred/fcarbonskin3/fcarbonskin.pas
  ${PROJECTDIR}/main_mfm.pas
  ${PROJECTDIR}/skin_demo.pas
- ${PROJECTDIR}/skin_demo.pas
+ /home/fred/fcarbonskin3/skin_demo.pas
 relpaths=6
  main.pas
  load_fcarbonskin.pas
@@ -932,15 +932,15 @@ nomenumodules=2
 [sourcefo.files_tab]
 order=6
  0
+ 2
+ 3
  4
  5
  1
- 2
- 3
 firsttab=0
-index=4
+index=0
 [layout]
-windowlayout=577
+windowlayout=578
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -954,8 +954,8 @@ windowlayout=577
  ny=0
  ncx=0
  ncy=0
- x=-29
- y=86
+ x=5
+ y=128
  cx=1390
  cy=724
  rcx=0
@@ -1096,7 +1096,7 @@ windowlayout=577
  sorted=0
  col=1
  row=-1073741823
- rowheight=16
+ rowheight=19
  [stackfo]
  splitdir=0
  useroptions=268460137
@@ -1178,10 +1178,10 @@ windowlayout=577
  [breakpointsfo.bkptson]
  value=1
  [objectinspectorfo.grid]
- propcolwidthref=406
- width0=163
+ propcolwidthref=393
+ width0=158
  sortdescend0=0
- width1=237
+ width1=229
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1275,7 +1275,7 @@ windowlayout=577
  ncy=0
  x=0
  y=582
- cx=1378
+ cx=1380
  cy=119
  rcx=0
  rcy=0
@@ -1345,7 +1345,7 @@ windowlayout=577
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=confdebuggerfo
+ stackedunder=objectinspectorfo
  parent=
  mdistate=3
  nx=0
@@ -1375,7 +1375,7 @@ windowlayout=577
  ncy=0
  x=0
  y=0
- cx=1378
+ cx=1380
  cy=57
  rcx=0
  rcy=0
@@ -1387,11 +1387,11 @@ windowlayout=577
  mdistate=0
  nx=0
  ny=0
- ncx=1414
- ncy=56
+ ncx=1378
+ ncy=49
  x=0
  y=0
- cx=1378
+ cx=1380
  cy=49
  rcx=0
  rcy=0
@@ -1402,8 +1402,9 @@ windowlayout=577
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/fcarbonskin3/fcarbonskin.pas
- history=8
+ value=/home/fred/fcarbonskin3/main.pas
+ history=9
+  /home/fred/fcarbonskin3/fcarbonskin.pas
   /home/fred/fcarbonskin3/load_fcarbonskin.pas
   /home/fred/fcarbonskin2/skin_demo.pas
   /home/fred/fcarbonskin/main.pas
@@ -1428,27 +1429,27 @@ windowlayout=577
  ncy=0
  x=208
  y=0
- cx=1170
+ cx=1172
  cy=519
  rcx=0
  rcy=0
  [sourcefo.files_tab]
  order=6
   0
+  2
+  3
   4
   5
   1
-  2
-  3
  firsttab=0
- index=4
+ index=0
  [confideufo.usedefaulteditoroptions]
  value=0
  [cpuc86_64fo]
  irqoff=0
  splitdir=0
  useroptions=268451947
- stackedunder=targetconsolefo
+ stackedunder=componentpalettefo
  parent=
  mdistate=0
  nx=0
@@ -1476,14 +1477,14 @@ windowlayout=577
  ncy=0
  x=0
  y=60
- cx=1378
+ cx=1380
  cy=519
  rcx=0
  rcy=0
  [_mse_skin_demo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=_mse_fcarbonskinmo_mse_
+ stackedunder=mainfo
  parent=
  mdistate=3
  nx=0
@@ -1493,7 +1494,7 @@ windowlayout=577
  x=242
  y=277
  cx=665
- cy=233
+ cy=272
  rcx=0
  rcy=0
  wsize=0
@@ -1502,7 +1503,7 @@ windowlayout=577
  [_mse_fcarbonskinmo_mse_]
  splitdir=0
  useroptions=268451963
- stackedunder=objectinspectorfo
+ stackedunder=_mse_skin_demo_mse_
  parent=
  mdistate=3
  nx=0
