@@ -17,6 +17,7 @@ object popupfo: tpopupfo
     86
   )
   optionswindow = [wo_popup]
+  windowopacity = -Inf
   onapplicationactivechanged = applicationactivechangedev
   onapplicationevent = applicationev
   moduleclassname = 'tmseform'
@@ -26,7 +27,6 @@ object popupfo: tpopupfo
     frame.localprops1 = []
     bounds_x = 16
     bounds_y = 16
-    value = 0
   end
   object tstringedit1: tstringedit
     frame.localprops = []
@@ -35,7 +35,8 @@ object popupfo: tpopupfo
     bounds_x = 16
     bounds_y = 48
     bounds_cx = 201
+    bounds_cy = 23
     ondataentered = dataenteredev
-    reffontheight = 14
+    reffontheight = 17
   end
 end

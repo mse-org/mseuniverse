@@ -30,7 +30,9 @@ uses
  popup_mfm;
  
 { tpopupfo }
-
+//-----------------------------------------------------------------------
+var wResult:twidget;      // 1
+//------------------------------------------------------------------------
 constructor tpopupfo.create(const atransientfor: twidget);
 begin
  inherited create(nil);
@@ -39,6 +41,9 @@ begin
   frefpos:= atransientfor.window.screenpos;
   updatepos();
   atransientfor.window.registermovenotification(ievent(self));
+//-----------------------------------------------------------
+  wResult:=twidget(atransientfor);   // 2
+//-----------------------------------------------------------
  end;
  show(ml_none,atransientfor);
 end;
@@ -87,6 +92,9 @@ end;
 
 procedure tpopupfo.dataenteredev(const sender: TObject);
 begin
+//---------------------------------------------------------------------
+ tstringedit(wResult).text:=tstringedit1.text;   //3
+//---------------------------------------------------------------------
  release();
 end;
 
@@ -94,5 +102,6 @@ procedure tpopupfo.applicationactivechangedev(const avalue: Boolean);
 begin
  visible:= avalue;
 end;
+
 
 end.
