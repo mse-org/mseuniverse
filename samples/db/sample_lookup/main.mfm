@@ -1,0 +1,160 @@
+object mainfo: tmainfo
+  bounds_x = 864
+  bounds_y = 329
+  bounds_cx = 314
+  bounds_cy = 332
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    314
+    332
+  )
+  caption = 'Sample_LookUp'
+  windowopacity = -Inf
+  moduleclassname = 'tmainform'
+  object tdbstringgrid1: tdbstringgrid
+    frame.sbvert.pagesize = 0
+    frame.localprops = []
+    frame.localprops1 = []
+    bounds_x = 16
+    bounds_y = 88
+    bounds_cx = 280
+    bounds_cy = 226
+    options = [dsgo_autofields]
+    datacols.count = 2
+    datacols.items = <    
+      item
+        width = 140
+        datafield = 'Name'
+      end    
+      item
+        width = 97
+        datafield = 'Regist'
+      end>
+    datalink.datasource = dso
+    datalink.navigator = tdbnavigator1
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 19
+        captions.count = 2
+        captions.items = <        
+          item
+            caption = 'Name'
+          end        
+          item
+            caption = 'Regist'
+          end>
+      end>
+    datarowheight = 24
+    reffontheight = 17
+  end
+  object tdbnavigator1: tdbnavigator
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 1
+    bounds_x = 32
+    bounds_y = 16
+    datasource = dso
+    dialogbutton.imagenr = 17
+    dialogbutton.hint = 'Dialog'
+    dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
+  end
+  object tdropdownlisteditlb1: tdropdownlisteditlb
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+      end>
+    taborder = 2
+    bounds_x = 40
+    bounds_y = 48
+    bounds_cx = 228
+    bounds_cy = 23
+    onchange = changeev
+    dropdown.lookupbuffer = lookuplb
+    dropdown.optionslb = [olb_copyitems]
+    dropdown.cols.count = 2
+    dropdown.cols.items = <    
+      item
+        options = [co_readonly, co_nofocus, co_mousemovefocus, co_focusselect, co_rowselect, co_fill]
+      end    
+      item
+        caption = 'REGISTER'
+        fieldno = 1
+      end>
+    reffontheight = 17
+  end
+  object dso: tmsedatasource
+    DataSet = localdata
+    left = 216
+    top = 272
+  end
+  object localdata: tlocaldataset
+    options = [bdo_local]
+    logfilename = 'DTA'
+    indexlocal.count = 1
+    indexlocal.items = <    
+      item
+        fields.items = <        
+          item
+            fieldname = 'Regist'
+          end>
+        name = 'Regist'
+      end>
+    Active = True
+    controller.fields.count = 2
+    controller.fields.fields = (
+      (
+        ft_string
+        ft_string
+      )
+      <      
+        item
+          DisplayWidth = 40
+          FieldName = 'Name'
+          Index = 0
+          Size = 40
+        end      
+        item
+          DisplayWidth = 6
+          FieldName = 'Regist'
+          Index = 1
+          Size = 6
+        end>
+    )
+    FieldDefs = <    
+      item
+        Name = 'Name'
+        DataType = ftString
+        Size = 40
+      end    
+      item
+        Name = 'Regist'
+        DataType = ftString
+        Size = 6
+      end>
+    left = 32
+    top = 272
+    streamingversion = 1
+  end
+  object lookuplb: tdblookupbuffer
+    datasource = dso
+    textfields.count = 2
+    textfields.items = (
+      'Name'
+      'Regist'
+    )
+    optionsdb = [olbdb_invalidateifmodified]
+    left = 128
+    top = 280
+  end
+end
