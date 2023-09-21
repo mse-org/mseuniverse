@@ -1,36 +1,36 @@
 object mainfo: tmainfo
-  bounds_x = 864
-  bounds_y = 329
-  bounds_cx = 314
-  bounds_cy = 332
+  bounds_x = 468
+  bounds_y = 202
+  bounds_cx = 395
+  bounds_cy = 399
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
     0
-    314
-    332
+    395
+    399
   )
-  caption = 'Sample_LookUp'
+  caption = 'Filter Demo'
   windowopacity = -Inf
   moduleclassname = 'tmainform'
   object tdbstringgrid1: tdbstringgrid
-    frame.sbvert.pagesize = 0
+    frame.sbvert.pagesize = 0.5
     frame.localprops = []
     frame.localprops1 = []
     bounds_x = 16
     bounds_y = 88
-    bounds_cx = 280
-    bounds_cy = 226
+    bounds_cx = 360
+    bounds_cy = 290
     options = [dsgo_autofields]
     datacols.count = 2
     datacols.items = <    
       item
-        width = 140
+        width = 229
         datafield = 'Name'
       end    
       item
-        width = 97
+        width = 94
         datafield = 'Regist'
       end>
     datalink.datasource = dso
@@ -60,9 +60,11 @@ object mainfo: tmainfo
     frame.localprops = []
     frame.localprops1 = []
     taborder = 1
-    bounds_x = 32
-    bounds_y = 16
+    bounds_x = 16
+    bounds_y = 10
+    bounds_cx = 336
     datasource = dso
+    visiblebuttons = [dbnb_first, dbnb_prior, dbnb_next, dbnb_last, dbnb_insert, dbnb_delete, dbnb_edit, dbnb_post, dbnb_cancel, dbnb_refresh, dbnb_filter, dbnb_filtermin, dbnb_filtermax]
     dialogbutton.imagenr = 17
     dialogbutton.hint = 'Dialog'
     dialogbutton.state = [as_disabled, as_invisible, as_localdisabled, as_localinvisible, as_localimagelist, as_localimagenr, as_localcolorglyph, as_localhint, as_localonexecute]
@@ -75,7 +77,7 @@ object mainfo: tmainfo
       item
       end>
     taborder = 2
-    bounds_x = 40
+    bounds_x = 24
     bounds_y = 48
     bounds_cx = 228
     bounds_cy = 23
@@ -91,12 +93,23 @@ object mainfo: tmainfo
         caption = 'REGISTER'
         fieldno = 1
       end>
+    dropdown.valuecol = 1
     reffontheight = 17
+  end
+  object tbutton1: tbutton
+    taborder = 3
+    bounds_x = 288
+    bounds_y = 48
+    bounds_cx = 82
+    bounds_cy = 19
+    state = [as_localcaption, as_localonexecute]
+    caption = 'Filter On/Off'
+    onexecute = btnexe
   end
   object dso: tmsedatasource
     DataSet = localdata
-    left = 216
-    top = 272
+    left = 232
+    top = 328
   end
   object localdata: tlocaldataset
     options = [bdo_local]
@@ -142,8 +155,9 @@ object mainfo: tmainfo
         DataType = ftString
         Size = 6
       end>
-    left = 32
-    top = 272
+    OnFilterRecord = filterrec
+    left = 40
+    top = 328
     streamingversion = 1
   end
   object lookuplb: tdblookupbuffer
@@ -154,7 +168,7 @@ object mainfo: tmainfo
       'Regist'
     )
     optionsdb = [olbdb_invalidateifmodified]
-    left = 128
-    top = 280
+    left = 136
+    top = 328
   end
 end

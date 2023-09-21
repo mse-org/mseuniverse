@@ -1,3 +1,5 @@
+// By Med Hamza 2023
+
 program sample;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 {$ifdef FPC}

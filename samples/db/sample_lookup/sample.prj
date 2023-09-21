@@ -19,8 +19,8 @@ order16=0
 order17=0
 order18=0
 [projectoptions]
-projectdir=/home/fred/fpc_test/sample_lookup
-projectfilename=/home/fred/fpc_test/sample_lookup/sample.prj
+projectdir=/home/fred/mseuniverse/samples/db/sample_lookup
+projectfilename=/home/fred/mseuniverse/samples/db/sample_lookup/sample.prj
 findinfiledialog=41
  [findinfileadialogfo.subdirs]
  value=1
@@ -150,7 +150,7 @@ options=114
  value=
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=2
+ index=3
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=747
  width0=77
@@ -772,7 +772,7 @@ nomenumodules=0
 firsttab=0
 index=0
 [layout]
-windowlayout=526
+windowlayout=508
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -786,8 +786,8 @@ windowlayout=526
  ny=0
  ncx=0
  ncy=0
- x=60
- y=128
+ x=34
+ y=45
  cx=1436
  cy=724
  rcx=0
@@ -1035,25 +1035,7 @@ windowlayout=526
  visible=0
  [symbolfo.grid]
  propcolwidthref=207
- values0=18
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ values0=0
  width0=111
  sortdescend0=0
  width1=125
@@ -1219,11 +1201,11 @@ windowlayout=526
  nx=0
  ny=0
  ncx=1422
- ncy=63
+ ncy=66
  x=0
  y=0
  cx=1422
- cy=63
+ cy=66
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1233,13 +1215,13 @@ windowlayout=526
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/fpc_test/sample_lookup/sample.pas
+ value=/home/fred/mseuniverse/samples/db/sample_lookup/main.pas
  history=3
-  /home/fred/fpc_test/sample_lookup/sample.pas
+  /home/fred/mseuniverse/samples/db/sample_lookup/main.pas
   /home/fred/ideU/src/main.pas
   ${PROJECTDIR}/main.pas
  [debuggerfo.project_options]
- value=1
+ value=M
  [debuggerfo.hints]
  value=1
  [sourcefo]
