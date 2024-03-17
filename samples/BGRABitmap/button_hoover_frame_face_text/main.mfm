@@ -1,0 +1,88 @@
+object mainfo: tmainfo
+  color = 12895428
+  bounds_x = 526
+  bounds_y = 569
+  bounds_cx = 231
+  bounds_cy = 136
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    231
+    136
+  )
+  caption = 'BGRA-Button'
+  windowopacity = -Inf
+  oncreate = oncreate
+  moduleclassname = 'tmainform'
+  object tbutton1: tbutton
+    optionswidget = [ow_arrowfocus, ow_destroywidgets]
+    color = -2147483645
+    frame.frameface_list = tfacelist1
+    frame.frameface_offsetmouse = 1
+    frame.frameface_offsetclicked = 1
+    frame.optionsskin = [fso_flat, fso_noanim, fso_nofocusrect, fso_nodefaultrect]
+    frame.localprops = []
+    frame.localprops1 = [frl1_framefacelist, frl1_framefaceoffset, frl1_framefaceoffset1, frl1_framefaceoffsetmouse, frl1_framefaceoffsetclicked]
+    bounds_x = 32
+    bounds_y = 16
+    bounds_cx = 170
+    bounds_cy = 100
+    state = [as_localcaption, as_localcolor, as_localonbeforeexecute, as_localonexecute, as_localonafterexecute]
+    font.shadow_color = -1610612730
+    font.shadow_shiftx = 2
+    font.shadow_shifty = 2
+    font.height = 16
+    font.style = [fs_italic]
+    font.name = 'stf_default'
+    font.options = [foo_antialiased]
+    font.localprops = [flp_shadow_color, flp_shadow_shiftx, flp_shadow_shifty, flp_style, flp_height, flp_options]
+  end
+  object tfacelist1: tfacelist
+    list.count = 3
+    list.items = <    
+      item
+        image.options = [bmo_masked, bmo_graymask]
+        localprops = []
+      end    
+      item
+        image.options = [bmo_masked, bmo_graymask]
+        frameimage_list = timagelist1
+        localprops = [fal_image, fal_frameimagelist]
+      end    
+      item
+        image.options = [bmo_masked, bmo_graymask]
+        framei_left = 2
+        framei_top = 2
+        framei_right = 2
+        framei_bottom = 2
+        frameimage_list = timagelist1
+        frameimage_offset = 8
+        localprops = [fal_frameimagelist]
+      end>
+    left = 72
+    top = 24
+  end
+  object timagelist1: timagelist
+    width = 3
+    height = 3
+    options = [bmo_masked, bmo_graymask]
+    count = 16
+    left = 64
+    top = 88
+    image = {
+      00000000120000000C0000000C00000098000000000000000000000000000000
+      00000000000000000000000000000000000000000000000100C00004FFFFFF01
+      00C00003FFFFFF0300C00005FFFFFF0100C0000BFFFFFF0200C00008FFFFFF01
+      00C00004FFFFFF0100C00006FFFFFF0100C0000AFFFFFF0200C00005FFFFFF03
+      000000010000FF04FFFFFF010000FF03FFFFFF030000FF05FFFFFF010000FF0B
+      FFFFFF020000FF08FFFFFF010000FF04FFFFFF010000FF06FFFFFF010000FF0A
+      FFFFFF020000FF05FFFFFF039000000000FFFFFFFF00FFFFFF000000FFFFFFFF
+      FF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF00FFFFFFFF00FFFFFF
+      FFFFFF00FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFF00000000FFFFFFFF00FFFF
+      FF000000FFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF00
+      FFFFFFFF00FFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFF000000
+    }
+  end
+end
