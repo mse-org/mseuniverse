@@ -1,0 +1,61 @@
+UNIT Tensors;
+
+General matrix operations - vectors and matrices
+
+Provides:
+
+  0: Types
+  - Floating point type for coercion with user type
+  - Vector type of arbitrary dimension
+  - Matrix (tensor) type of arbitrary dimensions in rectangular array
+
+  1: Operators
+  - Addition and Subtraction of vectors and matrices
+  - Scaiing - multiplication and division with a scalar value
+  - Scalar product
+  - Matrix multiplication with compatibility checking
+    - Matrix * Matrix
+    - Martix + Vector and Vector * Matrix
+
+  2: Functions
+  - Length of vector
+  - Unit vector from arbitrary vector
+  - angle between vectors of equal dimension
+  - unit matrix
+  - matrix transposition
+  - trace of square matrix
+  - plus some convenience functions and procedures
+    - vector and matrix construction
+    - dimension of a vector
+    - number of rows and columns of a matrix
+    - row and column vector of a matrix
+
+  3. Remark:
+  - Operators and functions generally do not modify their input parameters
+    except for newVector, newMatrix and unitMatrix PROCEDURES, which take an "OUT" parameter
+  - The result values of newVector, newMatrix and unitMatrix FUNCTIONS are zeroed,
+    even though the compiler complains about a possibly missing initialization
+
+Usesd units:
+  SysUtils, Math;
+
+Functions and procedures:
+  - Vector
+    FUNCTION  newVector (dim: integer): Vector;                 // Construct vector of dimension "dim"
+    PROCEDURE newVector (VAR P: Vector; dim: integer);          // Construct vector of dimension "dim"
+    FUNCTION dimension (P: Vector): integer;                    // Return vector dimension, i.e. number of elements
+    FUNCTION length (P: Vector): float;                         // Return standard length value, i.e. square root od sum of squares od components
+    FUNCTION unitvector (P: Vector): Vector;                    // Return input vectors scaled to length 1
+    FUNCTION angle (P1, P2: Vector): float;
+
+  - Matrix
+    FUNCTION  newMatrix (nrows, ncols: integer): Matrix;        // Construct matrix with of size "rows" x "cols"
+    FUNCTION  unitMatrix (dim: integer): Matrix;                // Construct square matrix with main diagonal elements set to 1
+    PROCEDURE newMatrix (VAR M: Matrix; nrows, ncols: integer); // Construct matrix with of size "rows" x "cols"
+    PROCEDURE unitMatrix (VAR M: Matrix; dim: integer);         // Construct square matrix with main diagonal elements set to 1
+    FUNCTION rows (M: Matrix): integer;    INLINE;
+    FUNCTION columns (M: Matrix): integer; INLINE;
+    FUNCTION row (M: Matrix; r: integer): Vector; INLINE;       // Return row vector
+    FUNCTION column (M: Matrix; col: integer): Vector;          // Return column vector
+    FUNCTION transposed (M: Matrix): Matrix;                    // Return matrix with elements swapped across diagonal
+    FUNCTION trace (M: Matrix): float;                          // Matrix trace: sum of main diagonal elements. Square matrices only!
