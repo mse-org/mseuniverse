@@ -1,4 +1,4 @@
-{ MSEgui Copyright (c) 1999-2024 by Martin Schreiber
+{ MSEgui Copyright (c) 1999-2012 by Martin Schreiber
 
     See the file COPYING.MSE, included in this distribution,
     for details about the copyright.
@@ -17,34 +17,21 @@ unit msegui;
 {$endif}
 
 interface
-{$ifndef mse_allwarnings}
- {$if fpc_fullversion >= 030100}
-  {$warn 5089 off}
-  {$warn 5090 off}
-  {$warn 5093 off}
-  {$warn 6058 off}
- {$endif}
-{$endif}
-
-{$if defined(BGRABITMAP_USE_MSEGUI)}
- {$define class_bridge}
-{$endif} 
-
 uses
- classes,mclasses,sysutils,msegraphics,msetypes,mseact,
- msestrings,mseerr,msegraphutils,mseapplication,msedragglob,
+ {$ifdef FPC}classes{$else}Classes{$endif},sysutils,msegraphics,msetypes,
+ msestrings,mseerr,msegraphutils,mseapplication,
  msepointer,mseevent,msekeyboard,mseclasses,mseglob,mseguiglob,mselist,
- msesystypes,msethread,mseguiintf,{msesysdnd,}mseassistiveclient,
+ msesystypes,msethread,mseguiintf,
  msebitmap,msearrayprops,msethreadcomp,mserichstring,msearrayutils
-                   {$ifdef mse_with_ifi},mseifiglob,mseificompglob{$endif};
- const
- mseguiversiontext = '5.10.4';
- copyrighttext = 'Copyright 1999-2024';
+                               {$ifdef mse_with_ifi},mseifiglob{$endif};
+
+const
+ mseguiversiontext = '2.9 unstable';
+ 
  defaultwidgetcolor = cl_default;
  defaulttoplevelwidgetcolor = cl_background;
  defaultfadecolor = cl_ltgray;
  defaultfadecolor1 = cl_dkgray;
- defaultfadeopacolor = cl_white;
  hintdelaytime = 500000; //us
  defaulthintshowtime = 3000000; //us
  mouseparktime = 500000; //us
@@ -52,16 +39,6 @@ uses
  mindragdist = 4;
 
  mousebuttons = [ss_left,ss_right,ss_middle];
-
-  //hintid values, user values > 0
- hintidnone = 0;
-  //internal ranges
- hintidwidget = -1;
- hintidframe = -100;
-
-var
- MSEFallbacklang: string = '';
- MSELang: string = '';
 
 type
  gdiregionty = record
@@ -71,91 +48,88 @@ type
 
  frameskinoptionty = (fso_flat,
                       fso_noanim,fso_nomouseanim,fso_noclickanim,fso_nofocusanim,
-                      fso_focusrect,fso_nofocusrect,fso_forcefocusrect,
-                      fso_nodefaultrect,fso_noinnerrect,
-                      fso_clientfacerect,fso_faceoverlay);
+                      fso_nofocusrect,fso_nodefaultrect,fso_noinnerrect);
  frameskinoptionsty = set of frameskinoptionty;
 
  frameskincontrolleroptionty =
                      (fsco_colorclient,  //set colorclient in skincontroller
                       fsco_frameileftsize,fsco_frameirightsize,
-                      fsco_frameitopsize,fsco_frameibottomsize,
-                          //adjust clientsize in skincontroller by
-                          //framei values
-                      fsco_noclientsize);
-                          //do not restore clientsize after frame size changes
+                      fsco_frameitopsize,fsco_frameibottomsize); 
+                                        //adjust clientsize in skincontroller
  frameskincontrolleroptionsty = set of frameskincontrolleroptionty;
-
- optionwidgetty = (ow_background,ow_top,ow_ultratop,ow_transientformain,
+  
+ optionwidgetty = (ow_background,ow_top,
                    ow_noautosizing, //don't use, moved to optionswidget1
                    ow_mousefocus,ow_tabfocus,
                    ow_parenttabfocus,ow_arrowfocus,
                    ow_arrowfocusin,ow_arrowfocusout,
                    ow_subfocus,         //reflects focus to children
-                   ow_focusbackonesc,
-                   ow_keyreturntaborder,
+                   ow_focusbackonesc,                   
+                   ow_keyreturntaborder, 
                      //key_return and key_enter work like key_tab
-                   ow_nosiblingshortcut, //do not react to shortcuts
-                                         //from siblings
                    ow_nochildshortcut,  //do not propagate shortcuts to parent
                    ow_noparentshortcut, //do not react to shortcuts from parent
                    ow_canclosenil,      // don't use, moved to optionswidget1
                    ow_mousetransparent,ow_mousewheel,
-                   ow_noscroll,ow_nochildpaintclip,ow_nochildclipsiblings,
+                   ow_noscroll,ow_nochildpaintclip,
                    ow_destroywidgets,ow_nohidewidgets,
-                   ow_hinton,ow_hintoff,ow_disabledhint,ow_appinactivehint,
-                   ow_multiplehint,
-                   ow_timedhint
+                   ow_hinton,ow_hintoff,ow_disabledhint,ow_multiplehint,
+                   ow_timedhint,
+                   
+                   ow_fontglyphheight,ow_fontlineheight,ow_autoscale,
+                   ow_autosize,ow_autosizeanright,ow_autosizeanbottom 
+                           //don't use, moved to optionwidget1
                    );
  optionswidgetty = set of optionwidgetty;
  optionwidget1ty = (
-                    ow1_clientcxmin,ow1_clientcymin,
-                    ow1_clientcxmax,ow1_clientcymax,
                     ow1_fontglyphheight,
-                          //track font.glyphheight,
+                          //track font.glyphheight, 
                           //create fonthighdelta and childscaled events
-                    ow1_fontlineheight,
+                    ow1_fontlineheight, 
                          //track font.linespacing,
                          //create fonthighdelta and childscaled events
-                    ow1_autoscale, //synchronizes bounds_cy or bonds_cx
+                    ow1_autoscale, //synchronizes bounds_cy or bonds_cx 
                                   //with fontheightdelta
                     ow1_autowidth,ow1_autoheight,
                     ow1_autosizeanright,ow1_noautosizeanright,
                     ow1_autosizeanbottom,ow1_noautosizeanbottom,
                     ow1_noparentwidthextend,ow1_noparentheightextend,
-                    ow1_invisibleparentsizeextend,
                     ow1_canclosenil, //call canclose(nil) on exit
                     ow1_nocancloseifhidden,
                     ow1_modalcallonactivate,ow1_modalcallondeactivate,
                                //used in tactionwidget
-                    ow1_noautosizing, //used in tdockcontroller
-                    ow1_noclampinview, //used in doactivate()
-                    ow1_noassistive
+                    ow1_noautosizing //used in tdockcontroller
                     );
-
+                                         
 const
- deprecatedoptionswidget= [ow_noautosizing,ow_canclosenil];
- invisibleoptionswidget = [ord(ow_noautosizing),ord(ow_canclosenil)];
+ deprecatedoptionswidget= [ow_noautosizing,ow_canclosenil,
+                           ow_autosize,
+                           ow_autosizeanright,ow_autosizeanbottom,
+                           ow_fontglyphheight,ow_fontlineheight,
+                           ow_autoscale];
+ invisibleoptionswidget = [ord(ow_noautosizing),ord(ow_canclosenil),
+                           ord(ow_autosize),
+                           ord(ow_autosizeanright),ord(ow_autosizeanbottom),
+                           ord(ow_fontglyphheight),ord(ow_fontlineheight),
+                           ord(ow_autoscale)]; 
 
 type
  optionswidget1ty = set of optionwidget1ty;
-
+ 
  optionskinty = (osk_skin,osk_noskin,osk_framebuttononly,
-                 osk_noframe,osk_noface,osk_nooptions,
+                 osk_noframe,osk_noface,
                  osk_container,osk_noclientsize,
-                 osk_colorcaptionframe,
+                 osk_colorcaptionframe, 
                    //use widget_colorcaptionframe independent of caption
-                 osk_nocolorcaptionframe,
+                 osk_nocolorcaptionframe, 
                    //don't use widget_colorcaptinframe independent of caption
                  osk_nopropleft,osk_noproptop,     //used by tlayouter
                  osk_nopropwidth,osk_nopropheight, //used by tlayouter
                  osk_nopropfont,                   //used by tlayouter
-                 osk_noalignx,osk_noaligny,        //used by tlayouter
-                 osk_nopaintref,                   //used by alignx()/aligny()
                  osk_nolayoutcx,osk_nolayoutcy     //used by syncmaxaoutsize()
                  );
  optionsskinty = set of optionskinty;
-
+ 
  anchorty = (an_left,an_top,an_right,an_bottom);
  anchorsty = set of anchorty;
 
@@ -164,7 +138,7 @@ type
                   ws_mouseinclient,ws_wantmousebutton,ws_wantmousemove,
                   //valid after call of updatemousestate only
 //                  ws_wantmousewheel,
-                  ws_wantmousefocus,ws_iswidget,ws_designing,
+                  ws_wantmousefocus,ws_iswidget,
                   ws_opaque,ws_nopaint,
                   ws_lclicked,ws_mclicked,ws_rclicked,
                   ws_mousecaptured,ws_clientmousecaptured,
@@ -178,21 +152,15 @@ type
                  );
  widgetstatesty = set of widgetstatety;
  widgetstate1ty = (ws1_childscaled,ws1_childrectchanged,
-                   ws1_widgetrectsetting,
-                   ws1_scaling,ws1_autoscaling,ws1_autosizing,
-                   ws1_painting,ws1_updateopaque,
+                   ws1_scaling,ws1_autoscaling,ws1_painting,ws1_updateopaque,
                    ws1_widgetregionvalid,ws1_rootvalid,
-                   ws1_anchorsizing,ws1_anchorsetting,ws1_layoutplacing,
-                   ws1_parentclientsizeinited,
+                   ws1_anchorsizing,ws1_anchorsetting,ws1_parentclientsizeinited,
                    ws1_parentupdating, //set while setparentwidget
                    ws1_isstreamed,     //used by ttabwidget
                    ws1_scaled,         //used in tcustomscalingwidget
-                   ws1_forceclose,
-                   ws1_noclipchildren,ws1_tryshrink,
-                   ws1_noframewidgetshift,ws1_framemouse,
+                   ws1_noclipchildren,ws1_tryshrink,ws1_noframewidgetshift,
                    ws1_nodesignvisible,ws1_nodesignframe,ws1_nodesignhandles,
-                   ws1_nodesigndelete,ws1_nodesignmove,
-                   ws1_designactive,ws1_nodisabledclick,ws1_designwidget,
+                   ws1_nodesigndelete,ws1_designactive,
                    ws1_fakevisible,ws1_nominsize,
                          //used for report size calculations
                    ws1_onkeydowncalled
@@ -202,20 +170,27 @@ type
  framestatety = (fs_sbhorzon,fs_sbverton,fs_sbhorzfix,fs_sbvertfix,
                  fs_sbhorztop,fs_sbvertleft,
                  fs_sbleft,fs_sbtop,fs_sbright,fs_sbbottom,
-                 fs_nowidget,fs_nosetinstance,fs_framemouse,
-                 fs_disabled,fs_creating,fs_stateupdating,
-                 fs_clientrectchanging,
+                 fs_nowidget,fs_nosetinstance,fs_disabled,fs_creating,
                  fs_cancaptionsyncx,fs_cancaptionsyncy,
                  fs_drawfocusrect,fs_paintrectfocus,
-                 fs_captionfocus,fs_captionhint,
-                 fs_rectsvalid,fs_widgetregionchanging,
-                 fs_widgetactive,fs_paintposinited,fs_needsmouseinvalidate,
-                 fs_canclientextendx,fs_canclientextendy);
+                 fs_captionfocus,fs_captionhint,fs_rectsvalid,
+                 fs_widgetactive,fs_paintposinited,fs_needsmouseinvalidate);
  framestatesty = set of framestatety;
 
  hintflagty = (hfl_show,hfl_custom,{hfl_left,hfl_top,hfl_right,hfl_bottom,}
                hfl_noautohidemove);
  hintflagsty = set of hintflagty;
+
+ hintinfoty = record
+  flags: hintflagsty;
+  caption: captionty;
+  posrect: rectty;
+  placement: captionposty;
+  showtime: integer;
+  mouserefpos: pointty;
+ end;
+
+ showhinteventty = procedure(const sender: tobject; var info: hintinfoty) of object;
 
 const
  defaultwidgetstates = [ws_visible,ws_enabled,ws_iswidget,ws_isvisible];
@@ -228,11 +203,10 @@ const
  defaultoptionswidgetmousewheel = defaultoptionswidget + [ow_mousewheel];
  defaultoptionswidgetnofocus = defaultoptionswidget -
              [ow_mousefocus,ow_tabfocus,ow_arrowfocus];
- defaultoptionswidgetsubfocus = defaultoptionswidget + [ow_subfocus];
  defaultoptionsskin = [];
- defaultcontainerskinoptions = defaultoptionsskin +
+ defaultcontainerskinoptions = defaultoptionsskin + 
                                     [osk_container,osk_noclientsize];
-
+ 
  defaultwidgetwidth = 50;
  defaultwidgetheight = 50;
  defaultanchors = [an_left,an_top];
@@ -251,12 +225,9 @@ type
                      frl_frameimageright,frl_frameimagebottom,
                      frl_frameimageoffset,frl_frameimageoffset1,
                      frl_frameimageoffsetdisabled,frl_frameimageoffsetmouse,
-                     frl_frameimageoffsetclicked,
-                     frl_frameimageoffsetfocused,frl_frameimageoffsetactive,
-{
+                     frl_frameimageoffsetclicked,frl_frameimageoffsetactive,
                      frl_frameimageoffsetactivemouse,
                      frl_frameimageoffsetactiveclicked,
-}
                      frl_optionsskin,
                      frl_colorclient,
                      frl_nodisable);
@@ -265,28 +236,16 @@ type
  framelocalprop1ty = (frl1_framefacelist,
                       frl1_framefaceoffset,frl1_framefaceoffset1,
                       frl1_framefaceoffsetdisabled,frl1_framefaceoffsetmouse,
-                      frl1_framefaceoffsetclicked,
-                      frl1_framefaceoffsetfocused,frl1_framefaceoffsetactive,
-                     {
+                      frl1_framefaceoffsetclicked,frl1_framefaceoffsetactive,
                       frl1_framefaceoffsetactivemouse,
                       frl1_framefaceoffsetactiveclicked,
-                     }
-                      frl1_font,frl1_captiondist,frl1_captionoffset,
-                      frl1_focusrectdist,
-                      frl1_imagedist,frl1_imagedist1,frl1_imagedist2,
-                      frl1_extraspace,
-                      frl1_foleft,frl1_fotop,frl1_foright,frl1_fobottom,
-                      frl1_colorglyph, //for menu template
-                      frl1_colorpattern,
-                      frl1_colorframedisabled,frl1_colorframemouse,
-                      frl1_colorframeclicked,frl1_colorframedefault
+                      frl1_font,frl1_captiondist,frl1_captionoffset
                      );
  framelocalprops1ty = set of framelocalprop1ty;
 
- framestateflagty = (fsf_offset1,fsf_disabled,fsf_focused,fsf_active,
-                     fsf_mouse,fsf_clicked,fsf_default);
+ framestateflagty = (fsf_offset1,fsf_disabled,fsf_active,fsf_mouse,fsf_clicked);
  framestateflagsty = set of framestateflagty;
-
+ 
 const
  allframelocalprops: framelocalpropsty =
                     [frl_levelo,frl_leveli,frl_framewidth,
@@ -300,12 +259,9 @@ const
                      frl_frameimageright,frl_frameimagebottom,
                      frl_frameimageoffset,frl_frameimageoffset1,
                      frl_frameimageoffsetdisabled,frl_frameimageoffsetmouse,
-                     frl_frameimageoffsetclicked,
-                     frl_frameimageoffsetfocused,frl_frameimageoffsetactive,
-{
+                     frl_frameimageoffsetclicked,frl_frameimageoffsetactive,
                      frl_frameimageoffsetactivemouse,
                      frl_frameimageoffsetactiveclicked,
-}
                      frl_optionsskin,
                      frl_colorclient,
                      frl_nodisable];
@@ -313,57 +269,24 @@ const
                       frl1_framefacelist,
                       frl1_framefaceoffset,frl1_framefaceoffset1,
                       frl1_framefaceoffsetdisabled,frl1_framefaceoffsetmouse,
-                      frl1_framefaceoffsetclicked,
-                      frl1_framefaceoffsetfocused,frl1_framefaceoffsetactive,
-                     {
+                      frl1_framefaceoffsetclicked,frl1_framefaceoffsetactive,
                       frl1_framefaceoffsetactivemouse,
                       frl1_framefaceoffsetactiveclicked,
-                     }
-                      frl1_font,frl1_captiondist,frl1_captionoffset,
-                      frl1_focusrectdist,
-                      frl1_extraspace,
-                      frl1_imagedist,frl1_imagedist1,frl1_imagedist2,
-                      frl1_foleft,frl1_fotop,frl1_foright,frl1_fobottom,
-                      frl1_colorglyph,frl1_colorpattern,
-                      frl1_colorframedisabled,frl1_colorframemouse,
-                      frl1_colorframeclicked,frl1_colorframedefault];
+                      frl1_font,frl1_captiondist,frl1_captionoffset];
 type
- facelocalpropty = (fal_options,fal_framei_left,fal_framei_top,
-                    fal_framei_right,fal_framei_bottom,
-                    fal_fadirection,fal_image,
-                    fal_fapos,fal_facolor,fal_faopapos,fal_faopacolor,
-                    fal_fatransparency,
-                    fal_faopacity,fal_frameimagelist,fal_frameimageoffset);
+ facelocalpropty = (fal_options,fal_fadirection,fal_image,fal_fapos,fal_facolor,
+                    fal_fatransparency,fal_frameimagelist,fal_frameimageoffset);
  facelocalpropsty = set of facelocalpropty;
 
 const
  allfacelocalprops: facelocalpropsty =
-                    [fal_options,fal_framei_left,fal_framei_top,
-                    fal_framei_right,fal_framei_bottom,
-                    fal_fadirection,fal_image,
-                    fal_fapos,fal_facolor,fal_faopapos,fal_faopacolor,
-                    fal_fatransparency,
-                    fal_faopacity,fal_frameimagelist,fal_frameimageoffset];
-deprecatedfacelocalprops = [fal_fatransparency];
-invisiblefacelocalprops = [ord(fal_fatransparency)];
-
+                    [fal_options,fal_fadirection,fal_image,fal_fapos,fal_facolor,
+                    fal_fatransparency];
 type
+
+ 
  twidget = class;
- widgetclassty = class of twidget;
  tcustomframe = class;
-
- hintinfoty = record
-  flags: hintflagsty;
-  caption: captionty;
-  posrect: rectty;
-  placement: captionposty;
-  showtime: integer;
-  mouserefpos: pointty;
-  hintwidgetclass: widgetclassty;
-//  id: int32;
- end;
-
- showhinteventty = procedure(const sender: tobject; var info: hintinfoty) of object;
 
  iframe = interface(inullinterface)
   procedure setframeinstance(instance: tcustomframe);
@@ -375,7 +298,7 @@ type
   function getmsecomponentstate: msecomponentstatesty;
   procedure invalidate;
   procedure invalidatewidget;
-  procedure invalidaterect(const rect: rectty;
+  procedure invalidaterect(const rect: rectty; 
               const org: originty = org_client; const noclip: boolean = false);
   function getwidget: twidget;
   function getwidgetrect: rectty;
@@ -390,49 +313,41 @@ type
 
  iscrollframe = interface(icaptionframe)
   function widgetstate: widgetstatesty;
-  function getzoomrefframe: framety;
  end;
 
  tfacelist = class;
 
  frameoffsetsty = record
   offset: integer;
-  offset1: integer;
+  offset1: integer; 
   disabled: integer;
   mouse: integer;
   clicked: integer;
   active: integer;
-  focused: integer;
- {
   activemouse: integer;
   activeclicked: integer;
- }
  end;
 
  frameimageoffsetsty = record
   offset: imagenrty;
-  offset1: imagenrty;
+  offset1: imagenrty; 
   disabled: imagenrty;
   mouse: imagenrty;
   clicked: imagenrty;
   active: imagenrty;
-  focused: imagenrty;
- {
   activemouse: imagenrty;
   activeclicked: imagenrty;
- }
  end;
 
  framefaceoffsetsty = record
   offset: facenrty;
-  offset1: facenrty;
+  offset1: facenrty; 
   disabled: facenrty;
   mouse: facenrty;
   clicked: facenrty;
   active: facenrty;
-  focused: facenrty;
- // activemouse: facenrty;
-//  activeclicked: facenrty;
+  activemouse: facenrty;
+  activeclicked: facenrty;
  end;
 
  baseframeinfoty = record
@@ -441,33 +356,20 @@ type
   framewidth: integer;
   colorframe: colorty;
   colorframeactive: colorty;
-  colorframedisabled: colorty;
-  colorframemouse: colorty;
-  colorframeclicked: colorty;
-  colorframedefault: colorty;
   hiddenedges: edgesty;
   framecolors: framecolorinfoty;
   colorclient: colorty;
   innerframe: framety;
-  outerframe: framety;
-  focusrectdist: int32;
-  extraspace: int32;
-  imagedist: int32;
-  imagedist1: int32;
-  imagedist2: int32;
-
-  colorglyph: colorty;      //for menu template and scrollbar
-  colorpattern: colorty;    //for scrollbar
 
   frameimage_left: integer;
   frameimage_top: integer;
   frameimage_right: integer;
   frameimage_bottom: integer;
   frameimage_offsets: frameimageoffsetsty;
-
+ 
   frameface_offsets: framefaceoffsetsty;
   optionsskin: frameskinoptionsty;
-
+  
   frameface_list: tfacelist;   //not copied by move
   frameimage_list: timagelist; //
  end;
@@ -482,7 +384,7 @@ type
   ba: baseframeinfoty;
   capt: captionframeinfoty
  end;
-
+  
  widgetatposinfoty = record
   pos: pointty;
   mouseeventinfopo: pmouseeventinfoty;
@@ -493,6 +395,7 @@ type
 
  tcustomframe = class(toptionalpersistent,iimagelistinfo)
   private
+   flocalprops: framelocalpropsty;
    procedure setlevelo(const Value: integer);
    function islevelostored: boolean;
    procedure setleveli(const Value: integer);
@@ -503,14 +406,6 @@ type
    function iscolorframestored: boolean;
    procedure setcolorframeactive(const avalue: colorty);
    function iscolorframeactivestored: boolean;
-   procedure setcolorframedisabled(const avalue: colorty);
-   function iscolorframedisabledstored: boolean;
-   procedure setcolorframemouse(const avalue: colorty);
-   function iscolorframemousestored: boolean;
-   procedure setcolorframeclicked(const avalue: colorty);
-   function iscolorframeclickedstored: boolean;
-   procedure setcolorframedefault(const avalue: colorty);
-   function iscolorframedefaultstored: boolean;
    procedure setcolordkshadow(const avalue: colorty);
    function iscolordkshadowstored: boolean;
    procedure setcolorshadow(const avalue: colorty);
@@ -526,7 +421,7 @@ type
    procedure sethiddenedges(const avalue: edgesty);
    function ishiddenedgesstored: boolean;
 
-   procedure setframei(const avalue: framety);
+   procedure setframei(const avalue: framety);   
    procedure setframei_bottom(const Value: integer);
    function isfibottomstored: boolean;
    procedure setframei_left(const Value: integer);
@@ -535,16 +430,6 @@ type
    function isfirightstored: boolean;
    procedure setframei_top(const Value: integer);
    function isfitopstored: boolean;
-
-   procedure setframeo(const avalue: framety);
-   procedure setframeo_bottom(const Value: integer);
-   function isfobottomstored: boolean;
-   procedure setframeo_left(const Value: integer);
-   function isfoleftstored: boolean;
-   procedure setframeo_right(const Value: integer);
-   function isforightstored: boolean;
-   procedure setframeo_top(const Value: integer);
-   function isfotopstored: boolean;
 
    procedure setframeimage_list(const avalue: timagelist);
    function getimagelist: timagelist;
@@ -557,7 +442,7 @@ type
    function isframeimage_rightstored: boolean;
    procedure setframeimage_bottom(const avalue: integer);
    function isframeimage_bottomstored: boolean;
-
+   
    procedure setframeimage_offset(const avalue: imagenrty);
    function isframeimage_offsetstored: boolean;
    procedure setframeimage_offset1(const avalue: imagenrty);
@@ -570,8 +455,11 @@ type
    function isframeimage_offsetclickedstored: boolean;
    procedure setframeimage_offsetactive(const avalue: imagenrty);
    function isframeimage_offsetactivestored: boolean;
-   procedure setframeimage_offsetfocused(const avalue: imagenrty);
-   function isframeimage_offsetfocusedstored: boolean;
+   procedure setframeimage_offsetactivemouse(const avalue: imagenrty);
+   function isframeimage_offsetactivemousestored: boolean;
+   procedure setframeimage_offsetactiveclicked(const avalue: imagenrty);
+   function isframeimage_offsetactiveclickedstored: boolean;
+
    procedure setframeface_list(const avalue: tfacelist);
    function isframeface_liststored: boolean;
    procedure setframeface_offset(const avalue: facenrty);
@@ -586,29 +474,21 @@ type
    function isframeface_offsetclickedstored: boolean;
    procedure setframeface_offsetactive(const avalue: facenrty);
    function isframeface_offsetactivestored: boolean;
-   procedure setframeface_offsetfocused(const avalue: facenrty);
-   function isframeface_offsetfocusedstored: boolean;
+   procedure setframeface_offsetactivemouse(const avalue: facenrty);
+   function isframeface_offsetactivemousestored: boolean;
+   procedure setframeface_offsetactiveclicked(const avalue: facenrty);
+   function isframeface_offsetactiveclickedstored: boolean;
+
    procedure setoptionsskin(const avalue: frameskinoptionsty);
    function isoptionsskinstored: boolean;
-
+   
    procedure setcolorclient(const Value: colorty);
    function iscolorclientstored: boolean;
-   procedure setfocusrectdist(const avalue: int32);
-   function isfocusrectdiststored: boolean;
-   procedure setextraspace(const avalue: int32);
-   function isextraspacestored: boolean;
-   procedure setimagedist(const avalue: int32);
-   function isimagediststored: boolean;
-   procedure setimagedist1(const avalue: int32);
-   function isimagedist1stored: boolean;
-   procedure setimagedist2(const avalue: int32);
-   function isimagedist2stored: boolean;
    procedure settemplate(const avalue: tframecomp);
    procedure setlocalprops(const avalue: framelocalpropsty);
    procedure setlocalprops1(const avalue: framelocalprops1ty);
   protected
    ftemplate: tframecomp;
-   flocalprops: framelocalpropsty;
    flocalprops1: framelocalprops1ty;
    fintf: iframe;
    fstate: framestatesty;
@@ -622,17 +502,15 @@ type
    finnerclientrect: rectty;     //origin = fpaintrect.pos
    fpaintposbefore: pointty;
    fi: baseframeinfoty;
-   procedure defineproperties(filer: tfiler); override;
    function isoptional: boolean; override;
    procedure settemplateinfo(const ainfo: frameinfoty); virtual;
    procedure setdisabled(const value: boolean); virtual;
    procedure updateclientrect; virtual;
    class function calcpaintframe(const afi: baseframeinfoty): framety;
-   class function calcinnerframe(const afi: baseframeinfoty): framety;
    procedure calcrects;
    procedure updaterects; virtual;
-   procedure internalupdatestate();
-   procedure updatestate(); virtual;
+   procedure internalupdatestate;
+   procedure updatestate; virtual;
    procedure checkstate;
    procedure poschanged; virtual;
    procedure fontcanvaschanged; virtual;
@@ -640,80 +518,46 @@ type
    procedure getpaintframe(var frame: framety); virtual;
         //additional space, (scrollbars,mainmenu...)
    procedure dokeydown(var info: keyeventinfoty); virtual;
-   function checkfocusshortcut(var info: keyeventinfoty): boolean; virtual;
+   function checkshortcut(var info: keyeventinfoty): boolean; virtual;
    procedure parentfontchanged; virtual;
-   procedure dopaintfocusrect(const canvas: tcanvas;
-                                                 const rect: rectty); virtual;
+   procedure dopaintfocusrect(const canvas: tcanvas; const rect: rectty); virtual;
    procedure updatewidgetstate; virtual;
    procedure updatemousestate(const sender: twidget;
                                        const info: mouseeventinfoty); virtual;
    function needsactiveinvalidate: boolean;
-   function needsenabledinvalidate: boolean;
-   function needsfocusedinvalidate: boolean;
    function needsmouseinvalidate: boolean;
-   function needsclickinvalidate: boolean;
-   function needsmouseenterinvalidate: boolean;
    procedure activechanged; virtual;
-   procedure enabledchanged(); virtual;
-   procedure focusedchanged virtual;
-   function needsfocuspaint: boolean virtual;
-   function haspaintrectfocus(): boolean virtual;
-   function ishintarea(const apos: pointty; var aid: int32): boolean virtual;
-   procedure checkminscrollsize(var asize: sizety) virtual;
-   procedure checkminclientsize(var asize: sizety) virtual;
-   procedure checkminshrinksize(var asize: sizety) virtual;
-   procedure addscrollbarwidth(var asize: sizety) virtual;
-   procedure subscrollbarwidth(var asize: sizety) virtual;
-   procedure paintframeface(const canvas: tcanvas; const arect: rectty);
-   class procedure drawframe(const canvas: tcanvas; const rect2: rectty;
-           const afi: baseframeinfoty; const astate: framestateflagsty);
-   function actualcolorclient(): colorty virtual;
-   procedure internalpaintbackground(const canvas: tcanvas;
-                    const arect: rectty; const clip: boolean;
-                                         const move: boolean) virtual;
-   procedure internalpaintoverlay(const canvas: tcanvas;
-                                             const arect: rectty) virtual;
-   procedure updatehotkeys() virtual;
-    //iassistiveclient
-   function getassistivecaption(): msestring; virtual;
+   function needsfocuspaint: boolean; virtual;
+   procedure checkminscrollsize(var asize: sizety); virtual;
+   class procedure drawframe(const canvas: tcanvas; const rect2: rectty; 
+           const afi: baseframeinfoty; const astate: framestateflagsty
+           {const disabled,active,clicked,mouse: boolean});
   public
    constructor create(const intf: iframe); reintroduce;
    destructor destroy; override;
    procedure checktemplate(const sender: tobject); virtual;
-   procedure assign(source: {$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif}); override;
+   procedure assign(source: tpersistent); override;
    procedure scale(const ascale: real); virtual;
    procedure checkwidgetsize(var asize: sizety); virtual;
                 //extends to minimal size
-   procedure showhint(const aid: int32; var info: hintinfoty); virtual;
 
-   procedure paintbackground(const canvas: tcanvas;
-             const arect: rectty; const clip: boolean; const move: boolean);
-   procedure paintoverlay(const canvas: tcanvas; const arect: rectty);
-   function pointinmask(const pos: pointty; const arect: rectty): boolean;
+   procedure paintbackground(const canvas: tcanvas; const arect: rectty); virtual;
+   procedure paintoverlay(const canvas: tcanvas; const arect: rectty); virtual;
 
-   function outerframedim: sizety; //widgetsize - framesize
-   function outerframecx: int32;
-   function outerframecy: int32;
-   function frameframedim: sizety; //widgetsize - (paintsize + paintframe)
-   function frameframecx: int32;
-   function frameframecy: int32;
-   function paintframedim: sizety; //widgetsize - paintsize
-   function paintframecx: int32;
-   function paintframecy: int32;
-   function innerframedim: sizety; //widgetsize - innersize
-   function innerframecx: int32;
-   function innerframecy: int32;
+   function outerframewidth: sizety; //widgetsize - framesize
+   function frameframewidth: sizety; //widgetsize - (paintsize + paintframe)
+   function paintframewidth: sizety; //widgetsize - paintsize
+   function innerframewidth: sizety; //widgetsize - innersize
    function outerframe: framety;
-   function paintframe: framety;
-   function paintframedelta: framety;   //paintframe-outerframe
-   function innerframe: framety;
+   function paintframe: framety;     
+   function innerframe: framety;     
    function cellframe: framety; //innerframe without paintframedelta
    function pointincaption(const point: pointty): boolean; virtual;
                                      //origin = widgetrect
    procedure initgridframe; virtual;
    procedure changedirection(const oldvalue: graphicdirectionty;
                                             const newvalue: graphicdirectionty);
-   property intf: iframe read fintf;
+
    property levelo: integer read fi.levelo write setlevelo
                      stored islevelostored default 0;
    property leveli: integer read fi.leveli write setleveli
@@ -722,43 +566,30 @@ type
                      stored isframewidthstored default 0;
    property colorframe: colorty read fi.colorframe write setcolorframe
                      stored iscolorframestored default cl_default;
-   property colorframeactive: colorty read fi.colorframeactive
+   property colorframeactive: colorty read fi.colorframeactive 
                      write setcolorframeactive
                      stored iscolorframeactivestored default cl_default;
-   property colorframedisabled: colorty read fi.colorframedisabled
-                     write setcolorframedisabled
-                     stored iscolorframedisabledstored default cl_default;
-   property colorframemouse: colorty read fi.colorframemouse
-                     write setcolorframemouse
-                     stored iscolorframemousestored default cl_default;
-   property colorframeclicked: colorty read fi.colorframeclicked
-                     write setcolorframeclicked
-                     stored iscolorframeclickedstored default cl_default;
-   property colorframedefault: colorty read fi.colorframedefault
-                     write setcolorframedefault
-                     stored iscolorframedefaultstored default cl_default;
 
-   property colordkshadow: colorty read fi.framecolors.edges.shadow.effectcolor
+   property colordkshadow: colorty read fi.framecolors.shadow.effectcolor
               write setcolordkshadow
                      stored iscolordkshadowstored default cl_default;
-   property colorshadow: colorty read fi.framecolors.edges.shadow.color
+   property colorshadow: colorty read fi.framecolors.shadow.color
                      write setcolorshadow
                      stored iscolorshadowstored default cl_default;
-   property colorlight: colorty read fi.framecolors.edges.light.color
+   property colorlight: colorty read fi.framecolors.light.color
                      write setcolorlight
                      stored iscolorlightstored default cl_default;
-   property colorhighlight: colorty read fi.framecolors.edges.light.effectcolor
+   property colorhighlight: colorty read fi.framecolors.light.effectcolor
                      write setcolorhighlight
                      stored iscolorhighlightstored default cl_default;
-   property colordkwidth: integer read fi.framecolors.edges.shadow.effectwidth
+   property colordkwidth: integer read fi.framecolors.shadow.effectwidth
                      write setcolordkwidth
                      stored iscolordkwidthstored default -1;
-   property colorhlwidth: integer read fi.framecolors.edges.light.effectwidth
+   property colorhlwidth: integer read fi.framecolors.light.effectwidth
                      write setcolorhlwidth
                      stored iscolorhlwidthstored default -1;
-   property hiddenedges: edgesty read fi.hiddenedges
+   property hiddenedges: edgesty read fi.hiddenedges 
                         write sethiddenedges default [];
-
    property framei: framety read fi.innerframe write setframei;
                       //does not set localprops
    property framei_left: integer read fi.innerframe.left write setframei_left
@@ -771,22 +602,10 @@ type
                      write setframei_bottom
                      stored isfibottomstored default 0;
 
-   property frameo: framety read fi.outerframe write setframeo;
-                      //does not set localprops
-   property frameo_left: integer read fi.outerframe.left write setframeo_left
-                     stored isfoleftstored default 0;
-   property frameo_top: integer read fi.outerframe.top  write setframeo_top
-                     stored isfotopstored default 0;
-   property frameo_right: integer read fi.outerframe.right write setframeo_right
-                     stored isforightstored default 0;
-   property frameo_bottom: integer read fi.outerframe.bottom
-                     write setframeo_bottom
-                     stored isfobottomstored default 0;
-
-   property frameimage_list: timagelist read fi.frameimage_list
+   property frameimage_list: timagelist read fi.frameimage_list 
                     write setframeimage_list stored isframeimage_liststored;
-     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom,
-     //4 = bottomright, 5 = right, 6 = topright, 7 = top
+     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
+     //5 = right, 6 = topright, 7 = top
    property frameimage_left: integer read fi.frameimage_left
                     write setframeimage_left
                     stored isframeimage_leftstored default 0;
@@ -797,89 +616,84 @@ type
                     write setframeimage_right
                     stored isframeimage_rightstored default 0;
    property frameimage_bottom: integer read fi.frameimage_bottom
-                    write setframeimage_bottom
+                    write setframeimage_bottom 
                     stored isframeimage_bottomstored default 0;
                     //added to imagelist size.
    property frameimage_offset: imagenrty read fi.frameimage_offsets.offset
-                    write setframeimage_offset
+                    write setframeimage_offset 
                     stored isframeimage_offsetstored default 0;
    property frameimage_offset1: imagenrty read fi.frameimage_offsets.offset1
-                    write setframeimage_offset1
+                    write setframeimage_offset1 
                     stored isframeimage_offset1stored default 0;
                              //used for default button
-   property frameimage_offsetdisabled: imagenrty
-                    read fi.frameimage_offsets.disabled
+   property frameimage_offsetdisabled: imagenrty 
+                    read fi.frameimage_offsets.disabled 
                     write setframeimage_offsetdisabled
                     stored isframeimage_offsetdisabledstored default 0;
-   property frameimage_offsetmouse: imagenrty
-                    read fi.frameimage_offsets.mouse
-                    write setframeimage_offsetmouse
+   property frameimage_offsetmouse: imagenrty 
+                    read fi.frameimage_offsets.mouse 
+                    write setframeimage_offsetmouse 
                     stored isframeimage_offsetmousestored default 0;
-   property frameimage_offsetclicked: imagenrty
+   property frameimage_offsetclicked: imagenrty 
                     read fi.frameimage_offsets.clicked
-                    write setframeimage_offsetclicked
+                    write setframeimage_offsetclicked 
                     stored isframeimage_offsetclickedstored default 0;
    property frameimage_offsetactive: imagenrty
                     read fi.frameimage_offsets.active
                     write setframeimage_offsetactive
                     stored isframeimage_offsetactivestored default 0;
-   property frameimage_offsetfocused: imagenrty
-                    read fi.frameimage_offsets.focused
-                    write setframeimage_offsetfocused
-                    stored isframeimage_offsetfocusedstored default 0;
-   property frameface_list: tfacelist read fi.frameface_list
+   property frameimage_offsetactivemouse: imagenrty
+                    read fi.frameimage_offsets.activemouse
+                    write setframeimage_offsetactivemouse
+                    stored isframeimage_offsetactivemousestored default 0;
+   property frameimage_offsetactiveclicked: imagenrty
+                    read fi.frameimage_offsets.activeclicked
+                    write setframeimage_offsetactiveclicked
+                    stored isframeimage_offsetactiveclickedstored default 0;
+
+   property frameface_list: tfacelist read fi.frameface_list 
                     write setframeface_list stored isframeface_liststored;
    property frameface_offset: facenrty read fi.frameface_offsets.offset
-                    write setframeface_offset
+                    write setframeface_offset 
                     stored isframeface_offsetstored default 0;
-   property frameface_offset1: facenrty
+   property frameface_offset1: facenrty 
                     read fi.frameface_offsets.offset1
                     write setframeface_offset1
                     stored isframeface_offset1stored default 0;
                                    //used for default button
-   property frameface_offsetdisabled: facenrty
-                    read fi.frameface_offsets.disabled
+   property frameface_offsetdisabled: facenrty 
+                    read fi.frameface_offsets.disabled 
                     write setframeface_offsetdisabled
             stored isframeface_offsetdisabledstored default 0;
-   property frameface_offsetmouse: facenrty
-                    read fi.frameface_offsets.mouse
-                    write setframeface_offsetmouse
+   property frameface_offsetmouse: facenrty 
+                    read fi.frameface_offsets.mouse 
+                    write setframeface_offsetmouse 
                     stored isframeface_offsetmousestored default 0;
-   property frameface_offsetclicked: facenrty
+   property frameface_offsetclicked: facenrty 
                     read fi.frameface_offsets.clicked
-                    write setframeface_offsetclicked
+                    write setframeface_offsetclicked 
                     stored isframeface_offsetclickedstored default 0;
-   property frameface_offsetactive: facenrty
+   property frameface_offsetactive: facenrty 
                     read fi.frameface_offsets.active
                     write setframeface_offsetactive
                     stored isframeface_offsetactivestored default 0;
-   property frameface_offsetfocused: facenrty
-                    read fi.frameface_offsets.focused
-                    write setframeface_offsetfocused
-                    stored isframeface_offsetfocusedstored default 0;
-   property optionsskin: frameskinoptionsty read fi.optionsskin
+   property frameface_offsetactivemouse: facenrty 
+                    read fi.frameface_offsets.activemouse
+                    write setframeface_offsetactivemouse
+                    stored isframeface_offsetactivemousestored default 0;
+   property frameface_offsetactiveclicked: facenrty 
+                    read fi.frameface_offsets.activeclicked
+                    write setframeface_offsetactiveclicked
+                    stored isframeface_offsetactiveclickedstored default 0;
+
+   property optionsskin: frameskinoptionsty read fi.optionsskin 
                     write setoptionsskin stored isoptionsskinstored default [];
-   property focusrectdist: int32 read fi.focusrectdist
-                         write setfocusrectdist
-                                   stored isfocusrectdiststored default 0;
-   property extraspace: int32 read fi.extraspace
-                         write setextraspace
-                                   stored isextraspacestored default 0;
-   property imagedist: int32 read fi.imagedist
-                         write setimagedist
-                                   stored isimagediststored default 0;
-   property imagedist1: int32 read fi.imagedist1
-                         write setimagedist1
-                                   stored isimagedist1stored default 0;
-   property imagedist2: int32 read fi.imagedist2
-                         write setimagedist2
-                                   stored isimagedist2stored default 0;
    property colorclient: colorty read fi.colorclient write setcolorclient
-                    stored iscolorclientstored default cl_default;
-   property localprops: framelocalpropsty read flocalprops
-                    write setlocalprops {default []};
-   property localprops1: framelocalprops1ty read flocalprops1
-                    write setlocalprops1 {default []};
+                    stored iscolorclientstored default cl_transparent;
+   property localprops: framelocalpropsty read flocalprops 
+                    write setlocalprops default []; 
+   property localprops1: framelocalprops1ty read flocalprops1 
+                    write setlocalprops1 default []; 
    property template: tframecomp read ftemplate write settemplate;
  end;
 
@@ -889,19 +703,10 @@ type
    property leveli;
    property framewidth;
    property colorframe;
-   property colorframeactive;
-   property colorframedisabled;
-   property colorframemouse;
-   property colorframeclicked;
-   property colorframedefault;
    property framei_left;
    property framei_top;
    property framei_right;
    property framei_bottom;
-   property frameo_left;
-   property frameo_top;
-   property frameo_right;
-   property frameo_bottom;
 
    property frameimage_list;
    property frameimage_left;
@@ -914,7 +719,8 @@ type
    property frameimage_offsetmouse;
    property frameimage_offsetclicked;
    property frameimage_offsetactive;
-   property frameimage_offsetfocused;
+   property frameimage_offsetactivemouse;
+   property frameimage_offsetactiveclicked;
 
    property frameface_list;
    property frameface_offset;
@@ -923,15 +729,10 @@ type
    property frameface_offsetmouse;
    property frameface_offsetclicked;
    property frameface_offsetactive;
-   property frameface_offsetfocused;
+   property frameface_offsetactivemouse;
+   property frameface_offsetactiveclicked;
 
    property optionsskin;
-
-   property focusrectdist;
-   property extraspace;
-   property imagedist;
-   property imagedist1;
-   property imagedist2;
 
    property colorclient;
    property colordkshadow;
@@ -946,79 +747,29 @@ type
    property template;
  end;
 
- tframetemplate = class;
-
- beforeframepaintbackgroundeventty = procedure (const sender: tcustomframe;
-            const canvas: tcanvas; const arect: rectty;
-                  const clip: boolean; const move: boolean;
-                                             var handled: boolean) of object;
- afterframepaintbackgroundeventty = procedure (const sender: tcustomframe;
-            const canvas: tcanvas; const arect: rectty;
-                           const clip: boolean; const move: boolean) of object;
- beforeframepaintoverlayeventty = procedure (const sender: tcustomframe;
-              const canvas: tcanvas; const arect: rectty;
-                                           var handled: boolean) of object;
- afterframepaintoverlayeventty = procedure (const sender: tcustomframe;
-                         const canvas: tcanvas; const arect: rectty) of object;
-
- beforeframetemplatepaintbackgroundeventty =
-          procedure (const sender: tframetemplate; const canvas: tcanvas;
-                   const arect: rectty; const astate: framestateflagsty;
-                                             var handled: boolean) of object;
- afterframetemplatepaintbackgroundeventty =
-          procedure (const sender: tframetemplate; const canvas: tcanvas;
-              const arect: rectty; const astate: framestateflagsty) of object;
- beforeframetemplatepaintoverlayeventty =
-          procedure (const sender: tframetemplate; const canvas: tcanvas;
-               const arect: rectty; const astate: framestateflagsty;
-                                                var handled: boolean) of object;
- afterframetemplatepaintoverlayeventty =
-          procedure (const sender: tframetemplate; const canvas: tcanvas;
-               const arect: rectty; const astate: framestateflagsty) of object;
-
  tframetemplate = class(tpersistenttemplate,iimagelistinfo)
   private
    foptionsskincontroller: frameskincontrolleroptionsty;
-   fclientsizeextend: sizety;
-   fonbeforepaintbackground: beforeframepaintbackgroundeventty;
-   fonafterpaintbackground: afterframepaintbackgroundeventty;
-   fonbeforepaintoverlay: beforeframepaintoverlayeventty;
-   fonafterpaintoverlay: afterframepaintoverlayeventty;
-   fonbeforetemplatepaintbackground: beforeframetemplatepaintbackgroundeventty;
-   fonaftertemplatepaintbackground: afterframetemplatepaintbackgroundeventty;
-   fonbeforetemplatepaintoverlay: beforeframetemplatepaintoverlayeventty;
-   fonaftertemplatepaintoverlay: afterframetemplatepaintoverlayeventty;
    procedure setcolorclient(const Value: colorty);
    procedure setcolorframe(const Value: colorty);
    procedure setcolorframeactive(const avalue: colorty);
-   procedure setcolorframedisabled(const avalue: colorty);
-   procedure setcolorframemouse(const avalue: colorty);
-   procedure setcolorframeclicked(const avalue: colorty);
-   procedure setcolorframedefault(const avalue: colorty);
    procedure setcolordkshadow(const avalue: colorty);
    procedure setcolorshadow(const avalue: colorty);
    procedure setcolorlight(const avalue: colorty);
    procedure setcolorhighlight(const avalue: colorty);
    procedure setcolordkwidth(const avalue: integer);
    procedure setcolorhlwidth(const avalue: integer);
-   procedure setcolorglyph(const avalue: colorty);
-   procedure setcolorpattern(const avalue: colorty);
-
    procedure sethiddenedges(const avalue: edgesty);
 
    procedure setframei_bottom(const Value: integer);
    procedure setframei_left(const Value: integer);
    procedure setframei_right(const Value: integer);
    procedure setframei_top(const Value: integer);
-   procedure setframeo_bottom(const Value: integer);
-   procedure setframeo_left(const Value: integer);
-   procedure setframeo_right(const Value: integer);
-   procedure setframeo_top(const Value: integer);
    procedure setframewidth(const Value: integer);
    procedure setextraspace(const avalue: integer);
    procedure setimagedist(const avalue: integer);
-   procedure setimagedist1(const avalue: integer);
-   procedure setimagedist2(const avalue: integer);
+   procedure setimagedisttop(const avalue: integer);
+   procedure setimagedistbottom(const avalue: integer);
    procedure setleveli(const Value: integer);
    procedure setlevelo(const Value: integer);
 
@@ -1034,7 +785,8 @@ type
    procedure setframeimage_offsetmouse(const avalue: imagenrty);
    procedure setframeimage_offsetclicked(const avalue: imagenrty);
    procedure setframeimage_offsetactive(const avalue: imagenrty);
-   procedure setframeimage_offsetfocused(const avalue: imagenrty);
+   procedure setframeimage_offsetactivemouse(const avalue: imagenrty);
+   procedure setframeimage_offsetactiveclicked(const avalue: imagenrty);
 
    procedure setframeface_list(const avalue: tfacelist);
    procedure setframeface_offset(const avalue: facenrty);
@@ -1043,7 +795,8 @@ type
    procedure setframeface_offsetmouse(const avalue: facenrty);
    procedure setframeface_offsetclicked(const avalue: facenrty);
    procedure setframeface_offsetactive(const avalue: facenrty);
-   procedure setframeface_offsetfocused(const avalue: facenrty);
+   procedure setframeface_offsetactivemouse(const avalue: facenrty);
+   procedure setframeface_offsetactiveclicked(const avalue: facenrty);
 
    procedure setoptionsskin(const avalue: frameskinoptionsty);
    function getfont: toptionalfont;
@@ -1051,91 +804,50 @@ type
    function isfontstored: boolean;
    procedure setcaptiondist(const avalue: integer);
    procedure setcaptionoffset(const avalue: integer);
-   procedure setfocusrectdist(const avalue: integer);
    procedure fontchanged(const sender: tobject);
-   procedure readdummy(reader: treader);
-   procedure readimagedisttop(reader: treader);
-   procedure readimagedistbottom(reader: treader);
   protected
    fi: frameinfoty;
-//   fextraspace: integer;
-//   fimagedist: integer;
-//   fimagedist1: integer;
-//   fimagedist2: integer;
+   fextraspace: integer;
+   fimagedist: integer;
+   fimagedisttop: integer;
+   fimagedistbottom: integer;
    procedure doassignto(dest: tpersistent); override;
    function getinfosize: integer; override;
    function getinfoad: pointer; override;
    procedure copyinfo(const source: tpersistenttemplate); override;
-   procedure defineproperties(filer: tfiler); override;
   public
    constructor create(const owner: tmsecomponent;
                   const onchange: notifyeventty); override;
    destructor destroy; override;
-   procedure paintbackground(const acanvas: tcanvas; const arect: rectty;
-                                 const astate: framestateflagsty = []);
+   procedure paintbackground(const acanvas: tcanvas; const arect: rectty);
                                        //arect = paintrect
    procedure paintoverlay(const acanvas: tcanvas; const arect: rectty;
-                        const astate: framestateflagsty = []);
+                        const astate: framestateflagsty);
                                        //arect = paintrect
-   procedure paintbackgroundframe(const acanvas: tcanvas; const arect: rectty;
-                                 const astate: framestateflagsty = []);
-                                       //arect = framerect
-   procedure paintoverlayframe(const acanvas: tcanvas; const arect: rectty;
-                        const astate: framestateflagsty = []);
-                                       //arect = framerect
    function paintframe: framety;
-   function innerframe: framety;
-   function paintframedim: sizety;
-   function innerframedim: sizety;
    procedure createfont;
-   property framei: framety read fi.ba.innerframe;
-   property frameo: framety read fi.ba.outerframe;
-   property clientsizeextend: sizety read fclientsizeextend
-                                                write fclientsizeextend;
   published
    property levelo: integer read fi.ba.levelo write setlevelo default 0;
    property leveli: integer read fi.ba.leveli write setleveli default 0;
    property framewidth: integer read fi.ba.framewidth
                      write setframewidth default 0;
-   property colorframe: colorty read fi.ba.colorframe
+   property colorframe: colorty read fi.ba.colorframe 
                      write setcolorframe default cl_default;
-   property colorframeactive: colorty read fi.ba.colorframeactive
+   property colorframeactive: colorty read fi.ba.colorframeactive 
                      write setcolorframeactive default cl_default;
-   property colorframedisabled: colorty read fi.ba.colorframedisabled
-                     write setcolorframedisabled default cl_default;
-   property colorframemouse: colorty read fi.ba.colorframemouse
-                     write setcolorframemouse default cl_default;
-   property colorframeclicked: colorty read fi.ba.colorframeclicked
-                     write setcolorframeclicked default cl_default;
-   property colorframedefault: colorty read fi.ba.colorframedefault
-                     write setcolorframedefault default cl_default;
-   property colorglyph: colorty read fi.ba.colorglyph
-                     write setcolorglyph default cl_default;
-   property colorpattern: colorty read fi.ba.colorpattern
-                     write setcolorpattern default cl_default;
-
-   property framei_left: integer read fi.ba.innerframe.left
+   property framei_left: integer read fi.ba.innerframe.left 
                      write setframei_left default 0;
-   property framei_top: integer read fi.ba.innerframe.top
+   property framei_top: integer read fi.ba.innerframe.top 
                      write setframei_top default 0;
-   property framei_right: integer read fi.ba.innerframe.right
+   property framei_right: integer read fi.ba.innerframe.right 
                      write setframei_right default 0;
-   property framei_bottom: integer read fi.ba.innerframe.bottom
+   property framei_bottom: integer read fi.ba.innerframe.bottom 
                      write setframei_bottom default 0;
-
-   property frameo_left: integer read fi.ba.outerframe.left
-                     write setframeo_left default 0;
-   property frameo_top: integer read fi.ba.outerframe.top
-                     write setframeo_top default 0;
-   property frameo_right: integer read fi.ba.outerframe.right
-                     write setframeo_right default 0;
-   property frameo_bottom: integer read fi.ba.outerframe.bottom
-                     write setframeo_bottom default 0;
-
+                     
    property frameimage_list: timagelist read fi.ba.frameimage_list
                      write setframeimage_list;
-    //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
-    //5 = right, 6 = topright, 7 = top
+     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
+     //5 = right, 6 = topright, 7 = top
    property frameimage_left: integer read fi.ba.frameimage_left
                     write setframeimage_left default 0;
    property frameimage_top: integer read fi.ba.frameimage_top
@@ -1145,39 +857,43 @@ type
    property frameimage_bottom: integer read fi.ba.frameimage_bottom
                     write setframeimage_bottom default 0;
                     //added to imagelist size.
-   property frameimage_offset: imagenrty
+   property frameimage_offset: imagenrty 
                      read fi.ba.frameimage_offsets.offset
                      write setframeimage_offset default 0;
-   property frameimage_offset1: imagenrty
+   property frameimage_offset1: imagenrty 
                      read fi.ba.frameimage_offsets.offset1
                      write setframeimage_offset1 default 0;
-   property frameimage_offsetdisabled: imagenrty
+   property frameimage_offsetdisabled: imagenrty 
                      read fi.ba.frameimage_offsets.disabled
                      write setframeimage_offsetdisabled default 0;
-   property frameimage_offsetmouse: imagenrty
+   property frameimage_offsetmouse: imagenrty 
                      read fi.ba.frameimage_offsets.mouse
                      write setframeimage_offsetmouse default 0;
-   property frameimage_offsetclicked: imagenrty
+   property frameimage_offsetclicked: imagenrty 
                      read fi.ba.frameimage_offsets.clicked
                      write setframeimage_offsetclicked default 0;
-   property frameimage_offsetactive: imagenrty
+   property frameimage_offsetactive: imagenrty 
                      read fi.ba.frameimage_offsets.active
                      write setframeimage_offsetactive default 0;
-   property frameimage_offsetfocused: imagenrty
-                     read fi.ba.frameimage_offsets.focused
-                     write setframeimage_offsetfocused default 0;
+   property frameimage_offsetactivemouse: imagenrty
+                     read fi.ba.frameimage_offsets.activemouse
+                     write setframeimage_offsetactivemouse default 0;
+   property frameimage_offsetactiveclicked: imagenrty
+                     read fi.ba.frameimage_offsets.activeclicked
+                     write setframeimage_offsetactiveclicked default 0;
+
    property frameface_list: tfacelist read fi.ba.frameface_list
                      write setframeface_list;
-   property frameface_offset: facenrty
+   property frameface_offset: facenrty 
                      read fi.ba.frameface_offsets.offset
                      write setframeface_offset default 0;
-   property frameface_offset1: facenrty
+   property frameface_offset1: facenrty 
                      read fi.ba.frameface_offsets.offset1
                      write setframeface_offset1 default 0;
-   property frameface_offsetdisabled: facenrty
+   property frameface_offsetdisabled: facenrty 
                      read fi.ba.frameface_offsets.disabled
                      write setframeface_offsetdisabled default 0;
-   property frameface_offsetmouse: facenrty
+   property frameface_offsetmouse: facenrty 
                      read fi.ba.frameface_offsets.mouse
                      write setframeface_offsetmouse default 0;
    property frameface_offsetclicked: facenrty
@@ -1186,82 +902,50 @@ type
    property frameface_offsetactive: facenrty
                      read fi.ba.frameface_offsets.active
                      write setframeface_offsetactive default 0;
-   property frameface_offsetfocused: facenrty
-                     read fi.ba.frameface_offsets.focused
-                     write setframeface_offsetfocused default 0;
-
+   property frameface_offsetactivemouse: facenrty
+                     read fi.ba.frameface_offsets.activemouse
+                     write setframeface_offsetactivemouse default 0;
+   property frameface_offsetactiveclicked: facenrty
+                     read fi.ba.frameface_offsets.activeclicked
+                     write setframeface_offsetactiveclicked default 0;
         //for tcaptionframe
    property font: toptionalfont read getfont write setfont stored isfontstored;
              //used in tmenu.itemframetemplate, itemframtemplateactive,
              //tmainmenu.popupitemframetemplate, popupitemframetemplate also
-   property captiondist: integer read fi.capt.captiondist
+   property captiondist: integer read fi.capt.captiondist 
                  write setcaptiondist default 0;   //not used if font not set
-   property captionoffset: integer read fi.capt.captionoffset
+   property captionoffset: integer read fi.capt.captionoffset 
                  write setcaptionoffset default 0; //not used if font not set
-   property fucusrectdist: int32 read fi.ba.focusrectdist
-                        write setfocusrectdist default 0;
-   property extraspace: integer read fi.ba.extraspace
+   
+   property extraspace: integer read fextraspace
                         write setextraspace default 0;
-   property imagedist: integer read fi.ba.imagedist
+   property imagedist: integer read fimagedist
                         write setimagedist default 0;
-   property imagedist1: integer read fi.ba.imagedist1
-                        write setimagedist1 default 0;
-   property imagedist2: integer read fi.ba.imagedist2
-                        write setimagedist2 default 0;
-   property colorclient: colorty read fi.ba.colorclient write setcolorclient
-                                            default cl_default;
-   property colordkshadow: colorty
-                      read fi.ba.framecolors.edges.shadow.effectcolor
+   property imagedisttop: integer read fimagedisttop
+                        write setimagedisttop default 0;
+   property imagedistbottom: integer read fimagedistbottom
+                        write setimagedistbottom default 0;
+   property colorclient: colorty read fi.ba.colorclient write setcolorclient 
+                                            default cl_transparent;
+   property colordkshadow: colorty read fi.ba.framecolors.shadow.effectcolor
                       write setcolordkshadow default cl_default;
-   property colorshadow: colorty read fi.ba.framecolors.edges.shadow.color
+   property colorshadow: colorty read fi.ba.framecolors.shadow.color
                       write setcolorshadow default cl_default;
-   property colorlight: colorty read fi.ba.framecolors.edges.light.color
+   property colorlight: colorty read fi.ba.framecolors.light.color
                       write setcolorlight default cl_default;
-   property colorhighlight: colorty
-                      read fi.ba.framecolors.edges.light.effectcolor
+   property colorhighlight: colorty read fi.ba.framecolors.light.effectcolor
                       write setcolorhighlight default cl_default;
-   property colordkwidth: integer
-                      read fi.ba.framecolors.edges.shadow.effectwidth
+   property colordkwidth: integer read fi.ba.framecolors.shadow.effectwidth
                       write setcolordkwidth default -1;
-   property colorhlwidth: integer
-                      read fi.ba.framecolors.edges.light.effectwidth
+   property colorhlwidth: integer read fi.ba.framecolors.light.effectwidth
                       write setcolorhlwidth default -1;
    property hiddenedges: edgesty read fi.ba.hiddenedges write sethiddenedges
                            default [];
-   property optionsskin: frameskinoptionsty read fi.ba.optionsskin
+   property optionsskin: frameskinoptionsty read fi.ba.optionsskin 
                       write setoptionsskin default [];
-   property optionsskincontroller: frameskincontrolleroptionsty
+   property optionsskincontroller: frameskincontrolleroptionsty 
                       read foptionsskincontroller
                       write foptionsskincontroller default [];
-   property clientsizeextend_cx: int32 read fclientsizeextend.cx
-                                  write fclientsizeextend.cx default 0;
-   property clientsizeextend_cy: int32 read fclientsizeextend.cy
-                                  write fclientsizeextend.cy default 0;
-   property onbeforepaintbackground: beforeframepaintbackgroundeventty
-               read fonbeforepaintbackground write fonbeforepaintbackground;
-   property onafterpaintbackground: afterframepaintbackgroundeventty
-               read fonafterpaintbackground write fonafterpaintbackground;
-   property onbeforepaintoverlay: beforeframepaintoverlayeventty
-               read fonbeforepaintoverlay write fonbeforepaintoverlay;
-   property onafterpaintoverlay: afterframepaintoverlayeventty
-               read fonafterpaintoverlay write fonafterpaintoverlay;
-
-   property onbeforetemplatepaintbackground:
-                                   beforeframetemplatepaintbackgroundeventty
-               read fonbeforetemplatepaintbackground
-                                   write fonbeforetemplatepaintbackground;
-   property onaftertemplatepaintbackground:
-                                   afterframetemplatepaintbackgroundeventty
-               read fonaftertemplatepaintbackground
-                                  write fonaftertemplatepaintbackground;
-   property onbeforetemplatepaintoverlay:
-                                    beforeframetemplatepaintoverlayeventty
-               read fonbeforetemplatepaintoverlay
-                                        write fonbeforetemplatepaintoverlay;
-   property onaftertemplatepaintoverlay: afterframetemplatepaintoverlayeventty
-               read fonaftertemplatepaintoverlay
-                                         write fonaftertemplatepaintoverlay;
-
  end;
 
  tframecomp = class(ttemplatecontainer)
@@ -1276,13 +960,9 @@ type
  end;
 
  tcustomface = class;
- iface1 = interface(inullinterface)
+ iface = interface(inullinterface)
+  procedure invalidate;
   function translatecolor(const acolor: colorty): colorty;
- end;
- iface = interface(iface1)
-  procedure invalidatewidget;
-  procedure invalidaterect(const rect: rectty;
-               const org: originty = org_client; const noclip: boolean = false);
   function getclientrect: rectty;
   procedure setlinkedvar(const source: tmsecomponent; var dest: tmsecomponent;
               const linkintf: iobjectlink = nil);
@@ -1290,55 +970,25 @@ type
   procedure widgetregioninvalid;
  end;
 
- faceoptionty = (fao_alphafadeimage,fao_alphafadenochildren,fao_alphafadeall,
-                 fao_alphaimage,
-                 fao_fadeoverlay,fao_overlay);
+ faceoptionty = (fao_alphafadeimage,fao_alphafadenochildren,fao_alphafadeall);
  faceoptionsty = set of faceoptionty;
 
  tfadecolorarrayprop = class(tcolorarrayprop)
   public
    constructor create;
  end;
-
- tfadeopacolorarrayprop = class(tcolorarrayprop)
-  public
-   constructor create;
- end;
-
- tfacebitmap = class(tmaskedbitmap)
-  private
-   fowner: tcustomface;
-   fpos: pointty;
-   procedure setx(const avalue: int32);
-   procedure sety(const avalue: int32);
-   procedure setpos(const avalue: pointty);
-   procedure setcenter(avalue: pointty);
-   function getcenter: pointty;
-  public
-   constructor create(const aowner: tcustomface);
-                                        //nil -> default
-   property pos: pointty read fpos write setpos;
-   property center: pointty read getcenter write setcenter;
-  published
-   property x: int32 read fpos.x write setx default 0;
-   property y: int32 read fpos.y write sety default 0;
- end;
-
+ 
  faceinfoty = record
   frameimage_offset: integer;
   options: faceoptionsty;
-  framei: framety;
 
   frameimage_list: timagelist;         //not copied by move
   fade_direction: graphicdirectionty;
-  image: tfacebitmap;
+  image: tmaskedbitmap;
   fade_pos: trealarrayprop;
   fade_color: tfadecolorarrayprop;
-  fade_opacity: colorty;
-  fade_opapos: trealarrayprop;
-  fade_opacolor: tfadeopacolorarrayprop;
+  fade_transparency: colorty;
  end;
-
 
  tfacecomp = class;
  tcustomface = class(toptionalpersistent)
@@ -1350,16 +1000,7 @@ type
    procedure settemplateinfo(const ainfo: faceinfoty);
    procedure setoptions(const avalue: faceoptionsty);
    function isoptionsstored: boolean;
-   procedure setframei_left(const avalue: integer);
-   function isframei_leftstored(): boolean;
-   procedure setframei_top(const avalue: integer);
-   function isframei_topstored(): boolean;
-   procedure setframei_right(const avalue: integer);
-   function isframei_rightstored(): boolean;
-   procedure setframei_bottom(const avalue: integer);
-   function isframei_bottomstored(): boolean;
-
-   procedure setimage(const value: tfacebitmap);
+   procedure setimage(const value: tmaskedbitmap);
    function isimagestored: boolean;
    procedure setfade_color(const Value: tfadecolorarrayprop);
    function isfacolorstored: boolean;
@@ -1367,19 +1008,14 @@ type
    function isfaposstored: boolean;
    procedure setfade_direction(const Value: graphicdirectionty);
    function isfadirectionstored: boolean;
-   procedure setfade_opacity(avalue: colorty);
-   function isfaopacitystored: boolean;
-   procedure setfade_opacolor(const Value: tfadeopacolorarrayprop);
-   function isfaopacolorstored: boolean;
-   procedure setfade_opapos(const Value: trealarrayprop);
-   function isfaopaposstored: boolean;
+   procedure setfade_transparency(avalue: colorty);
+   function isfatransparencystored: boolean;
    procedure setframeimage_list(const avalue: timagelist);
    function isframeimage_liststored: boolean;
    procedure setframeimage_offset(const avalue: integer);
    function isframeimage_offsetstored: boolean;
    procedure settemplate(const avalue: tfacecomp);
-   procedure setlocalprops(avalue: facelocalpropsty);
-   procedure readtransparency(reader: treader);
+   procedure setlocalprops(const avalue: facelocalpropsty);
   protected
    fintf: iface;
    fi: faceinfoty;
@@ -1388,8 +1024,6 @@ type
    procedure imagechanged(const sender: tobject);
    procedure internalcreate; override;
    procedure doalphablend(const canvas: tcanvas);
-   procedure defineproperties(filer: tfiler); override;
-   procedure internalpaint(const canvas: tcanvas; const arect: rectty); virtual;
   public
    constructor create; overload; override;
    constructor create(const owner: twidget); reintroduce; overload;
@@ -1397,46 +1031,33 @@ type
    constructor create(const intf: iface); reintroduce; overload;
    destructor destroy; override;
    procedure checktemplate(const sender: tobject);
-   procedure assign(source: {$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif}); override;
-   procedure paint(const canvas: tcanvas; const arect: rectty);
+   procedure assign(source: tpersistent); override;
+   procedure paint(const canvas: tcanvas; const rect: rectty); virtual;
    property options: faceoptionsty read fi.options write setoptions
                    stored isoptionsstored default [];
-   property framei_left: integer read fi.framei.left write setframei_left
-                                   stored isframei_leftstored default 0;
-   property framei_top: integer read fi.framei.top write setframei_top
-                                   stored isframei_topstored default 0;
-   property framei_right: integer read fi.framei.right write setframei_right
-                                   stored isframei_rightstored default 0;
-   property framei_bottom: integer read fi.framei.bottom write setframei_bottom
-                                   stored isframei_bottomstored default 0;
-
-   property image: tfacebitmap read fi.image write setimage
-                                                  stored isimagestored;
+   property image: tmaskedbitmap read fi.image write setimage
+                     stored isimagestored;
    property fade_pos: trealarrayprop read fi.fade_pos write setfade_pos
-                                                       stored isfaposstored;
-   property fade_color: tfadecolorarrayprop read fi.fade_color
-                              write setfade_color stored isfacolorstored;
+                    stored isfaposstored;
+   property fade_color: tfadecolorarrayprop read fi.fade_color write setfade_color
+                    stored isfacolorstored;
    property fade_direction: graphicdirectionty read fi.fade_direction
                     write setfade_direction
                     stored isfadirectionstored default gd_right ;
-   property fade_opacity: colorty read fi.fade_opacity
-                    write setfade_opacity
-                    stored isfaopacitystored default cl_none;
-   property fade_opapos: trealarrayprop read fi.fade_opapos
-                       write setfade_opapos stored isfaopaposstored;
-   property fade_opacolor: tfadeopacolorarrayprop read fi.fade_opacolor
-                       write setfade_opacolor stored isfaopacolorstored;
+   property fade_transparency: colorty read fi.fade_transparency
+                    write setfade_transparency 
+                    stored isfatransparencystored default cl_none;
 
-   property frameimage_list: timagelist read fi.frameimage_list
+   property frameimage_list: timagelist read fi.frameimage_list 
                     write setframeimage_list stored isframeimage_liststored;
-     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom,
-     // 4 = bottomright 5 = right, 6 = topright, 7 = top
+     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
+     //5 = right, 6 = topright, 7 = top
    property frameimage_offset: integer read fi.frameimage_offset
                     write setframeimage_offset
                     stored isframeimage_offsetstored default 0;
 
-   property localprops: facelocalpropsty read flocalprops
-                    write setlocalprops {default []};
+   property localprops: facelocalpropsty read flocalprops 
+                    write setlocalprops default []; 
                                    //before template
    property template: tfacecomp read ftemplate write settemplate;
  end;
@@ -1445,16 +1066,10 @@ type
   published
    property options;
    property image;
-   property framei_left;
-   property framei_top;
-   property framei_right;
-   property framei_bottom;
    property fade_pos;
    property fade_color;
-   property fade_opapos;
-   property fade_opacolor;
    property fade_direction;
-   property fade_opacity;
+   property fade_transparency;
    property frameimage_list;
    property frameimage_offset;
    property localprops;          //before template
@@ -1472,113 +1087,65 @@ type
    class function getitemclasstype: persistentclassty; override;
    property items[const index: integer]: tface read getitems; default;
  end;
-
+ 
  tfacelist = class(tmsecomponent,iface)
   private
    flist: tfacearrayprop;
-   findexlookup: msestring;
    procedure setlist(const avalue: tfacearrayprop);
-    //iface
-   procedure invalidatewidget();
-   procedure invalidaterect(const rect: rectty;
-              const org: originty = org_client; const noclip: boolean = false);
+   procedure invalidate;
    function translatecolor(const acolor: colorty): colorty;
    function getclientrect: rectty;
    function getcomponentstate: tcomponentstate;
    procedure widgetregioninvalid;
-   procedure setindexlookup(const avalue: msestring);
   protected
    procedure objectevent(const sender: tobject;
                              const event: objecteventty); override;
   public
    constructor create(aowner: tcomponent); override;
    destructor destroy; override;
-   procedure paint(const canvas: tcanvas; const aindex: int32;
-                                                   const dest: rectty);
-   function lookup(const aindex: int32): int32;
   published
    property list: tfacearrayprop read flist write setlist;
-   property indexlookup: msestring read findexlookup write setindexlookup;
-                    //array of int16
  end;
-
- beforefacepainteventty = procedure (const sender: tcustomface;
-            const canvas: tcanvas; const arect: rectty;
-                                              var handled: boolean) of object;
- afterfacepainteventty = procedure (const sender: tcustomface;
-            const canvas: tcanvas; const arect: rectty) of object;
-
- tfacetemplate = class(tpersistenttemplate,iface1)
+ 
+ tfacetemplate = class(tpersistenttemplate)
   private
    fi: faceinfoty;
-   fonbeforepaint: beforefacepainteventty;
-   fonafterpaint: afterfacepainteventty;
    procedure setoptions(const avalue: faceoptionsty);
-   procedure setframei_left(const avalue: integer);
-   procedure setframei_top(const avalue: integer);
-   procedure setframei_right(const avalue: integer);
-   procedure setframei_bottom(const avalue: integer);
-
    procedure setfade_color(const Value: tfadecolorarrayprop);
-   procedure setfade_pos(const Value: trealarrayprop);
-   procedure setfade_opacolor(const Value: tfadeopacolorarrayprop);
-   procedure setfade_opapos(const Value: trealarrayprop);
-   procedure setfade_opacity(avalue: colorty);
    procedure setfade_direction(const Value: graphicdirectionty);
-   procedure setimage(const Value: tfacebitmap);
+   procedure setfade_pos(const Value: trealarrayprop);
+   procedure setfade_transparency(avalue: colorty);
+   procedure setimage(const Value: tmaskedbitmap);
    procedure doimagechange(const sender: tobject);
    procedure dochange(const sender: tarrayprop; const index: integer);
    procedure setframeimage_list(const avalue: timagelist);
    procedure setframeimage_offset(const avalue: integer);
-   procedure readtransparency(reader: treader);
   protected
    procedure doassignto(dest: tpersistent); override;
    function getinfosize: integer; override;
    function getinfoad: pointer; override;
    procedure copyinfo(const source: tpersistenttemplate); override;
    procedure internalcreate; override;
-   procedure defineproperties(filer: tfiler); override;
-    //iface1
-   function translatecolor(const acolor: colorty): colorty;
   public
-   constructor create(const owner: tmsecomponent;
-                                   const onchange: notifyeventty); override;
+   constructor create(const owner: tmsecomponent; const onchange: notifyeventty); override;
    destructor destroy; override;
-   procedure paint(const canvas: tcanvas; const arect: rectty);
   published
    property options: faceoptionsty read fi.options write setoptions default [];
-   property framei_left: integer read fi.framei.left
-                                        write setframei_left default 0;
-   property framei_top: integer read fi.framei.top
-                                        write setframei_top default 0;
-   property framei_right: integer read fi.framei.right
-                                        write setframei_right default 0;
-   property framei_bottom: integer read fi.framei.bottom
-                                        write setframei_bottom default 0;
-
-   property image: tfacebitmap read fi.image write setimage;
+   property image: tmaskedbitmap read fi.image write setimage;
    property fade_pos: trealarrayprop read fi.fade_pos write setfade_pos;
-   property fade_color: tfadecolorarrayprop read fi.fade_color
+   property fade_color: tfadecolorarrayprop read fi.fade_color 
                                                    write setfade_color;
-   property fade_opapos: trealarrayprop read fi.fade_opapos
-                    write setfade_opapos;
-   property fade_opacolor: tfadeopacolorarrayprop read fi.fade_opacolor
-                                                   write setfade_opacolor;
    property fade_direction: graphicdirectionty read fi.fade_direction
                 write setfade_direction default gd_right;
-   property fade_opacity: colorty read fi.fade_opacity
-              write setfade_opacity default cl_none;
+   property fade_transparency: colorty read fi.fade_transparency
+              write setfade_transparency default cl_none;
 
-   property frameimage_list: timagelist read fi.frameimage_list
+   property frameimage_list: timagelist read fi.frameimage_list 
                      write setframeimage_list;
-    //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
-    //5 = right, 6 = topright, 7 = top
+     //imagenr 0 = topleft, 1 = left, 2 = bottomleft, 3 = bottom, 4 = bottomright
+     //5 = right, 6 = topright, 7 = top
    property frameimage_offset: integer read fi.frameimage_offset
                      write setframeimage_offset default 0;
-   property onbeforepaint: beforefacepainteventty read fonbeforepaint
-                                                       write fonbeforepaint;
-   property onafterpaint: afterfacepainteventty read fonafterpaint
-                                                       write fonafterpaint;
  end;
 
  tfacecomp = class(ttemplatecontainer)
@@ -1592,20 +1159,12 @@ type
    property template: tfacetemplate read gettemplate write settemplate;
  end;
 
- mouseeventty = procedure (const sender: twidget;
-                                   var ainfo: mouseeventinfoty) of object;
- mousewheeleventty = procedure (const sender: twidget;
-                                   var ainfo: mousewheeleventinfoty) of object;
- keyeventty = procedure (const sender: twidget;
-                                   var ainfo: keyeventinfoty) of object;
- shortcuteventty = procedure (const sender: twidget; var ainfo: keyeventinfoty;
-                                              const origin: twidget) of object;
- painteventty = procedure (const sender: twidget;
-                                   const acanvas: tcanvas) of object;
- pointeventty = procedure(const sender: twidget;
-                                   const apoint: pointty) of object;
- widgeteventty = procedure(const sender: tobject;
-                                   const awidget: twidget) of object;
+ mouseeventty = procedure (const sender: twidget; var ainfo: mouseeventinfoty) of object;
+ mousewheeleventty = procedure (const sender: twidget; var ainfo: mousewheeleventinfoty) of object;
+ keyeventty = procedure (const sender: twidget; var ainfo: keyeventinfoty) of object;
+ painteventty = procedure (const sender: twidget; const acanvas: tcanvas) of object;
+ pointeventty = procedure(const sender: twidget; const apoint: pointty) of object;
+ widgeteventty = procedure(const sender: tobject; const awidget: twidget) of object;
 
  widgetarty = array of twidget;
 
@@ -1624,11 +1183,9 @@ type
   sender: twidget;
   direction: graphicdirectionty;
   startingrect: rectty;
-  wraprect: rectty;
   distance: integer;
   nearest: twidget;
   down: boolean;
-  hastarget: boolean;
  end;
 
  twidgetfont = class(tparentfont)
@@ -1642,20 +1199,46 @@ type
    class function getinstancepo(owner: tobject): pfont; override;
  end;
  widgetfontemptyclassty = class of twidgetfontempty;
+ 
+ pdragobject = ^tdragobject;
+ tdragobject = class
+  private
+   finstancepo: pdragobject;
+   fpickpos: pointty;
+  protected
+   fsender: tobject;
+  public
+   constructor create(const asender: tobject; var instance: tdragobject;
+                          const apickpos: pointty);
+   destructor destroy; override;
+   function sender: tobject;
+   procedure acepted(const apos: pointty); virtual; //screenorigin
+   procedure refused(const apos: pointty); virtual;
+   property pickpos: pointty read fpickpos;         //screenorigin
+ end;
+
+ drageventkindty = (dek_begin,dek_check,dek_drop);
+
+ draginfoty = record
+  eventkind: drageventkindty;
+  pos: pointty;           //origin = clientrect.pos
+  pickpos: pointty;       //origin = screenorigin
+  clientpickpos: pointty; //origin = clientrect.pos
+  dragobjectpo: pdragobject;
+  accept: boolean;
+ end;
 
  twidgetevent = class(tcomponentevent)
  end;
 
  modallevelty = (ml_none,ml_application, //call eventloop
                  ml_window);             //reflect window focus
-
- rootchangeflagty = (rcf_widgetregioninvalid,rcf_windowset,rcf_windowremove);
- rootchangeflagsty = set of rootchangeflagty;
-
+ 
  widgetalignmodety = (wam_none,wam_start,wam_center,wam_end);
+ widgetclassty = class of twidget;
  navigrequesteventty = procedure(const sender: twidget;
-                                var ainfo: naviginfoty) of object;
- twidget = class(tactcomponent,iscrollframe,iface,iassistiveclient)
+                                var ainfo: naviginfoty) of object; 
+ twidget = class(tactcomponent,iscrollframe,iface)
   private
    fwidgetregion: gdiregionty;
    frootpos: pointty;   //position in rootwindow
@@ -1664,19 +1247,17 @@ type
    fminsize,fmaxsize: sizety;
    fminclientsize: sizety;
    fminscrollsize: sizety;
-   fminshrinksize: sizety;
    ffocusedchild,ffocusedchildbefore: twidget;
    ffontheight: integer;
    fsetwidgetrectcount: integer; //for recursive setpos
-   fautosizelevel: byte;
 
    foptionsskin: optionsskinty;
    fskingroup: integer;
    fonnavigrequest: navigrequesteventty;
-   geframewidth: integer;
    procedure invalidateparentminclientsize;
+   function minclientsize: sizety;
    function getwidgets(const index: integer): twidget;
-   function dofindwidget(const awidgets: widgetarty;
+   function dofindwidget(const awidgets: widgetarty; 
                                            aname: ansistring): twidget;
 
    procedure setpos(const Value: pointty);
@@ -1698,6 +1279,7 @@ type
    function getsize: sizety;
 
    function invalidateneeded: boolean;
+   procedure updateroot;
    procedure addopaquechildren(var region: gdiregionty);
    procedure updatewidgetregion;
    function isclientmouseevent(var info: mouseeventinfoty): boolean;
@@ -1708,6 +1290,7 @@ type
    procedure internaldoactivate;
    procedure internaldodeactivate;
    procedure internalkeydown(var info: keyeventinfoty);
+   function checksubfocus(const aactivate: boolean): boolean;
 
    function clipcaret: rectty; //origin = pos
    procedure reclipcaret;
@@ -1737,19 +1320,9 @@ type
    procedure setoptionsskin(const avalue: optionsskinty);
    function getpaintsize: sizety;
    procedure setpaintsize(const avalue: sizety);
-   function getframesize: sizety;
-   procedure setframesize(const avalue: sizety);
-   procedure setframewidth(const avalue: integer);
-   function getframeheight: integer;
-   procedure setframeheight(const avalue: integer);
-   function getpaintwidth: integer;
-   procedure setpaintwidth(const avalue: integer);
-   function getpaintheight: integer;
-   procedure setpaintheight(const avalue: integer);
   protected
    fwidgets: widgetarty;
    fnoinvalidate: integer;
-   fwidgetupdating: integer;
    foptionswidget: optionswidgetty;
    foptionswidget1: optionswidget1ty;
    fparentwidget: twidget;
@@ -1767,52 +1340,26 @@ type
    fhint: msestring;
    fdefaultfocuschild: twidget;
 
-   procedure checksizes();
-   function widgetminsize1: sizety;
-           //checks ws1_clientcxmin,ws1_clientcymin
-   function widgetmaxsize1: sizety;
-           //checks ws1_clientcxmin,ws1_clientcymin
-   function minclientsize: sizety;
-   function isdesignwidget(): boolean; virtual;
-   procedure setdesignwidget();
-        //sets ws1_designwidget and removes ws_iswidget for self and children
-   procedure designmouseevent(var info: moeventinfoty;
-                                             capture: twidget); virtual;
-   procedure designkeyevent(const eventkind: eventkindty;
-                                            var info: keyeventinfoty); virtual;
-
    procedure defineproperties(filer: tfiler); override;
    function gethelpcontext: msestring; override;
    class function classskininfo: skininfoty; override;
    function skininfo: skininfoty; override;
    function hasskin: boolean; override;
 
-   function navigstartrect: rectty; virtual; //origin = pos
-   function navigrect: rectty; virtual;      //origin = pos
-   procedure navigrequest(var info: naviginfoty;
-                                       const nowrap: boolean = false); virtual;
-   function navigdistance(var info: naviginfoty;
-                          const nowrap: boolean = false): integer; virtual;
+   function navigstartrect: rectty; virtual; //org = clientpos
+   function navigrect: rectty; virtual;      //org = clientpos
+   procedure navigrequest(var info: naviginfoty); virtual;
+   function navigdistance(var info: naviginfoty): integer; virtual;
 
-   function nexttaborderoverride(const sender: twidget;
-                              const down: boolean = false): twidget virtual;
-
-   function getwidgetrects(const awidgets: array of twidget): rectarty;
-   procedure setwidgetrects(const awidgets: array of twidget;
-                                                 const arects: rectarty);
-
-   procedure updateroot;
    procedure setcolor(const avalue: colorty); virtual;
    function gethint: msestring; virtual;
    procedure sethint(const Value: msestring); virtual;
    function ishintstored: boolean; virtual;
    function getshowhint: boolean;
-   procedure showhint(const aid: int32; var info: hintinfoty); virtual;
+   procedure showhint(var info: hintinfoty); virtual;
 
    function isgroupleader: boolean; virtual;
    function needsfocuspaint: boolean; virtual;
-   function needsfocuspaintstate(): boolean; //checks ws_focused, ws_active
-   function getnoscroll(): boolean; virtual;
    function getenabled: boolean;
    procedure setenabled(const Value: boolean); virtual;
    function getvisible: boolean;
@@ -1820,12 +1367,9 @@ type
    function isvisible: boolean;      //checks designing
    function parentisvisible: boolean;//checks isvisible flags of ancestors
    function parentvisible: boolean;  //checks visible flags of ancestors
-   function updateopaque(const children: boolean;
-                               const widgetregioncall: boolean): boolean;
+   function updateopaque(const children: boolean): boolean;
                    //true if widgetregionchanged called
    procedure dragstarted; virtual; //called by tapplication.dragstarted
-    //iscrollframe
-   function getzoomrefframe: framety; virtual;
     //idragcontroller
    function getdragrect(const apos: pointty): rectty; virtual;
     //iface
@@ -1851,7 +1395,7 @@ type
    procedure objectchanged(const sender: tobject); virtual;
    procedure objectevent(const sender: tobject; const event: objecteventty); override;
    procedure receiveevent(const event: tobjectevent); override;
-   procedure setchildorder(child: tcomponent; order: integer); overload; override;
+   procedure setchildorder(child: tcomponent; order: integer); override;
    procedure setparentcomponent(value: tcomponent); override;
    function clearparentwidget: twidget;
              //returns old parentwidget
@@ -1866,16 +1410,13 @@ type
 
    procedure initparentclientsize;
    function getcaretcliprect: rectty; virtual;  //origin = clientrect.pos
-   procedure dobeginread; override;
+   procedure beginread; override;
    procedure doendread; override;
    procedure loaded; override;
-   procedure setdesigning(value: boolean;
-                               setchildren : boolean = true); override;
 
    procedure updatemousestate(const info: mouseeventinfoty); virtual;
                                    //updates fstate about mouseposition
    procedure setclientclick; //grabs mouse and sets clickflags
-   procedure releasebuttonpressgrab();
 
    procedure registerchildwidget(const child: twidget); virtual;
    procedure unregisterchildwidget(const child: twidget); virtual;
@@ -1896,16 +1437,13 @@ type
    procedure parentwidgetregionchanged(const sender: twidget); virtual;
    procedure widgetregionchanged(const sender: twidget); virtual;
    procedure scalebasechanged(const sender: twidget); virtual; //used by tlayouter
-
+ 
  {$ifdef mse_with_ifi}
    procedure ifiwidgetstatechanged;
    function getifiwidgetstate: ifiwidgetstatesty; virtual;
- {$endif}
+ {$endif}                     
    procedure cursorchanged;
    procedure statechanged; virtual; //enabled,active,visible
-                                        // todo:
-                                        //use an universal state*changed()
-                                        //with state mask instead
    procedure enabledchanged; virtual;
    procedure activechanged; virtual;
    procedure visiblepropchanged; virtual;
@@ -1915,48 +1453,44 @@ type
    procedure getautopaintsize(var asize: sizety); virtual;
    procedure getautocellsize(const acanvas: tcanvas;
                                       var asize: sizety); virtual;
+   procedure checkautosize;
    procedure childclientrectchanged(const sender: twidget); virtual;
    procedure childautosizechanged(const sender: twidget); virtual;
    procedure poschanged; virtual;
    procedure clientrectchanged; virtual;
    procedure parentchanged; virtual;
-   procedure rootchanged(const aflags: rootchangeflagsty); virtual;
+   procedure rootchanged; virtual;
    function getdefaultfocuschild: twidget; virtual;
                                    //returns first focusable widget
    procedure setdefaultfocuschild(const value: twidget); virtual;
    function trycancelmodal(const newactive: twindow): boolean; virtual;
               //called by twindow.internalactivate, true if accepted
    procedure sortzorder;
+   procedure clampinview(const arect: rectty; const bottomright: boolean); virtual;
+                    //origin paintpos
 
    function needsdesignframe: boolean; virtual;
    function getactface: tcustomface; virtual;
    procedure dobeforepaint(const canvas: tcanvas); virtual;
-   procedure dopaint(const canvas: tcanvas); virtual;
-   procedure paintbackground(const canvas: tcanvas;
-                                            const arect: rectty); virtual;
    procedure dopaintbackground(const canvas: tcanvas); virtual;
    procedure doonpaintbackground(const canvas: tcanvas); virtual;
+   procedure dopaint(const canvas: tcanvas); virtual;
    procedure dobeforepaintforeground(const canvas: tcanvas); virtual;
-   procedure dopaintforeground(const canvas: tcanvas); virtual;
    procedure doonpaint(const canvas: tcanvas); virtual;
-   procedure paintoverlay(const canvas: tcanvas;
-                                            const arect: rectty); virtual;
    procedure dopaintoverlay(const canvas: tcanvas); virtual;
    procedure doafterpaint(const canvas: tcanvas); virtual;
 
    procedure doscroll(const dist: pointty); virtual;
-   procedure doscrolled(const dist: pointty); virtual;
 
-   procedure doloaded() virtual;
-   procedure dohide() virtual;
-   procedure doshow() virtual;
-   procedure doactivate() virtual;
-   procedure doafteractivate() virtual;
-   procedure dodeactivate() virtual;
-   procedure doenter() virtual;
-   procedure doexit() virtual;
-   procedure dofocus() virtual;
-   procedure dodefocus() virtual;
+   procedure doloaded; virtual;
+   procedure dohide; virtual;
+   procedure doshow; virtual;
+   procedure doactivate; virtual;
+   procedure dodeactivate; virtual;
+   procedure doenter; virtual;
+   procedure doexit; virtual;
+   procedure dofocus; virtual;
+   procedure dodefocus; virtual;
    procedure dochildfocused(const sender: twidget); virtual;
    procedure dofocuschanged(const oldwidget,newwidget: twidget); virtual;
    procedure domousewheelevent(var info: mousewheeleventinfoty); virtual;
@@ -1965,23 +1499,17 @@ type
    procedure reflectmouseevent(var info: mouseeventinfoty);
                                   //posts mousevent to window under mouse
    procedure mouseevent(var info: mouseeventinfoty); virtual;
-   procedure mousepreview(const sender: twidget;
-                              var info: mouseeventinfoty); virtual;
+   procedure clientmouseevent(var info: mouseeventinfoty); virtual;
    procedure childmouseevent(const sender: twidget;
                               var info: mouseeventinfoty); virtual;
-   procedure clientmouseevent(var info: mouseeventinfoty); virtual;
    procedure mousewheelevent(var info: mousewheeleventinfoty); virtual;
 
-   procedure dokeydown1(var info: keyeventinfoty);
-                                       //updates flags, calls dokeydown
+   procedure dokeydown1(var info: keyeventinfoty); //updates flags, calls dokeydown
    procedure dokeydown(var info: keyeventinfoty); virtual;
                                        //do not call dokeydown, call dokeydown1
-   procedure doshortcut(var info: keyeventinfoty; const sender: twidget);
-                                                                     virtual;
+   procedure doshortcut(var info: keyeventinfoty; const sender: twidget); virtual;
                     //called twice, first before dokeydown with es_preview set
    function checkfocusshortcut(var info: keyeventinfoty): boolean; virtual;
-   procedure handlenavigkeys(var info: keyeventinfoty;
-                                     const nowrap: boolean = false); virtual;
    procedure dokeydownaftershortcut(var info: keyeventinfoty); virtual;
    procedure dokeyup(var info: keyeventinfoty); virtual;
 
@@ -1991,15 +1519,14 @@ type
    function verticalfontheightdelta: boolean; virtual;
    procedure dofontheightdelta(var delta: integer); virtual;
    procedure syncsinglelinefontheight(const lineheight: boolean = false;
-                                                     const space: integer = 2);
+                                                          const space: integer = 2);
 
    procedure setwidgetrect(const Value: rectty);
    procedure internalsetwidgetrect(Value: rectty;
                                 const windowevent: boolean); virtual;
-   function getclientpos: pointty;
+   function getclientpos: pointty;              
    function getclientsize: sizety;
-   procedure setclientsize(const asize: sizety); virtual;
-                                                 //used in tscrollingwidget
+   procedure setclientsize(const asize: sizety); virtual; //used in tscrollingwidget
    function getclientwidth: integer;
    procedure setclientwidth(const avalue: integer);
    function getclientheight: integer;
@@ -2008,17 +1535,17 @@ type
            const transientfor: pwindow; //follow linkedvar state
            const windowevent,nomodalforreset: boolean): modalresultty; virtual;
    procedure internalhide(const windowevent: boolean);
-   function checksubfocus(const aactivate: boolean): boolean; virtual;
    function getnextfocus: twidget;
    function cantabfocus: boolean;
-   function getdisprect: rectty; virtual;
+   function getdisprect: rectty; virtual; 
                 //origin pos, clamped in view by activate
 
    function getshrinkpriority: integer; virtual; //default 0
    procedure tryshrink(const aclientsize: sizety); virtual;
    function calcminscrollsize: sizety; virtual;
+   function minscrollsize: sizety; //uses cache
    function getminshrinkpos: pointty; virtual;
-   function calcminshrinksize: sizety; virtual;
+   function getminshrinksize: sizety; virtual;
    function getcontainer: twidget; virtual;
    function getchildwidgets(const index: integer): twidget; virtual;
 
@@ -2037,35 +1564,16 @@ type
 
    function getclientrect: rectty;
    function windowpo: pwindowty;
-   function canclose1: boolean;
-
-   function getiassistiveclient(): iassistiveclient virtual;
-    //iassistiveclient
-   function getassistiveparent(): iassistiveclient virtual;
-   function getassistivewidget(): tobject virtual;
-   function getassistivename(): msestring virtual;
-   function getassistivecaption(): msestring virtual;
-   function getassistivetext(): msestring virtual;
-   function getassistivecaretindex(): int32 virtual;
-   function getassistivehint(): msestring virtual;
-   function getassistiveflags(): assistiveflagsty virtual;
-  {$ifdef mse_with_ifi}
-   function getifidatalinkintf(): iifidatalink virtual;
-  {$endif}
+   function canclose1: boolean; 
   public
    constructor create(aowner: tcomponent); overload; override;
    constructor create(const aowner: tcomponent;
-                                  const aparentwidget: twidget); overload;
-   constructor create(const aowner: tcomponent;
                       const aparentwidget: twidget;
-                      const aiswidget: boolean{ = true}); overload;
-                      //uses setlockedparentwidget
-   constructor createandinit(const aowner: tcomponent;
-                                 const aparentwidget: twidget;
-                                           const aiswidget: boolean); overload;
-                      //uses setlockedparentwidget
+                      const aiswidget: boolean = true); overload;
+   constructor createandinit(const aowner: tcomponent; 
+                      const aparentwidget: twidget); overload;
    destructor destroy; override;
-   procedure afterconstruction; override;
+   procedure afterconstruction; override;   
    procedure initnewcomponent(const ascale: real); override;
                      //called before inserting in parentwidget
    procedure initnewwidget(const ascale: real); virtual;
@@ -2074,20 +1582,15 @@ type
    procedure createface;
    procedure createfont;
    procedure createfontempty;
-   procedure checkautosize();
-   procedure updatehotkeys() virtual;
 
    function isloading: boolean;      //checks ws_loadlock and csdestroing too
-   procedure beginupdate; //sets ws_loadlock and noinvalidate
-   procedure endupdate;
    function canmouseinteract: boolean; //checks csdesigning and cssubcomponent
-   function canassistive(): boolean virtual;
    function widgetstate: widgetstatesty;                 //iframe
    property widgetstate1: widgetstates1ty read fwidgetstate1;
    function hasparent: boolean; override;               //tcomponent
    function getparentcomponent: tcomponent; override;   //tcomponent
    function hascaret: boolean;
-   function canwindow: boolean;
+   function canwindow: boolean; 
             //true if twindow allocated or not rootwidget destroying
    function windowallocated: boolean;
                 //true if winid allocated and not loading and not destroying
@@ -2100,9 +1603,8 @@ type
    function canclose(const newfocus: twidget = nil): boolean; virtual;
    function canparentclose(const newfocus: twidget): boolean; overload;
                    //window.focusedwidget is first checked if it is descendant
-   function forceclose: boolean; //newfocus=nil, sets ws1_forceclose, true if ok
    function canparentclose: boolean; overload;
-                   //newfocus = window.focusedwidget
+                   //newfocus = window.focusedwidget      
    function canfocus: boolean; virtual;
    function setfocus(aactivate: boolean = true): boolean; virtual;//true if ok
    procedure parentfocus; //sets focus to self or focusable parent
@@ -2111,14 +1613,13 @@ type
                        //nil if can not focus
    function firsttabfocus: twidget;
    function lasttabfocus: twidget;
-   function nexttaborder(const down: boolean = false;
-                                        nowrap: boolean = false): twidget;
+   function nexttaborder(const down: boolean = false): twidget;
    function focusback(const aactivate: boolean = true): boolean; virtual;
                                //false if focus not changed
 
    function parentcolor: colorty;
    function actualcolor: colorty; virtual;
-   function actualopaquecolor: colorty; virtual;
+   function actualopaquecolor: colorty;
    function backgroundcolor: colorty;
    function translatecolor(const acolor: colorty): colorty;
 
@@ -2142,20 +1643,14 @@ type
    procedure bringtofront;
    procedure sendtoback;
    procedure stackunder(const predecessor: twidget);
-   procedure setchildorder(const achildren: widgetarty); overload;
-                //last is top, nil items ignored
 
    procedure paint(const canvas: tcanvas); virtual;
    procedure update; virtual;
    procedure scrollwidgets(const dist: pointty);
-   procedure scrollrect(const dist: pointty; const rect: rectty;
-                                scrollcaret: boolean); //origin = paintrect.pos
+   procedure scrollrect(const dist: pointty; const rect: rectty; scrollcaret: boolean);
+                             //origin = paintrect.pos
    procedure scroll(const dist: pointty);
                             //scrolls paintrect and widgets
-   procedure clampinview(const arect: rectty;
-                            const bottomright: boolean = false); virtual;
-                    //origin paintpos
-
    procedure getcaret;
    procedure scrollcaret(const dist: pointty);
    function mousecaptured: boolean;
@@ -2171,11 +1666,11 @@ type
 
    procedure invalidatewidget;     //invalidates whole widget
    procedure invalidate;           //invalidates clientrect
-   procedure invalidaterect(const rect: rectty;
+   procedure invalidaterect(const rect: rectty; 
                const org: originty = org_client; const noclip: boolean = false);
    procedure invalidateframestate;
    procedure invalidateframestaterect(const rect: rectty;
-               const aframe: tcustomframe; const org: originty = org_client);
+               const aframe: tcustomframe; const org: originty = org_client);   
    function hasoverlappingsiblings(arect: rectty): boolean; //origin = pos
 
    function window: twindow;
@@ -2186,39 +1681,25 @@ type
    property parentwidget: twidget read fparentwidget write setparentwidget;
    function getrootwidgetpath: widgetarty; //root widget is last
    function widgetcount: integer;
-   function parentwidgetindex: integer;
-                            //index in parentwidget.widgets, -1 if none
-   function indexofwidget(const awidget: twidget): integer;
-   function checkdescendent(awidget: twidget): boolean;
-                    //true if widget is descendent or self
-   function checkancestor(awidget: twidget): boolean;
-                    //true if widget is ancestor or self
-   function containswidget(awidget: twidget): boolean;
-
+   function parentwidgetindex: integer; //index in parentwidget.widgets, -1 if none
    property widgets[const index: integer]: twidget read getwidgets;
    function widgetatpos(var info: widgetatposinfoty): twidget; overload;
    function widgetatpos(const pos: pointty): twidget; overload;
-   function widgetatpos(const pos: pointty;
+   function widgetatpos(const pos: pointty; 
                    const state: widgetstatesty): twidget; overload;
+   function findtagwidget(const atag: integer; const aclass: widgetclassty): twidget;
+              //returns first matching descendent
+   function findwidget(const aname: ansistring): twidget;
+              //searches in countainer.widgets, case insensitive
 
    property container: twidget read getcontainer;
    function containeroffset: pointty;
    function childrencount: integer; virtual;
-   function visiblechildrencount: integer;
-   property children[const index: integer]: twidget read getchildwidgets;
-                                                                      default;
-                               //children of container
-   function findtagchild(const atag: integer;
-                                const aclass: widgetclassty): twidget;
-              //returns first matching descendent
-   function findchild(const aname: ansistring): twidget;
-              //searches in container.widgets, case insensitive
-   function childatpos(const pos: pointty;
+   property children[const index: integer]: twidget read getchildwidgets; default;
+   function childatpos(const pos: pointty; 
                    const clientorigin: boolean = true): twidget; virtual;
    function gettaborderedwidgets: widgetarty;
    function getvisiblewidgets: widgetarty;
-   function getcornerwidget(const side: graphicdirectionty;
-                                        const visibleonly: boolean): twidget;
    function getsortxchildren(const banded: boolean = false): widgetarty;
               //banded -> row,column order
    function getsortychildren(const banded: boolean = false): widgetarty;
@@ -2227,58 +1708,41 @@ type
    procedure addlogicalchildren(var achildren: widgetarty);
    function findlogicalchild(const aname: ansistring): twidget;
                   //case insensitive
-
+   
    property focusedchild: twidget read ffocusedchild;
    property focusedchildbefore: twidget read ffocusedchildbefore;
-   function enteredchild(): twidget;
 
    function mouseeventwidget(const info: mouseeventinfoty): twidget;
+   function checkdescendent(awidget: twidget): boolean;
+                    //true if widget is descendent or self
+   function checkancestor(awidget: twidget): boolean;
+                    //true if widget is ancestor or self
+   function containswidget(awidget: twidget): boolean;
 
    procedure insertwidget(const awidget: twidget); overload;
-   procedure insertwidget(const awidget: twidget;
-                                  const apos: pointty); overload; virtual;
+   procedure insertwidget(const awidget: twidget; const apos: pointty); overload; virtual;
                     //widget can be child
 
-   function iswidgetclick(const info: mouseeventinfoty;
-                                    const caption: boolean = false): boolean;
-   //true if eventtype = et_butonrelease, button is mb_left,
-   // clicked and pos in clientrect or in frame.caption if caption = true,
-   // origin = pos
-   function iswidgetdblclick(const info: mouseeventinfoty;
-                                    const caption: boolean = false): boolean;
-   //true if eventtype = et_butonrelease, button is mb_left,
-   // clicked and pos in clientrect or in frame.caption if caption = true,
-   // and timedlay to last buttonpress is short
-   // origin = pos
-   function iswidgetdblclicked(const info: mouseeventinfoty;
-                                    const caption: boolean = false): boolean;
-   //true if eventkind = ek_buttonrelease, button is mb_left,
-   // and pos in clientrect or in frame.caption if caption = true
-   // and timedelay to last buttonrelease is short
-   // origin = pos
+   function iswidgetclick(const info: mouseeventinfoty; const caption: boolean = false): boolean;
+   //true if eventtype = et_butonrelease, button is mb_left, clicked and pos in clientrect
+   //or in frame.caption if caption = true, origin = pos
    function isclick(const info: mouseeventinfoty): boolean;
-   //true if eventkind = ek_buttonrelease, button is mb_left,
-   // clicked and pos in clientrect
+   //true if eventtype = et_butonrelease, button is mb_left, clicked and pos in clientrect
    function isdblclick(const info: mouseeventinfoty): boolean;
-   //true if eventtype = ek_buttonpress, button is mb_left, pos in clientrect
-   // and timedelay to last buttonpress is short
-   // origin = paintrect.pos
+   //true if eventtype = et_butonpress, button is mb_left, pos in clientrect
+   // and timedlay to last buttonpress is short
    function isdblclicked(const info: mouseeventinfoty): boolean;
-   //true if eventkind in [ek_buttonpress,ek_buttonrelease], button is mb_left,
-   // and timedelay to last same buttonevent is short
+   //true if eventtype in [et_buttonpress,et_butonrelease], button is mb_left,
+   // and timedlay to last same buttonevent is short
    function isleftbuttondown(const info: mouseeventinfoty): boolean; overload;
-   //true if eventkind = ek_buttonpress, button is mb_left, pos in clientrect
-   // origin = paintrect.pos
+   //true if eventtype = et_butonpress, button is mb_left, pos in clientrect
+   //origin = paintrect.pos
    function isleftbuttondown(const info: mouseeventinfoty;
                       const akeyshiftstate: shiftstatesty): boolean; overload;
-
-   function widgetmousepos(const ainfo: mouseeventinfoty): pointty;
-                                    //translates to widgetpos if necessary
+   function widgetmousepos(const ainfo: mouseeventinfoty): pointty; //transaltes to widgetpos if necessary
 
    function rootpos: pointty;
-   function rootwidgetrect: rectty;
    property screenpos: pointty read getscreenpos write setscreenpos;
-
    function clientpostowidgetpos(const apos: pointty): pointty;
    function widgetpostoclientpos(const apos: pointty): pointty;
    function widgetpostopaintpos(const apos: pointty): pointty;
@@ -2286,77 +1750,51 @@ type
    procedure scale(const ascale: real); virtual;
 
    property widgetrect: rectty read fwidgetrect write setwidgetrect;
-   function widgetscreenrect: rectty;        //screen origin
-   function widgetclientrect: rectty;        //origin = clientrect.pos
-
    property pos: pointty read fwidgetrect.pos write setpos;
    property size: sizety read fwidgetrect.size write setsize;
    property minsize: sizety read fminsize write setminsize;
-   function widgetminsize: sizety;
+   function widgetminsize: sizety; 
            //calls checkwidgetsize and frame.checkwidgetsize
-           //checks ws1_clientcxmin,ws1_clientcymin
-   function widgetmaxsize: sizety;
-           //calls checkwidgetsize and frame.checkwidgetsize
-           //checks ws1_clientcxmin,ws1_clientcymin
-
    property maxsize: sizety read fmaxsize write setmaxsize;
    function maxclientsize: sizety; virtual;
-   function minscrollsize: sizety; //uses cache
-   function minshrinksize: sizety; //uses cache
    property bounds_x: integer read fwidgetrect.x write setbounds_x;
    property bounds_y: integer read fwidgetrect.y write setbounds_y;
    property bounds_cx: integer read fwidgetrect.cx write setbounds_cx
                   {default defaultwidgetwidth} stored true;
    property bounds_cy: integer read fwidgetrect.cy write setbounds_cy
                   {default defaultwidgetheight} stored true;
-   property bounds_cxmin: integer read fminsize.cx
-                                      write setbounds_cxmin default 0;
-   property bounds_cymin: integer read fminsize.cy
-                                      write setbounds_cymin default 0;
-   property bounds_cxmax: integer read fmaxsize.cx
-                                      write setbounds_cxmax default 0;
-   property bounds_cymax: integer read fmaxsize.cy
-                                      write setbounds_cymax default 0;
+   property bounds_cxmin: integer read fminsize.cx write setbounds_cxmin default 0;
+   property bounds_cymin: integer read fminsize.cy write setbounds_cymin default 0;
+   property bounds_cxmax: integer read fmaxsize.cx write setbounds_cxmax default 0;
+   property bounds_cymax: integer read fmaxsize.cy write setbounds_cymax default 0;
 
    property left: integer read fwidgetrect.x write setbounds_x;
    property right: integer read getright write setright;
-                //widgetrect.x + widgetrect.cx, sets cx if an_left is set
+                //widgetrect.x + widgetrect.cx, sets cx;
    property top: integer read fwidgetrect.y write setbounds_y;
    property bottom: integer read getbottom write setbottom;
-                //widgetrect.y + widgetrect.cy, sets cy if an_top is set
+                //widgetrect.y + widgetrect.cy, sets cy;
    property width: integer read fwidgetrect.cx write setbounds_cx;
    property height: integer read fwidgetrect.cy write setbounds_cy;
 
    procedure setclippedwidgetrect(arect: rectty);
                 //clips into parentwidget or workarea if no parentwidget
+   
+   property anchors: anchorsty read fanchors write setanchors default defaultanchors;
+   property defaultfocuschild: twidget read getdefaultfocuschild write setdefaultfocuschild;
 
-   property anchors: anchorsty read fanchors write setanchors
-                                                      default defaultanchors;
-   property defaultfocuschild: twidget read getdefaultfocuschild
-                                                write setdefaultfocuschild;
-
-   function framedim: sizety;                //widgetrect.size - paintrect.size
-   function framedimnoscrollbar: sizety;
+   function framewidth: sizety;              //widgetrect.size - paintrect.size
    function clientframewidth: sizety;        //widgetrect.size - clientrect.size
-   function innerclientframewidth: sizety;
-                          //widgetrect.size - innerclientrect.size
-   function innerframewidth: sizety;
-                          //clientrect.size - innerclientrect.size
+   function innerclientframewidth: sizety;   //widgetrect.size - innerclientrect.size
+   function innerframewidth: sizety;         //clientrect.size - innerclientrect.size  
    function framerect: rectty;               //origin = pos
    function framepos: pointty;               //origin = pos
-   property framesize: sizety read getframesize write setframesize;
-                                            //widget size - outer frame
-   property framewidth: integer read geframewidth write setframewidth;
-   property frameheight: integer read getframeheight write setframeheight;
-   function frameinnerrect: rectty;          //origin = pos
-
+   function framesize: sizety;
    function paintrect: rectty;               //origin = pos
    function paintclientrect: rectty;         //origin = clientrect
    function paintpos: pointty;               //origin = pos
    property paintsize: sizety read getpaintsize write setpaintsize;
-   property paintwidth: integer read getpaintwidth write setpaintwidth;
-   property paintheight: integer read getpaintheight write setpaintheight;
-   function clippedpaintrect: rectty;        //origin = pos,
+   function clippedpaintrect: rectty;        //origin = pos, 
                                              //clipped by all parentpaintrects
    function innerpaintrect: rectty;          //origin = pos
 
@@ -2366,7 +1804,6 @@ type
    function paintsizerect: rectty;           //pos = nullpoint
    function clientsizerect: rectty;          //pos = nullpoint
    function containerclientsizerect: rectty; //pos = nullpoint
-
    property clientrect: rectty read getclientrect; //origin = paintrect.pos
    procedure changeclientsize(const delta: sizety); //asynchronous
    property clientsize: sizety read getclientsize write setclientsize;
@@ -2376,31 +1813,25 @@ type
    function clientwidgetrect: rectty;        //origin = pos
    function clientwidgetpos: pointty;        //origin = pos
    function clientparentpos: pointty;        //origin = parentwidget.pos
-   property parentclientpos: pointty read getparentclientpos
-                                                  write setparentclientpos;
+   property parentclientpos: pointty read getparentclientpos write setparentclientpos;
                                              //origin = parentwidget.clientpos
-   function paintparentrect: rectty;         //origin = parentwidget.pos
    function paintparentpos: pointty;         //origin = parentwidget.pos
    function parentpaintpos: pointty;         //origin = parentwidget.paintpos
                                              //nullpoint if parent = nil
    function refpos(const aorigin: originty): pointty;
-
+   
    function paintrectparent: rectty;         //origin = paintpos,
                                              //nullrect if parent = nil,
    function clientrectparent: rectty;        //origin = paintpos,
                                              //nullrect if parent = nil,
-   function innerparentrect: rectty;         //origin = parentwidget.pos
    function innerwidgetrect: rectty;         //origin = pos
    function innerclientrect: rectty;         //origin = clientpos
    function innerclientsize: sizety;
    function innerclientpos: pointty;         //origin = clientpos
    function innerclientframe: framety;
-   function innerclientpaintpos: pointty;    //origin = paintpos
    function innerclientwidgetpos: pointty;   //origin = pos
    procedure innertopaintsize(var asize: sizety);
-   procedure outertopaintsize(var asize: sizety);
    procedure painttowidgetsize(var asize: sizety);
-   procedure widgettopaintsize(var asize: sizety);
 
    property frame: tcustomframe read getframe write setframe;
    property face: tcustomface read getface write setface;
@@ -2413,46 +1844,42 @@ type
 
    function active: boolean;
    function entered: boolean;
-   function activeentered: boolean;
+   function activeentered: boolean; 
      //true if entered and window is regularactivewindow or inactivated
-   function activefocused(): boolean;
    function focused: boolean;
    function clicked: boolean;
 
+   function indexofwidget(const awidget: twidget): integer;
+
    procedure changedirection(const avalue: graphicdirectionty;
-                                        var dest: graphicdirectionty); virtual;
+                                            var dest: graphicdirectionty); virtual;
    procedure placexorder(const startx: integer; const dist: array of integer;
                 const awidgets: array of twidget;
                 const endmargin: integer = minint);
-               //origin = clientpos, endmargin by size adjust of widgets
+               //origin = clientpos, endmargin by size adjust of widgets 
                //with [an_left,an_right], minint -> no change
    procedure placeyorder(const starty: integer; const dist: array of integer;
                 const awidgets: array of twidget;
                 const endmargin: integer = minint);
-               //origin = clientpos, endmargin by size adjust of widgets
+               //origin = clientpos, endmargin by size adjust of widgets 
                //with [an_top,an_bottom], minint -> no change
-   function alignx(const mode: widgetalignmodety;
-                        const awidgets: array of twidget;
-                        const glue: widgetalignmodety = wam_none;
-                        const margin: integer = 0): integer;
-                        //returns reference point, margin reference = clientrect
    function aligny(const mode: widgetalignmodety;
-                        const awidgets: array of twidget;
-                        const glue: widgetalignmodety = wam_none;
-                        const margin: integer = 0): integer;
-                        //returns reference point, margin reference = clientrect
-   property optionswidget: optionswidgetty read foptionswidget
+                        const awidgets: array of twidget): integer;
+                        //returns reference point
+   function alignx(const mode: widgetalignmodety;
+                        const awidgets: array of twidget): integer;
+                        //returns reference point
+
+   property optionswidget: optionswidgetty read foptionswidget 
                  write setoptionswidget default defaultoptionswidget;
-   property optionswidget1: optionswidget1ty read foptionswidget1
+   property optionswidget1: optionswidget1ty read foptionswidget1 
                  write setoptionswidget1 default defaultoptionswidget1;
-   property optionsskin: optionsskinty read foptionsskin
+   property optionsskin: optionsskinty read foptionsskin 
                                             write setoptionsskin default [];
    function actualcursor(const apos: pointty): cursorshapety; virtual;
                              //origin = pos
-   property cursor: cursorshapety read fcursor write setcursor
-                                                  default cr_default;
-   property color: colorty read fcolor write setcolor
-                                                default defaultwidgetcolor;
+   property cursor: cursorshapety read fcursor write setcursor default cr_default;
+   property color: colorty read fcolor write setcolor default defaultwidgetcolor;
    property visible: boolean read getvisible write setvisible default true;
    property enabled: boolean read getenabled write setenabled default true;
    property taborder: integer read ftaborder write settaborder default 0;
@@ -2468,7 +1895,7 @@ type
  pwidget = ^twidget;
 
  windowstatety = (tws_posvalid,tws_sizevalid,tws_windowvisible,
-                  tws_focusoutpending,tws_windowshowpending,
+                  tws_windowshowpending,
                   {tws_modal,}tws_modalfor,tws_modalcalling,
                   tws_needsdefaultpos,
                   tws_closing,tws_painting,tws_activating,
@@ -2477,7 +1904,7 @@ type
                   tws_grouphidden,tws_groupminimized,tws_groupmaximized,
                   tws_transientforminimized,
                   tws_grab,tws_activatelocked,
-                  tws_canvasoverride,tws_destroying,tws_candefocus,
+                  tws_canvasoverride,tws_destroying,
                   tws_raise,tws_lower);
  windowstatesty = set of windowstatety;
 
@@ -2495,21 +1922,7 @@ type
   windowevent,nomodalforreset: boolean
  end;
  pshowinfoty = ^showinfoty;
-
- twindowevent = class(tmseevent)
-  private
-  public
-   fwinid: winidty;
-   constructor create(akind: eventkindty; winid: winidty);
- end;
- pwindowevent = ^twindowevent;
- treparentevent = class(twindowevent)
-  public
-   fparent: winidty;
-   constructor create(akind: eventkindty; winid: winidty;
-                      aparent: winidty);
- end;
-
+ 
  twindow = class(teventobject,icanvas)
   private
    ffocuscount: longword; //for recursive setwidgetfocus
@@ -2530,12 +1943,11 @@ type
    fnormalwindowrect: rectty;
    fcaption: msestring;
    fscrollnotifylist: tnotifylist;
+//   fdestroyevent: pointer; //tdestroywindowevent
    fsyscontainer: syswindowty;
    fmodalwidget: twidget;
    fmodallevel: integer;
-   fsysdragobject: tobject; //tsysmimedragobject;
-
-   fopacity: realty;
+   
    procedure setcaption(const avalue: msestring);
    procedure widgetdestroyed(widget: twidget);
 
@@ -2552,15 +1964,13 @@ type
    function canactivate: boolean;
      //icanvas
    procedure gcneeded(const sender: tcanvas);
-//   function getmonochrome: boolean;
-   function getkind: bitmapkindty;
+   function getmonochrome: boolean;
    function getsize: sizety;
    procedure getcanvasimage(const bgr: boolean; var aimage: maskedimagety);
 
    procedure checkrecursivetransientfor(const value: twindow);
    procedure settransientfor(const Value: twindow; const windowevent: boolean);
    procedure sizeconstraintschanged;
-   procedure setsizeconstraints(const amin,amax: sizety);
    procedure createwindow;
    procedure checkwindowid;
    procedure checkwindow(windowevent: boolean);
@@ -2597,13 +2007,12 @@ type
    function getscreenpos: pointty;
    procedure setscreenpos(const avalue: pointty);
    function getmodalfor: boolean;
-   procedure setopacity(const avalue: realty);
   protected
    fstate: windowstatesty;
    fgdi: pgdifunctionaty;
    fwindow: windowty;
    fcontainer: winidty;
-   fownerwidget: twidget;
+   fowner: twidget;
    fcanvas: tcanvas;
    {$ifndef use_singlecanvas}
    fasynccanvas: tcanvas;
@@ -2613,22 +2022,18 @@ type
    procedure setasynccanvas(const acanvas: tcanvas);
            //used from treport
    procedure releaseasynccanvas;
-   procedure processsysdnd(const event: twindowevent); //tsysdndevent
-
+   
    function getwindowsize: windowsizety;
    procedure setwindowsize(const value: windowsizety);
    function getwindowpos: windowposty;
    procedure setwindowpos(const Value: windowposty);
-   procedure invalidaterect(const arect: rectty; const sender: twidget = nil);
+   procedure invalidaterect(const rect: rectty; const sender: twidget = nil);
                        //clipped by paintrect of sender.parentwidget
    procedure mouseparked;
    procedure movewindowrect(const dist: pointty; const rect: rectty); virtual;
-   procedure checkmousewidget(const info: mouseeventinfoty;
-                                                    var capture: twidget);
-   procedure dispatchmouseevent(var info: moeventinfoty;
-                                               capture: twidget); virtual;
-   procedure dispatchkeyevent(const eventkind: eventkindty;
-                                            var info: keyeventinfoty); virtual;
+   procedure checkmousewidget(const info: mouseeventinfoty; var capture: twidget);
+   procedure dispatchmouseevent(var info: moeventinfoty; capture: twidget); virtual;
+   procedure dispatchkeyevent(const eventkind: eventkindty; var info: keyeventinfoty); virtual;
    procedure sizechanged; virtual;
    procedure poschanged; virtual;
    procedure internalactivate(const windowevent: boolean;
@@ -2645,28 +2050,26 @@ type
                                                  //nil = platform default
    destructor destroy; override;
    procedure destroywindow;
-   procedure recreatewindow();
    procedure registeronscroll(const method: notifyeventty);
    procedure unregisteronscroll(const method: notifyeventty);
-
+   
    function beginmodal: boolean; overload;//true if window destroyed
    procedure endmodal;
    function modal: boolean;
    function modalwindowbefore: twindow;
-   function transientforstackactive: boolean;
+   function transientforstackactive: boolean; 
          //true if the window is member of the active transient for stack
    procedure activate(const force: boolean = false);
    function active: boolean;
-   function deactivateintermediate: boolean;
+   function deactivateintermediate: boolean; 
          //true if ok, sets app.finactivewindow
-   procedure reactivate(const force: boolean = false);
-                                       //clears app.finactivewindow
+   procedure reactivate(const force: boolean = false); //clears app.finactivewindow
    procedure update;
    function candefocus: boolean;
    procedure nofocus;
    property focuscount: longword read ffocuscount;
    function close: boolean; overload; //true if ok
-   function close(const amodalresult: modalresultty): boolean;
+   function close(const amodalresult: modalresultty): boolean; 
                             overload;//true if ok
    procedure beginmoving; //lock window rect modification
    procedure endmoving;
@@ -2679,18 +2082,15 @@ type
    procedure stackover(const predecessor: twindow);
        //stacking is performed in mainloop idle, nil means bottom
    function stackedunder(const avisible: boolean = false): twindow; //nil if top
-   function stackedover(const avisible: boolean = false): twindow;
-                                                               //nil if bottom
+   function stackedover(const avisible: boolean = false): twindow;  //nil if bottom
    function hastransientfor: boolean;
-   function istransientfor(const base: twindow): boolean;
-                                //base can be nil
-   function defaulttransientfor: twindow;
+//   procedure removefocuslock;
 
    function capturemouse: boolean; //true for new grab
    procedure releasemouse;
    function mousecaptured: boolean;
-
-   procedure postkeyevent(const akey: keyty;
+   
+   procedure postkeyevent(const akey: keyty; 
         const ashiftstate: shiftstatesty = []; const release: boolean = false;
                   const achars: msestring = '');
 
@@ -2702,16 +2102,15 @@ type
    function normalwindowrect: rectty;
    property updateregion: regionty read fupdateregion.region;
    function updaterect: rectty;
+   function defaulttransientfor: twindow;
 
    procedure registermovenotification(sender: iobjectlink);
    procedure unregistermovenotification(sender: iobjectlink);
 
    property options: windowoptionsty read foptions;
    function ispopup: boolean; {$ifdef FPC}inline;{$endif}
-   property owner: twidget read fownerwidget;
+   property owner: twidget read fowner;
    property focusedwidget: twidget read ffocusedwidget;
-   function firstfocuswidget(): twidget;
-   function lastfocuswidget(): twidget;
    property transientfor: twindow read ftransientfor;
    property modalfor: boolean read getmodalfor;
    property modalresult: modalresultty read fmodalresult write setmodalresult;
@@ -2720,13 +2119,13 @@ type
    property localshortcuts: boolean read getlocalshortcuts write setlocalshortcuts;
    property windowpos: windowposty read getwindowpos write setwindowpos;
    property caption: msestring read fcaption write setcaption;
-   property container: winidty read fcontainer
+   property container: winidty read fcontainer 
                                     write setcontainer default 0;
-   property syscontainer: syswindowty read fsyscontainer
+   property syscontainer: syswindowty read fsyscontainer 
                                     write setsyscontainer default sywi_none;
 
    property screenpos: pointty read getscreenpos write setscreenpos;
-   property decoratedwidgetrect: rectty read getdecoratedwidgetrect
+   property decoratedwidgetrect: rectty read getdecoratedwidgetrect 
                                      write setdecoratedwidgetrect;
    property decoratedpos: pointty read getdecoratedpos
                                      write setdecoratedpos;
@@ -2740,8 +2139,6 @@ type
                                      write setdecoratedbounds_cx;
    property decoratedbounds_cy: integer read getdecoratedbounds_cy
                                      write setdecoratedbounds_cy;
-   property opacity: realty read fopacity write setopacity;
-                      //default emptyreal -> undefined
  end;
 
  windowarty = array of twindow;
@@ -2749,11 +2146,19 @@ type
  windowaty = array[0..0] of twindow;
  pwindowaty = ^windowaty;
 
- windowchangeeventty = procedure(const oldwindow,newwindow: twindow) of object;
- widgetchangeeventty = procedure(const oldwidget,newwidget: twidget) of object;
+ activechangeeventty = procedure(const oldwindow,newwindow: twindow) of object;
+ focuschangeeventty = procedure(const oldwidget,newwidget: twidget) of object;
  windoweventty = procedure(const awindow: twindow) of object;
  winideventty = procedure(const awinid: winidty) of object;
  booleaneventty = procedure(const avalue: boolean) of object;
+
+ twindowevent = class(tmseevent)
+  private
+  public
+   fwinid: winidty;
+   constructor create(akind: eventkindty; winid: winidty);
+ end;
+ pwindowevent = ^twindowevent;
 
  twindowrectevent = class(twindowevent)
   private
@@ -2786,7 +2191,7 @@ type
    constructor create(const winid: winidty; const pos: pointty;
                       const shiftstate: shiftstatesty; atimestamp: longword);
  end;
-
+ 
  tkeyevent = class(twindowevent)
   private
    ftimestamp: longword;
@@ -2796,12 +2201,9 @@ type
    fchars: msestring;
    fbutton: mousebuttonty;
    fshiftstate: shiftstatesty;
-   fposted: boolean;
    constructor create(const winid: winidty; const release: boolean;
                   const key,keynomod: keyty; const shiftstate: shiftstatesty;
-                  const chars: msestring; const atimestamp: longword;
-                  const posted: boolean = false);
-                     //do not dispatch if active window is not winid
+                  const chars: msestring; const atimestamp: longword);
    property timestamp: longword read ftimestamp; //usec
  end;
 
@@ -2811,9 +2213,9 @@ type
    constructor create(const dest: ievent; const asize: sizety);
  end;
 
- tguiapplication = class;
+ tguiapplication = class; 
  waitidleeventty = procedure(const sender: tguiapplication; var again: boolean)
-                                      of object;
+                                      of object; 
  helpeventty = procedure(const sender: tmsecomponent;
                                       var handled: boolean) of object;
 
@@ -2825,18 +2227,14 @@ type
   keynomod: keyty;
   shiftstate: shiftstatesty;
  end;
-
- guiappoptionty = (gao_forcezorder);
- guiappoptionsty = set of guiappoptionty;
-
- keyinfoarty = array of keyinfoty;
+ 
+ keyinfoarty = array of keyinfoty; 
  tguiapplication = class(tcustomapplication)
   private
    fwindows: windowarty;
    fwindowupdateindex: integer;
    fgroupzorder: windowarty;
    factivewindow: twindow;
-   flastactivewindow: twindow;
    fwantedactivewindow: twindow; //set by twindow.activate if modal
    finactivewindow: twindow;
    ffocuslockwindow: twindow;
@@ -2850,7 +2248,6 @@ type
    fkeyboardcapturewidget: twidget;
    fclientmousewidget: twidget;
    fhintedwidget: twidget;
-   fhintedid: int32;
    fhintforwidget: twidget;
    fhintinfo: hintinfoty;
    fmainwindow: twindow;
@@ -2882,12 +2279,10 @@ type
    flastinputtimestamp: longword;
    flastmousewheeltimestamp: longword;
    flastmousewheeltimestampbefore: longword;
-
+   
    fcurrmodalinfo: pmodalinfoty;
-   flooplevel: integer;
-
-   fmousewheelsensitivity: real;
-   fhintwidgetclass: widgetclassty;
+//   fmodallevel: integer;
+   
    procedure invalidated;
    function grabpointer(const aid: winidty): boolean;
    function ungrabpointer: boolean;
@@ -2898,8 +2293,7 @@ type
    procedure activatehint;
    procedure deactivatehint;
    procedure hinttimer(const sender: tobject);
-   procedure internalshowhint(const sender: twidget;
-                                       const ahintwidget: twidget);
+   procedure internalshowhint(const sender: twidget);
    procedure setmainwindow(const Value: twindow);
    procedure setcursorshape(const avalue: cursorshapety);
    procedure setwidgetcursorshape(const avalue: cursorshapety);
@@ -2907,12 +2301,7 @@ type
    procedure dothreadterminated(const sender: tthreadcomp);
    procedure dowaitidle(var again: boolean);
    procedure dowaitidle1(var again: boolean);
-   function getforcezorder: boolean;
-   procedure setforcezorder(const avalue: boolean);
-  protected
-   flastshowmenuwidget: twidget;
-   foptionsgui: guiappoptionsty;
-   fgdilockcount: int32;
+  protected  
    procedure sysevent(const awindow: winidty; var aevent: syseventty;
                                                     var handled: boolean);
    procedure sethighrestimer(const avalue: boolean); override;
@@ -2924,82 +2313,63 @@ type
    procedure doafterrun; override;
    procedure internalinitialize; override;
    procedure internaldeinitialize;  override;
-//   procedure dobeginthreadlock; override;
-//   procedure doendthreadlock; override;
    procedure objecteventdestroyed(const sender: tobjectevent); override;
-   procedure dragstarted; //calls dragstarted of all known widgets
-   procedure internalpackwindowzorder(); virtual;
-   procedure zorderinvalid();
   public
    constructor create(aowner: tcomponent); override;
    procedure destroyforms;
-   property optionsgui: guiappoptionsty read foptionsgui
-                                                write foptionsgui default [];
-   property forcezorder: boolean read getforcezorder write setforcezorder;
    procedure langchanged; override;
    procedure settimer(const us: integer); override;
    function findwindow(aid: winidty; out window: twindow): boolean;
    procedure checkwindowrect(winid: winidty; var rect: rectty);
                         //callback from win32 wm_sizing
 
-   function createform(instanceclass: widgetclassty; var reference): twidget;
+   procedure createform(instanceclass: widgetclassty; var reference);
    procedure invalidate; //invalidates all registered forms
+   
    procedure processmessages; override; //handle with care!
    function idle: boolean; override;
    function modallevel: integer; override;
 
-   function unlockall: integer override;
-   procedure relockall(count: integer) override;
-   procedure beginnoignorewaitevents;
-   procedure endnoignorewaitevents;
+   procedure beginnoignorewaitevents;   
+   procedure endnoignorewaitevents;   
    procedure beginwait(const aprocessmessages: boolean = false); override;
    procedure endwait; override;
    function waiting: boolean;
    function waitescaped: boolean; override;
                 //true if escape pressed while waiting
 
-   procedure resetwaitdialog;
+   procedure resetwaitdialog;   
    function waitdialog(const athread: tthreadcomp = nil; const atext: msestring = '';
                    const caption: msestring = '';
                    const acancelaction: notifyeventty = nil;
                    const aexecuteaction: notifyeventty = nil;
-                   const aidleaction: waitidleeventty = nil;
-                   const acontinueaction: notifyeventty = nil): boolean;
+                   const aidleaction: waitidleeventty = nil): boolean;
               //true if not canceled
    procedure terminatewait;
    procedure cancelwait;
    function waitstarted: boolean;
    function waitcanceled: boolean;
-   function waitterminated: boolean;
+   function waitterminated: boolean;   
 
    procedure showexception(e: exception; const leadingtext: msestring = ''); override;
    procedure showasyncexception(e: exception; const leadingtext: msestring = '');
                 //messege posted in queue
    procedure errormessage(const amessage: msestring); override;
-
-   property hintwidgetclass: widgetclassty read fhintwidgetclass
-                                                    write fhintwidgetclass;
    procedure inithintinfo(var info: hintinfoty; const ahintedwidget: twidget);
-                                   //hint at mousepos
-   procedure initwidgethintinfo(var info: hintinfoty;
-                                       const ahintedwidget: twidget);
-                                   //hint at widgetrect
    procedure showhint(const sender: twidget; const hint: msestring;
-         const aposrect: rectty; const aplacement: captionposty = cp_bottomleft;
+              const aposrect: rectty; const aplacement: captionposty = cp_bottomleft;
               const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
                  // -1 defaultshowtime if ow_timedhint in sender.optionswidget
-              const aflags: hintflagsty = defaulthintflags);
+              const aflags: hintflagsty = defaulthintflags
+                      ); overload;
    procedure showhint(const sender: twidget; const hint: msestring;
               const apos: pointty;
               const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
                  // -1 defaultshowtime if ow_timedhint in sender.optionswidget
-              const aflags: hintflagsty = defaulthintflags);
-   procedure showhint(const sender: twidget; const info: hintinfoty);
-   procedure showhint(const sender: twidget; const hint: msestring);
-   procedure showhint(const sender: twidget; const hintwidget: twidget;
-             const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
-                 // -1 defaultshowtime if ow_timedhint in sender.optionswidget
-              const aflags: hintflagsty = defaulthintflags);
+              const aflags: hintflagsty = defaulthintflags
+                      ); overload;
+   procedure showhint(const sender: twidget; const info: hintinfoty); overload;
+   procedure showhint(const sender: twidget; const hint: msestring); overload;
    procedure hidehint;
    procedure restarthint(const sender: twidget);
    function hintedwidget: twidget; //last hinted widget
@@ -3014,34 +2384,25 @@ type
                 //returns helpcontext of mouse widget, '' if none;
 
    function active: boolean;
-   procedure activate();
    function screenrect(const awindow: twindow = nil): rectty;
                           //nil -> virtualscreeen
    function workarea(const awindow: twindow = nil): rectty;
                           //nil -> current active window
-   function ppmm(const awindow: twindow = nil): complexty;
-         //nil -> current active window, pixel per mm,
-         //result.re -> horizontal
-         //result.im -> vertical
    property activewindow: twindow read factivewindow;
-   property lastactivewindow: twindow read flastactivewindow;
    property inactivewindow: twindow read finactivewindow;
-   function normalactivewindow: twindow;
+   function normalactivewindow: twindow; 
         //active window or active window after closing modal stack if defined
    function regularactivewindow: twindow; //first no transientfor window
    function unreleasedactivewindow: twindow;
    function activewidget: twidget;
    function activerootwidget: twidget;
-   property lastshowmenuwidget: twidget read flastshowmenuwidget;
-
+   
    function windowatpos(const pos: pointty): twindow;
    function findwidget(const namepath: string; out awidget: twidget): boolean;
              //false if invalid namepath, '' -> nil and true
-   procedure sortzorder();
+   procedure sortzorder;
              //window list is ordered by z, bottom first, top last,
              //invisibles first
-   procedure packwindowzorder();
-
    function windowar: windowarty;
    function winidar: winidarty;
    function windowcount: integer;
@@ -3050,17 +2411,15 @@ type
       //lowest visible window in stackorder, calls sortzorder
    function topwindow: twindow;
       //highest visible window in stackorder, calls sortzorder
-   function candefocus(const caller: tobject = nil): boolean; override;
-      //checks candefocus of all windows expect caller
+   function candefocus: boolean; override;
+      //checks candefocus of all windows
 
    procedure registeronkeypress(const method: keyeventty);
    procedure unregisteronkeypress(const method: keyeventty);
    procedure registeronshortcut(const method: keyeventty);
    procedure unregisteronshortcut(const method: keyeventty);
-   procedure registeronwidgetactivechanged(const method: widgetchangeeventty);
-   procedure unregisteronwidgetactivechanged(const method: widgetchangeeventty);
-   procedure registeronwindowactivechanged(const method: windowchangeeventty);
-   procedure unregisteronwindowactivechanged(const method: windowchangeeventty);
+   procedure registeronactivechanged(const method: activechangeeventty);
+   procedure unregisteronactivechanged(const method: activechangeeventty);
    procedure registeronwindowdestroyed(const method: windoweventty);
    procedure unregisteronwindowdestroyed(const method: windoweventty);
    procedure registeronwiniddestroyed(const method: winideventty);
@@ -3070,7 +2429,7 @@ type
    procedure registersyseventhandler(const method: syseventhandlereventty);
    procedure unregistersyseventhandler(const method: syseventhandlereventty);
 
-   function terminate(const sender: twindow = nil): boolean;
+   function terminate(const sender: twindow = nil): boolean; 
         //calls canclose of all windows except sender and terminatequery
         //true if terminated
    function terminating: boolean;
@@ -3078,14 +2437,16 @@ type
    function shortcutting: boolean; //widget is in doshortcut procedure
    property caret: tcaret read fcaret;
    property mouse: tmouse read fmouse;
+   procedure dragstarted; //calls dragstarted of all known widgets
    procedure mouseparkevent; //simulates mouseparkevent
    procedure delayedmouseshift(const ashift: pointty);
    procedure calcmousewheeldelta(var info: mousewheeleventinfoty;
-               const fmin,fmax,deltamin,deltamax: real);
+               const fmin,fmax,deltamin,deltamax: real);  
    function mousewheelacceleration(const avalue: real): real; overload;
    function mousewheelacceleration(const avalue: integer): integer; overload;
+
    procedure clearkeyhistory; //called by matching shortcut sequence
-   property keyhistory: keyinfoarty read fkeyhistory;
+   property keyhistory: keyinfoarty read fkeyhistory;   
                         //does not contain modifier keys
    property lastinputtimestamp: longword read flastinputtimestamp;
                         //microseconds
@@ -3094,7 +2455,7 @@ type
    property lastbutton: mousebuttonty read flastbutton;
    property mouseeventinfo: pmouseeventinfoty read fmouseeventinfo;
                    //nil if no mouse event processing
-   property mousewheeleventinfo: pmousewheeleventinfoty
+   property mousewheeleventinfo: pmousewheeleventinfoty 
                                              read fmousewheeleventinfo;
                    //nil if no mousewheel event processing
    property keyeventinfo: pkeyeventinfoty read fkeyeventinfo;
@@ -3109,7 +2470,6 @@ type
    property mousewidget: twidget read fmousewidget;
    property clientmousewidget: twidget read fclientmousewidget;
    property mousecapturewidget: twidget read fmousecapturewidget;
-   property keyboardcapturewidget: twidget read fkeyboardcapturewidget;
    property mainwindow: twindow read fmainwindow write setmainwindow;
    property thread: threadty read fthread;
 
@@ -3117,18 +2477,12 @@ type
    property buttonreleasewidgetbefore: twidget read fbuttonreleasewidgetbefore;
    property dblclicktime: integer read fdblclicktime write fdblclicktime default
                  defaultdblclicktime; //us
-   property mousewheelsensitivity: real read fmousewheelsensitivity
-                                                  write fmousewheelsensitivity;
-   property mousewheelfrequmin: real read fmousewheelfrequmin
-                                                  write fmousewheelfrequmin;
-   property mousewheelfrequmax: real read fmousewheelfrequmax
-                                                  write fmousewheelfrequmax;
-   property mousewheeldeltamin: real read fmousewheeldeltamin
-                                                  write fmousewheeldeltamin;
-   property mousewheeldeltamax: real read fmousewheeldeltamax
-                                                  write fmousewheeldeltamax;
-   property mousewheelaccelerationmax: real read fmousewheelaccelerationmax
-                                              write fmousewheelaccelerationmax;
+   property mousewheelfrequmin: real read fmousewheelfrequmin write fmousewheelfrequmin;
+   property mousewheelfrequmax: real read fmousewheelfrequmax write fmousewheelfrequmax;
+   property mousewheeldeltamin: real read fmousewheeldeltamin write fmousewheeldeltamin;
+   property mousewheeldeltamax: real read fmousewheeldeltamax write fmousewheeldeltamax;
+   property mousewheelaccelerationmax: real read fmousewheelaccelerationmax 
+                                  write fmousewheelaccelerationmax;
  end;
 
 function translatewidgetpoint(const point: pointty;
@@ -3144,14 +2498,6 @@ function translatepaintpoint(const point: pointty;
 procedure translatepaintpoint1(var point: pointty;
                  const source,dest: twidget);
 function translatepaintrect(const rect: rectty;
-                 const source,dest: twidget): rectty;
-    //translates from source widget to dest widget, to screen if dest = nil
-    //source = nil -> screen
-function translatewidgettopaintpoint(const point: pointty;
-                 const source,dest: twidget): pointty;
-procedure translatewidgettopaintpoint1(var point: pointty;
-                 const source,dest: twidget);
-function translatewidgettopaintrect(const rect: rectty;
                  const source,dest: twidget): rectty;
     //translates from source widget to dest widget, to screen if dest = nil
     //source = nil -> screen
@@ -3177,11 +2523,11 @@ procedure syncpaintwidth(const awidgets: array of twidget;
 procedure syncpaintheight(const awidgets: array of twidget;
                                const awidgetheight: integer = -1);
                                //biggest if < 0
-      //synchronizes paintheight with paintheight of largest outer framewidth
+      //synchronizes paintheight with paintheight of largest outer framewidth 
       //(ex. largest caption)
 
 function checkshortcut(var info: keyeventinfoty;
-          const caption: msestring; const checkalt: boolean): boolean; overload;
+          const caption: richstringty; const checkalt: boolean): boolean; overload;
 function checkshortcut(var info: keyeventinfoty;
           const key: keyty; const shiftstate: shiftstatesty): boolean; overload;
 
@@ -3191,30 +2537,26 @@ type
  setwidgetintegerty = procedure(const awidget: twidget; const avalue: integer);
  widgetaccessty = record
   pos,size,stop,min,max,opos,osize,ostop,omin,omax: getwidgetintegerty;
-  setpos,setsize,setanchordsize,setstop,setmin,setmax,
+  setpos,setsize,setstop,setmin,setmax,
            setopos,setosize,setostop,setomin,setomax: setwidgetintegerty;
-  anchstop,oanchstop,anchboth,oanchboth: getwidgetbooleanty;
+  anchstop,oanchstop: getwidgetbooleanty;
  end;
  pwidgetaccessty = ^widgetaccessty;
-
+ 
 function wbounds_x(const awidget: twidget): integer;
 procedure wsetbounds_x(const awidget: twidget; const avalue: integer);
 function wbounds_y(const awidget: twidget): integer;
 procedure wsetbounds_y(const awidget: twidget; const avalue: integer);
 function wbounds_cx(const awidget: twidget): integer;
 procedure wsetbounds_cx(const awidget: twidget; const avalue: integer);
-procedure wsetanchord_cx(const awidget: twidget; const avalue: integer);
 function wbounds_cy(const awidget: twidget): integer;
 procedure wsetbounds_cy(const awidget: twidget; const avalue: integer);
-procedure wsetanchord_cy(const awidget: twidget; const avalue: integer);
 function wstopx(const awidget: twidget): integer;
 procedure wsetstopx(const awidget: twidget; const avalue: integer);
 function wstopy(const awidget: twidget): integer;
 procedure wsetstopy(const awidget: twidget; const avalue: integer);
 function wanchstopx(const awidget: twidget): boolean;
 function wanchstopy(const awidget: twidget): boolean;
-function wanchbothx(const awidget: twidget): boolean;
-function wanchbothy(const awidget: twidget): boolean;
 
 function wbounds_cxmin(const awidget: twidget): integer;
 procedure wsetbounds_cxmin(const awidget: twidget; const avalue: integer);
@@ -3239,7 +2581,6 @@ const
   omax: {$ifdef FPC}@{$endif}wbounds_cymax;
   setpos: {$ifdef FPC}@{$endif}wsetbounds_x;
   setsize: {$ifdef FPC}@{$endif}wsetbounds_cx;
-  setanchordsize: {$ifdef FPC}@{$endif}wsetanchord_cx;
   setstop: {$ifdef FPC}@{$endif}wsetstopx;
   setmin: {$ifdef FPC}@{$endif}wsetbounds_cxmin;
   setmax: {$ifdef FPC}@{$endif}wsetbounds_cxmax;
@@ -3250,8 +2591,6 @@ const
   setomax: {$ifdef FPC}@{$endif}wsetbounds_cymax;
   anchstop: {$ifdef FPC}@{$endif}wanchstopx;
   oanchstop: {$ifdef FPC}@{$endif}wanchstopy;
-  anchboth: {$ifdef FPC}@{$endif}wanchbothx;
-  oanchboth: {$ifdef FPC}@{$endif}wanchbothy;
  );
  widgetaccessy: widgetaccessty = (
   pos: {$ifdef FPC}@{$endif}wbounds_y;
@@ -3266,7 +2605,6 @@ const
   omax: {$ifdef FPC}@{$endif}wbounds_cxmax;
   setpos: {$ifdef FPC}@{$endif}wsetbounds_y;
   setsize: {$ifdef FPC}@{$endif}wsetbounds_cy;
-  setanchordsize: {$ifdef FPC}@{$endif}wsetanchord_cy;
   setstop: {$ifdef FPC}@{$endif}wsetstopy;
   setmin: {$ifdef FPC}@{$endif}wsetbounds_cymin;
   setmax: {$ifdef FPC}@{$endif}wsetbounds_cymax;
@@ -3277,19 +2615,11 @@ const
   setomax: {$ifdef FPC}@{$endif}wsetbounds_cxmax;
   anchstop: {$ifdef FPC}@{$endif}wanchstopy;
   oanchstop: {$ifdef FPC}@{$endif}wanchstopx;
-  anchboth: {$ifdef FPC}@{$endif}wanchbothy;
-  oanchboth: {$ifdef FPC}@{$endif}wanchbothx;
  );
-
+  
 function application: tguiapplication;
 function mousebuttontoshiftstate(button: mousebuttonty): shiftstatesty;
 function isenterkey(const awidget: twidget; const key: keyty): boolean;
-function isdblclick(const ainfo: mouseeventinfoty;
-                           const abutton: mousebuttonty  = mb_left): boolean;
-function eatdblclick(var ainfo: mouseeventinfoty;
-                           const abutton: mousebuttonty  = mb_left): boolean;
-function simulatemodalresult(const awidget: twidget;
-                              const amodres: modalresultty): boolean;
 
 procedure beep;
 procedure guibeep;
@@ -3299,7 +2629,6 @@ procedure showwidgets(awidgets: array of twidget);
 procedure hidewidgets(awidgets: array of twidget);
 function showmodalwidget(const aclass: widgetclassty): modalresultty;
 
-function getiassistiveclient(const awidget: twidget): iassistiveclient;
 
 procedure writewidgetnames(const writer: twriter; const ar: widgetarty);
 function needswidgetnamewriting(const ar: widgetarty): boolean; overload;
@@ -3308,52 +2637,35 @@ function needswidgetnamewriting(const ar1,ar2: widgetarty): boolean; overload;
 procedure designeventloop;
 
 function getprocesswindow(const procid: integer): winidty;
-function activateprocesswindow(const procid: integer;
+function activateprocesswindow(const procid: integer; 
                     const araise: boolean = true): boolean;
          //true if ok
-function combineframestateflags(const disabled,focused,active,
-                                   mouse,clicked: boolean): framestateflagsty;
 function combineframestateflags(
-                         const astate: shapestatesty): framestateflagsty;
+            const disabled,active,mouse,clicked: boolean): framestateflagsty;
 
 {$ifdef mse_debug}
-procedure debugwindow(const atext: string; const awindow: twindow);
-procedure debugwindow(const atext: string; const aid: winidty);
-function debugwindow1(const atext: string; const aid: winidty): string;
-procedure debugwindow(const atext: string; const aid1,aid2: winidty);
+procedure debugwindow(const atext: string; const aid: winidty); overload;
+procedure debugwindow(const atext: string; const aid1,aid2: winidty); overload;
 function checkwindowname(const aid: winidty; const aname: string): boolean;
-function debugwidgetname(const awidget: twidget; const atext: string): string;
 {$endif}
 
 implementation
+
 uses
  msesysintf,typinfo,msestreaming,msetimer,msebits,msewidgets,
- mseshapes,
- msestockobjects,
- msefileutils,msedatalist,Math,msesysutils,
- rtlconsts,{$ifndef FPC}classes_del,{$endif}mseformatstr,
- mseprocutils,msesys,msesysdnd,mseassistiveserver;
-{$ifndef mse_allwarnings}
- {$if fpc_fullversion >= 030100}
-  {$warn 5089 off}
-  {$warn 5090 off}
-  {$warn 5093 off}
-  {$warn 6058 off}
- {$endif}
-{$endif}
+ mseshapes,msestockobjects,msefileutils,msedatalist,Math,msesysutils,
+ {$ifdef FPCc} rtlconst {$else} RtlConsts{$endif},mseformatstr,mseprocutils,
+ msesys;
 
 const
- faceoptionsmask1: faceoptionsty = [fao_alphafadeimage,fao_alphafadenochildren,
+ faceoptionsmask: faceoptionsty = [fao_alphafadeimage,fao_alphafadenochildren,
                         fao_alphafadeall];
- faceoptionsmask2: faceoptionsty = [fao_alphaimage,fao_alphafadeimage];
 type
  tcanvas1 = class(tcanvas);
  tfadecolorarrayprop1 = class(tfadecolorarrayprop);
  trealarrayprop1 = class(trealarrayprop);
  tcaret1 = class(tcaret);
  tobjectevent1 = class(tobjectevent);
- tsysmimedragobject1 = class(tsysmimedragobject);
- timagelist1 = class(timagelist);
 
 const
  cancelwaittag = 823757;
@@ -3365,7 +2677,7 @@ type
   public
    constructor create(const amessage: msestring; const acaption: msestring);
  end;
-
+ 
  twidgetshowevent = class(tsynchronizeevent)
   private
    fwidget: twidget;
@@ -3375,7 +2687,7 @@ type
   protected
    procedure execute; override;
  end;
-
+ 
  tcreatewindowevent = class(tsynchronizeevent)
   private
    fsender: twindow;
@@ -3392,20 +2704,15 @@ type
   protected
    procedure execute; override;
  end;
-
+ 
  tonkeyeventlist = class(tmethodlist)
   protected
    procedure dokeyevent(const sender: twidget; var info: keyeventinfoty);
  end;
 
- tonwidgetchangelist = class(tmethodlist)
+ tonactivechangelist = class(tmethodlist)
   protected
-   procedure dowidgetchange(const oldwidget,newwidget: twidget);
- end;
-
- tonwindowchangelist = class(tmethodlist)
-  protected
-   procedure dowindowchange(const oldwindow,newwindow: twindow);
+   procedure doactivechange(const oldwindow,newwindow: twindow);
  end;
 
  tonwindoweventlist = class(tmethodlist)
@@ -3417,7 +2724,7 @@ type
   protected
    procedure doevent(const awinid: winidty);
  end;
-
+ 
  tonapplicationactivechangedlist = class(tmethodlist)
   protected
    procedure doevent(const activated: boolean);
@@ -3427,31 +2734,30 @@ type
   protected
    procedure doevent(const sender: tmsecomponent);
  end;
-
+ 
  tonsyseventlist = class(tmethodlist)
   protected
    procedure doevent(const awindow: winidty; var aevent: syseventty;
                                var handled: boolean);
  end;
-
+ 
  windowstackinfoty = record
   lower,upper: twindow;
   level: integer;
   recursion: boolean;
  end;
  windowstackinfoarty = array of windowstackinfoty;
-
+ 
 const
  keyhistorylen = 10;
-
-type
+ 
+type 
  tinternalapplication = class(tguiapplication,imouse)
          //avoid circular interface references
   private
    fonkeypresslist: tonkeyeventlist;
    fonshortcutlist: tonkeyeventlist;
-   fonwidgetactivechangelist: tonwidgetchangelist;
-   fonwindowactivechangelist: tonwindowchangelist;
+   fonactivechangelist: tonactivechangelist;
    fonwindowdestroyedlist: tonwindoweventlist;
    fonwiniddestroyedlist: tonwinideventlist;
    fonapplicationactivechangedlist: tonapplicationactivechangedlist;
@@ -3463,7 +2769,7 @@ type
    fdesigning: boolean;
    fmodalwindow: twindow;
    flockupdatewindowstack: twindow;
-   fhintwidget: twidget;//thintwidget;
+   fhintwidget: thintwidget;
    fhinttimer: tsimpletimer;
    fmouseparktimer: tsimpletimer;
    fmouseparkeventinfo: mouseeventinfoty;
@@ -3480,8 +2786,8 @@ type
    procedure windowdestroyed(aid: winidty);
    procedure setwindowfocus(winid: winidty);
    procedure unsetwindowfocus(winid: winidty);
-   procedure registerwindow(awindow: twindow);
-   procedure unregisterwindow(awindow: twindow);
+   procedure registerwindow(window: twindow);
+   procedure unregisterwindow(window: twindow);
    procedure widgetdestroyed(const widget: twidget);
 
    procedure processexposeevent(event: twindowrectevent);
@@ -3493,12 +2799,15 @@ type
    procedure processwindowcrossingevent(event: twindowevent);
 
    function getmousewinid: winidty; //for  tmouse.setshape
-   procedure waitevent;
+   procedure waitevent;         
     //application must be locked
    procedure checkactivewindow;
    function focusinpending: boolean;
    procedure checkapplicationactive;
    function winiddestroyed(const aid: winidty): boolean;
+//   function eventloop(const amodalwindow: twindow; 
+//                              const once: boolean = false): boolean;
+                 //true if actual modalwindow destroyed
    procedure eventloop(const once: boolean = false);
    function beginmodal(const sender: twindow;
                                const showinfo: pshowinfoty): boolean;
@@ -3512,10 +2821,9 @@ type
    procedure checkcursorshape;
 
    procedure mouseparktimer(const sender: tobject);
-   procedure removewindowevents(const awindow: winidty;
+   procedure removewindowevents(const awindow: winidty; 
                                               const aeventkind: eventkindty);
   protected
-   procedure internalpackwindowzorder(); override;
    function getevents: integer; override;
     //application must be locked
     //returns count of queued events
@@ -3534,35 +2842,13 @@ var
  appinst: tinternalapplication;
 
 function combineframestateflags(
-      const disabled,focused,active,mouse,clicked: boolean): framestateflagsty;
+            const disabled,active,mouse,clicked: boolean): framestateflagsty;
 begin
  result:= [];
  if disabled then include(result,fsf_disabled);
- if focused then include(result,fsf_focused);
  if active then include(result,fsf_active);
  if mouse then include(result,fsf_mouse);
  if clicked then include(result,fsf_clicked);
-end;
-
-function combineframestateflags(
-                         const astate: shapestatesty): framestateflagsty;
-begin
- result:= [];
- if shs_disabled in astate then begin
-  include(result,fsf_disabled);
- end;
- if shs_focused in astate then begin
-  include(result,fsf_focused);
- end;
- if shs_active in astate then begin
-  include(result,fsf_active);
- end;
- if shs_mouse in astate then begin
-  include(result,fsf_mouse);
- end;
- if shs_clicked in astate then begin
-  include(result,fsf_clicked);
- end;
 end;
 
 function wbounds_x(const awidget: twidget): integer;
@@ -3585,13 +2871,6 @@ begin
  awidget.bounds_cx:= avalue;
 end;
 
-procedure wsetanchord_cx(const awidget: twidget; const avalue: integer);
-begin
- if not wanchbothx(awidget) then begin
-  awidget.setanchordwidgetsize(ms(avalue,awidget.bounds_cy));
- end;
-end;
-
 function wbounds_y(const awidget: twidget): integer;
 begin
  result:= awidget.fwidgetrect.y;
@@ -3605,13 +2884,6 @@ end;
 function wbounds_cy(const awidget: twidget): integer;
 begin
  result:= awidget.fwidgetrect.cy;
-end;
-
-procedure wsetanchord_cy(const awidget: twidget; const avalue: integer);
-begin
- if not wanchbothy(awidget) then begin
-  awidget.setanchordwidgetsize(ms(awidget.bounds_cx,avalue));
- end;
 end;
 
 procedure wsetbounds_cy(const awidget: twidget; const avalue: integer);
@@ -3647,22 +2919,6 @@ end;
 function wanchstopy(const awidget: twidget): boolean;
 begin
  result:= an_bottom in awidget.anchors;
-end;
-
-function wanchbothx(const awidget: twidget): boolean;
-var
- an1: anchorsty;
-begin
- an1:= [an_left,an_right] * awidget.anchors;
- result:= (an1 = []) or (an1 = [an_left,an_right]);
-end;
-
-function wanchbothy(const awidget: twidget): boolean;
-var
- an1: anchorsty;
-begin
- an1:= [an_top,an_bottom] * awidget.anchors;
- result:= (an1 = []) or (an1 = [an_top,an_bottom]);
 end;
 
 function wbounds_cxmin(const awidget: twidget): integer;
@@ -3705,11 +2961,11 @@ begin
  awidget.bounds_cymax:= avalue;
 end;
 
-function checkshortcut(var info: keyeventinfoty; const caption: msestring;
+function checkshortcut(var info: keyeventinfoty; const caption: richstringty;
                          const checkalt: boolean): boolean;
 begin
  with info do begin
-  if (eventstate * [es_processed,es_modal,es_preview] = []) and
+  if (eventstate * [es_processed,es_modal,es_preview] = []) and 
     (not checkalt and (shiftstate -[ss_alt] = []) or (shiftstate = [ss_alt])) and
                          (length(info.chars) > 0) then begin
    result:= isshortcut(info.chars[1],caption);
@@ -3761,7 +3017,7 @@ begin
  result:= gui_pidtowinid(ar1);
 end;
 
-function activateprocesswindow(const procid: integer;
+function activateprocesswindow(const procid: integer; 
                     const araise: boolean = true): boolean;
          //true if ok
 var
@@ -3852,7 +3108,7 @@ begin
  end;
  if dest <> nil then begin
   subpoint1(point,dest.screenpos);
-  subpoint1(point,dest.paintpos);
+  subpoint1(point,source.paintpos);
  end;
 end;
 
@@ -3868,32 +3124,6 @@ function translatepaintrect(const rect: rectty;
 begin
  result:= rect;
  translatepaintpoint1(result.pos,source,dest);
-end;
-
-procedure translatewidgettopaintpoint1(var point: pointty;
-                 const source,dest: twidget);
-begin
- if source <> nil then begin
-  addpoint1(point,source.screenpos);
- end;
- if dest <> nil then begin
-  subpoint1(point,dest.screenpos);
-  subpoint1(point,dest.paintpos);
- end;
-end;
-
-function translatewidgettopaintpoint(const point: pointty;
-                 const source,dest: twidget): pointty;
-begin
- result:= point;
- translatewidgettopaintpoint1(result,source,dest);
-end;
-
-function translatewidgettopaintrect(const rect: rectty;
-                 const source,dest: twidget): rectty;
-begin
- result:= rect;
- translatewidgettopaintpoint1(result.pos,source,dest);
 end;
 
 procedure translateclientpoint1(var point: pointty;
@@ -3935,7 +3165,7 @@ begin
  size1:= nullsize;
  for int1:= high(widgets) downto 0 do begin
   with widgets[int1] do begin
-   size2:= clientsize;
+   size2:= clientsize;   
    getautopaintsize(size2);
    if not (osk_nolayoutcx in optionsskin) then begin
     if size2.cx > size1.cx then begin
@@ -4131,14 +3361,6 @@ begin
  end;
 end;
 
-function getiassistiveclient(const awidget: twidget): iassistiveclient;
-begin
- result:= nil;
- if awidget <> nil then begin
-  result:= awidget.getiassistiveclient();
- end;
-end;
-
 procedure designeventloop;
 begin
  if appinst <> nil then begin
@@ -4221,58 +3443,14 @@ end;
 
 function isenterkey(const awidget: twidget; const key: keyty): boolean;
 begin
- result:= ((awidget = nil) or not
-              (ow_keyreturntaborder in awidget.optionswidget)) and
+ result:= ((awidget = nil) or not (ow_keyreturntaborder in awidget.optionswidget)) and 
           ({(key = key_enter) or} (key = key_return));
-end;
-
-function isdblclick(const ainfo: mouseeventinfoty;
-                          const abutton: mousebuttonty = mb_left): boolean;
-begin
- with ainfo do begin
-  result:= (button = abutton) and (eventkind = ek_buttonpress) and
-                                                (ss_double in shiftstate);
- end;
-end;
-
-function eatdblclick(var ainfo: mouseeventinfoty;
-                          const abutton: mousebuttonty = mb_left): boolean;
-begin
- result:= isdblclick(ainfo,abutton);
- if result then begin
-  include(ainfo.eventstate,es_processed);
- end;
-end;
-
-function simulatemodalresult(const awidget: twidget;
-                              const amodres: modalresultty): boolean;
-begin
- result:= awidget <> nil;
- if result then begin
-  with awidget.window do begin
-   fmodalresult:= amodres;
-   try
-    result:= awidget.canclose(nil);
-    if result then begin
-     awidget.hide;
-    end;
-   finally
-    if fmodalresult = amodres then begin
-     fmodalresult:= mr_none;
-    end;
-   end;
-  end;
- end
- else begin
-  result:= false;
- end;
 end;
 
 procedure destroyregion(var region: gdiregionty);
 var
  info: drawinfoty;
 begin
- drawinfoinit(info);
  with region do begin
   if region <> 0 then begin
    info.regionoperation.source:= region;
@@ -4286,40 +3464,31 @@ function createregion(const gdi: pgdifunctionaty): gdiregionty; overload;
 var
  info: drawinfoty;
 begin
-{$warnings off}
- drawinfoinit(info);
  with info.regionoperation do begin
   gdi_call(gdf_createemptyregion,info,gdi);
   result.region:= dest;
   result.gdi:= gdi;
  end;
 end;
-{$warnings on}
 
 function createregion(const arect: rectty;
                           const gdi: pgdifunctionaty): gdiregionty; overload;
 var
  info: drawinfoty;
 begin
-{$warnings off}
- drawinfoinit(info);
  with info.regionoperation do begin
   rect:= arect;
-  drawinfoinit(info);
   gdi_call(gdf_createrectregion,info,gdi);
   result.region:= dest;
   result.gdi:= gdi;
  end;
 end;
-{$warnings on}
 
 function createregion(const rects: rectarty;
                            const gdi: pgdifunctionaty): gdiregionty; overload;
 var
  info: drawinfoty;
 begin
-{$warnings off}
- drawinfoinit(info);
  with info.regionoperation do begin
   rectscount:= length(rects);
   if rectscount > 0 then begin
@@ -4333,70 +3502,28 @@ begin
   end;
  end;
 end;
-{$warnings on}
-
-procedure regmove(const region: gdiregionty; const dist: pointty);
-var
- info: drawinfoty;
-begin
-{$warnings off}
- drawinfoinit(info);
- with region,info.regionoperation do begin
-  if region <> 0 then begin
-   source:= region;
-   rect.pos:= dist;
-   gdi_call(gdf_moveregion,info,gdi);
-  end;
- end;
-end;
-{$warnings on}
-
-function regcliprect(const region: gdiregionty): rectty;
-var
- info: drawinfoty;
-begin
-{$warnings off}
- drawinfoinit(info);
- with region,info.regionoperation do begin
-  if region <> 0 then begin
-   source:= region;
-   gdi_call(gdf_regionclipbox,info,gdi);
-   result:= rect;
-  end
-  else begin
-   result:= nullrect;
-  end;
- end;
-end;
-{$warnings on}
 
 procedure regintersectrect(const region: gdiregionty; const arect: rectty);
 var
  info: drawinfoty;
 begin
-{$warnings off}
- drawinfoinit(info);
  with region,info.regionoperation do begin
   dest:= region;
   rect:= arect;
   gdi_call(gdf_regintersectrect,info,gdi);
  end;
 end;
-{$warnings on}
 
 procedure regaddrect(const region: gdiregionty; const arect: rectty);
 var
  info: drawinfoty;
 begin
-{$warnings off}
- drawinfoinit(info);
  with region,info.regionoperation do begin
   dest:= region;
   rect:= arect;
   gdi_call(gdf_regaddrect,info,gdi);
  end;
 end;
-{$warnings on}
 
 { twidgetfont}
 
@@ -4425,26 +3552,17 @@ end;
 procedure initframeinfo(var info: baseframeinfoty); overload;
 begin
  with info do begin
-  colorclient:= cl_default;
+  colorclient:= cl_transparent;
   colorframe:= cl_default;
   colorframeactive:= cl_default;
-  colorframedisabled:= cl_default;
-  colorframemouse:= cl_default;
-  colorframeclicked:= cl_default;
-  colorframedefault:= cl_default;
-  colorglyph:= cl_default;
-  colorpattern:= cl_default;
-  initdefaultvalues(framecolors.edges);
-{
-  with framecolors.edges do begin
+  with framecolors do begin
    shadow.effectcolor:= cl_default;
    shadow.color:= cl_default;
    shadow.effectwidth:= -1;
    light.color:= cl_default;
    light.effectcolor:= cl_default;
    light.effectwidth:= -1;
-  end;
-}
+  end; 
  end;
 end;
 
@@ -4463,9 +3581,6 @@ begin
  if ws1_noframewidgetshift in ws1 then begin
   include(fstate,fs_nowidget);
  end;
- if ws1_framemouse in ws1 then begin
-  include(fstate,fs_framemouse);
- end;
  if not (fs_nosetinstance in fstate) then begin
   fintf.setframeinstance(self);
  end;
@@ -4480,75 +3595,19 @@ begin
  inherited;
 end;
 
-function tcustomframe.pointinmask(const pos: pointty;
-                                         const arect: rectty): boolean;
-var
- rect1: rectty;
- po1: pint16;
-begin
- result:= true;
- if (fi.frameimage_list <> nil) and
-                  fi.frameimage_list.hascornermask then begin
-  rect1:= arect;
-  with timagelist1(fi.frameimage_list) do begin
-   if (pos.x < fcornermaskmaxtopleft) and
-                   (pos.y < rect1.y + length(cornermask_topleft)) then begin
-                          //topleft
-    po1:= pointer(cornermask_topleft);
-    result:= pos.x >= rect1.x + po1[pos.y-rect1.y];
-   end
-   else begin
-    if (pos.x < fcornermaskmaxbottomleft) and
-            (pos.y >= rect1.y + rect1.cy -
-                            length(cornermask_bottomleft)) then begin
-                          //bottomleft
-     po1:= pointer(cornermask_bottomleft);
-     result:= pos.x >= rect1.x + po1[rect1.y + rect1.cy - pos.y -1];
-    end
-    else begin
-     if (pos.x >= rect1.x + rect1.cx - fcornermaskmaxbottomright) and
-          (pos.y >= rect1.y + rect1.cy -
-                                length(cornermask_bottomright)) then begin
-                          //bottomright
-      po1:= pointer(cornermask_bottomright);
-      result:= pos.x < rect1.x + rect1.cx -
-                                    po1[rect1.y + rect1.cy - pos.y -1];
-     end
-     else begin
-      if (pos.x >= rect1.x + rect1.cx - fcornermaskmaxtopright) and
-                 (pos.y < rect1.y + length(cornermask_topright)) then begin
-                          //topright
-       po1:= pointer(cornermask_topright);
-       result:= pos.x < rect1.x + rect1.cx -
-                                    po1[pos.y-rect1.y];
-      end;
-     end;
-    end;
-   end;
-  end;
- end;
-end;
-
 procedure tcustomframe.updatemousestate(const sender: twidget;
                  const info: mouseeventinfoty);
-
 begin
  checkstate;
  with sender do begin
-  if not (ow_mousetransparent in foptionswidget) then begin
-   if pointinrect(info.pos,fpaintrect) and
-    pointinmask(info.pos,
-     deflaterect(mr(nullpoint,fintf.getwidgetrect.size),fouterframe)) then begin
-    fwidgetstate:= fwidgetstate + [ws_mouseinclient,ws_wantmousemove,
-                                       ws_wantmousebutton,ws_wantmousefocus];
-   end
-   else begin
-    if (fs_framemouse in fstate) and
-       pointinrect(info.pos,mr(nullpoint,fintf.getwidgetrect.size)) then begin
-     fwidgetstate:= fwidgetstate + [ws_wantmousemove,ws_wantmousebutton];
-
-    end;
-   end;
+  if not (ow_mousetransparent in foptionswidget) and
+                       pointinrect(info.pos,fpaintrect) then begin
+   fwidgetstate:= fwidgetstate + [ws_mouseinclient,ws_wantmousemove,
+                           ws_wantmousebutton,ws_wantmousefocus];
+  end
+  else begin
+   fwidgetstate:= fwidgetstate - [ws_mouseinclient,ws_wantmousemove,
+                           ws_wantmousebutton,ws_wantmousefocus];
   end;
  end;
 end;
@@ -4556,57 +3615,23 @@ end;
 function tcustomframe.needsactiveinvalidate: boolean;
 begin
  with fi do begin
-  result:= (frameimage_list <> nil) and (frameimage_offsetactive <> 0) or
-           (frameface_list <> nil) and (frameface_offsetactive <> 0) or
-           (fi.colorframedefault <> cl_default);
- end;
-end;
-
-function tcustomframe.needsenabledinvalidate: boolean;
-begin
- with fi do begin
-  result:= colorframedisabled <> cl_default;
- end;
-end;
-
-function tcustomframe.needsfocusedinvalidate: boolean;
-begin
- with fi do begin
-  result:= (frameimage_list <> nil) and (frameimage_offsetactive <> 0) or
-           (frameface_list <> nil) and (frameface_offsetfocused <> 0) or
-           (fi.colorframedefault <> cl_default);;
+  result:= (frameimage_list <> nil) and 
+    ((frameimage_offsetactive <> 0) or 
+    (frameimage_offsetactivemouse <> frameimage_offsetmouse) or
+    (frameimage_offsetactiveclicked <> frameimage_offsetclicked));
  end;
 end;
 
 function tcustomframe.needsmouseinvalidate: boolean;
 begin
  with fi do begin
-  result:=
-         (fs_needsmouseinvalidate in fstate) or
-         (frameimage_list <> nil) and
-           ((frameimage_offsetmouse <> 0) or (frameimage_offsetclicked <> 0)) or
-         (frameface_list <> nil) and
-           ((frameface_offsetmouse <> 0) or (frameface_offsetclicked <> 0)) or
-         (colorframeclicked <> cl_default) or
-         (colorframemouse <> cl_default);
- end;
-end;
-
-function tcustomframe.needsclickinvalidate: boolean;
-begin
- with fi do begin
-  result:= (frameimage_list <> nil) and (frameimage_offsets.clicked <> 0) or
-           (frameface_list <> nil) and (frameface_offsets.clicked <> 0) or
-           (colorframeclicked <> cl_default);
- end;
-end;
-
-function tcustomframe.needsmouseenterinvalidate: boolean;
-begin
- with fi do begin
-  result:=  (frameimage_list <> nil) and (frameimage_offsets.mouse <> 0) or
-            (frameface_list <> nil) and (frameface_offsets.mouse <> 0) or
-            (colorframemouse <> cl_default);
+  result:= (fs_needsmouseinvalidate in fstate) or
+    (frameimage_list <> nil) and 
+    ((frameimage_offsetmouse <> 0) or 
+     (frameimage_offsetactivemouse <> 0) or
+     (frameimage_offsetactiveclicked <> 0) or
+     (frameimage_offsetclicked <> 0)
+     );
  end;
 end;
 
@@ -4617,37 +3642,12 @@ begin
  end;
 end;
 
-procedure tcustomframe.enabledchanged();
-begin
- if needsenabledinvalidate then begin
-  fintf.getwidget.invalidatewidget;
- end;
-end;
-
-procedure tcustomframe.focusedchanged;
-begin
- if needsfocusedinvalidate() then begin
-  fintf.getwidget.invalidatewidget();
- end;
-end;
-
 function tcustomframe.needsfocuspaint: boolean;
 begin
  result:= fs_drawfocusrect in fstate;
 end;
 
-function tcustomframe.haspaintrectfocus(): boolean;
-begin
- result:= not (fs_captionfocus in fstate);
-end;
-
-function tcustomframe.ishintarea(const apos: pointty; var aid: int32): boolean;
-begin
- result:= pointinrect(apos,fpaintrect) or
-                         (fs_captionhint in fstate) and pointincaption(apos);
-end;
-
-function calcframestateoffs(const astate: framestateflagsty;
+function calcframestateoffs(const astate: framestateflagsty; 
                             const offsets: frameoffsetsty): integer;
 begin
  with offsets do begin
@@ -4657,20 +3657,7 @@ begin
   end;
   if fsf_disabled in astate then begin
    result:= result + disabled;
-  end;
-  if fsf_active in astate then begin
-   result:= result + active;
-  end;
-  if fsf_focused in astate then begin
-   result:= result + focused;
-  end;
-  if fsf_mouse in astate then begin
-   result:= result + mouse;
-  end;
-  if fsf_clicked in astate then begin
-   result:= result + clicked;
-  end;
-  {
+  end
   else begin
    if fsf_active in astate then begin
     if fsf_clicked in astate then begin
@@ -4696,222 +3683,233 @@ begin
     end;
    end;
   end;
-}
- end;
-end;
-
-procedure tcustomframe.paintframeface(const canvas: tcanvas;
-                                                     const arect: rectty);
-var
- faceoffs: int32;
- rect1: rectty;
- reg1: regionty;
-begin
- if fi.frameface_list <> nil then begin
-  faceoffs:= fi.frameface_list.lookup(
-         calcframestateoffs(fintf.getframestateflags,
-                                  frameoffsetsty(fi.frameface_offsets)));
-  if (faceoffs >= 0) and (faceoffs < fi.frameface_list.list.count) then begin
-   if fso_clientfacerect in optionsskin then begin
-    reg1:= canvas.copyclipregion;
-    rect1.x:= arect.x + fclientrect.x;
-    rect1.y:= arect.y + fclientrect.y;
-    rect1.cx:= arect.cx + fclientrect.cx - fpaintrect.cx;
-    rect1.cy:= arect.cy + fclientrect.cy - fpaintrect.cy;
-    canvas.intersectcliprect(arect);
-    fi.frameface_list.list[faceoffs].paint(canvas,rect1);
-    canvas.clipregion:= reg1;
-   end
-   else begin
-    fi.frameface_list.list[faceoffs].paint(canvas,arect);
-   end;
-  end;
- end;
-end;
-
-function tcustomframe.actualcolorclient(): colorty;
-begin
- result:= fi.colorclient;
- if result = cl_default then begin
-  result:= cl_transparent;
- end;
-end;
-
-procedure tcustomframe.internalpaintbackground(const canvas: tcanvas;
-                const arect: rectty; const clip: boolean; const move: boolean);
-var
- rect1: rectty;
- cl1: colorty;
-begin
- rect1:= deflaterect(arect,fpaintframe);
- if clip then begin
-  canvas.intersectcliprect(rect1);
-  if (fi.frameimage_list <> nil) and
-                 fi.frameimage_list.hascornermask then begin
-   fi.frameimage_list.clipcornermask(canvas,
-                         deflaterect(arect,fouterframe),fi.hiddenedges);
-  end;
- end;
- cl1:= actualcolorclient;
- if cl1 <> cl_transparent then begin
-  canvas.fillrect(rect1,cl1);
- end;
- if not (fso_faceoverlay in optionsskin) then begin
-  paintframeface(canvas,rect1);
- end;
- if move then begin
-  canvas.move(addpoint(fpaintrect.pos,fclientrect.pos));
-  canvas.brushorigin:= nullpoint;
  end;
 end;
 
 procedure tcustomframe.paintbackground(const canvas: tcanvas;
-                            const arect: rectty; const clip: boolean;
-                                                     const move: boolean);
+                               const arect: rectty);
 var
- bo1: boolean;
+ rect1: rectty;
+ faceoffs: integer;
 begin
- if (ftemplate <> nil) then begin
-  if assigned(tframetemplate(ftemplate.ftemplate).
-                                       fonbeforepaintbackground) then begin
-   bo1:= false;
-   tframetemplate(ftemplate.ftemplate).fonbeforepaintbackground(
-                                            self,canvas,arect,clip,move,bo1);
-   if not bo1 then begin
-    internalpaintbackground(canvas,arect,clip,move);
-   end;
-  end
-  else begin
-   internalpaintbackground(canvas,arect,clip,move);
-  end;
-  if assigned(tframetemplate(ftemplate.ftemplate).
-                                       fonafterpaintbackground) then begin
-   tframetemplate(ftemplate.ftemplate).fonafterpaintbackground(
-                                           self,canvas,arect,clip,move);
-  end;
- end
- else begin
-  internalpaintbackground(canvas,arect,clip,move);
+ rect1:= deflaterect(arect,fpaintframe);
+ if fi.colorclient <> cl_transparent then begin
+  canvas.fillrect(rect1,fi.colorclient);
  end;
+ if fi.frameface_list <> nil then begin
+  faceoffs:= calcframestateoffs(fintf.getframestateflags,
+                                  frameoffsetsty(fi.frameface_offsets));
+  if (faceoffs >= 0) and (faceoffs < fi.frameface_list.list.count) then begin
+   fi.frameface_list.list[faceoffs].paint(canvas,rect1);
+  end;
+ end;
+ canvas.intersectcliprect(rect1);
+ canvas.move(addpoint(fpaintrect.pos,fclientrect.pos));
+ canvas.brushorigin:= nullpoint;
 end;
 
-class procedure tcustomframe.drawframe(const canvas: tcanvas;
-                         const rect2: rectty; const afi: baseframeinfoty;
-                         const astate: framestateflagsty);
+class procedure tcustomframe.drawframe(const canvas: tcanvas; 
+                         const rect2: rectty; const afi: baseframeinfoty; 
+                         const astate: framestateflagsty
+                                 {const disabled,active,clicked,mouse: boolean});
 var
  imageoffs: integer;
  rect1: rectty;
  col1: colorty;
-// imagesize1: sizety;
 begin
  rect1:= rect2;
  if afi.levelo <> 0 then begin
-  draw3dframe(canvas,rect1,afi.levelo,afi.framecolors.edges,afi.hiddenedges);
+  draw3dframe(canvas,rect1,afi.levelo,afi.framecolors,afi.hiddenedges);
   updateedgerect(rect1,abs(afi.levelo),afi.hiddenedges);
+//  inflaterect1(rect1,-abs(afi.levelo));
  end;
  if afi.framewidth > 0 then begin
-  col1:= afi.colorframe;
-  if (afi.colorframeclicked <> cl_default) and
-                                   (fsf_clicked in astate) then begin
-   col1:= afi.colorframeclicked;
+  if (afi.colorframeactive = cl_default) or not (fsf_active in astate) then begin
+   col1:= afi.colorframe;
   end
   else begin
-   if (afi.colorframemouse <> cl_default) and
-                                    (fsf_mouse in astate) then begin
-    col1:= afi.colorframemouse;
-   end
-   else begin
-    if (afi.colorframeactive <> cl_default) and
-                                     (fsf_active in astate) then begin
-     col1:= afi.colorframeactive;
-    end
-    else begin
-     if (afi.colorframedisabled <> cl_default) and
-                                      (fsf_disabled in astate) then begin
-      col1:= afi.colorframedisabled;
-     end
-     else begin
-      if (afi.colorframedefault <> cl_default) and
-                                       (fsf_default in astate) then begin
-       col1:= afi.colorframedefault;
-      end
-     end;
-    end;
-   end;
-  end;
+   col1:= afi.colorframeactive;
+  end; 
   if col1 = cl_default then begin
    col1:= defaultframecolors.frame;
   end;
   canvas.drawframe(rect1,-afi.framewidth,col1,afi.hiddenedges);
   updateedgerect(rect1,afi.framewidth,afi.hiddenedges);
+//  inflaterect1(rect1,-afi.framewidth);
  end;
  if afi.leveli <> 0 then begin
-  draw3dframe(canvas,rect1,afi.leveli,afi.framecolors.edges,afi.hiddenedges);
+  draw3dframe(canvas,rect1,afi.leveli,afi.framecolors,afi.hiddenedges);
  end;
- if (afi.frameimage_list <> nil) then begin
+ if afi.frameimage_list <> nil then begin
+           //todo: implement hiddenedges
   imageoffs:= calcframestateoffs(astate,frameoffsetsty(afi.frameimage_offsets));
-  drawimageframe(canvas,afi.frameimage_list,imageoffs,rect2,afi.hiddenedges);
+  if imageoffs >= 0 then begin
+   if afi.hiddenedges * [edg_left,edg_top] = [] then begin
+    afi.frameimage_list.paint(canvas,imageoffs,rect2.pos); //topleft
+   end;
+   if not (edg_left in afi.hiddenedges) then begin
+    rect1:= rect2;
+    if not (edg_top in afi.hiddenedges) then begin
+     inc(rect1.y,afi.frameimage_list.height);
+     dec(rect1.cy,afi.frameimage_list.height);
+    end;
+    rect1.cx:= afi.frameimage_list.width;
+    if not (edg_bottom in afi.hiddenedges) then begin
+     dec(rect1.cy,afi.frameimage_list.height);
+    end;    
+    afi.frameimage_list.paint(canvas,imageoffs+1,rect1,[al_stretchy]);
+                                                          //left
+   end;
+   if afi.hiddenedges * [edg_bottom,edg_left] = [] then begin
+    afi.frameimage_list.paint(canvas,imageoffs+2,rect2,[al_bottom]); 
+                                                          //bottomleft
+   end;
+   if not (edg_bottom in afi.hiddenedges) then begin
+    rect1:= rect2;
+    if not (edg_left in afi.hiddenedges) then begin
+     inc(rect1.x,afi.frameimage_list.width);
+     dec(rect1.cx,afi.frameimage_list.width);
+    end;
+    rect1.y:= rect2.y + rect2.cy - afi.frameimage_list.height;
+    rect1.cy:= afi.frameimage_list.width;
+    if not (edg_right in afi.hiddenedges) then begin
+     dec(rect1.cx,afi.frameimage_list.width);
+    end;
+    afi.frameimage_list.paint(canvas,imageoffs+3,rect1,[al_stretchx]);
+                                                          //bottom
+   end;
+   if afi.hiddenedges * [edg_bottom,edg_right] = [] then begin
+    afi.frameimage_list.paint(canvas,imageoffs+4,rect2,[al_bottom,al_right]); 
+                                                          //bottomright
+   end;
+   if not (edg_right in afi.hiddenedges) then begin
+    rect1:= rect2;
+    if not (edg_bottom in afi.hiddenedges) then begin
+     dec(rect1.cy,afi.frameimage_list.height);
+    end;
+    rect1.x:= rect2.x + rect2.cx - afi.frameimage_list.width;
+    rect1.cx:= afi.frameimage_list.width;
+    if not (edg_top in afi.hiddenedges) then begin
+     inc(rect1.y,afi.frameimage_list.height);
+     dec(rect1.cy,afi.frameimage_list.height);
+    end;
+    afi.frameimage_list.paint(canvas,imageoffs+5,rect1,[al_stretchy]);
+                                                          //right
+   end;
+   if afi.hiddenedges * [edg_top,edg_right] = [] then begin
+    afi.frameimage_list.paint(canvas,imageoffs+6,rect2,[al_right]);
+                                                          //topright
+   end;
+   if not (edg_top in afi.hiddenedges) then begin
+    rect1:= rect2;
+    if not (edg_right in afi.hiddenedges) then begin
+     dec(rect1.cx,afi.frameimage_list.width);
+    end;
+    rect1.cy:= afi.frameimage_list.height;
+    if not (edg_left in afi.hiddenedges) then begin
+     inc(rect1.x,afi.frameimage_list.width);
+     dec(rect1.cx,afi.frameimage_list.width);
+    end;
+    afi.frameimage_list.paint(canvas,imageoffs+7,rect1,[al_stretchx]);
+                                                         //top
+   end;
+  end;
  end;
 end;
 
-function tcustomframe.getassistivecaption(): msestring;
+procedure tcustomframe.paintoverlay(const canvas: tcanvas; const arect: rectty);
 begin
- result:= '';
-end;
-
-procedure tcustomframe.internalpaintoverlay(const canvas: tcanvas;
-                                                     const arect: rectty);
-begin
- if fso_faceoverlay in optionsskin then begin
-  paintframeface(canvas,deflaterect(arect,fpaintframe));
- end;
  drawframe(canvas,deflaterect(arect,fouterframe),fi,fintf.getframestateflags);
 end;
-
-procedure tcustomframe.updatehotkeys();
-begin
- //dummy
-end;
-
-procedure tcustomframe.paintoverlay(const canvas: tcanvas;
-                                                     const arect: rectty);
+{
+procedure tcustomframe.paintoverlay(const canvas: tcanvas; const arect: rectty);
 var
- bo1: boolean;
+ imageoffs: integer;
+ rect2: rectty;
 begin
- if (ftemplate <> nil) then begin
-  if assigned(tframetemplate(ftemplate.ftemplate).
-                                       fonbeforepaintoverlay) then begin
-   bo1:= false;
-   tframetemplate(ftemplate.ftemplate).fonbeforepaintoverlay(
-                                                       self,canvas,arect,bo1);
-   if not bo1 then begin
-    internalpaintoverlay(canvas,arect);
+ if fi.frameimage_list <> nil then begin
+  rect2:= deflaterect(arect,fouterframe);
+  imageoffs:= fi.frameimage_offset;
+  with fintf.getwidget do begin
+   if getframeactive then begin
+    if getframeclicked then begin
+     imageoffs:= imageoffs + fi.frameimage_offsetactiveclicked;
+    end
+    else begin
+     if getframemouse then begin
+      imageoffs:= imageoffs + fi.frameimage_offsetactivemouse;
+     end
+     else begin
+      imageoffs:= imageoffs + fi.frameimage_offsetactive;
+     end;
+    end;
+   end
+   else begin
+    if getframeclicked then begin
+     imageoffs:= imageoffs + fi.frameimage_offsetclicked;
+    end
+    else begin
+     if getframemouse then begin
+      imageoffs:= imageoffs + fi.frameimage_offsetmouse;
+     end;
+    end;
    end;
-  end
-  else begin
-   internalpaintoverlay(canvas,arect);
   end;
-  if assigned(tframetemplate(ftemplate.ftemplate).
-                                       fonafterpaintoverlay) then begin
-   tframetemplate(ftemplate.ftemplate).fonafterpaintoverlay(self,canvas,arect);
+  if imageoffs >= 0 then begin
+   fi.frameimage_list.paint(canvas,imageoffs,rect2.pos);
+   fi.frameimage_list.paint(canvas,imageoffs+1,
+   makerect(rect2.x,rect2.y+fi.frameimage_list.height,
+            fi.frameimage_list.width,rect2.cy-2*fi.frameimage_list.height),
+            [al_stretchy]);
+   fi.frameimage_list.paint(canvas,imageoffs+2,rect2,[al_bottom]);
+   fi.frameimage_list.paint(canvas,imageoffs+3,
+   makerect(rect2.x+fi.frameimage_list.width,
+            rect2.y+rect2.cy-fi.frameimage_list.height,
+            rect2.cx-2*fi.frameimage_list.width,fi.frameimage_list.height),
+            [al_stretchx]);
+   fi.frameimage_list.paint(canvas,imageoffs+4,rect2,[al_bottom,al_right]);
+   fi.frameimage_list.paint(canvas,imageoffs+5,
+   makerect(rect2.x+rect2.cx-fi.frameimage_list.width,
+            rect2.y+fi.frameimage_list.height,
+            fi.frameimage_list.width,rect2.cy-2*fi.frameimage_list.height),
+            [al_stretchy]);
+   fi.frameimage_list.paint(canvas,imageoffs+6,rect2,[al_right]);
+   fi.frameimage_list.paint(canvas,imageoffs+7,
+   makerect(rect2.x+fi.frameimage_list.width,rect2.y,
+            rect2.cx-2*fi.frameimage_list.width,
+            fi.frameimage_list.height),[al_stretchx]);
   end;
- end
- else begin
-  internalpaintoverlay(canvas,arect);
  end;
 end;
-
-procedure tcustomframe.dopaintfocusrect(const canvas: tcanvas;
-                                                    const rect: rectty);
+}
+procedure tcustomframe.dopaintfocusrect(const canvas: tcanvas; const rect: rectty);
 var
  rect1: rectty;
 begin
- rect1:= deflaterect(rect,fpaintframe);
- inflaterect1(rect1,-fi.focusrectdist);
- drawfocusrect(canvas,rect1);
+ if fs_paintrectfocus in fstate then begin
+  rect1:= deflaterect(rect,fpaintframe);
+//  inflaterect1(rect1,-1);
+  drawfocusrect(canvas,rect1);
+ end;
 end;
-
-function tcustomframe.checkfocusshortcut(var info: keyeventinfoty): boolean;
+(*
+procedure tcustomframe.paint(const canvas: tcanvas; const rect: rectty);
+begin
+ dopaintframe(canvas,rect);
+ dopaintbackground(canvas,rect);
+ {
+ canvas.intersectcliprect(deflaterect(rect,fpaintframe));
+ canvas.move(addpoint(fpaintrect.pos,fclientrect.pos));
+ }
+end;
+*)
+{
+procedure tcustomframe.afterpaint(const canvas: tcanvas);
+begin
+ //dummy
+end;
+}
+function tcustomframe.checkshortcut(var info: keyeventinfoty): boolean;
 begin
  result:= false;
 end;
@@ -4928,7 +3926,7 @@ begin
     if bo1 then begin
      include(fstate,fs_widgetactive);
     end
-    else begin
+    else begin    
      exclude(fstate,fs_widgetactive);
     end;
    end;
@@ -4965,39 +3963,30 @@ begin
   if afi.frameimage_list <> nil then begin
    if not (edg_left in afi.hiddenedges) then begin
     int1:= afi.frameimage_list.width + afi.frameimage_left;
-//    if int1 > left then begin
+    if int1 > left then begin
      left:= int1;
-//    end;
+    end;
    end;
    if not (edg_right in afi.hiddenedges) then begin
     int1:= afi.frameimage_list.width + afi.frameimage_right;
-//    if int1 > right then begin
+    if int1 > right then begin
      right:= int1;
-//    end;
+    end;
    end;
    if not (edg_top in afi.hiddenedges) then begin
     int1:= afi.frameimage_list.height + afi.frameimage_top;
-//    if int1 > top then begin
+    if int1 > top then begin
      top:= int1;
-//    end;
+    end;
    end;
    if not (edg_bottom in afi.hiddenedges) then begin
     int1:= afi.frameimage_list.height + afi.frameimage_bottom;
-//    if int1 > bottom then begin
+    if int1 > bottom then begin
      bottom:= int1;
-//    end;
+    end;
    end;
   end;
  end;
-end;
-
-class function tcustomframe.calcinnerframe(const afi: baseframeinfoty): framety;
-begin
- result:= calcpaintframe(afi);
- result.left:= result.left + afi.innerframe.left;
- result.top:= result.top + afi.innerframe.top;
- result.right:= result.right + afi.innerframe.right;
- result.bottom:= result.bottom + afi.innerframe.bottom;
 end;
 
 procedure tcustomframe.calcrects;
@@ -5023,48 +4012,30 @@ begin
  calcrects;
 end;
 
-procedure tcustomframe.updatestate();
+procedure tcustomframe.updatestate;
 var
  po1: pointty;
 begin
  include(fstate,fs_rectsvalid);   //avoid recursion
  updaterects;
- if not (fs_widgetregionchanging in fstate) then begin
-  if not (csreading in fintf.getcomponentstate) and
-          not (fs_nowidget in fstate) then begin
-   po1:= subpoint(fpaintrect.pos,fpaintposbefore);
-   fintf.scrollwidgets(po1);
-  end;
-  fpaintposbefore:= fpaintrect.pos;
-  updateclientrect;
-  include(fstate,fs_rectsvalid);
-  if not (fs_clientrectchanging in fstate) then begin
-   include(fstate,fs_clientrectchanging);
-   try
-    fintf.clientrectchanged;
-   finally
-    exclude(fstate,fs_clientrectchanging);
-   end;
-  end;
- end
- else begin
-  updateclientrect();
-  include(fstate,fs_rectsvalid);
+ if not (csreading in fintf.getcomponentstate) and
+         not (fs_nowidget in fstate) then begin
+  po1:= subpoint(fpaintrect.pos,fpaintposbefore);
+  fintf.scrollwidgets(po1);
  end;
+ fpaintposbefore:= fpaintrect.pos;
+ updateclientrect;
+ include(fstate,fs_rectsvalid);
+ fintf.clientrectchanged;
 end;
 
-procedure tcustomframe.internalupdatestate();
+procedure tcustomframe.internalupdatestate;
 begin
- exclude(fstate,fs_rectsvalid);
  if not (csloading in fintf.getcomponentstate) then begin
-  if not (fs_stateupdating in fstate) then begin
-   include(fstate,fs_stateupdating);
-   try
-    updatestate;
-   finally
-    exclude(fstate,fs_stateupdating);
-   end;
-  end;
+  updatestate;
+ end
+ else begin
+  exclude(fstate,fs_rectsvalid);
  end;
  exclude(fstate,fs_creating);
 end;
@@ -5178,6 +4149,12 @@ begin
  end;
 end;
 
+procedure tcustomframe.setframei(const avalue: framety);
+begin
+ fi.innerframe:= avalue;
+ internalupdatestate;
+end;
+
 procedure tcustomframe.setframei_bottom(const Value: integer);
 begin
  include(flocalprops,frl_fibottom);
@@ -5187,105 +4164,12 @@ begin
  end;
 end;
 
-procedure tcustomframe.setframei(const avalue: framety);
-begin
- fi.innerframe:= avalue;
- internalupdatestate;
-end;
-
-procedure tcustomframe.setframeo_left(const Value: integer);
-begin
- include(flocalprops1,frl1_foleft);
- if fi.outerframe.left <> value then begin
-  fi.outerframe.left:= Value;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setframeo_top(const Value: integer);
-begin
- include(flocalprops1,frl1_fotop);
- if fi.outerframe.top <> value then begin
-  fi.outerframe.top:= Value;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setframeo_right(const Value: integer);
-begin
- include(flocalprops1,frl1_foright);
- if fi.outerframe.right <> value then begin
-  fi.outerframe.right:= Value;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setframeo_bottom(const Value: integer);
-begin
- include(flocalprops1,frl1_fobottom);
- if fi.outerframe.bottom <> value then begin
-  fi.outerframe.bottom:= Value;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setframeo(const avalue: framety);
-begin
- fi.outerframe:= avalue;
- internalupdatestate;
-end;
-
 procedure tcustomframe.setframeimage_list(const avalue: timagelist);
 begin
  include(flocalprops,frl_frameimagelist);
  if fi.frameimage_list <> avalue then begin
   fintf.getwidget.setlinkedvar(avalue,tmsecomponent(fi.frameimage_list));
   internalupdatestate;
- end;
-end;
-
-procedure tcustomframe.setfocusrectdist(const avalue: int32);
-begin
- include(flocalprops1,frl1_focusrectdist);
- if fi.focusrectdist <> avalue then begin
-  fi.focusrectdist:= avalue;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setextraspace(const avalue: int32);
-begin
- include(flocalprops1,frl1_extraspace);
- if fi.extraspace <> avalue then begin
-  fi.extraspace:= avalue;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setimagedist(const avalue: int32);
-begin
- include(flocalprops1,frl1_imagedist);
- if fi.imagedist <> avalue then begin
-  fi.imagedist:= avalue;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setimagedist1(const avalue: int32);
-begin
- include(flocalprops1,frl1_imagedist1);
- if fi.imagedist1 <> avalue then begin
-  fi.imagedist1:= avalue;
-  internalupdatestate();
- end;
-end;
-
-procedure tcustomframe.setimagedist2(const avalue: int32);
-begin
- include(flocalprops1,frl1_imagedist2);
- if fi.imagedist2 <> avalue then begin
-  fi.imagedist2:= avalue;
-  internalupdatestate();
  end;
 end;
 
@@ -5375,15 +4259,6 @@ begin
  end;
 end;
 
-procedure tcustomframe.setframeimage_offsetfocused(const avalue: imagenrty);
-begin
- include(flocalprops,frl_frameimageoffsetfocused);
- if fi.frameimage_offsets.focused <> avalue then begin
-  fi.frameimage_offsets.focused:= avalue;
-  internalupdatestate;
- end;
-end;
-
 procedure tcustomframe.setframeimage_offsetactive(const avalue: imagenrty);
 begin
  include(flocalprops,frl_frameimageoffsetactive);
@@ -5392,7 +4267,7 @@ begin
   internalupdatestate;
  end;
 end;
-{
+
 procedure tcustomframe.setframeimage_offsetactivemouse(const avalue: imagenrty);
 begin
  include(flocalprops,frl_frameimageoffsetactivemouse);
@@ -5410,7 +4285,7 @@ begin
   internalupdatestate;
  end;
 end;
-}
+
 procedure tcustomframe.setframeface_list(const avalue: tfacelist);
 begin
  include(flocalprops1,frl1_framefacelist);
@@ -5465,15 +4340,6 @@ begin
  end;
 end;
 
-procedure tcustomframe.setframeface_offsetfocused(const avalue: facenrty);
-begin
- include(flocalprops1,frl1_framefaceoffsetfocused);
- if fi.frameface_offsets.focused <> avalue then begin
-  fi.frameface_offsets.focused:= avalue;
-  internalupdatestate;
- end;
-end;
-
 procedure tcustomframe.setframeface_offsetactive(const avalue: facenrty);
 begin
  include(flocalprops1,frl1_framefaceoffsetactive);
@@ -5482,7 +4348,7 @@ begin
   internalupdatestate;
  end;
 end;
-{
+
 procedure tcustomframe.setframeface_offsetactivemouse(const avalue: facenrty);
 begin
  include(flocalprops1,frl1_framefaceoffsetactivemouse);
@@ -5500,7 +4366,7 @@ begin
   internalupdatestate;
  end;
 end;
-}
+
 procedure tcustomframe.setoptionsskin(const avalue: frameskinoptionsty);
 begin
  include(flocalprops,frl_optionsskin);
@@ -5537,48 +4403,11 @@ begin
  end;
 end;
 
-
-procedure tcustomframe.setcolorframedisabled(const avalue: colorty);
-begin
- include(flocalprops1,frl1_colorframedisabled);
- if fi.colorframedisabled <> avalue then begin
-  fi.colorframedisabled:= avalue;
-  fintf.invalidatewidget;
- end;
-end;
-
-procedure tcustomframe.setcolorframemouse(const avalue: colorty);
-begin
- include(flocalprops1,frl1_colorframemouse);
- if fi.colorframemouse <> avalue then begin
-  fi.colorframemouse:= avalue;
-  fintf.invalidatewidget;
- end;
-end;
-
-procedure tcustomframe.setcolorframeclicked(const avalue: colorty);
-begin
- include(flocalprops1,frl1_colorframeclicked);
- if fi.colorframeclicked <> avalue then begin
-  fi.colorframeclicked:= avalue;
-  fintf.invalidatewidget;
- end;
-end;
-
-procedure tcustomframe.setcolorframedefault(const avalue: colorty);
-begin
- include(flocalprops1,frl1_colorframedefault);
- if fi.colorframedefault <> avalue then begin
-  fi.colorframedefault:= avalue;
-  fintf.invalidatewidget;
- end;
-end;
-
 procedure tcustomframe.setcolordkshadow(const avalue: colorty);
 begin
  include(flocalprops,frl_colordkshadow);
- if fi.framecolors.edges.shadow.effectcolor <> avalue then begin
-  fi.framecolors.edges.shadow.effectcolor:= avalue;
+ if fi.framecolors.shadow.effectcolor <> avalue then begin
+  fi.framecolors.shadow.effectcolor:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5586,8 +4415,8 @@ end;
 procedure tcustomframe.setcolorshadow(const avalue: colorty);
 begin
  include(flocalprops,frl_colorshadow);
- if fi.framecolors.edges.shadow.color <> avalue then begin
-  fi.framecolors.edges.shadow.color:= avalue;
+ if fi.framecolors.shadow.color <> avalue then begin
+  fi.framecolors.shadow.color:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5595,8 +4424,8 @@ end;
 procedure tcustomframe.setcolorlight(const avalue: colorty);
 begin
  include(flocalprops,frl_colorlight);
- if fi.framecolors.edges.light.color <> avalue then begin
-  fi.framecolors.edges.light.color:= avalue;
+ if fi.framecolors.light.color <> avalue then begin
+  fi.framecolors.light.color:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5604,8 +4433,8 @@ end;
 procedure tcustomframe.setcolorhighlight(const avalue: colorty);
 begin
  include(flocalprops,frl_colorhighlight);
- if fi.framecolors.edges.light.effectcolor <> avalue then begin
-  fi.framecolors.edges.light.effectcolor:= avalue;
+ if fi.framecolors.light.effectcolor <> avalue then begin
+  fi.framecolors.light.effectcolor:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5613,8 +4442,8 @@ end;
 procedure tcustomframe.setcolordkwidth(const avalue: integer);
 begin
  include(flocalprops,frl_colordkwidth);
- if fi.framecolors.edges.shadow.effectwidth <> avalue then begin
-  fi.framecolors.edges.shadow.effectwidth:= avalue;
+ if fi.framecolors.shadow.effectwidth <> avalue then begin
+  fi.framecolors.shadow.effectwidth:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5622,8 +4451,8 @@ end;
 procedure tcustomframe.setcolorhlwidth(const avalue: integer);
 begin
  include(flocalprops,frl_colorhlwidth);
- if fi.framecolors.edges.light.effectwidth <> avalue then begin
-  fi.framecolors.edges.light.effectwidth:= avalue;
+ if fi.framecolors.light.effectwidth <> avalue then begin
+  fi.framecolors.light.effectwidth:= avalue;
   fintf.invalidatewidget;
  end;
 end;
@@ -5673,36 +4502,24 @@ begin
   if not (frl_colorframeactive in flocalprops) then begin
    colorframeactive:= ainfo.ba.colorframeactive;
   end;
-  if not (frl1_colorframedisabled in flocalprops1) then begin
-   colorframedisabled:= ainfo.ba.colorframedisabled;
-  end;
-  if not (frl1_colorframemouse in flocalprops1) then begin
-   colorframemouse:= ainfo.ba.colorframemouse;
-  end;
-  if not (frl1_colorframeclicked in flocalprops1) then begin
-   colorframeclicked:= ainfo.ba.colorframeclicked;
-  end;
-  if not (frl1_colorframedefault in flocalprops1) then begin
-   colorframedefault:= ainfo.ba.colorframedefault;
-  end;
-  with framecolors.edges do begin
+  with framecolors do begin
    if not (frl_colordkshadow in flocalprops) then begin
-    shadow.effectcolor:= ainfo.ba.framecolors.edges.shadow.effectcolor;
+    shadow.effectcolor:= ainfo.ba.framecolors.shadow.effectcolor;
    end;
    if not (frl_colorshadow in flocalprops) then begin
-    shadow.color:= ainfo.ba.framecolors.edges.shadow.color;
+    shadow.color:= ainfo.ba.framecolors.shadow.color;
    end;
    if not (frl_colorlight in flocalprops) then begin
-    light.color:= ainfo.ba.framecolors.edges.light.color;
+    light.color:= ainfo.ba.framecolors.light.color;
    end;
    if not (frl_colorhighlight in flocalprops) then begin
-    light.effectcolor:= ainfo.ba.framecolors.edges.light.effectcolor;
+    light.effectcolor:= ainfo.ba.framecolors.light.effectcolor;
    end;
    if not (frl_colordkwidth in flocalprops) then begin
-    shadow.effectwidth:= ainfo.ba.framecolors.edges.shadow.effectwidth;
+    shadow.effectwidth:= ainfo.ba.framecolors.shadow.effectwidth;
    end;
    if not (frl_colorhlwidth in flocalprops) then begin
-    light.effectwidth:= ainfo.ba.framecolors.edges.light.effectwidth;
+    light.effectwidth:= ainfo.ba.framecolors.light.effectwidth;
    end;
   end;
   if not (frl_hiddenedges in flocalprops) then begin
@@ -5719,19 +4536,6 @@ begin
   end;
   if not (frl_fibottom in flocalprops) then begin
    innerframe.bottom:= ainfo.ba.innerframe.bottom;
-  end;
-
-  if not (frl1_foleft in flocalprops1) then begin
-   outerframe.left:= ainfo.ba.outerframe.left;
-  end;
-  if not (frl1_fotop in flocalprops1) then begin
-   outerframe.top:= ainfo.ba.outerframe.top;
-  end;
-  if not (frl1_foright in flocalprops1) then begin
-   outerframe.right:= ainfo.ba.outerframe.right;
-  end;
-  if not (frl1_fobottom in flocalprops1) then begin
-   outerframe.bottom:= ainfo.ba.outerframe.bottom;
   end;
 
   if not (frl_frameimagelist in flocalprops) then begin
@@ -5763,22 +4567,17 @@ begin
    if not (frl_frameimageoffsetclicked in flocalprops) then begin
     clicked:= ainfo.ba.frameimage_offsets.clicked;
    end;
-   if not (frl_frameimageoffsetfocused in flocalprops) then begin
-    focused:= ainfo.ba.frameimage_offsets.focused;
-   end;
    if not (frl_frameimageoffsetactive in flocalprops) then begin
     active:= ainfo.ba.frameimage_offsets.active;
    end;
-  {
    if not (frl_frameimageoffsetactivemouse in flocalprops) then begin
     activemouse:= ainfo.ba.frameimage_offsets.activemouse;
    end;
    if not (frl_frameimageoffsetactiveclicked in flocalprops) then begin
     activeclicked:= ainfo.ba.frameimage_offsets.activeclicked;
    end;
-  }
   end;
-
+  
   if not (frl1_framefacelist in flocalprops1) then begin
    fintf.getwidget.setlinkedvar(ainfo.ba.frameface_list,
    tmsecomponent(frameface_list));
@@ -5796,42 +4595,21 @@ begin
    if not (frl1_framefaceoffsetclicked in flocalprops1) then begin
     clicked:= ainfo.ba.frameface_offsets.clicked;
    end;
-   if not (frl1_framefaceoffsetfocused in flocalprops1) then begin
-    focused:= ainfo.ba.frameface_offsets.focused;
-   end;
    if not (frl1_framefaceoffsetactive in flocalprops1) then begin
     active:= ainfo.ba.frameface_offsets.active;
    end;
-  {
    if not (frl1_framefaceoffsetactivemouse in flocalprops1) then begin
     activemouse:= ainfo.ba.frameface_offsets.activemouse;
    end;
    if not (frl1_framefaceoffsetactiveclicked in flocalprops1) then begin
     activeclicked:= ainfo.ba.frameface_offsets.activeclicked;
    end;
-  }
   end;
-
-  if not (frl1_focusrectdist in flocalprops1) then begin
-   focusrectdist:= ainfo.ba.focusrectdist;
-  end;
-  if not (frl1_extraspace in flocalprops1) then begin
-   extraspace:= ainfo.ba.extraspace;
-  end;
-  if not (frl1_imagedist in flocalprops1) then begin
-   imagedist:= ainfo.ba.imagedist;
-  end;
-  if not (frl1_imagedist1 in flocalprops1) then begin
-   imagedist1:= ainfo.ba.imagedist1;
-  end;
-  if not (frl1_imagedist2 in flocalprops1) then begin
-   imagedist2:= ainfo.ba.imagedist2;
-  end;
-
+  
   if not (frl_optionsskin in flocalprops) then begin
    optionsskin:= ainfo.ba.optionsskin;
   end;
-
+  
   if not (frl_colorclient in flocalprops) then begin
    colorclient:= ainfo.ba.colorclient;
   end;
@@ -5844,84 +4622,40 @@ begin
  //dummy
 end;
 
-function tcustomframe.outerframedim: sizety;
+function tcustomframe.outerframewidth: sizety;
 begin
- checkstate();
+ checkstate;
  result.cx:= fouterframe.left + fouterframe.right;
  result.cy:= fouterframe.top + fouterframe.bottom;
 end;
 
-function tcustomframe.outerframecx: int32;
+function tcustomframe.frameframewidth: sizety;
 begin
- checkstate();
- result:= fouterframe.left + fouterframe.right;
-end;
-
-function tcustomframe.outerframecy: int32;
-begin
- checkstate();
- result:= fouterframe.top + fouterframe.bottom;
-end;
-
-function tcustomframe.frameframedim: sizety;
-begin
- checkstate();
+ checkstate;
  result.cx:= fouterframe.left + fwidth.left + fwidth.right + fouterframe.right;
  result.cy:= fouterframe.top + fwidth.top + fwidth.bottom + fouterframe.bottom;
 end;
 
-function tcustomframe.frameframecx: int32;
+function tcustomframe.paintframewidth: sizety;
 begin
- checkstate();
- result:= fouterframe.left + fwidth.left + fwidth.right + fouterframe.right;
-end;
-
-function tcustomframe.frameframecy: int32;
-begin
- checkstate();
- result:= fouterframe.top + fwidth.top + fwidth.bottom + fouterframe.bottom;
-end;
-
-function tcustomframe.paintframedim: sizety;
-begin
- checkstate();
+ checkstate;
  result.cx:= fpaintframe.left + fpaintframe.right;
  result.cy:= fpaintframe.top + fpaintframe.bottom;
+// result.cx:= fouterframe.left + fpaintframe.left +
+//       fpaintframe.right + fouterframe.right;
+// result.cy:= fouterframe.top + fpaintframe.top +
+//       fpaintframe.bottom + fouterframe.bottom;
 end;
 
-function tcustomframe.paintframecx: int32;
+function tcustomframe.innerframewidth: sizety;
 begin
- checkstate();
- result:= fpaintframe.left + fpaintframe.right;
-end;
-
-function tcustomframe.paintframecy: int32;
-begin
- checkstate();
- result:= fpaintframe.top + fpaintframe.bottom;
-end;
-
-function tcustomframe.innerframedim: sizety;
-begin
- checkstate();
+ checkstate;
  result.cx:= finnerframe.left + finnerframe.right;
  result.cy:= finnerframe.top + finnerframe.bottom;
 // result.cx:= fouterframe.left + fpaintframe.left + fi.innerframe.left +
 //       fpaintframe.right + fouterframe.right + fi.innerframe.right;
 // result.cy:= fouterframe.top + fpaintframe.top + fi.innerframe.top +
 //       fpaintframe.bottom + fouterframe.bottom + fi.innerframe.bottom;
-end;
-
-function tcustomframe.innerframecx: int32;
-begin
- checkstate();
- result:= finnerframe.left + finnerframe.right;
-end;
-
-function tcustomframe.innerframecy: int32;
-begin
- checkstate();
- result:= finnerframe.top + finnerframe.bottom;
 end;
 
 function tcustomframe.outerframe: framety;
@@ -5937,11 +4671,6 @@ begin
 // result:= addframe(fouterframe,fpaintframe);
 end;
 
-function tcustomframe.paintframedelta: framety;
-begin
- result:= subframe(paintframe,fouterframe);
-end;
-
 function tcustomframe.innerframe: framety;
 begin
  checkstate;
@@ -5953,11 +4682,11 @@ end;
 procedure tcustomframe.checktemplate(const sender: tobject);
 begin
  if sender = ftemplate then begin
-  assign({$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif}(sender));
+  assign(tpersistent(sender));
  end;
 end;
 
-procedure tcustomframe.assign(source: {$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif});
+procedure tcustomframe.assign(source: tpersistent);
 begin
  if source is tcustomframe then begin
   if not (csdesigning in fintf.getcomponentstate) then begin
@@ -5994,14 +4723,13 @@ end;
 
 procedure tcustomframe.setdisabled(const value: boolean);
 begin
- updatebit({$ifdef FPC}longword{$else}longword{$endif}(fstate),
-                                                 ord(fs_disabled),value);
+ updatebit({$ifdef FPC}longword{$else}longword{$endif}(fstate),ord(fs_disabled),value);
  with fi do begin
   if (frameimage_list <> nil) and (frameimage_offsetdisabled <> 0) or
      (frameface_list <> nil) and (frameface_offsetdisabled <> 0) then begin
    fintf.getwidget.invalidatewidget;
   end;
- end;
+ end; 
 end;
 
 function tcustomframe.pointincaption(const point: pointty): boolean;
@@ -6030,7 +4758,12 @@ function tcustomframe.isframewidthstored: boolean;
 begin
  result:= (ftemplate = nil) or (frl_framewidth in flocalprops);
 end;
-
+{
+function tcustomframe.isextraspacestored: boolean;
+begin
+ result:= (ftemplate = nil) or (frl_extraspace in flocalprops);
+end;
+}
 function tcustomframe.iscolorframestored: boolean;
 begin
  result:= (ftemplate = nil) or (frl_colorframe in flocalprops);
@@ -6039,26 +4772,6 @@ end;
 function tcustomframe.iscolorframeactivestored: boolean;
 begin
  result:= (ftemplate = nil) or (frl_colorframeactive in flocalprops);
-end;
-
-function tcustomframe.iscolorframedisabledstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_colorframedisabled in flocalprops1);
-end;
-
-function tcustomframe.iscolorframemousestored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_colorframemouse in flocalprops1);
-end;
-
-function tcustomframe.iscolorframeclickedstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_colorframeclicked in flocalprops1);
-end;
-
-function tcustomframe.iscolorframedefaultstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_colorframedefault in flocalprops1);
 end;
 
 function tcustomframe.iscolordkshadowstored: boolean;
@@ -6116,47 +4829,27 @@ begin
  result:= (ftemplate = nil) or (frl_fitop in flocalprops);
 end;
 
-function tcustomframe.isfobottomstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_fobottom in flocalprops1);
-end;
-
-function tcustomframe.isfoleftstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_foleft in flocalprops1);
-end;
-
-function tcustomframe.isforightstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_foright in flocalprops1);
-end;
-
-function tcustomframe.isfotopstored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_fotop in flocalprops1);
-end;
-
 function tcustomframe.isframeimage_liststored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameimage_list <> nil) or
+ result:= (ftemplate = nil) and (fi.frameimage_list <> nil) or 
                (frl_frameimagelist in flocalprops);
 end;
 
 function tcustomframe.isframeimage_leftstored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameimage_left <> 0) or
+ result:= (ftemplate = nil) and (fi.frameimage_left <> 0) or 
                (frl_frameimageleft in flocalprops);
 end;
 
 function tcustomframe.isframeimage_rightstored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameimage_right <> 0) or
+ result:= (ftemplate = nil) and (fi.frameimage_right <> 0) or 
                (frl_frameimageright in flocalprops);
 end;
 
 function tcustomframe.isframeimage_topstored: boolean;
 begin
- result:= (ftemplate = nil)  and (fi.frameimage_top <> 0) or
+ result:= (ftemplate = nil)  and (fi.frameimage_top <> 0) or 
                (frl_frameimagetop in flocalprops);
 end;
 
@@ -6168,13 +4861,13 @@ end;
 
 function tcustomframe.isframeimage_offsetstored: boolean;
 begin
- result:= (ftemplate = nil)  and (fi.frameimage_offsets.offset <> 0) or
+ result:= (ftemplate = nil)  and (fi.frameimage_offsets.offset <> 0) or 
                (frl_frameimageoffset in flocalprops);
 end;
 
 function tcustomframe.isframeimage_offset1stored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameimage_offsets.offset1 <> 0) or
+ result:= (ftemplate = nil) and (fi.frameimage_offsets.offset1 <> 0) or 
                (frl_frameimageoffset1 in flocalprops);
 end;
 
@@ -6196,18 +4889,12 @@ begin
                (frl_frameimageoffsetclicked in flocalprops);
 end;
 
-function tcustomframe.isframeimage_offsetfocusedstored: boolean;
-begin
- result:= (ftemplate = nil) and (fi.frameimage_offsets.focused <> 0) or
-               (frl_frameimageoffsetfocused in flocalprops);
-end;
-
 function tcustomframe.isframeimage_offsetactivestored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameimage_offsets.active <> 0) or
+ result:= (ftemplate = nil) and (fi.frameimage_offsets.active <> 0) or 
                (frl_frameimageoffsetactive in flocalprops);
 end;
-{
+
 function tcustomframe.isframeimage_offsetactivemousestored: boolean;
 begin
  result:= (ftemplate = nil) and (fi.frameimage_offsets.activemouse <> 0) or
@@ -6219,7 +4906,7 @@ begin
  result:= (ftemplate = nil) and (fi.frameimage_offsets.activeclicked <> 0) or
                (frl_frameimageoffsetactiveclicked in flocalprops);
 end;
-}
+
 function tcustomframe.isframeface_liststored: boolean;
 begin
  result:= (ftemplate = nil) and (fi.frameface_list <> nil) or
@@ -6252,14 +4939,8 @@ end;
 
 function tcustomframe.isframeface_offsetclickedstored: boolean;
 begin
- result:= (ftemplate = nil) and (fi.frameface_offsets.clicked <> 0) or
+ result:= (ftemplate = nil) and (fi.frameface_offsets.clicked <> 0) or 
                (frl1_framefaceoffsetclicked in flocalprops1);
-end;
-
-function tcustomframe.isframeface_offsetfocusedstored: boolean;
-begin
- result:= (ftemplate = nil) and (fi.frameface_offsets.focused <> 0) or
-               (frl1_framefaceoffsetfocused in flocalprops1);
 end;
 
 function tcustomframe.isframeface_offsetactivestored: boolean;
@@ -6267,7 +4948,7 @@ begin
  result:= (ftemplate = nil) and (fi.frameface_offsets.active <> 0) or
                (frl1_framefaceoffsetactive in flocalprops1);
 end;
-{
+
 function tcustomframe.isframeface_offsetactivemousestored: boolean;
 begin
  result:= (ftemplate = nil) and (fi.frameface_offsets.activemouse <> 0) or
@@ -6279,7 +4960,7 @@ begin
  result:= (ftemplate = nil) and (fi.frameface_offsets.activeclicked <> 0) or
                (frl1_framefaceoffsetactiveclicked in flocalprops1);
 end;
-}
+
 function tcustomframe.isoptionsskinstored: boolean;
 begin
  result:= (ftemplate = nil) or (frl_optionsskin in flocalprops);
@@ -6290,30 +4971,6 @@ begin
  result:= (ftemplate = nil) or (frl_colorclient in flocalprops);
 end;
 
-function tcustomframe.isfocusrectdiststored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_focusrectdist in flocalprops1);
-end;
-
-function tcustomframe.isextraspacestored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_extraspace in flocalprops1);
-end;
-
-function tcustomframe.isimagediststored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_imagedist in flocalprops1);
-end;
-
-function tcustomframe.isimagedist1stored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_imagedist1 in flocalprops1);
-end;
-
-function tcustomframe.isimagedist2stored: boolean;
-begin
- result:= (ftemplate = nil) or (frl1_imagedist2 in flocalprops1);
-end;
 
 procedure tcustomframe.changedirection(const oldvalue: graphicdirectionty;
                const newvalue: graphicdirectionty);
@@ -6323,21 +4980,13 @@ var
 begin
  int2:= ord(oldvalue)-ord(newvalue);
  for int1:= 0 to 3 do begin
-  pintegeraty(@fra1)^[int1]:=
+  pintegeraty(@fra1)^[int1]:= 
          pintegeraty(@fi.innerframe)^[(int1+int2) and $3];
  end;
  framei_left:= fra1.left;
  framei_top:= fra1.top;
  framei_right:= fra1.right;
  framei_bottom:= fra1.bottom;
- for int1:= 0 to 3 do begin
-  pintegeraty(@fra1)^[int1]:=
-         pintegeraty(@fi.outerframe)^[(int1+int2) and $3];
- end;
- frameo_left:= fra1.left;
- frameo_top:= fra1.top;
- frameo_right:= fra1.right;
- frameo_bottom:= fra1.bottom;
 end;
 
 procedure tcustomframe.scale(const ascale: real);
@@ -6348,15 +4997,12 @@ begin
    levelo:= round(levelo * ascale);
    framewidth:= round(framewidth * ascale);
  //  extraspace:= round(extraspace * ascale);
-   framecolors.edges.shadow.effectwidth:=
-                    round(framecolors.edges.shadow.effectwidth*ascale);
-   framecolors.edges.light.effectwidth:=
-                    round(framecolors.edges.light.effectwidth*ascale);
+   framecolors.shadow.effectwidth:= round(framecolors.shadow.effectwidth*ascale);
+   framecolors.light.effectwidth:= round(framecolors.light.effectwidth*ascale);
    framei_left:= round(framei_left * ascale);
    framei_top:= round(framei_top * ascale);
    framei_right:= round(framei_right * ascale);
    framei_bottom:= round(framei_bottom * ascale);
-   focusrectdist:= round(focusrectdist * ascale);
   end;
  end;
 end;
@@ -6379,38 +5025,7 @@ begin
  //dummy
 end;
 
-procedure tcustomframe.showhint(const aid: int32; var info: hintinfoty);
-begin
- //dummy
-end;
-
 procedure tcustomframe.checkminscrollsize(var asize: sizety);
-begin
- //dummy
-end;
-
-procedure tcustomframe.checkminclientsize(var asize: sizety);
-begin
- checkstate;
- if not (fs_canclientextendx in fstate) or (asize.cx < fpaintrect.cx) then begin
-  asize.cx:= fpaintrect.cx;
- end;
- if not (fs_canclientextendy in fstate) or (asize.cy < fpaintrect.cy) then begin
-  asize.cy:= fpaintrect.cy;
- end;
-end;
-
-procedure tcustomframe.checkminshrinksize(var asize: sizety);
-begin
- //dummy
-end;
-
-procedure tcustomframe.addscrollbarwidth(var asize: sizety);
-begin
- //dummy
-end;
-
-procedure tcustomframe.subscrollbarwidth(var asize: sizety);
 begin
  //dummy
 end;
@@ -6418,16 +5033,6 @@ end;
 function tcustomframe.isoptional: boolean;
 begin
  result:= not fintf.getstaticframe;
-end;
-
-procedure tcustomframe.defineproperties(filer: tfiler);
-begin
- filer.defineproperty('dummy',@readdummy,nil,false);
- filer.defineproperty('frameimage_offsetactivemouse',@readdummy,nil,false);
- filer.defineproperty('frameimage_offsetactiveclicked',@readdummy,nil,false);
- filer.defineproperty('frameface_offsetactivemouse',@readdummy,nil,false);
- filer.defineproperty('frameface_offsetactiveclicked',@readdummy,nil,false);
- // inherited; //no dummy necessary because of localprops
 end;
 
 { tframetemplate }
@@ -6464,75 +5069,39 @@ begin
  changed;
 end;
 
-procedure tframetemplate.setcolorframedisabled(const avalue: colorty);
-begin
- fi.ba.colorframedisabled:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setcolorframemouse(const avalue: colorty);
-begin
- fi.ba.colorframemouse:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setcolorframeclicked(const avalue: colorty);
-begin
- fi.ba.colorframeclicked:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setcolorframedefault(const avalue: colorty);
-begin
- fi.ba.colorframedefault:= avalue;
- changed;
-end;
-
 procedure tframetemplate.setcolordkshadow(const avalue: colorty);
 begin
- fi.ba.framecolors.edges.shadow.effectcolor:= avalue;
+ fi.ba.framecolors.shadow.effectcolor:= avalue;
  changed;
 end;
 
 procedure tframetemplate.setcolorshadow(const avalue: colorty);
 begin
- fi.ba.framecolors.edges.shadow.color:= avalue;
+ fi.ba.framecolors.shadow.color:= avalue;
  changed;
 end;
 
 procedure tframetemplate.setcolorlight(const avalue: colorty);
 begin
- fi.ba.framecolors.edges.light.color:= avalue;
+ fi.ba.framecolors.light.color:= avalue;
  changed;
 end;
 
 procedure tframetemplate.setcolorhighlight(const avalue: colorty);
 begin
- fi.ba.framecolors.edges.light.effectcolor:= avalue;
+ fi.ba.framecolors.light.effectcolor:= avalue;
  changed;
 end;
 
 procedure tframetemplate.setcolordkwidth(const avalue: integer);
 begin
- fi.ba.framecolors.edges.shadow.effectwidth:= avalue;
+ fi.ba.framecolors.shadow.effectwidth:= avalue;
  changed;
 end;
 
 procedure tframetemplate.setcolorhlwidth(const avalue: integer);
 begin
- fi.ba.framecolors.edges.light.effectwidth:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setcolorglyph(const avalue: colorty);
-begin
- fi.ba.colorglyph:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setcolorpattern(const avalue: colorty);
-begin
- fi.ba.colorpattern:= avalue;
+ fi.ba.framecolors.light.effectwidth:= avalue;
  changed;
 end;
 
@@ -6566,30 +5135,6 @@ begin
  changed;
 end;
 
-procedure tframetemplate.setframeo_bottom(const Value: integer);
-begin
- fi.ba.outerframe.bottom := Value;
- changed;
-end;
-
-procedure tframetemplate.setframeo_left(const Value: integer);
-begin
- fi.ba.outerframe.left := Value;
- changed;
-end;
-
-procedure tframetemplate.setframeo_right(const Value: integer);
-begin
- fi.ba.outerframe.right := Value;
- changed;
-end;
-
-procedure tframetemplate.setframeo_top(const Value: integer);
-begin
- fi.ba.outerframe.top := Value;
- changed;
-end;
-
 procedure tframetemplate.setframewidth(const Value: integer);
 begin
  fi.ba.framewidth := Value;
@@ -6598,25 +5143,25 @@ end;
 
 procedure tframetemplate.setextraspace(const avalue: integer);
 begin
- fi.ba.extraspace := avalue;
+ fextraspace := avalue;
  changed;
 end;
 
 procedure tframetemplate.setimagedist(const avalue: integer);
 begin
- fi.ba.imagedist := avalue;
+ fimagedist := avalue;
  changed;
 end;
 
-procedure tframetemplate.setimagedist1(const avalue: integer);
+procedure tframetemplate.setimagedisttop(const avalue: integer);
 begin
- fi.ba.imagedist1 := avalue;
+ fimagedisttop := avalue;
  changed;
 end;
 
-procedure tframetemplate.setimagedist2(const avalue: integer);
+procedure tframetemplate.setimagedistbottom(const avalue: integer);
 begin
- fi.ba.imagedist2 := avalue;
+ fimagedistbottom := avalue;
  changed;
 end;
 
@@ -6697,18 +5242,12 @@ begin
  changed;
 end;
 
-procedure tframetemplate.setframeimage_offsetfocused(const avalue: imagenrty);
-begin
- fi.ba.frameimage_offsets.focused:= avalue;
- changed;
-end;
-
 procedure tframetemplate.setframeimage_offsetactive(const avalue: imagenrty);
 begin
  fi.ba.frameimage_offsets.active:= avalue;
  changed;
 end;
-{
+
 procedure tframetemplate.setframeimage_offsetactivemouse(const avalue: imagenrty);
 begin
  fi.ba.frameimage_offsets.activemouse:= avalue;
@@ -6720,7 +5259,7 @@ begin
  fi.ba.frameimage_offsets.activeclicked:= avalue;
  changed;
 end;
-}
+
 procedure tframetemplate.setframeface_list(const avalue: tfacelist);
 begin
  setlinkedvar(avalue,tmsecomponent(fi.ba.frameface_list));
@@ -6757,18 +5296,12 @@ begin
  changed;
 end;
 
-procedure tframetemplate.setframeface_offsetfocused(const avalue: facenrty);
-begin
- fi.ba.frameface_offsets.focused:= avalue;
- changed;
-end;
-
 procedure tframetemplate.setframeface_offsetactive(const avalue: facenrty);
 begin
  fi.ba.frameface_offsets.active:= avalue;
  changed;
 end;
-{
+
 procedure tframetemplate.setframeface_offsetactivemouse(const avalue: facenrty);
 begin
  fi.ba.frameface_offsets.activemouse:= avalue;
@@ -6780,7 +5313,7 @@ begin
  fi.ba.frameface_offsets.activeclicked:= avalue;
  changed;
 end;
-}
+
 procedure tframetemplate.setoptionsskin(const avalue: frameskinoptionsty);
 begin
  fi.ba.optionsskin:= avalue;
@@ -6802,7 +5335,7 @@ procedure tframetemplate.doassignto(dest: tpersistent);
 begin
  if dest is tcustomframe then begin
   with tcustomframe(dest) do begin
-   if (cs_loadedproc in fowner.msecomponentstate) or
+   if (cs_loadedproc in fowner.msecomponentstate) or 
                  (csloading in fintf.getcomponentstate) then begin
 //    if cs_updateskinproc in fintf.getmsecomponentstate then begin
 //     updatestate;
@@ -6820,78 +5353,19 @@ begin
  end;
 end;
 
-procedure tframetemplate.paintbackgroundframe(const acanvas: tcanvas;
-            const arect: rectty; const astate: framestateflagsty = []);
-var
- int1: integer;
-
+procedure tframetemplate.paintbackground(const acanvas: tcanvas;
+                       const arect: rectty);
 begin
  if fi.ba.colorclient <> cl_transparent then begin
   acanvas.fillrect(arect,fi.ba.colorclient);
  end;
- if fi.ba.frameface_list <> nil then begin
-  int1:= fi.ba.frameface_list.lookup(
-          calcframestateoffs(astate,frameoffsetsty(fi.ba.frameface_offsets)));
-  if (int1 >= 0){ and (int1 < fi.ba.frameface_list.list.count)} then begin
-   fi.ba.frameface_list.list[int1].paint(acanvas,arect);
-  end;
- end;
 end;
 
-procedure tframetemplate.paintoverlayframe(const acanvas: tcanvas;
-                const arect: rectty; const astate: framestateflagsty = []);
+procedure tframetemplate.paintoverlay(const acanvas: tcanvas; const arect: rectty;
+                         const astate: framestateflagsty);
 begin
- tcustomframe.drawframe(acanvas,arect,fi.ba,astate);
-end;
-
-procedure tframetemplate.paintbackground(const acanvas: tcanvas;
-            const arect: rectty; const astate: framestateflagsty = []);
-var
- bo1: boolean;
-begin
- if assigned(fonbeforetemplatepaintbackground) then begin
-  bo1:= false;
-  fonbeforetemplatepaintbackground(self,acanvas,arect,astate,bo1);
-  if bo1 then begin
-   paintbackgroundframe(acanvas,
-          inflaterect(arect,tcustomframe.calcpaintframe(fi.ba)),astate);
-  end;
-  if assigned(fonaftertemplatepaintbackground) then begin
-   fonaftertemplatepaintbackground(self,acanvas,arect,astate);
-  end;
- end
- else begin
-  paintbackgroundframe(acanvas,
-          inflaterect(arect,tcustomframe.calcpaintframe(fi.ba)),astate);
-  if assigned(fonaftertemplatepaintbackground) then begin
-   fonaftertemplatepaintbackground(self,acanvas,arect,astate);
-  end;
- end;
-end;
-
-procedure tframetemplate.paintoverlay(const acanvas: tcanvas;
-                const arect: rectty; const astate: framestateflagsty = []);
-var
- bo1: boolean;
-begin
- if assigned(fonbeforetemplatepaintoverlay) then begin
-  bo1:= false;
-  fonbeforetemplatepaintoverlay(self,acanvas,arect,astate,bo1);
-  if bo1 then begin
-   paintoverlayframe(acanvas,
-          inflaterect(arect,tcustomframe.calcpaintframe(fi.ba)),astate);
-  end;
-  if assigned(fonaftertemplatepaintoverlay) then begin
-   fonaftertemplatepaintoverlay(self,acanvas,arect,astate);
-  end;
- end
- else begin
-  paintoverlayframe(acanvas,
-          inflaterect(arect,tcustomframe.calcpaintframe(fi.ba)),astate);
-  if assigned(fonaftertemplatepaintoverlay) then begin
-   fonaftertemplatepaintoverlay(self,acanvas,arect,astate);
-  end;
- end;
+ tcustomframe.drawframe(acanvas,
+     inflaterect(arect,tcustomframe.calcpaintframe(fi.ba)),fi.ba,astate);
 end;
 
 procedure tframetemplate.copyinfo(const source: tpersistenttemplate);
@@ -6909,58 +5383,9 @@ begin
  end;
 end;
 
-procedure tframetemplate.readdummy(reader: treader);
-begin
- reader.readinteger();
-end;
-
-procedure tframetemplate.readimagedisttop(reader: treader);
-begin
- fi.ba.imagedist1:= reader.readinteger();
-end;
-
-procedure tframetemplate.readimagedistbottom(reader: treader);
-begin
- fi.ba.imagedist2:= reader.readinteger();
-end;
-
-procedure tframetemplate.defineproperties(filer: tfiler);
-begin
- inherited;
- filer.defineproperty('imagedisttop',@readimagedisttop,nil,false);
- filer.defineproperty('imagedistbottom',@readimagedistbottom,nil,false);
- filer.defineproperty('frameimage_offsetactivemouse',@readdummy,nil,false);
- filer.defineproperty('frameimage_offsetactiveclicked',@readdummy,nil,false);
- filer.defineproperty('frameface_offsetactivemouse',@readdummy,nil,false);
- filer.defineproperty('frameface_offsetactiveclicked',@readdummy,nil,false);
-end;
-
 function tframetemplate.paintframe: framety;
 begin
  result:= tcustomframe.calcpaintframe(fi.ba);
-end;
-
-function tframetemplate.innerframe: framety;
-begin
- result:= tcustomframe.calcinnerframe(fi.ba);
-end;
-
-function tframetemplate.paintframedim: sizety;
-var
- fr1: framety;
-begin
- fr1:= tcustomframe.calcpaintframe(fi.ba);
- result.cx:= fr1.left + fr1.right;
- result.cy:= fr1.top + fr1.bottom;
-end;
-
-function tframetemplate.innerframedim: sizety;
-var
- fr1: framety;
-begin
- fr1:= tcustomframe.calcinnerframe(fi.ba);
- result.cx:= fr1.left + fr1.right;
- result.cy:= fr1.top + fr1.bottom;
 end;
 
 function tframetemplate.getfont: toptionalfont;
@@ -6985,12 +5410,6 @@ end;
 procedure tframetemplate.setcaptionoffset(const avalue: integer);
 begin
  fi.capt.captionoffset:= avalue;
- changed;
-end;
-
-procedure tframetemplate.setfocusrectdist(const avalue: integer);
-begin
- fi.ba.focusrectdist:= avalue;
  changed;
 end;
 
@@ -7029,86 +5448,18 @@ begin
  ftemplate.Assign(value);
 end;
 
-
-{ tfacebitmap }
-
-constructor tfacebitmap.create(const aowner: tcustomface);
-begin
- fowner:= aowner;
- inherited create(bmk_rgb);
-end;
-
-procedure tfacebitmap.setx(const avalue: int32);
-begin
- if fpos.x <> avalue then begin
-  setpos(mp(avalue,fpos.y));
- end;
-end;
-
-procedure tfacebitmap.sety(const avalue: int32);
-begin
- if fpos.y <> avalue then begin
-  setpos(mp(fpos.x,avalue));
- end;
-end;
-
-procedure tfacebitmap.setpos(const avalue: pointty);
-begin
- if (avalue.x <> fpos.x) or (avalue.y <> fpos.y) then begin
-  if (fowner <> nil) then begin
-   if hasimage() then begin
-    if (alignment*[al_stretchx,al_stretchy,
-                         al_tiled,al_fit,al_thumbnail] = []) then begin
-     fowner.fintf.invalidaterect(mr(fpos,fsize),org_paint);
-     fpos:= avalue;
-     fowner.fintf.invalidaterect(mr(fpos,fsize),org_paint);
-    end
-    else begin
-     fpos:= avalue;
-     change();
-    end;
-   end
-   else begin
-    fpos:= avalue;
-   end;
-  end
-  else begin
-   fpos:= avalue;
-   change();
-  end;
- end;
-end;
-
-function tfacebitmap.getcenter: pointty;
-begin
- result.x:= fpos.x - fsize.cx div 2;
- result.y:= fpos.y - fsize.cy div 2;
-end;
-
-procedure tfacebitmap.setcenter(avalue: pointty);
-begin
- avalue.x:= avalue.x - fsize.cx div 2;
- avalue.y:= avalue.y - fsize.cy div 2;
- pos:= avalue;
-end;
-
 { tcustomface }
 
 procedure tcustomface.internalcreate;
 begin
- fi.image:= tfacebitmap.create(self);
- fi.image.onchange:= {$ifdef fpc}@{$endif}imagechanged;
- fi.fade_pos:= trealarrayprop.create;
- fi.fade_color:= tfadecolorarrayprop.create;
+ fi.image:= tmaskedbitmap.create(false);
+ fi.image.onchange:= {$ifdef FPC}@{$endif}imagechanged;
+ fi.fade_pos:= trealarrayprop.Create;
+ fi.fade_color:= tfadecolorarrayprop.Create;
  fi.fade_pos.link([fi.fade_color,fi.fade_pos]);
- fi.fade_opapos:= trealarrayprop.create;
- fi.fade_opacolor:= tfadeopacolorarrayprop.create;
- fi.fade_opapos.link([fi.fade_opacolor,fi.fade_opapos]);
- fi.fade_opacity:= cl_none;
- fi.fade_pos.onchange:= {$ifdef fpc}@{$endif}dochange;
- fi.fade_color.onchange:= {$ifdef fpc}@{$endif}dochange;
- fi.fade_opapos.onchange:= {$ifdef fpc}@{$endif}dochange;
- fi.fade_opacolor.onchange:= {$ifdef fpc}@{$endif}dochange;
+ fi.fade_transparency:= cl_none;
+ fi.fade_pos.onchange:= {$ifdef FPC}@{$endif}dochange;
+ fi.fade_color.onchange:= {$ifdef FPC}@{$endif}dochange;
 end;
 
 constructor tcustomface.create;
@@ -7139,14 +5490,12 @@ begin
  fi.image.Free;
  fi.fade_pos.Free;
  fi.fade_color.free;
- fi.fade_opapos.Free;
- fi.fade_opacolor.free;
  falphabuffer.Free;
 end;
 
 procedure tcustomface.change;
 begin
- fintf.invalidatewidget(); //face can be element of frame (tcustomstepframe)
+ fintf.invalidate;
 end;
 
 procedure updatefadearray(var fi: faceinfoty; const sender: tarrayprop);
@@ -7162,20 +5511,6 @@ begin
      fitems[high(fitems)]:= 1;
     end;
     fi.fade_color.order(ar1);
-   end;
-  end;
- end
- else begin
-  if sender = fi.fade_opapos then begin
-   with trealarrayprop1(fi.fade_opapos) do begin
-    if high(fitems) >= 0 then begin
-     sortarray(trealarrayprop1(fi.fade_opapos).fitems,ar1);
-     fitems[0]:= 0;
-     if high(fitems) > 0 then begin
-      fitems[high(fitems)]:= 1;
-     end;
-     fi.fade_opacolor.order(ar1);
-    end;
    end;
   end;
  end;
@@ -7198,11 +5533,11 @@ end;
 procedure tcustomface.checktemplate(const sender: tobject);
 begin
  if sender = ftemplate then begin
-  assign({$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif}(sender));
+  assign(tpersistent(sender));
  end;
 end;
 
-procedure tcustomface.assign(source: {$ifdef class_bridge}tpersistentbridge{$else}tpersistent{$endif});
+procedure tcustomface.assign(source: tpersistent);
 begin
  if source is tcustomface then begin
   if not (csdesigning in fintf.getcomponentstate) then begin
@@ -7211,15 +5546,9 @@ begin
     self.fade_direction:= fade_direction;
     self.fade_color:= fade_color;
     self.fade_pos:= fade_pos;
-    self.fade_opacolor:= fade_opacolor;
-    self.fade_opapos:= fade_opapos;
-    self.fade_opacity:= fade_opacity;
+    self.fade_transparency:= fade_transparency;
     self.image:= image;
     self.options:= options;
-    self.framei_left:= framei_left;
-    self.framei_top:= framei_top;
-    self.framei_right:= framei_right;
-    self.framei_bottom:= framei_bottom;
    end;
   end;
  end
@@ -7228,352 +5557,127 @@ begin
  end;
 end;
 
-procedure facepaint(const canvas: tcanvas; const arect: rectty;
-            const fi: faceinfoty; const fintf: iface1;
-               var falphabuffer: tmaskedbitmap; var falphabufferdest: pointty);
+procedure tcustomface.paint(const canvas: tcanvas; const rect: rectty);
+const
+ epsilon = 0.00001;
 
-var
- rect,rect1: rectty;
-
- procedure createalphabuffer(const amasked: boolean);
- begin
-  if falphabuffer = nil then begin
-   falphabuffer:= tmaskedbitmap.create(bmk_rgb);
-  end;
-  if amasked then begin
-   falphabuffer.options:= [bmo_masked {$if not defined(darwin) and not defined(netbsd)} ,bmo_colormask{$endif}];
-  end;
-  falphabuffer.size:= rect1.size;
-  falphabufferdest:= rect1.pos;
-  falphabuffer.canvas.copyarea(canvas,rect1,nullpoint);
- end;
-
-var
- pixelscale: real;
- vert: boolean;
- alpha: boolean;
- startpix,pixcount: integer;
-
- procedure calcfade(const fadepos: trealarrayprop;
-                    const fadecolor: tcolorarrayprop; const bmp: tbitmap);
+ function calcscale(x,a,b: real): real;
  var
-  posar: realarty;
-  rgbs: array of rgbtriplety;
-  int1,int2: integer;
-  po1,pe: prgbtriplety;
-  pixelstep: real;
-  pixinc: integer;
-  curpix,nextpix: integer;
-  redsum,greensum,bluesum,lengthsum: real;
-  curnode,nextnode: integer;
-  rea1,rea2: real;
-  opar,opag,opab: int32;
-  co1: rgbtriplety;
-  col1,col2: prgbtriplety;
-
+  rea1: real;
  begin
-  posar:= trealarrayprop1(fadepos).fitems;
-  with tfadecolorarrayprop(fadecolor) do begin
-   setlength(rgbs,length(fitems));
-   for int1:= 0 to high(rgbs) do begin
-    rgbs[int1]:= colortorgb(fintf.translatecolor(fitems[int1]));
-   end;
-   if alpha then begin
-    po1:= pointer(rgbs);
-    pe:= po1+length(rgbs);
-    while po1 < pe do begin
-     po1^.red:= 255-po1^.red;
-     po1^.green:= 255-po1^.green;
-     po1^.blue:= 255-po1^.blue;
-     inc(po1);
-    end;
-   end;
-  end;
-  if fadecolor = fi.fade_opacolor then begin
-   co1:= colortorgb(fi.fade_opacity);
-   opar:= (co1.red * 256) div 255;
-   opag:= (co1.green * 256) div 255;
-   opab:= (co1.blue * 256) div 255;
+  rea1:= b-a;
+  if rea1 > epsilon then begin
+   result:= (x - a) / rea1;
   end
   else begin
-   opar:= 256;
-   opag:= 256;
-   opab:= 256;
+   result:= x;
   end;
-  if high(rgbs) > 0 then begin
-   po1:= bmp.scanline[0];
-   pixelstep:= 1/pixelscale;
-   pixinc:= sizeof(rgbtriplety);
-   if fi.fade_direction in [gd_up,gd_left] then begin //revert
-    if fi.fade_direction = gd_left then begin
-     startpix:= rect.x+rect.cx-rect1.x-rect1.cx;
-    end
-    else begin
-     startpix:= rect.y+rect.cy-rect1.y-rect1.cy;
-    end;
-    inc(po1,pixcount-1);
-    pixinc:= -pixinc;
+ end;
+
+ function scalecolor(x: real; const a,b: rgbtriplety): rgbtriplety;
+ begin
+  with result do begin
+   red:= a.red + round((b.red - a.red) * x);
+   green:= a.green + round((b.green - a.green) * x);
+   blue:= a.blue + round((b.blue - a.blue) * x);
+   res:= 0;
+  end;
+ end;
+
+var
+ rect1: rectty;
+ bmp: tbitmap;
+ ipos,imax: integer;
+ rgbs: array of rgbtriplety;
+ poss: realarty;
+ pixelscale: real;
+ vert,reverse: boolean;
+ first,last: integer;
+ fade: prgbtripleaty;
+
+ procedure interpolate(index: integer);
+ var
+  int1,int2,int3: integer;
+  by1,by2: byte;
+  po1,po2: prgbtriplety;
+  posstep,colorstep: real;
+  pos,color: real;
+  rea1,rea2: real;
+  co1: rgbtriplety;
+                              //todo: optimize
+ begin
+  po1:= @rgbs[index];
+  po2:= @rgbs[index+1];
+  with po2^ do begin //find bigest difference
+   by1:= abs(red - po1^.red);
+   by2:= abs(green - po1^.green);
+   if by2 > by1 then begin
+    by1:= by2;
    end;
-   curnode:= 0;
-   int1:= 0;
-   while int1 < pixcount do begin
-    rea1:= (int1+startpix)*pixelstep + 0.000001;
-    if int1 = 0 then begin
-     while posar[curnode] < rea1 do begin
-      inc(curnode);
-     end;
-     dec(curnode);
-    end;
-    nextnode:= curnode;
-    rea1:= rea1 + pixelstep;
-    while (posar[nextnode] < rea1) and (nextnode < high(posar)) do begin
-     inc(nextnode);
-    end;
-    if nextnode > curnode+1 then begin //calc average
-     redsum:= 0;
-     greensum:= 0;
-     bluesum:= 0;
-     lengthsum:= 0;
-     for int2:= curnode to nextnode - 2 do begin //todo: optimize
-      rea1:= posar[int2+1] - posar[int2];
-      redsum:= redsum + (rgbs[int2].red+rgbs[int2+1].red)*rea1;
-      greensum:= greensum + (rgbs[int2].green+rgbs[int2+1].green)*rea1;
-      bluesum:= bluesum + (rgbs[int2].blue+rgbs[int2+1].blue)*rea1;
-      lengthsum:= lengthsum + rea1;
-     end;
-     if lengthsum > 0 then begin
-      rea1:= 1/(2*lengthsum);
-      with po1^ do begin
-       red:= (round(redsum*rea1)*opar) div 256;
-       green:= (round(greensum*rea1)*opag) div 256;
-       blue:= (round(bluesum*rea1)*opab) div 256;
-       res:= 0;
-      end;
-     end
-     else begin
-      po1^:= rgbs[curnode];
-     end;
-     dec(nextnode);
-    end
-    else begin
-     nextpix:= trunc(posar[nextnode]*pixelscale)-startpix;
-     if int1 = nextpix then begin
-      po1^:= rgbs[curnode];
-     end
-     else begin
-      curpix:= trunc(posar[curnode]*pixelscale)-startpix;
-      if nextpix = curpix then begin
-       rea1:= 1;
-      end
-      else begin
-       rea1:= 1/(nextpix-curpix);
-      end;
-      if nextpix > pixcount then begin
-       nextpix:= pixcount;
-      end;
-      col1:= @rgbs[curnode];
-      col2:= @rgbs[nextnode];
-      for int2:= int1-curpix to nextpix-curpix-1 do begin
-       rea2:= rea1*int2;
-       with po1^ do begin
-        res:= 0;
-        red:= ((col1^.red +
-                      round((col2^.red-col1^.red)*rea2))*opar) div 256;
-        green:= ((col1^.green +
-                      round((col2^.green-col1^.green)*rea2))*opag) div 256;
-        blue:= ((col1^.blue +
-                      round((col2^.blue-col1^.blue)*rea2))*opab) div 256;
-       end;
-       inc(pchar(po1),pixinc);
-      end;
-      dec(pchar(po1),pixinc);
-      int1:= nextpix-1;
-     end;
-    end;
-    curnode:= nextnode;
-    inc(int1);
-    inc(pchar(po1),pixinc);
+   by2:= abs(blue - po1^.blue);
+   if by2 > by1 then begin
+    by1:= by2;
    end;
-  end
-  else begin //count = 1
-   co1.red:= (rgbs[0].red*opar) div 256;
-   co1.green:= (rgbs[0].green*opag) div 256;
-   co1.blue:= (rgbs[0].blue*opag) div 256;
-   co1.res:= 0;
-   if vert then begin
-    bmp.canvas.drawline(nullpoint,makepoint(0,rect1.cy-1),colorty(co1));
+  end;
+  rea1:= poss[index+1] - poss[index];
+  if rea1 > epsilon then begin
+   rea2:= 1/(rea1*pixelscale); //step for one pixel
+   if by1 = 0 then begin
+    by1:= 1;
+   end;
+   colorstep:= 1 / by1;
+   if colorstep < rea2 then begin
+    colorstep:= rea2;
+    by1:= ceil(1 / colorstep);
+   end;
+   posstep:= colorstep * pixelscale * rea1; //pixel for step
+   if reverse then begin
+    posstep:= -posstep;
+    pos:= poss[last] - poss[index];
    end
    else begin
-    bmp.canvas.drawline(nullpoint,makepoint(rect1.cx-1,0),colorty(co1));
+    pos:= poss[index];
    end;
-  end;
- end; //calcfade
-
-var
- bmp: tmaskedbitmap;
- reg1: regionty;
-
- procedure paintimage(const canvas: tcanvas);
- begin
-  if fi.image.hasimage then begin
-   fi.image.paint(canvas,mr(addpoint(rect.pos,fi.image.fpos),rect.size));
-   if fao_alphafadeimage in fi.options then begin
-    if falphabuffer <> nil then begin
-     falphabuffer.paint(canvas,falphabufferdest);
-     freeandnil(falphabuffer);
+   pos:=  pos * pixelscale;
+   color:= 0;
+   for int1:= 0 to by1 - 1 do begin
+    if (ipos < 0) or (ipos >= imax) then begin
+     break;
     end;
-   end;
-  end;
-  if fi.frameimage_list <> nil then begin
-   if reg1 <> 0 then begin
-    canvas.clipregion:= reg1;
-    reg1:= 0;
-   end;
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset,arect.pos);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+1,
-     makerect(arect.x,
-              arect.y+fi.frameimage_list.height,
-              fi.frameimage_list.width,
-              arect.cy-2*fi.frameimage_list.height),[al_stretchy]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+2,arect,[al_bottom]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+3,
-     makerect(arect.x+fi.frameimage_list.width,
-              arect.y+arect.cy-fi.frameimage_list.height,
-              arect.cx-2*fi.frameimage_list.width,
-              fi.frameimage_list.height),[al_stretchx]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+4,arect,
-                                                [al_bottom,al_right]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+5,
-     makerect(arect.x+arect.cx-fi.frameimage_list.width,
-              arect.y+fi.frameimage_list.height,
-              fi.frameimage_list.width,
-              arect.cy-2*fi.frameimage_list.height),[al_stretchy]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+6,arect,[al_right]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+7,
-     makerect(arect.x+fi.frameimage_list.width,arect.y,
-              arect.cx-2*fi.frameimage_list.width,
-              fi.frameimage_list.height),[al_stretchx]);
-  end;
- end; //paintimage
-begin
- reg1:= 0;
- rect:= deflaterect(arect,fi.framei);
- if intersectrect(rect,canvas.clipbox,rect1) or
-               testintersectrect(arect,canvas.clipbox) then begin
-  if (fi.frameimage_list <> nil) and
-                         fi.frameimage_list.hascornermask then begin
-   reg1:= canvas.copyclipregion();
-   fi.frameimage_list.clipcornermask(canvas,arect,[]);
-  end;
-
-  alpha:= fi.options * faceoptionsmask1 <> [];
-  if fi.options * [fao_fadeoverlay,fao_alphaimage] =
-                                              [fao_fadeoverlay] then begin
-   paintimage(canvas);
-  end;
-  if (fi.fade_color.count > 0) and (rect1.cx > 0) and (rect1.cy > 0) then begin
-   if (fi.fade_color.count > 1) or
-     ((fi.fade_opacolor.count > 0) or (fi.fade_opacity <> cl_none)) and
-                               (fi.options * faceoptionsmask1 = []) then begin
-    case fi.fade_direction of
-     gd_up,gd_down: begin
-      pixelscale:= rect.cy;
-      vert:= true;
-      startpix:= rect1.y-rect.y;
-      pixcount:= rect1.cy;
-     end
-     else begin //gd_right,gd_left
-      pixelscale:= rect.cx;
-      vert:= false;
-      startpix:= rect1.x-rect.x;
-      pixcount:= rect1.cx;
+    pos:= pos + posstep;
+    int2:= ipos;
+    ipos:= round(pos);
+    co1:= scalecolor(color,po1^,po2^);
+{$ifdef FPC}{$checkpointer off}{$endif} //scanline is not in heap on win32
+    if reverse then begin
+     if ipos < 0 then begin
+      ipos:= 0;
      end;
-    end;
-    bmp:= tmaskedbitmap.create(bmk_rgb);
-    if vert then begin
-     bmp.size:= makesize(1,rect1.cy);
-    end
-    else begin
-     bmp.size:= makesize(rect1.cx,1);
-    end;
-    calcfade(fi.fade_pos,fi.fade_color,bmp);
-    if fi.options * faceoptionsmask1 = [] then begin
-     if fi.fade_opapos.count > 0 then begin
-      bmp.colormask:= true;
-      calcfade(fi.fade_opapos,fi.fade_opacolor,bmp.mask);
-     end
-     else begin
-      bmp.opacity:= fi.fade_opacity;
-     end;
-     bmp.paint(canvas,rect1,[al_stretchx,al_stretchy]);
-    end
-    else begin
-     createalphabuffer(true);
-     bmp.paint(falphabuffer.mask.canvas,makerect(nullpoint,rect1.size),
-                     makerect(nullpoint,bmp.size),[al_stretchx,al_stretchy]);
-    end;
-    bmp.Free;
-   end
-   else begin //fade_color.count = 1
-    if alpha then begin
-     if fao_alphaimage in fi.options then begin
-      createalphabuffer(true);
-      falphabuffer.mask.canvas.fillrect(mr(nullpoint,rect1.size),
-             invertcolor(tfadecolorarrayprop1(fi.fade_color).fitems[0]));
-     end
-     else begin
-      createalphabuffer(false);
-      falphabuffer.opacity:=
-              invertcolor(tfadecolorarrayprop1(fi.fade_color).fitems[0]);
+     for int3:= int2 downto ipos + 1 do begin
+      fade^[int3]:= co1;
      end;
     end
     else begin
-     canvas.fillrect(rect1,tfadecolorarrayprop1(fi.fade_color).fitems[0]);
+     if ipos > imax then begin
+      ipos:= imax;
+     end;
+     for int3:= int2 to ipos - 1 do begin
+      fade^[int3]:= co1;
+     end;
     end;
+    color:= color + colorstep;
    end;
-  end
-  else begin //fade_color.count = 0
-   if alpha then begin
-    if fao_alphaimage in fi.options then begin
-     createalphabuffer(true);
-     falphabuffer.mask.canvas.fillrect(mr(nullpoint,rect1.size),
-                                               invertcolor(fi.fade_opacity));
-    end
-    else begin
-     createalphabuffer(false);
-     falphabuffer.opacity:= invertcolor(fi.fade_opacity);
-    end;
+   if (ipos >= 0) and (ipos < imax) then begin
+    fade^[ipos]:= co1;
    end;
   end;
-  if fi.options * [fao_fadeoverlay,fao_alphaimage] = [] then begin
-   paintimage(canvas);
-  end;
-  if (fao_alphaimage in fi.options) and (falphabuffer <> nil) then begin
-   falphabuffer.mask.canvas.origin:= subpoint(rect.pos,rect1.pos);
-   paintimage(falphabuffer.mask.canvas);
-   falphabuffer.mask.canvas.origin:= nullpoint;
-  end;
+{$ifdef FPC}{$checkpointer default}{$endif}
  end;
- if reg1 <> 0 then begin
-  canvas.clipregion:= reg1;
- end;
-end;
-
-procedure tcustomface.internalpaint(const canvas: tcanvas; const arect: rectty);
-begin
- facepaint(canvas,arect,fi,fintf,falphabuffer,falphabufferdest);
-end;
-
-(*
-procedure tcustomface.internalpaint(const canvas: tcanvas; const arect: rectty);
-
-var
- rect,rect1: rectty;
 
  procedure createalphabuffer(const amasked: boolean);
  begin
   if falphabuffer = nil then begin
-   falphabuffer:= tmaskedbitmap.create(bmk_rgb);
+   falphabuffer:= tmaskedbitmap.create(false);
   end;
   if amasked then begin
    falphabuffer.options:= [bmo_masked,bmo_colormask];
@@ -7584,279 +5688,129 @@ var
  end;
 
 var
- pixelscale: real;
- vert: boolean;
- alpha: boolean;
- startpix,pixcount: integer;
+ a,b,rea1: real;
+ int1: integer;
+ col1,col2: rgbtriplety;
 
- procedure calcfade(const fadepos: trealarrayprop;
-                    const fadecolor: tcolorarrayprop; const bmp: tbitmap);
- var
-  posar: realarty;
-  rgbs: array of rgbtriplety;
-  int1,int2: integer;
-  po1,pe: prgbtriplety;
-  pixelstep: real;
-  pixinc: integer;
-  curpix,nextpix: integer;
-  redsum,greensum,bluesum,lengthsum: real;
-  curnode,nextnode: integer;
-  rea1,rea2: real;
-  opar,opag,opab: int32;
-  co1: rgbtriplety;
-  col1,col2: prgbtriplety;
-
- begin
-  posar:= trealarrayprop1(fadepos).fitems;
-  with tfadecolorarrayprop(fadecolor) do begin
-   setlength(rgbs,length(fitems));
-   for int1:= 0 to high(rgbs) do begin
-    rgbs[int1]:= colortorgb(fintf.translatecolor(fitems[int1]));
-   end;
-   if alpha then begin
-    po1:= pointer(rgbs);
-    pe:= po1+length(rgbs);
-    while po1 < pe do begin
-     po1^.red:= 255-po1^.red;
-     po1^.green:= 255-po1^.green;
-     po1^.blue:= 255-po1^.blue;
-     inc(po1);
-    end;
-   end;
-  end;
-  if fadecolor = fi.fade_opacolor then begin
-   co1:= colortorgb(fade_opacity);
-   opar:= (co1.red * 256) div 255;
-   opag:= (co1.green * 256) div 255;
-   opab:= (co1.blue * 256) div 255;
-  end
-  else begin
-   opar:= 256;
-   opag:= 256;
-   opab:= 256;
-  end;
-  if high(rgbs) > 0 then begin
-   po1:= bmp.scanline[0];
-   pixelstep:= 1/pixelscale;
-   pixinc:= sizeof(rgbtriplety);
-   if fi.fade_direction in [gd_up,gd_left] then begin //revert
-    if fi.fade_direction = gd_left then begin
-     startpix:= rect.x+rect.cx-rect1.x-rect1.cx;
-    end
-    else begin
-     startpix:= rect.y+rect.cy-rect1.y-rect1.cy;
-    end;
-    inc(po1,pixcount-1);
-    pixinc:= -pixinc;
-   end;
-   curnode:= 0;
-   int1:= 0;
-   while int1 < pixcount do begin
-    rea1:= (int1+startpix)*pixelstep + 0.000001;
-    if int1 = 0 then begin
-     while posar[curnode] < rea1 do begin
-      inc(curnode);
-     end;
-     dec(curnode);
-    end;
-    nextnode:= curnode;
-    rea1:= rea1 + pixelstep;
-    while (posar[nextnode] < rea1) and (nextnode < high(posar)) do begin
-     inc(nextnode);
-    end;
-    if nextnode > curnode+1 then begin //calc average
-     redsum:= 0;
-     greensum:= 0;
-     bluesum:= 0;
-     lengthsum:= 0;
-     for int2:= curnode to nextnode - 2 do begin //todo: optimize
-      rea1:= posar[int2+1] - posar[int2];
-      redsum:= redsum + (rgbs[int2].red+rgbs[int2+1].red)*rea1;
-      greensum:= greensum + (rgbs[int2].green+rgbs[int2+1].green)*rea1;
-      bluesum:= bluesum + (rgbs[int2].blue+rgbs[int2+1].blue)*rea1;
-      lengthsum:= lengthsum + rea1;
-     end;
-     if lengthsum > 0 then begin
-      rea1:= 1/(2*lengthsum);
-      with po1^ do begin
-       red:= (round(redsum*rea1)*opar) div 256;
-       green:= (round(greensum*rea1)*opag) div 256;
-       blue:= (round(bluesum*rea1)*opab) div 256;
-       res:= 0;
-      end;
-     end
-     else begin
-      po1^:= rgbs[curnode];
-     end;
-     dec(nextnode);
-    end
-    else begin
-     nextpix:= trunc(posar[nextnode]*pixelscale)-startpix;
-     if int1 = nextpix then begin
-      po1^:= rgbs[curnode];
-     end
-     else begin
-      curpix:= trunc(posar[curnode]*pixelscale)-startpix;
-      if nextpix = curpix then begin
-       rea1:= 1;
-      end
-      else begin
-       rea1:= 1/(nextpix-curpix);
-      end;
-      if nextpix > pixcount then begin
-       nextpix:= pixcount;
-      end;
-      col1:= @rgbs[curnode];
-      col2:= @rgbs[nextnode];
-      for int2:= int1-curpix to nextpix-curpix-1 do begin
-       rea2:= rea1*int2;
-       with po1^ do begin
-        res:= 0;
-        red:= ((col1^.red +
-                      round((col2^.red-col1^.red)*rea2))*opar) div 256;
-        green:= ((col1^.green +
-                      round((col2^.green-col1^.green)*rea2))*opag) div 256;
-        blue:= ((col1^.blue +
-                      round((col2^.blue-col1^.blue)*rea2))*opab) div 256;
-       end;
-       inc(pchar(po1),pixinc);
-      end;
-      dec(pchar(po1),pixinc);
-      int1:= nextpix-1;
-     end;
-    end;
-    curnode:= nextnode;
-    inc(int1);
-    inc(pchar(po1),pixinc);
-   end;
-  end
-  else begin //count = 1
-   co1.red:= (rgbs[0].red*opar) div 256;
-   co1.green:= (rgbs[0].green*opag) div 256;
-   co1.blue:= (rgbs[0].blue*opag) div 256;
-   co1.res:= 0;
-   if vert then begin
-    bmp.canvas.drawline(nullpoint,makepoint(0,rect1.cy-1),colorty(co1));
-   end
-   else begin
-    bmp.canvas.drawline(nullpoint,makepoint(rect1.cx-1,0),colorty(co1));
-   end;
-  end;
- end; //calcfade
-
-var
- bmp: tmaskedbitmap;
- reg1: regionty;
-
- procedure paintimage(const canvas: tcanvas);
- begin
-  if fi.image.hasimage then begin
-   fi.image.paint(canvas,mr(addpoint(rect.pos,fi.image.fpos),rect.size));
-   if fao_alphafadeimage in fi.options then begin
-    doalphablend(canvas);
-   end;
-  end;
-  if fi.frameimage_list <> nil then begin
-   if reg1 <> 0 then begin
-    canvas.clipregion:= reg1;
-    reg1:= 0;
-   end;
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset,arect.pos);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+1,
-     makerect(arect.x,
-              arect.y+fi.frameimage_list.height,
-              fi.frameimage_list.width,
-              arect.cy-2*fi.frameimage_list.height),[al_stretchy]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+2,arect,[al_bottom]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+3,
-     makerect(arect.x+fi.frameimage_list.width,
-              arect.y+arect.cy-fi.frameimage_list.height,
-              arect.cx-2*fi.frameimage_list.width,
-              fi.frameimage_list.height),[al_stretchx]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+4,arect,
-                                                [al_bottom,al_right]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+5,
-     makerect(arect.x+arect.cx-fi.frameimage_list.width,
-              arect.y+fi.frameimage_list.height,
-              fi.frameimage_list.width,
-              arect.cy-2*fi.frameimage_list.height),[al_stretchy]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+6,arect,[al_right]);
-   fi.frameimage_list.paintlookup(canvas,fi.frameimage_offset+7,
-     makerect(arect.x+fi.frameimage_list.width,arect.y,
-              arect.cx-2*fi.frameimage_list.width,
-              fi.frameimage_list.height),[al_stretchx]);
-  end;
- end; //paintimage
 begin
- reg1:= 0;
- rect:= deflaterect(arect,fi.framei);
- if intersectrect(rect,canvas.clipbox,rect1) or
-               testintersectrect(arect,canvas.clipbox) then begin
-  if (fi.frameimage_list <> nil) and
-                         fi.frameimage_list.hascornermask then begin
-   reg1:= canvas.copyclipregion();
-   fi.frameimage_list.clipcornermask(canvas,arect,[]);
-  end;
-
-  alpha:= fi.options * faceoptionsmask1 <> [];
-  if options * [fao_fadeoverlay,fao_alphaimage] = [fao_fadeoverlay] then begin
-   paintimage(canvas);
-  end;
-  if (fi.fade_color.count > 0) and (rect1.cx > 0) and (rect1.cy > 0) then begin
-   if (fi.fade_color.count > 1) or
-     ((fi.fade_opacolor.count > 0) or (fi.fade_opacity <> cl_none)) and
-                               (fi.options * faceoptionsmask1 = []) then begin
+ if intersectrect(rect,canvas.clipbox,rect1) then begin
+  if fi.fade_color.count > 0 then begin
+   if (fi.fade_color.count > 1) or 
+                (fi.fade_transparency <> cl_none) and 
+                               (fi.options * faceoptionsmask = []) then begin
+    with tfadecolorarrayprop1(fi.fade_color) do begin
+     setlength(rgbs,length(fitems));
+     for int1:= 0 to high(rgbs) do begin
+      rgbs[int1]:= colortorgb(fintf.translatecolor(fitems[int1]));
+     end;
+    end;
     case fi.fade_direction of
      gd_up,gd_down: begin
+      a:= (rect1.y - rect.y) / rect.cy;
+      b:= (rect1.y + rect1.cy - rect.y) / rect.cy;
       pixelscale:= rect.cy;
       vert:= true;
-      startpix:= rect1.y-rect.y;
-      pixcount:= rect1.cy;
+      imax:= rect1.cy;
      end
      else begin //gd_right,gd_left
+      a:= (rect1.x - rect.x) / rect.cx;
+      b:= (rect1.x + rect1.cx - rect.x) / rect.cx;
       pixelscale:= rect.cx;
       vert:= false;
-      startpix:= rect1.x-rect.x;
-      pixcount:= rect1.cx;
+      imax:= rect1.cx;
      end;
     end;
-    bmp:= tmaskedbitmap.create(bmk_rgb);
-    if vert then begin
-     bmp.size:= makesize(1,rect1.cy);
+    if fi.fade_direction in [gd_up,gd_left] then begin
+     reverse:= true;
+     rea1:= 1 - b;
+     b:= 1 - a;
+     a:= rea1;
     end
     else begin
-     bmp.size:= makesize(rect1.cx,1);
+     reverse:= false;
     end;
-    calcfade(fi.fade_pos,fi.fade_color,bmp);
-    if fi.options * faceoptionsmask1 = [] then begin
-     if fi.fade_opapos.count > 0 then begin
-      bmp.colormask:= true;
-      calcfade(fi.fade_opapos,fi.fade_opacolor,bmp.mask);
+    with trealarrayprop1(fi.fade_pos) do begin
+     first:= 0;
+     if count > 1 then begin
+      last:= count - 1;
+      for int1:= 1 to last do begin
+       if fitems[int1] < a then begin
+        first:= int1;
+       end;
+       if trealarrayprop1(fi.fade_pos).fitems[int1] >= b then begin
+        last:= int1;
+        break;
+       end;
+      end;
+      if (first < high(fitems))  then begin
+       col1:= scalecolor(calcscale(a,fitems[first],fitems[first+1]),
+                             rgbs[first],rgbs[first+1]);
+      end
+      else begin
+       col1:= rgbs[high(fitems)];
+      end;
+      col2:= scalecolor(calcscale(b,fitems[last-1],fitems[last]),
+                             rgbs[last-1],rgbs[last]);
+      rgbs[first]:= col1;
+      rgbs[last]:= col2;
+      poss:= copy(fitems);
+      poss[first]:= a;
+      poss[last]:= b;
+      for int1:= first to last do begin
+       poss[int1]:= poss[int1] - a;
+      end;
+     end;
+     bmp:= tbitmap.create(false);
+     if vert then begin
+      bmp.size:= makesize(1,rect1.cy);
      end
      else begin
-      bmp.opacity:= fi.fade_opacity;
+      bmp.size:= makesize(rect1.cx,1);
      end;
-     bmp.paint(canvas,rect1,[al_stretchx,al_stretchy]);
-    end
-    else begin
-     createalphabuffer(true);
-     bmp.paint(falphabuffer.mask.canvas,makerect(nullpoint,rect1.size),
-                     makerect(nullpoint,bmp.size),[al_stretchx,al_stretchy]);
+     if count > 1 then begin
+      fade:= bmp.scanline[0];
+      if reverse then begin
+       if vert then begin
+        ipos:= rect1.cy-1;
+       end
+       else begin
+        ipos:= rect1.cx-1;
+       end;
+      end
+      else begin
+       reverse:= false;
+       ipos:= 0;
+      end;
+      for int1:= first to last-1 do begin
+       interpolate(int1);
+      end;
+     end
+     else begin //count = 1
+      if vert then begin
+       bmp.canvas.drawline(nullpoint,makepoint(0,rect1.cy-1),fi.fade_color[0]);
+      end
+      else begin
+       bmp.canvas.drawline(nullpoint,makepoint(rect1.cx-1,0),fi.fade_color[0]);
+      end;
+     end;
+     if fi.options * faceoptionsmask = [] then begin
+      bmp.transparency:= fi.fade_transparency;
+      bmp.paint(canvas,rect1,[al_stretchx,al_stretchy]);
+     end
+     else begin
+      createalphabuffer(true);
+      bmp.paint(falphabuffer.mask.canvas,makerect(nullpoint,rect1.size),
+       makerect(nullpoint,bmp.size),[al_stretchx,al_stretchy]);
+     end;
+     bmp.Free;
     end;
-    bmp.Free;
    end
    else begin //fade_color.count = 1
-    if alpha then begin
-     if fao_alphaimage in fi.options then begin
-      createalphabuffer(true);
-      falphabuffer.mask.canvas.fillrect(mr(nullpoint,rect1.size),
-             invertcolor(tfadecolorarrayprop1(fi.fade_color).fitems[0]));
-     end
-     else begin
-      createalphabuffer(false);
-      falphabuffer.opacity:=
-              invertcolor(tfadecolorarrayprop1(fi.fade_color).fitems[0]);
-     end;
+    if fi.options * faceoptionsmask <> [] then begin
+     createalphabuffer(false);
+     falphabuffer.transparency:=
+      (longword(colortorgb(tfadecolorarrayprop1(fi.fade_color).fitems[0])) xor
+                $ffffffff) and $00ffffff;
     end
     else begin
      canvas.fillrect(rect1,tfadecolorarrayprop1(fi.fade_color).fitems[0]);
@@ -7864,53 +5818,44 @@ begin
    end;
   end
   else begin //fade_color.count = 0
-   if alpha then begin
-    if fao_alphaimage in fi.options then begin
-     createalphabuffer(true);
-     falphabuffer.mask.canvas.fillrect(mr(nullpoint,rect1.size),
-                                               invertcolor(fi.fade_opacity));
-    end
-    else begin
-     createalphabuffer(false);
-     falphabuffer.opacity:= invertcolor(fi.fade_opacity);
-    end;
+   if fi.options * faceoptionsmask <> [] then begin
+    createalphabuffer(false);
+    falphabuffer.transparency:=
+     (longword(colortorgb(fi.fade_transparency)) xor $ffffffff) and $00ffffff;
    end;
   end;
-  if options * [fao_fadeoverlay,fao_alphaimage] = [] then begin
-   paintimage(canvas);
-  end;
-  if (fao_alphaimage in fi.options) and (falphabuffer <> nil) then begin
-   falphabuffer.mask.canvas.origin:= subpoint(rect.pos,rect1.pos);
-   paintimage(falphabuffer.mask.canvas);
-   falphabuffer.mask.canvas.origin:= nullpoint;
-  end;
- end;
- if reg1 <> 0 then begin
-  canvas.clipregion:= reg1;
- end;
-end;
-*)
-procedure tcustomface.paint(const canvas: tcanvas; const arect: rectty);
-var
- bo1: boolean;
-begin
- if ftemplate <> nil then begin
-  if assigned(tfacetemplate(ftemplate.template).fonbeforepaint) then begin
-   bo1:= false;
-   tfacetemplate(ftemplate.template).fonbeforepaint(self,canvas,arect,bo1);
-   if not bo1 then begin
-    internalpaint(canvas,arect);
+  if fi.image.hasimage then begin
+   fi.image.paint(canvas,rect);
+   if fao_alphafadeimage in fi.options then begin
+    doalphablend(canvas);
    end;
-  end
-  else begin
-   internalpaint(canvas,arect);
   end;
-  if assigned(tfacetemplate(ftemplate.template).fonafterpaint) then begin
-   tfacetemplate(ftemplate.template).fonafterpaint(self,canvas,arect);
+  if fi.frameimage_list <> nil then begin
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset,rect.pos);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+1,
+   makerect(rect.x,
+            rect.y+fi.frameimage_list.height,
+            fi.frameimage_list.width,
+            rect.cy-2*fi.frameimage_list.height),[al_stretchy]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+2,rect,[al_bottom]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+3,
+   makerect(rect.x+fi.frameimage_list.width,
+            rect.y+rect.cy-fi.frameimage_list.height,
+            rect.cx-2*fi.frameimage_list.width,
+            fi.frameimage_list.height),[al_stretchx]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+4,rect,
+                                                [al_bottom,al_right]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+5,
+   makerect(rect.x+rect.cx-fi.frameimage_list.width,
+            rect.y+fi.frameimage_list.height,
+            fi.frameimage_list.width,
+            rect.cy-2*fi.frameimage_list.height),[al_stretchy]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+6,rect,[al_right]);
+   fi.frameimage_list.paint(canvas,fi.frameimage_offset+7,
+   makerect(rect.x+fi.frameimage_list.width,rect.y,
+            rect.cx-2*fi.frameimage_list.width,
+            fi.frameimage_list.height),[al_stretchx]);
   end;
- end
- else begin
-  internalpaint(canvas,arect);
  end;
 end;
 
@@ -7922,7 +5867,7 @@ begin
  end;
 end;
 
-procedure tcustomface.setimage(const value: tfacebitmap);
+procedure tcustomface.setimage(const value: tmaskedbitmap);
 begin
  fi.image.assign(value);
 end;
@@ -7935,49 +5880,14 @@ begin
  if avalue <> fi.options then begin
   optionsbefore:= fi.options;
   fi.options:= faceoptionsty(
-                 setsinglebit(longword(avalue),longword(fi.options),
-                 [longword(faceoptionsmask1),longword(faceoptionsmask2)]));
+   setsinglebit({$ifdef FPC}longword{$else}byte{$endif}(avalue),
+                 {$ifdef FPC}longword{$else}byte{$endif}(fi.options),
+                 {$ifdef FPC}longword{$else}byte{$endif}(faceoptionsmask)));
   if fao_alphafadeall in (faceoptionsty(
-      {$ifdef FPC}longword{$else}byte{$endif}(optionsbefore) xor
+      {$ifdef FPC}longword{$else}byte{$endif}(optionsbefore) xor 
       {$ifdef FPC}longword{$else}byte{$endif}(fi.options))) then begin
    fintf.widgetregioninvalid;
   end;
-  change;
- end;
-end;
-
-procedure tcustomface.setframei_left(const avalue: integer);
-begin
- include(flocalprops,fal_framei_left);
- if fi.framei.left <> avalue then begin
-  fi.framei.left:= avalue;
-  change;
- end;
-end;
-
-procedure tcustomface.setframei_top(const avalue: integer);
-begin
- include(flocalprops,fal_framei_top);
- if fi.framei.top <> avalue then begin
-  fi.framei.top:= avalue;
-  change;
- end;
-end;
-
-procedure tcustomface.setframei_right(const avalue: integer);
-begin
- include(flocalprops,fal_framei_right);
- if fi.framei.right <> avalue then begin
-  fi.framei.right:= avalue;
-  change;
- end;
-end;
-
-procedure tcustomface.setframei_bottom(const avalue: integer);
-begin
- include(flocalprops,fal_framei_bottom);
- if fi.framei.bottom <> avalue then begin
-  fi.framei.bottom:= avalue;
   change;
  end;
 end;
@@ -7994,18 +5904,6 @@ begin
  fi.fade_pos.assign(Value);
 end;
 
-procedure tcustomface.setfade_opacolor(const Value: tfadeopacolorarrayprop);
-begin
- include(flocalprops,fal_faopacolor);
- fi.fade_opacolor.assign(Value);
-end;
-
-procedure tcustomface.setfade_opapos(const Value: trealarrayprop);
-begin
- include(flocalprops,fal_faopapos);
- fi.fade_opapos.assign(Value);
-end;
-
 procedure tcustomface.setfade_direction(const Value: graphicdirectionty);
 begin
  include(flocalprops,fal_fadirection);
@@ -8015,14 +5913,14 @@ begin
  end;
 end;
 
-procedure tcustomface.setfade_opacity(avalue: colorty);
+procedure tcustomface.setfade_transparency(avalue: colorty);
 begin
  if avalue = cl_invalid then begin
   avalue:= cl_none;
  end;
- include(flocalprops,fal_faopacity);
- if fi.fade_opacity <> avalue then begin
-  fi.fade_opacity:= avalue;
+ include(flocalprops,fal_fatransparency);
+ if fi.fade_transparency <> avalue then begin
+  fi.fade_transparency:= avalue;
   change;
  end;
 end;
@@ -8065,20 +5963,14 @@ begin
  if not (fal_fapos in flocalprops) then begin
   fade_pos:= ainfo.fade_pos;
  end;
- if not (fal_faopacolor in flocalprops) then begin
-  fade_opacolor:= ainfo.fade_opacolor;
- end;
- if not (fal_faopapos in flocalprops) then begin
-  fade_opapos:= ainfo.fade_opapos;
- end;
  if not (fal_image in flocalprops) then begin
   image:= ainfo.image;
  end;
  if not (fal_fadirection in flocalprops) then begin
   fade_direction:= ainfo.fade_direction;
  end;
- if not (fal_faopacity in flocalprops) then begin
-  fade_opacity:= ainfo.fade_opacity;
+ if not (fal_fatransparency in flocalprops) then begin
+  fade_transparency:= ainfo.fade_transparency;
  end;
  if not (fal_frameimagelist in flocalprops) then begin
   fintf.setlinkedvar(ainfo.frameimage_list,
@@ -8087,31 +5979,16 @@ begin
  if not (fal_frameimageoffset in flocalprops) then begin
   fi.frameimage_offset:= ainfo.frameimage_offset;
  end;
- if not (fal_framei_left in flocalprops) then begin
-  fi.framei.left:= ainfo.framei.left;
- end;
- if not (fal_framei_top in flocalprops) then begin
-  fi.framei.top:= ainfo.framei.top;
- end;
- if not (fal_framei_right in flocalprops) then begin
-  fi.framei.right:= ainfo.framei.right;
- end;
- if not (fal_framei_bottom in flocalprops) then begin
-  fi.framei.bottom:= ainfo.framei.bottom;
- end;
  if not (fal_options in flocalprops) then begin
   options:= ainfo.options;
  end;
  flocalprops:= localbefore;
 end;
 
-procedure tcustomface.setlocalprops(avalue: facelocalpropsty);
+procedure tcustomface.setlocalprops(const avalue: facelocalpropsty);
 begin
  if flocalprops <> avalue then begin
-  if fal_fatransparency in avalue then begin
-   include(avalue,fal_faopacity);
-  end;
-  flocalprops:= avalue - deprecatedfacelocalprops;
+  flocalprops:= avalue;
   if ftemplate <> nil then begin
    settemplateinfo(ftemplate.template.fi);
   end;
@@ -8121,26 +5998,6 @@ end;
 function tcustomface.isoptionsstored: boolean;
 begin
  result:= (ftemplate = nil) or (fal_options in flocalprops);
-end;
-
-function tcustomface.isframei_leftstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_framei_left in flocalprops);
-end;
-
-function tcustomface.isframei_topstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_framei_top in flocalprops);
-end;
-
-function tcustomface.isframei_rightstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_framei_right in flocalprops);
-end;
-
-function tcustomface.isframei_bottomstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_framei_bottom in flocalprops);
 end;
 
 function tcustomface.isimagestored: boolean;
@@ -8158,24 +6015,14 @@ begin
  result:= (ftemplate = nil) or (fal_fapos in flocalprops);
 end;
 
-function tcustomface.isfaopacolorstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_faopacolor in flocalprops);
-end;
-
-function tcustomface.isfaopaposstored: boolean;
-begin
- result:= (ftemplate = nil) or (fal_faopapos in flocalprops);
-end;
-
 function tcustomface.isfadirectionstored: boolean;
 begin
  result:= (ftemplate = nil) or (fal_fadirection in flocalprops);
 end;
 
-function tcustomface.isfaopacitystored: boolean;
+function tcustomface.isfatransparencystored: boolean;
 begin
- result:= (ftemplate = nil) or (fal_faopacity in flocalprops);
+ result:= (ftemplate = nil) or (fal_fatransparency in flocalprops);
 end;
 
 function tcustomface.isframeimage_liststored: boolean;
@@ -8188,35 +6035,18 @@ begin
  result:= (ftemplate = nil) or (fal_frameimageoffset in flocalprops);
 end;
 
-procedure tcustomface.readtransparency(reader: treader);
-begin
- fade_opacity:= transparencytoopacity(reader.readinteger);
-end;
-
-procedure tcustomface.defineproperties(filer: tfiler);
-begin
-// inherited; //no dummy necessary because of localprops
- filer.defineproperty('dummy',@readdummy,nil,false);
- filer.defineproperty('fade_transparency',@readtransparency,nil,false);
-end;
-
 { tfacetemplate }
 
 procedure tfacetemplate.internalcreate;
 begin
- fi.image:= tfacebitmap.create(nil);
+ fi.image:= tmaskedbitmap.create(false);
  fi.fade_pos:= trealarrayprop.Create;
  fi.fade_color:= tfadecolorarrayprop.Create;
  fi.fade_pos.link([fi.fade_color,fi.fade_pos]);
- fi.fade_opapos:= trealarrayprop.Create;
- fi.fade_opacolor:= tfadeopacolorarrayprop.Create;
- fi.fade_opapos.link([fi.fade_opacolor,fi.fade_opapos]);
- fi.fade_opacity:= cl_none;
+ fi.fade_transparency:= cl_none;
  fi.image.onchange:= {$ifdef FPC}@{$endif}doimagechange;
  fi.fade_pos.onchange:= {$ifdef FPC}@{$endif}dochange;
  fi.fade_color.onchange:= {$ifdef FPC}@{$endif}dochange;
- fi.fade_opapos.onchange:= {$ifdef FPC}@{$endif}dochange;
- fi.fade_opacolor.onchange:= {$ifdef FPC}@{$endif}dochange;
 end;
 
 constructor tfacetemplate.create(const owner: tmsecomponent;
@@ -8232,18 +6062,6 @@ begin
  fi.image.Free;
  fi.fade_pos.Free;
  fi.fade_color.Free;
- fi.fade_opapos.Free;
- fi.fade_opacolor.Free;
-end;
-
-procedure tfacetemplate.paint(const canvas: tcanvas; const arect: rectty);
-var
- bmp: tmaskedbitmap;
- pt1: pointty;
-begin
- bmp:= nil;
- facepaint(canvas,arect,fi,iface1(self),bmp,pt1);
- bmp.free;
 end;
 
 procedure tfacetemplate.setfade_direction(const Value: graphicdirectionty);
@@ -8265,32 +6083,10 @@ end;
 
 procedure tfacetemplate.setoptions(const avalue: faceoptionsty);
 begin
- fi.options:= faceoptionsty(setsinglebit(longword(avalue),longword(fi.options),
-                      [longword(faceoptionsmask1),longword(faceoptionsmask2)]));
- changed;
-end;
-
-procedure tfacetemplate.setframei_left(const avalue: integer);
-begin
- fi.framei.left:= avalue;
- changed;
-end;
-
-procedure tfacetemplate.setframei_top(const avalue: integer);
-begin
- fi.framei.top:= avalue;
- changed;
-end;
-
-procedure tfacetemplate.setframei_right(const avalue: integer);
-begin
- fi.framei.right:= avalue;
- changed;
-end;
-
-procedure tfacetemplate.setframei_bottom(const avalue: integer);
-begin
- fi.framei.bottom:= avalue;
+ fi.options:= faceoptionsty(setsinglebit(
+    {$ifdef FPC}longword{$else}byte{$endif}(avalue),
+    {$ifdef FPC}longword{$else}byte{$endif}(fi.options),
+    {$ifdef FPC}longword{$else}byte{$endif}(faceoptionsmask)));
  changed;
 end;
 
@@ -8304,26 +6100,16 @@ begin
  fi.fade_pos.Assign(Value);
 end;
 
-procedure tfacetemplate.setfade_opacolor(const Value: tfadeopacolorarrayprop);
-begin
- fi.fade_opacolor.Assign(Value);
-end;
-
-procedure tfacetemplate.setfade_opapos(const Value: trealarrayprop);
-begin
- fi.fade_opapos.Assign(Value);
-end;
-
-procedure tfacetemplate.setfade_opacity(avalue: colorty);
+procedure tfacetemplate.setfade_transparency(avalue: colorty);
 begin
  if avalue = cl_invalid then begin
   avalue:= cl_none;
  end;
- fi.fade_opacity:= avalue;
+ fi.fade_transparency:= avalue;
  changed;
 end;
 
-procedure tfacetemplate.setimage(const Value: tfacebitmap);
+procedure tfacetemplate.setimage(const Value: tmaskedbitmap);
 begin
  fi.image.assign(value);
  changed;
@@ -8370,22 +6156,6 @@ end;
 function tfacetemplate.getinfoad: pointer;
 begin
  result:= @fi.fade_direction;
-end;
-
-procedure tfacetemplate.readtransparency(reader: treader);
-begin
- fade_opacity:= transparencytoopacity(reader.readinteger);
-end;
-
-procedure tfacetemplate.defineproperties(filer: tfiler);
-begin
- inherited;
- filer.defineproperty('fade_transparency',@readtransparency,nil,false);
-end;
-
-function tfacetemplate.translatecolor(const acolor: colorty): colorty;
-begin
- result:= acolor;
 end;
 
 { tfacecomp }
@@ -8442,39 +6212,13 @@ begin
  flist.free;
 end;
 
-procedure tfacelist.paint(const canvas: tcanvas; const aindex: int32;
-               const dest: rectty);
-begin
- if (aindex >= 0) and (aindex <= high(flist.fitems)) then begin
-  tface(flist.fitems[aindex]).paint(canvas,dest);
- end;
-end;
-
-function tfacelist.lookup(const aindex: int32): int32;
-begin
- result:= aindex;
- if findexlookup <> '' then begin
-  result:= -1;
-  if (aindex >= 0) and (aindex < length(findexlookup)) then begin
-   result:= pint16(findexlookup)[aindex];
-  end;
- end;
-end;
-
 procedure tfacelist.setlist(const avalue: tfacearrayprop);
 begin
  flist.assign(avalue);
 end;
 
-procedure tfacelist.invalidatewidget();
+procedure tfacelist.invalidate;
 begin
- //dummy
-end;
-
-procedure tfacelist.invalidaterect(const rect: rectty;
-               const org: originty = org_client; const noclip: boolean = false);
-begin
- //dummy
 end;
 
 function tfacelist.translatecolor(const acolor: colorty): colorty;
@@ -8497,11 +6241,6 @@ begin
  //dummy
 end;
 
-procedure tfacelist.setindexlookup(const avalue: msestring);
-begin
- findexlookup:= avalue;
-end;
-
 procedure tfacelist.objectevent(const sender: tobject;
                const event: objecteventty);
 var
@@ -8510,13 +6249,48 @@ var
 begin
  inherited;
  if (event = oe_changed) and (sender is tfacecomp) then begin
-  for int1:= 0 to list.count - 1 do begin
+  for int1:= 0 to list.count do begin
    fa1:= tcustomface(flist.fitems[int1]);
    if fa1.template = sender then begin
     fa1.checktemplate(sender);
+    break;
    end;
   end;
  end;
+end;
+
+{ tdragobject }
+
+constructor tdragobject.create(const asender: tobject; var instance: tdragobject;
+                                 const apickpos: pointty);
+begin
+ fsender:= asender;
+ finstancepo:= @instance;
+ instance.Free;
+ instance:= self;
+ fpickpos:= apickpos;
+ application.dragstarted;
+end;
+
+destructor tdragobject.destroy;
+begin
+ finstancepo^:= nil;
+ inherited;
+end;
+
+procedure tdragobject.acepted(const apos: pointty);
+begin
+ //dummy
+end;
+
+procedure tdragobject.refused(const apos: pointty);
+begin
+ //dummy
+end;
+
+function tdragobject.sender: tobject;
+begin
+ result:= fsender;
 end;
 
 { twidget }
@@ -8535,36 +6309,22 @@ begin
  inherited;
 end;
 
-constructor twidget.create(const aowner: tcomponent;
-             const aparentwidget: twidget; const aiswidget: boolean{ = true});
+constructor twidget.create(const aowner: tcomponent; 
+             const aparentwidget: twidget; const aiswidget: boolean = true);
 begin
  create(aowner);
  setlockedparentwidget(aparentwidget);
  if not aiswidget then begin
   exclude(fwidgetstate,ws_iswidget);
  end;
- if (aowner = nil) and (aparentwidget <> nil) and
-       (csdesigning in aparentwidget.componentstate) then begin
-                             //for streamed widget
-  setdesignwidget();
- end;
 end;
 
-constructor twidget.createandinit(const aowner: tcomponent;
-                      const aparentwidget: twidget; const aiswidget: boolean);
+constructor twidget.createandinit(const aowner: tcomponent; 
+                      const aparentwidget: twidget);
 begin
- create(aowner,aparentwidget,aiswidget);
+ create(aowner,aparentwidget);
  initnewcomponent(1);
  initnewwidget(1);
-end;
-
-constructor twidget.create(const aowner: tcomponent;
-               const aparentwidget: twidget);
-begin
- if aparentwidget <> nil then begin
-  parentwidget:= aparentwidget;
- end;
- create(aowner);
 end;
 
 procedure twidget.afterconstruction;
@@ -8576,20 +6336,14 @@ end;
 destructor twidget.destroy;
 var
  widget1: twidget;
- window1: twindow;
 begin
  include(fwidgetstate,ws_destroying);
  if (appinst <> nil) then begin
   appinst.widgetdestroyed(self);
  end;
- window1:= fwindow;
- widget1:= fparentwidget;
- while (window1 = nil) and (widget1 <> nil) do begin
-  window1:= widget1.fwindow;
-  widget1:= widget1.fparentwidget;
- end;
- if window1 <> nil then begin
-  window1.widgetdestroyed(self);
+ updateroot;
+ if fwindow <> nil then begin
+  fwindow.widgetdestroyed(self);
  end;
  if fwidgets <> nil then begin
   if ow_destroywidgets in foptionswidget then begin
@@ -8599,9 +6353,6 @@ begin
       free;
      end
      else begin
-      fparentwidget:= nil;
-      fwindow:= nil;
-      exclude(fwidgetstate1,ws1_rootvalid);
       setlength(self.fwidgets,high(self.fwidgets));
      end;
     end;
@@ -8612,7 +6363,7 @@ begin
     widget1:= fwidgets[high(fwidgets)];
     if not (ow_nohidewidgets in foptionswidget) then begin
      widget1.visible:= false;
-    end;
+    end;    
     widget1.parentwidget:= nil;
    end;
   end;
@@ -8699,19 +6450,6 @@ begin
  result:= widgetcount;
 end;
 
-function twidget.visiblechildrencount: integer;
-var
- i1,i2: int32;
-begin
- i2:= 0;
- for i1:= 0 to childrencount - 1 do begin
-  if children[i1].visible then begin
-   inc(i2);
-  end;
- end;
- result:= i2;
-end;
-
 function twidget.getwidgets(const index: integer): twidget;
 begin
  if (index < 0) or (index > high(fwidgets)) then begin
@@ -8754,21 +6492,17 @@ begin
   bounds_cx:= int1;
  end;
 end;
-
+ 
 procedure twidget.placexorder(const startx: integer; const dist: array of integer;
                 const awidgets: array of twidget; const endmargin: integer = minint);
-               //origin = clientpos, endmargin by size adjust of widgets
+               //origin = clientpos, endmargin by size adjust of widgets 
                //with [an_left,an_right], minit -> no change
 var
  int1,int2,int3,int4,int5: integer;
  size1: sizety;
  widget1: twidget;
  ar1: integerarty;
- bo1: boolean;
 begin
-{$ifdef mse_debuglayout}
- debugwriteln('**placexorder '+inttostr(bounds_cx)+' '+name);
-{$endif}
  if (high(awidgets) >= 0) then begin
   widget1:= awidgets[0].fparentwidget;
   if widget1 <> nil then begin
@@ -8788,15 +6522,9 @@ begin
      end;
     end;
     int2:= int2 + int5 + awidgets[int1].fwidgetrect.cx;
-   {$ifdef mse_debuglayout}
-    debugwriteln(' '+inttostr(ar1[int1])+' '+
-                 inttostr(awidgets[int1].bounds_cx)+' '+
-                 inttostr(ar1[int1]+awidgets[int1].bounds_cx)+' '+
-                                                   awidgets[int1].name);
-   {$endif}
    end;
    if endmargin <> minint then begin
-    int2:= ar1[high(awidgets)] + awidgets[high(awidgets)].fwidgetrect.cx +
+    int2:= ar1[high(awidgets)] + awidgets[high(awidgets)].fwidgetrect.cx + 
                     endmargin - (widget1.paintrect.x + widget1.paintrect.cx);
    end
    else begin
@@ -8804,55 +6532,40 @@ begin
    end;
    int4:= 0;
    size1.cy:= 0;
-  {$ifdef mse_debuglayout}
-   debugwriteln(' marginsaldo '+inttostr(int2));
-  {$endif}
    for int1:= 0 to high(awidgets) do begin
     with awidgets[int1] do begin
-     bo1:= ws1_layoutplacing in fwidgetstate1;
-     try
-     {$ifdef mse_debuglayout}
-      debugwriteln(' a '+inttostr(bounds_x)+' '+inttostr(bounds_cx)+' '+
-                       inttostr(bounds_x+bounds_cx)+' '+name);
-     {$endif}
-      include(fwidgetstate1,ws1_layoutplacing);
-      bounds_x:= ar1[int1] + int4;
-      if anchors * [an_left,an_right] = [an_left,an_right] then begin
-       int3:= bounds_cx;
-       size1.cx:= bounds_cx - int2;
-       if fframe <> nil then begin
-        fframe.checkwidgetsize(size1);
-       end;
-       bounds_cx:= size1.cx;
-       int3:= bounds_cx - int3; //delta
-       int2:= int2 + int3;
-       int4:= int4 + int3;
+     bounds_x:= ar1[int1] + int4;
+     if anchors * [an_left,an_right] = [an_left,an_right] then begin
+      int3:= bounds_cx;      
+      size1.cx:= bounds_cx - int2;
+      if fframe <> nil then begin
+       fframe.checkwidgetsize(size1);
       end;
-     {$ifdef mse_debuglayout}
-      debugwriteln(' b '+inttostr(bounds_x)+' '+inttostr(bounds_cx)+' '+
-                       inttostr(bounds_x+bounds_cx)+' '+name);
-     {$endif}
-     finally
-      if not bo1 then begin
-       exclude(fwidgetstate1,ws1_layoutplacing);
-      end;
+      bounds_cx:= size1.cx;
+      int3:= bounds_cx - int3; //delta
+      int2:= int2 + int3;
+      int4:= int4 + int3;
      end;
     end;
    end;
+   {
+   with awidgets[high(awidgets)] do begin
+    bounds_cx:= bounds_cx - int2;
+   end;
+   }
   end;
  end;
 end;
 
 procedure twidget.placeyorder(const starty: integer; const dist: array of integer;
         const awidgets: array of twidget; const endmargin: integer = minint);
-               //origin = clientpos, endmargin by size adjust of widgets
+               //origin = clientpos, endmargin by size adjust of widgets 
                //with [an_top,an_bottom], minit -> no change
 var
  int1,int2,int3,int4,int5: integer;
  size1: sizety;
  widget1: twidget;
  ar1: integerarty;
- bo1: boolean;
 begin
  if (high(awidgets) >= 0) then begin
   widget1:= awidgets[0].fparentwidget;
@@ -8875,7 +6588,7 @@ begin
     int2:= int2 + int5 + awidgets[int1].fwidgetrect.cy;
    end;
    if endmargin <> minint then begin
-    int2:= ar1[high(awidgets)] + awidgets[high(awidgets)].fwidgetrect.cy +
+    int2:= ar1[high(awidgets)] + awidgets[high(awidgets)].fwidgetrect.cy + 
                     endmargin - (widget1.paintrect.y + widget1.paintrect.cy);
    end
    else begin
@@ -8885,192 +6598,31 @@ begin
    size1.cx:= 0;
    for int1:= 0 to high(awidgets) do begin
     with awidgets[int1] do begin
-     bo1:= ws1_layoutplacing in fwidgetstate1;
-     try
-      include(fwidgetstate1,ws1_layoutplacing);
-      bounds_y:= ar1[int1] + int4;
-      if anchors * [an_top,an_bottom] = [an_top,an_bottom] then begin
-       int3:= bounds_cy;
-       size1.cy:= bounds_cy - int2;
-       if fframe <> nil then begin
-        fframe.checkwidgetsize(size1);
-       end;
-       bounds_cy:= size1.cy;
-       int3:= bounds_cy - int3; //delta
-       int2:= int2 + int3;
-       int4:= int4 + int3;
+     bounds_y:= ar1[int1] + int4;
+     if anchors * [an_top,an_bottom] = [an_top,an_bottom] then begin
+      int3:= bounds_cy;
+      size1.cy:= bounds_cy - int2;
+      if fframe <> nil then begin
+       fframe.checkwidgetsize(size1);
       end;
-     finally
-      if not bo1 then begin
-       exclude(fwidgetstate1,ws1_layoutplacing);
-      end;
+      bounds_cy:= size1.cy;
+      int3:= bounds_cy - int3; //delta
+      int2:= int2 + int3;
+      int4:= int4 + int3;
      end;
     end;
    end;
-  end;
- end;
-end;
-
-function twidget.getwidgetrects(const awidgets: array of twidget): rectarty;
-var
- int1: integer;
-begin
- setlength(result,length(awidgets));
- for int1:= 0 to high(result) do begin
-  with awidgets[int1] do begin
-   result[int1]:= widgetrect;
-   if parentwidget <> self then begin
-    translatewidgetpoint1(result[int1].pos,parentwidget,self);
+   {
+   with awidgets[high(awidgets)] do begin
+    bounds_cy:= bounds_cy - int2;
    end;
-  end;
- end;
-end;
-
-procedure twidget.setwidgetrects(const awidgets: array of twidget;
-                                             const arects: rectarty);
-var
- int1: integer;
- rect1: rectty;
-begin
- for int1:= 0 to high(awidgets) do begin
-  with awidgets[int1] do begin
-   rect1:= arects[int1];
-   if parentwidget <> self then begin
-    translatewidgetpoint1(rect1.pos,self,parentwidget);
-   end;
-   widgetrect:= rect1;
-  end;
- end;
-end;
-
-function twidget.alignx(const mode: widgetalignmodety;
-            const awidgets: array of twidget;
-            const glue: widgetalignmodety = wam_none;
-                        const margin: integer = 0): integer;
-
- function getrefpoint(const awidget: twidget): integer;
- begin
-  with awidget do begin
-   updateroot;
-   case mode of
-    wam_start: begin
-     result:= frootpos.x + framepos.x;
-     if (fframe <> nil) and not (osk_nopaintref in foptionsskin)  then begin
-      with fframe do begin
-       checkstate();
-       result:= result + fwidth.left;
-      end;
-     end;
-    end;
-    wam_center: begin
-     result:= frootpos.x + framepos.x + framesize.cx div 2;
-    end;
-    else begin //wam_end
-     result:= frootpos.x + framepos.x + awidget.framesize.cx;
-     if (fframe <> nil) and not (osk_nopaintref in foptionsskin) then begin
-      with fframe do begin
-       checkstate();
-       result:= result - fwidth.right;
-      end;
-     end;
-    end;
-   end;
-  end;
- end; //getrefpoint
-
- procedure doshift(const awidget: twidget; const amode: widgetalignmodety;
-                         const ashift: integer; var arect: rectty);
- begin
-  with awidget do begin
-   if (amode = wam_start) and (an_right in anchors) then begin
-    arect.cx:= arect.cx - ashift;
-   end;
-   if (amode = wam_end) and (an_left in anchors) then begin
-    arect.cx:= arect.cx + ashift;
-   end
-   else begin
-    arect.x:= arect.x + ashift;
-   end;
-  end;
- end; //doshift
-
-var
- ref,shift,int1,int2,int3: integer;
- ar1: rectarty;
-
-begin
- result:= 0;
- if (high(awidgets) >= 0) then begin
-  beginupdate();
-  try
-   ref:= getrefpoint(awidgets[0]);
-   with awidgets[0] do begin
-    if fparentwidget <> nil then begin
-     result:= ref - fparentwidget.frootpos.x
-    end
-    else begin
-     result:= ref;
-    end;
-   end;
-   ar1:= getwidgetrects(awidgets);
-   if (mode <> wam_none) and (high(awidgets) > 0) then begin
-    for int1:= 1 to high(awidgets) do begin
-     int3:= ref - getrefpoint(awidgets[int1]);
-     doshift(awidgets[int1],mode,int3,ar1[int1]);
-    end;
-   end;
-   if (glue <> wam_none) then begin
-    shift:= 0;
-    case glue of
-     wam_start: begin
-      int2:= bigint;
-      for int1:= 0 to high(awidgets) do begin
-       int3:= ar1[int1].x;
-       if int3 < int2 then begin
-        int2:= int3;
-       end;
-      end;
-      shift:= margin+clientwidgetpos.x-int2;
-     end;
-     wam_end: begin
-      int2:= -bigint;
-      for int1:= 0 to high(awidgets) do begin
-       with ar1[int1] do begin
-        int3:= x+cx;
-       end;
-       if int3 > int2 then begin
-        int2:= int3;
-       end;
-      end;
-      shift:= clientwidgetpos.x+clientwidth - margin - int2;
-     end;
-     else begin //wam_center
-      if length(awidgets) > 0 then begin
-       with awidgets[0] do begin
-        shift:= margin + ar1[0].x + framepos.x + (framesize.cx+1) div 2;
-       end;
-       shift:= clientwidgetpos.x + clientwidth div 2 - shift;
-      end;
-     end;
-    end;
-    if shift <> 0 then begin
-     result:= result+shift;
-     for int1:= 0 to high(awidgets) do begin
-      doshift(awidgets[int1],glue,shift,ar1[int1]);
-     end;
-    end;
-   end;
-   setwidgetrects(awidgets,ar1);
-  finally
-   endupdate();
+   }
   end;
  end;
 end;
 
 function twidget.aligny(const mode: widgetalignmodety;
-            const awidgets: array of twidget;
-            const glue: widgetalignmodety = wam_none;
-                        const margin: integer = 0): integer;
+                const awidgets: array of twidget): integer;
 
  function getrefpoint(const awidget: twidget): integer;
  begin
@@ -9079,115 +6631,107 @@ function twidget.aligny(const mode: widgetalignmodety;
    case mode of
     wam_start: begin
      result:= frootpos.y + framepos.y;
-     if (fframe <> nil) and not (osk_nopaintref in foptionsskin) then begin
-      with fframe do begin
-       checkstate();
-       result:= result + fwidth.top;
-      end;
-     end;
     end;
     wam_center: begin
      result:= frootpos.y + framepos.y + framesize.cy div 2;
     end;
     else begin //wam_end
      result:= frootpos.y + framepos.y + awidget.framesize.cy;
-     if (fframe <> nil)  and not (osk_nopaintref in foptionsskin) then begin
-      with fframe do begin
-       checkstate();
-       result:= result - fwidth.bottom;
-      end;
-     end;
     end;
    end;
   end;
- end; //getrefpoint
-
- procedure doshift(const awidget: twidget; const amode: widgetalignmodety;
-                         const ashift: integer; var arect: rectty);
- begin
-  with awidget do begin
-   if (amode = wam_start) and (an_bottom in anchors) then begin
-    arect.cy:= arect.cy - ashift;
-   end;
-   if (amode = wam_end) and (an_top in anchors) then begin
-    arect.cy:= arect.cy + ashift;
-   end
-   else begin
-    arect.y:= arect.y + ashift;
-   end;
-  end;
- end; //doshift
+ end;
 
 var
- ref,shift,int1,int2,int3: integer;
- ar1: rectarty;
+ ref,int1,int3: integer;
 
 begin
- result:= 0;
- if (high(awidgets) >= 0) then begin
-  beginupdate();
-  try
-   ref:= getrefpoint(awidgets[0]);
-   with awidgets[0] do begin
-    if fparentwidget <> nil then begin
-     result:= ref - fparentwidget.frootpos.y
-    end
-    else begin
-     result:= ref;
-    end;
+ if (mode <> wam_none) and (high(awidgets) >= 0) then begin
+  ref:= getrefpoint(awidgets[0]);
+  with awidgets[0] do begin
+   if fparentwidget <> nil then begin
+    result:= ref - fparentwidget.frootpos.y
+   end
+   else begin
+    result:= ref;
    end;
-   ar1:= getwidgetrects(awidgets);
-   if (mode <> wam_none) and (high(awidgets) > 0) then begin
-    for int1:= 1 to high(awidgets) do begin
-     int3:= ref - getrefpoint(awidgets[int1]);
-     doshift(awidgets[int1],mode,int3,ar1[int1]);
-    end;
-   end;
-   if (glue <> wam_none) then begin
-    shift:= 0;
-    case glue of
-     wam_start: begin
-      int2:= bigint;
-      for int1:= 0 to high(awidgets) do begin
-       int3:= ar1[int1].y;
-       if int3 < int2 then begin
-        int2:= int3;
-       end;
-      end;
-      shift:= margin+clientwidgetpos.y-int2;
-     end;
-     wam_end: begin
-      int2:= -bigint;
-      for int1:= 0 to high(awidgets) do begin
-       with ar1[int1] do begin
-        int3:= y+cy;
-       end;
-       if int3 > int2 then begin
-        int2:= int3;
-       end;
-      end;
-      shift:= clientwidgetpos.y+clientheight - margin - int2;
-     end;
-     else begin //wam_center
-      if length(awidgets) > 0 then begin
-       with awidgets[0] do begin
-        shift:= margin + ar1[0].y + framepos.y + (framesize.cy+1) div 2;
-       end;
-       shift:= clientwidgetpos.y + clientheight div 2 - shift;
-      end;
-     end;
-    end;
-    if shift <> 0 then begin
-     result:= result+shift;
-     for int1:= 0 to high(awidgets) do begin
-      doshift(awidgets[int1],glue,shift,ar1[int1]);
-     end;
-    end;
-   end;
-   setwidgetrects(awidgets,ar1);
-  finally
-   endupdate();
   end;
+  if high(awidgets) > 0 then begin
+   for int1:= 1 to high(awidgets) do begin
+    int3:= ref - getrefpoint(awidgets[int1]);
+    with awidgets[int1] do begin
+     if (mode = wam_start) and (an_bottom in anchors) then begin
+      bounds_cy:= bounds_cy - int3;
+     end;
+     if (mode = wam_end) and (an_top in anchors) then begin
+      bounds_cy:= bounds_cy + int3;
+     end
+     else begin
+      bounds_y:= bounds_y + int3;
+     end;
+    end; 
+   end;
+  end;
+ end
+ else begin
+  result:= 0;
+ end;
+end;
+
+function twidget.alignx(const mode: widgetalignmodety;
+            const awidgets: array of twidget): integer;
+
+ function getrefpoint(const awidget: twidget): integer;
+ begin
+  with awidget do begin
+   updateroot;
+   case mode of
+    wam_start: begin
+     result:= frootpos.x + framepos.x;
+    end;
+    wam_center: begin
+     result:= frootpos.x + framepos.x + framesize.cx div 2;
+    end;
+    else begin //wam_end
+     result:= frootpos.x + framepos.x + awidget.framesize.cx;
+    end;
+   end;
+  end;
+ end;
+
+var
+ ref,int1,int3: integer;
+
+begin
+ if (mode <> wam_none) and (high(awidgets) >= 0) then begin
+  ref:= getrefpoint(awidgets[0]);
+  with awidgets[0] do begin
+   if fparentwidget <> nil then begin
+    result:= ref - fparentwidget.frootpos.x
+   end
+   else begin
+    result:= ref;
+   end;
+  end;
+  if high(awidgets) > 0 then begin
+   for int1:= 1 to high(awidgets) do begin
+    int3:= ref - getrefpoint(awidgets[int1]);
+    with awidgets[int1] do begin
+     if (mode = wam_start) and (an_right in anchors) then begin
+      bounds_cx:= bounds_cx - int3;
+     end;
+     if (mode = wam_end) and (an_left in anchors) then begin
+      bounds_cx:= bounds_cx + int3;
+     end
+     else begin
+      bounds_x:= bounds_x + int3;
+     end;
+    end;
+   end;
+  end;
+ end
+ else begin
+  result:= 0;
  end;
 end;
 
@@ -9214,28 +6758,21 @@ begin
 end;
 
 procedure twidget.registerchildwidget(const child: twidget);
-var
- flags: rootchangeflagsty;
 begin
  if indexofwidget(child) >= 0 then begin
   guierror(gue_alreadyregistered,self,':'+child.name);
  end;
  setlength(fwidgets,high(fwidgets)+2);
  fwidgets[high(fwidgets)]:= child;
- flags:= [rcf_widgetregioninvalid];
- if child.fwindow <> fwindow then begin
-  flags:= flags + [rcf_windowremove,rcf_windowset];
- end;
- child.rootchanged(flags);
-// child.updateopaque(true); //for cl_parent
+ child.rootchanged;
+ child.updateopaque(true); //for cl_parent
  if not isloading then begin
-  child.updateopaque(true,false); //for cl_parent
   child.ftaborder:= high(fwidgets);
   sortzorder;
   updatetaborder(child);
-  if child.isvisible then begin
+  if child.visible then begin
    widgetregionchanged(child);
-   if focused and not child.isloading then begin
+   if focused then begin
     checksubfocus(false);
    end;
   end;
@@ -9256,7 +6793,7 @@ begin
  if fdefaultfocuschild = child then begin
   fdefaultfocuschild:= nil;
  end;
- child.rootchanged([rcf_widgetregioninvalid]);
+ child.rootchanged;
  if not isloading then begin
   updatetaborder(nil);
   if child.isvisible then begin
@@ -9295,9 +6832,6 @@ begin
   try
    if entered and (fwindow <> nil) then begin
     window.nofocus;
-    if fwindow.focusedwidget <> nil then begin
-     exit;
-    end;
    end;
    if (value <> nil) then begin
     if value = self then begin
@@ -9305,7 +6839,7 @@ begin
     end;
     if (fwindow <> nil) and ownswindow1 then begin
      newpos:= translatewidgetpoint(fwidgetrect.pos,nil,value);
-//     fwindow.fownerwidget:= nil;
+     fwindow.fowner:= nil;
      freeandnil(fwindow);
     end
     else begin
@@ -9316,8 +6850,10 @@ begin
     newpos:= addpoint(rootwidget.fwidgetrect.pos,rootpos);
     fcolor:= translatecolor(fcolor);
    end;
-
+ 
    if fparentwidget <> nil then begin
+//    subpoint1(newpos,clearparentwidget.clientwidgetpos);
+//    subpoint1(newpos,clearparentwidget.clientpos);
     clearparentwidget;
    end;
    if fparentwidget <> nil then begin
@@ -9327,14 +6863,14 @@ begin
    fwidgetrect.pos:= newpos;
    if fparentwidget <> nil then begin
     fparentwidget.registerchildwidget(self);
-    if not (csloading in componentstate) and
+    if not (csloading in componentstate) and 
                         not (ws_loadlock in fwidgetstate) then begin
      fparentclientsize:= fparentwidget.minclientsize;
      parentclientrectchanged;
     end;
    end
    else begin
-    if visible and not (ws_destroying in fwidgetstate) and
+    if visible and not (ws_destroying in fwidgetstate) and 
               not (csdestroying in componentstate) then begin
      window.show(false);
     end;
@@ -9344,6 +6880,12 @@ begin
     colorchanged;
     enabledchanged; //-> statechanged
     parentchanged;
+    {
+    if (fparentwidget <> nil) and fparentwidget.focused and 
+            (ow_subfocus in fparentwidget.foptionswidget) and canfocus then begin
+     setfocus(fparentwidget.active);
+    end;
+    }
    end;
   finally
    if not updatingbefore then begin
@@ -9369,153 +6911,70 @@ begin
 end;
 
 procedure twidget.checkwidgetsize(var size: sizety);
-var
- si1: sizety;
 begin
- si1:= widgetminsize1();
- if si1.cx > 0 then begin
-  if size.cx < si1.cx then begin
-   size.cx:= si1.cx;
-  end;
+ if (fminsize.cx > 0) and (size.cx < fminsize.cx) then begin
+  size.cx:= fminsize.cx;
  end;
- if si1.cy > 0 then begin
-  if size.cy < si1.cy then begin
-   size.cy:= si1.cy;
-  end;
+ if (fminsize.cy > 0) and (size.cy < fminsize.cy) then begin
+  size.cy:= fminsize.cy;
  end;
- si1:= widgetmaxsize1();
- if si1.cx > 0 then begin
-  if size.cx > si1.cx then begin
-   size.cx:= si1.cx;
-  end;
+ if (fmaxsize.cx > 0) and (size.cx > fmaxsize.cx) then begin
+  size.cx:= fmaxsize.cx;
  end;
- if si1.cy > 0 then begin
-  if size.cy > si1.cy then begin
-   size.cy:= si1.cy;
-  end;
- end;
-end;
-
-procedure twidget.checksizes();
-begin
- if not (ws_minclientsizevalid in fwidgetstate) then begin
-  include(fwidgetstate,ws_minclientsizevalid); //avoid recursion
-
-  fminscrollsize:= calcminscrollsize; //first
-  if fframe <> nil then begin
-   fframe.checkminscrollsize(fminscrollsize);
-  end;
-  fminclientsize:= fminscrollsize;
-  fminshrinksize:= calcminshrinksize();
-  if fframe <> nil then begin
-   fframe.checkminclientsize(fminclientsize);
-   fframe.checkminshrinksize(fminshrinksize);
-  end
-  else begin
-   fminclientsize:= fwidgetrect.size;
-  end;
- end;
-end;
-
-function twidget.widgetminsize1: sizety;
-begin
- result:= fminsize;
- if fframe <> nil then begin
-  with fframe do begin
-   if ow1_clientcxmin in foptionswidget1 then begin
-    result.cx:= result.cx + fpaintframe.left + fpaintframe.right;
-   end;
-   if ow1_clientcymin in foptionswidget1 then begin
-    result.cy:= result.cy + fpaintframe.left + fpaintframe.right;
-   end;
-  end;
- end;
-end;
-
-function twidget.widgetmaxsize1: sizety;
-begin
- result:= fmaxsize;
- if fframe <> nil then begin
-  with fframe do begin
-   if (fmaxsize.cx > 0) and (ow1_clientcxmax in foptionswidget1) then begin
-    result.cx:= result.cx + fpaintframe.left + fpaintframe.right;
-   end;
-   if (fmaxsize.cy > 0) and (ow1_clientcymax in foptionswidget1) then begin
-    result.cy:= result.cy + fpaintframe.left + fpaintframe.right;
-   end;
-  end;
+ if (fmaxsize.cy > 0) and (size.cy > fmaxsize.cy) then begin
+  size.cy:= fmaxsize.cy;
  end;
 end;
 
 function twidget.minclientsize: sizety;
 begin
- checksizes();
+ if not (ws_minclientsizevalid in fwidgetstate) then begin
+  fminscrollsize:= calcminscrollsize;
+  fminclientsize:= fminscrollsize;
+  if fframe <> nil then begin
+   with fframe do begin
+    checkstate;
+    if fminclientsize.cx < fpaintrect.cx then begin
+     fminclientsize.cx:= fpaintrect.cx;
+    end;
+    if fminclientsize.cy < fpaintrect.cy then begin
+     fminclientsize.cy:= fpaintrect.cy;
+    end;
+   end;
+  end
+  else begin
+   fminclientsize:= fwidgetrect.size;
+  end;
+  include(fwidgetstate,ws_minclientsizevalid);
+ end;
  result:= fminclientsize;
-end;
-
-function twidget.minshrinksize: sizety;
-begin
- checksizes();
- result:= fminshrinksize;
 end;
 
 function twidget.minscrollsize: sizety;
 begin
- checksizes();
+ if not (ws_minclientsizevalid in fwidgetstate) then begin
+  minclientsize;
+ end;
  result:= fminscrollsize;
 end;
 
-function twidget.calcminshrinksize: sizety;
+function twidget.getminshrinksize: sizety;
 begin
- result:= widgetminsize1();
-{
- if fframe <> nil then begin
-  fframe.checkminshrinksize(result);
- end;
-}
+ result:= fminsize;
 end;
 
-procedure twidget.internalsetwidgetrect(value: rectty;
+procedure twidget.internalsetwidgetrect(Value: rectty; 
                                                   const windowevent: boolean);
 
  procedure checkwidgetregionchanged(var achanged: boolean);
- var
-  bo1: boolean;
  begin
   if achanged then begin
    achanged:= false;
    if (fparentwidget <> nil) then begin
-    if fframe <> nil then begin
-     exclude(fframe.fstate,fs_rectsvalid);
-     bo1:= fs_widgetregionchanging in fframe.fstate;
-     include(fframe.fstate,fs_widgetregionchanging);
-    end;
-    try
-     fparentwidget.widgetregionchanged(self); //new position
-    finally
-     if fframe <> nil then begin
-      if not bo1 then begin
-       exclude(fframe.fstate,fs_widgetregionchanging);
-      end;
-     end;
-    end;
+    fparentwidget.widgetregionchanged(self); //new position
    end;
   end;
- end; //checkwidgetregionchanged
-
- procedure movewidgetregion(const awidget: twidget; const dist: pointty);
- var
-  int1: integer;
- begin
-  with awidget do begin
-   if (ws1_widgetregionvalid in fwidgetstate1) then begin
-    regmove(fwidgetregion,dist);
-   end;
-   for int1:= 0 to high(fwidgets) do begin
-    movewidgetregion(fwidgets[int1],dist);
-   end;
-  end;
- end; //movewidgetregion
+ end;
 
 var
  bo1,bo2,poscha,sizecha: boolean;
@@ -9524,39 +6983,19 @@ var
  size1,size2: sizety;
  ar1: widgetarty;
  ar2,ar3: integerarty;
- autosizecha: boolean;
- autosi: sizety;
- simi,sima: sizety;
- rect1: rectty;
 begin
- autosizecha:= false;
- if not (csloading in fcomponentstate) and (fparentwidget <> nil) then begin
-  if (fanchors * [an_left,an_right] = []) or
-                     (fanchors * [an_top,an_bottom] = []) then begin
-                 //instead of calling parentclientrectchanged()
-   rect1:= fparentwidget.clientwidgetrect;
-   if fanchors * [an_left,an_right] = [] then begin
-    value.x:= rect1.x;
-    value.cx:= rect1.cx;
-   end;
-   if fanchors * [an_top,an_bottom] = [] then begin
-    value.y:= rect1.y;
-    value.cy:= rect1.cy;
-   end;
-  end;
- end;
- if ([ow1_autowidth,ow1_autoheight]*foptionswidget1 <> []) and
+ if ([ow1_autowidth,ow1_autoheight]*foptionswidget1 <> []) and 
                                  not (csloading in componentstate) then begin
   if not windowevent then begin
    checkwidgetsize(value.size);
   end;
   size1:= value.size;
   if fframe <> nil then begin
-   subsize1(size1,fframe.paintframedim);
+   subsize1(size1,fframe.paintframewidth);
   end;
   getautopaintsize(size1);
   if fframe <> nil then begin
-   addsize1(size1,fframe.paintframedim);
+   addsize1(size1,fframe.paintframewidth);
   end;
   subsize1(size1,value.size);
   size2:= value.size;
@@ -9566,41 +7005,26 @@ begin
   if not (ow1_autoheight in foptionswidget1) then begin
    size1.cy:= 0;
   end;
-  autosizecha:= (size1.cx <> 0) or (size1.cy <> 0);
   inc(value.cx,size1.cx);
-  if (ow1_autosizeanright in foptionswidget1) and
+  if (ow1_autosizeanright in foptionswidget1) and 
                                         not (an_right in fanchors) then begin
    dec(value.x,size1.cx);
   end;
   inc(value.cy,size1.cy);
-  if (ow1_autosizeanbottom in foptionswidget1) and
+  if (ow1_autosizeanbottom in foptionswidget1) and 
                                         not (an_bottom in fanchors) then begin
    dec(value.y,size1.cy);
   end;
-  autosi:= value.size;
   if not windowevent then begin
    checkwidgetsize(value.size);
   end;
-  if (an_right in fanchors) and not
+  if (an_right in fanchors) and not 
                   (ow1_noautosizeanright in foptionswidget1) then begin
    dec(value.x,value.cx-size2.cx);
   end;
-  if (an_bottom in fanchors) and not
+  if (an_bottom in fanchors) and not 
                   (ow1_noautosizeanbottom in foptionswidget1) then begin
    dec(value.y,value.cy-size2.cy);
-  end;
-  if ownswindow and windowevent and not (csloading in componentstate) then begin
-   simi:= widgetminsize1();
-   sima:= widgetmaxsize1();
-   if ow1_autowidth in foptionswidget1 then begin
-    simi.cx:= value.cx;
-    sima.cx:= value.cx;
-   end;
-   if ow1_autoheight in foptionswidget1 then begin
-    simi.cy:= value.cy;
-    sima.cy:= value.cy;
-   end;
-   fwindow.setsizeconstraints(simi,sima);
   end;
  end
  else begin
@@ -9616,21 +7040,18 @@ begin
   invalidatewidget; //old position
  end;
  if poscha then begin
-  if (fparentwidget <> nil) and ((fwidgetrect.x <> value.x) or
+  if (fparentwidget <> nil) and ((fwidgetrect.x <> value.x) or 
                                  (fwidgetrect.y <> value.y)) then begin
    include(fparentwidget.fwidgetstate1,ws1_childrectchanged);
   end;
-  if fparentwidget <> nil then begin
-   movewidgetregion(self,subpoint(value.pos,fwidgetrect.pos));
-  end;
   fwidgetrect.x:= value.x;
   fwidgetrect.y:= value.y;
-  rootchanged([]);
+  rootchanged;
  end;
  if sizecha then begin
   inc(fsetwidgetrectcount);
   setcountbefore:= fsetwidgetrectcount;
-  if (componentstate * [csloading,csdesigning] = []) and
+  if (componentstate * [csloading,csdesigning] = []) and 
         ((value.cx < fwidgetrect.cx) or (value.cy < fwidgetrect.cy)) then begin
    int2:= 0;
    setlength(ar1,length(fwidgets));
@@ -9650,7 +7071,7 @@ begin
     orderarray(ar3,pointerarty(ar1));
     size1:= value.size;
     if fframe <> nil then begin
-     subsize1(size1,fframe.paintframedim);
+     subsize1(size1,fframe.paintframewidth);
     end;
     if fframe <> nil then begin
      fframe.checkminscrollsize(size1);
@@ -9669,7 +7090,7 @@ begin
     end;
    end;
   end;
-  if (fparentwidget <> nil) and ((fwidgetrect.cx <> value.cx) or
+  if (fparentwidget <> nil) and ((fwidgetrect.cx <> value.cx) or 
                                  (fwidgetrect.cy <> value.cy)) then begin
    include(fparentwidget.fwidgetstate1,ws1_childrectchanged);
   end;
@@ -9698,38 +7119,18 @@ begin
   poschanged;
  end;
  if ownswindow1 then begin
-  if not (windowevent and (fwindow.windowpos in windowmaximizedstates)) then begin
+  if not (windowevent and (fwindow.windowpos = wp_maximized)) then begin
    fwindow.fnormalwindowrect:= fwidgetrect;
   end;
   if bo2 and (tws_windowvisible in fwindow.fstate) then begin
    fwindow.checkwindow(windowevent);
   end;
  end;
- if autosizecha and (fwidgetrect.cx = autosi.cx) and
-           (fwidgetrect.cy = autosi.cy) and (fautosizelevel < 6) then begin
-                                //emergency break
-  inc(fautosizelevel);
-  try
-   internalsetwidgetrect(fwidgetrect,windowevent);
-  finally
-   dec(fautosizelevel);
-  end;
- end;
 end;
 
 procedure twidget.setwidgetrect(const Value: rectty);
-var
- bo1: boolean;
 begin
- bo1:= ws1_widgetrectsetting in fwidgetstate1;
- include(fwidgetstate1,ws1_widgetrectsetting);
- try
-  internalsetwidgetrect(value,false);
- finally
-  if not bo1 then begin
-   exclude(fwidgetstate1,ws1_widgetrectsetting);
-  end;
- end;
+ internalsetwidgetrect(value,false);
 end;
 
 function twidget.getwidgetrect: rectty;
@@ -9744,12 +7145,7 @@ end;
 
 procedure twidget.setright(const avalue: integer);
 begin
- if an_left in fanchors then begin
-  bounds_cx:= avalue - fwidgetrect.x;
- end
- else begin
-  bounds_x:= avalue - bounds_cx;
- end;
+ bounds_cx:= avalue - fwidgetrect.x;
 end;
 
 function twidget.getbottom: integer;
@@ -9759,12 +7155,7 @@ end;
 
 procedure twidget.setbottom(const avalue: integer);
 begin
- if an_top in fanchors then begin
-  bounds_cy:= avalue - fwidgetrect.y;
- end
- else begin
-  bounds_y:= avalue - bounds_cy;
- end;
+ bounds_cy:= avalue - fwidgetrect.y;
 end;
 
 procedure twidget.setsize(const Value: sizety);
@@ -9891,7 +7282,7 @@ begin
  updatesizerange(avalue,fmaxsize);
 end;
 
-procedure twidget.dobeginread;
+procedure twidget.beginread;
 begin
  if fframe <> nil then begin
   exclude(fframe.fstate,fs_paintposinited);
@@ -9951,15 +7342,15 @@ begin
   end;
 //  if not (ws1_parentclientsizeinited in fwidgetstate1) then begin
 //   initparentclientsize;
-//  end;
+//  end;   
   sizechanged;
   poschanged;
   colorchanged;
   enabledchanged; //-> statechanged
-  parentchanged;
+  parentchanged; 
   visiblepropchanged;
   if ownswindow1 and (ws_visible in fwidgetstate) and
-                      (componentstate * [csloading,csinline] = []) then begin
+                          (componentstate * [csloading,csinline] = []) then begin
    fwindow.show(false);
   end;
   if showing then begin
@@ -9970,25 +7361,11 @@ begin
  end;
  updateskin;
  if ws1_childscaled in fwidgetstate1 then begin
-  appinst.postevent(tobjectevent.create(ek_childscaled,ievent(self)),
-                                                               [peo_local]);
+  appinst.postevent(tobjectevent.create(ek_childscaled,ievent(self)),true);
  end;
 end;
 
-procedure twidget.setdesigning(value: boolean;
-                               setchildren : boolean = true);
-begin
- if value then begin
-  include(fwidgetstate,ws_designing); //for widgetatpos condition
- end
- else begin
-  exclude(fwidgetstate,ws_designing);
- end;
- inherited;
-end;
-
-function twidget.updateopaque(const children: boolean;
-                                  const widgetregioncall: boolean): boolean;
+function twidget.updateopaque(const children: boolean): boolean;
                      //true if widgetregionchanged called
 var
  bo1,bo2: boolean;
@@ -10009,27 +7386,21 @@ begin
  else begin
   fwidgetstate:= fwidgetstate - [ws_opaque,ws_isvisible];
  end;
- if (bo1 <> (ws_opaque in fwidgetstate)) and (fparentwidget <> nil)
-                       and not fparentwidget.isloading then begin
-  if widgetregioncall then begin
+ if (bo1 <> (ws_opaque in fwidgetstate)) and (fparentwidget <> nil) then begin
+  bo2:= ws1_updateopaque in fwidgetstate1;
+  include(fwidgetstate1,ws1_updateopaque);
+  try
    fparentwidget.widgetregionchanged(self);
-  end
-  else begin
-   bo2:= ws1_updateopaque in fwidgetstate1;
-   include(fwidgetstate1,ws1_updateopaque);
-   try
-    fparentwidget.widgetregionchanged(self);
-   finally
-    if not bo2 then begin
-     exclude(fwidgetstate1,ws1_updateopaque);
-    end;
+  finally
+   if not bo2 then begin
+    include(fwidgetstate1,ws1_updateopaque);
    end;
   end;
   result:= true;
  end;
  if children then begin
   for int1:= 0 to high(fwidgets) do begin
-   fwidgets[int1].updateopaque(children,false);
+   fwidgets[int1].updateopaque(children);
   end;
  end;
 end;
@@ -10038,7 +7409,7 @@ procedure twidget.colorchanged;
 var
  int1: integer;
 begin
- updateopaque(true,false);
+ updateopaque(true);
  invalidatewidget;
  for int1:= 0 to widgetcount - 1 do begin
   with widgets[int1] do begin
@@ -10053,29 +7424,16 @@ end;
 
 function twidget.getifiwidgetstate: ifiwidgetstatesty;
 begin
- result:= [iws_loaded];
- if acs_releasing in factstate then begin
-  include(result,iws_releasing);
- end;
- if csdestroying in componentstate then begin
-  include(result,iws_releasing);
-  include(result,iws_destroying);
- end;
+ result:= [];
  if ws_visible in fwidgetstate then begin
   include(result,iws_visible);
- end;
- if ws_enabled in fwidgetstate then begin
-  include(result,iws_enabled);
- end;
- if ws_entered in fwidgetstate then begin
-  include(result,iws_entered);
  end;
  if ws_focused in fwidgetstate then begin
   include(result,iws_focused);
  end;
  if ws_active in fwidgetstate then begin
   include(result,iws_active);
- end;
+ end; 
 end;
 
 procedure twidget.ifiwidgetstatechanged;
@@ -10110,7 +7468,7 @@ begin
   if focused then begin
    window.setfocusedwidget(nil);
   end;
- end;
+ end;   
  if fframe <> nil then begin
   if bo1 or not (frl_nodisable in fframe.flocalprops) then begin
    fframe.setdisabled(not bo1);
@@ -10120,9 +7478,6 @@ begin
   widgets[int1].enabledchanged;
  end;
  statechanged;
- if (frame <> nil) then begin
-  fframe.enabledchanged();
- end;
 end;
 
 procedure twidget.activechanged;
@@ -10145,7 +7500,7 @@ end;
 
 procedure twidget.visiblechanged;
 begin
- updateopaque(false,false);
+ updateopaque(false);
  statechanged;
 end;
 
@@ -10160,21 +7515,9 @@ begin
 end;
 
 procedure twidget.sizechanged;
-var
- bo1: boolean;
 begin
  if fframe <> nil then begin
-  with fframe do begin
-   bo1:= fs_stateupdating in fstate;
-   exclude(fstate,fs_stateupdating);
-   try
-    fframe.internalupdatestate();
-   finally
-    if bo1 then begin
-     include(fstate,fs_stateupdating);
-    end;
-   end;
-  end;
+  fframe.internalupdatestate;
  end
  else begin
   clientrectchanged;
@@ -10221,15 +7564,14 @@ begin
  end;
  for int1:= 0 to high(fwidgets) do begin
   with fwidgets[int1],fwidgetrect do begin
-   if (visible or (ow1_invisibleparentsizeextend in foptionswidget1)) and
-                            not(ws1_nominsize in fwidgetstate1) or
+   if visible and not(ws1_nominsize in fwidgetstate1) or 
                                   (csdesigning in componentstate) then begin
     pt1:= getminshrinkpos;
-    minsi:= minshrinksize;
+    minsi:= getminshrinksize;
     if not (ow1_noparentwidthextend in foptionswidget1) then begin
      anch:= fanchors * [an_left,an_right];
      if anch = [an_right] then begin
-      int2:= fparentclientsize.cx - x + indent.left - clientorig.x;
+      int2:= fparentclientsize.cx - x + indent.left + clientorig.x;
      end
      else begin
       if anch = [] then begin
@@ -10252,7 +7594,7 @@ begin
     if not (ow1_noparentheightextend in foptionswidget1) then begin
      anch:= fanchors * [an_top,an_bottom];
      if anch = [an_bottom] then begin
-      int2:= fparentclientsize.cy - y + indent.top - clientorig.y;
+      int2:= fparentclientsize.cy - y + indent.top + clientorig.y;
      end
      else begin
       if anch = [] then begin
@@ -10274,11 +7616,9 @@ begin
    end;
   end;
  end;
-{
  if fframe <> nil then begin
   fframe.checkminscrollsize(result);
  end;
-}
 end;
 
 procedure twidget.childclientrectchanged(const sender: twidget);
@@ -10294,7 +7634,7 @@ var
  int1: integer;
 
 begin
- if ([csloading,csdestroying]*componentstate = []) and (fparentwidget <> nil) and
+ if not (csloading in componentstate) and (fparentwidget <> nil) and
         not (ws1_anchorsizing in fwidgetstate1) then begin
   if ws1_scaling in fparentwidget.fwidgetstate1 then begin
    fparentclientsize:= fparentwidget.minclientsize;
@@ -10302,7 +7642,7 @@ begin
   else begin
    int1:= 0; //loopcount
    repeat
-    size1:= fparentwidget.minclientsize();
+    size1:= fparentwidget.minclientsize;
     rect1:= fwidgetrect;
     delta:= subsize(size1,fparentclientsize);
     if ws1_anchorsetting in fwidgetstate1 then begin
@@ -10373,7 +7713,7 @@ var
  int1: integer;
 begin
  exclude(fwidgetstate,ws_minclientsizevalid);
- widgetregioninvalid();
+ widgetregioninvalid;
  if isvisible then begin
   invalidatewidget;
   reclipcaret;
@@ -10382,16 +7722,11 @@ begin
   parentclientrectchanged;
  end
  else begin
-  checkautosize;
- end;
- for int1:= 0 to high(fwidgets) do begin
-  with fwidgets[int1] do begin
-   if ([csloading,csdestroying] * componentstate = []) then begin
-    parentclientrectchanged();
-   end;
+  for int1:= 0 to high(fwidgets) do begin
+   fwidgets[int1].parentclientrectchanged;
   end;
  end;
- if ([csloading,csdestroying] * componentstate = []) and
+ if ([csloading,csdestroying] * componentstate = []) and 
                                          (fparentwidget <> nil) then begin
   fparentwidget.childclientrectchanged(self);
  end;
@@ -10441,11 +7776,6 @@ begin
  //dummy
 end;
 
-procedure twidget.dopaintforeground(const canvas: tcanvas);
-begin
- //dummy
-end;
-
 procedure twidget.dopaintbackground(const canvas: tcanvas);
 var
  colorbefore: colorty;
@@ -10454,84 +7784,31 @@ begin
  if frame <> nil then begin
   colorbefore:= canvas.color;
   canvas.color:= actualcolor;
-  fframe.paintbackground(canvas,makerect(nullpoint,fwidgetrect.size),true,true);
+  fframe.paintbackground(canvas,makerect(nullpoint,fwidgetrect.size));
   canvas.color:= colorbefore;
  end;
- if not canvas.clipregionisempty then begin
-  face1:= getactface;
-  if face1 <> nil then begin
-   if not (fao_overlay in face1.options) then begin
-    if fframe <> nil then begin
-     fframe.checkstate();
-     canvas.remove(fframe.fclientrect.pos);
-     face1.paint(canvas,makerect(nullpoint,fframe.fpaintrect.size));
-     canvas.move(fframe.fclientrect.pos);
-    end
-    else begin
-     face1.paint(canvas,makerect(nullpoint,fwidgetrect.size));
-    end;
-   end;
-  end;
-  doonpaintbackground(canvas);
- end;
-end;
-
-procedure twidget.paintbackground(const canvas: tcanvas;
-                                            const arect: rectty);
-var
- colorbefore: colorty;
- face1: tcustomface;
- actcolor,col1: colorty;
- pt1: pointty;
-begin
- canvas.save();
- actcolor:= actualcolor;
- if (ws_opaque in fwidgetstate) or (actcolor <> cl_transparent) then begin
-  col1:= actcolor;
-  if actcolor = cl_transparent then begin
-   col1:= cl_background; //no parent
-  end;
-  canvas.fillrect(arect,col1);
- end;
- pt1:= canvas.origin;
- if frame <> nil then begin
-  colorbefore:= canvas.color;
-  canvas.color:= actualcolor;
-  fframe.paintbackground(canvas,arect,true,true);
-  canvas.color:= colorbefore;
- end;
- if not canvas.clipregionisempty then begin
-  face1:= getactface;
-  if face1 <> nil then begin
-   if not (fao_overlay in face1.options) then begin
-    if fframe <> nil then begin
-     fframe.checkstate();
-     canvas.remove(fframe.fclientrect.pos);
-     face1.paint(canvas,makerect(nullpoint,
-                           subsize(arect.size,fframe.paintframedim)));
-     canvas.move(fframe.fclientrect.pos);
-    end
-    else begin
-     face1.paint(canvas,arect);
-    end;
-   end;
+ face1:= getactface;
+ if face1 <> nil then begin
+  if fframe <> nil then begin
+   canvas.remove(fframe.fclientrect.pos);
+   face1.paint(canvas,makerect(nullpoint,fframe.fpaintrect.size));
+   canvas.move(fframe.fclientrect.pos);
+  end
+  else begin
+   face1.paint(canvas,makerect(nullpoint,fwidgetrect.size));
   end;
  end;
- canvas.origin:= pt1; //no shift to paintrect
+ doonpaintbackground(canvas);
 end;
 
 procedure twidget.doonpaintbackground(const canvas: tcanvas);
 begin
  //dummy
 end;
-
 procedure twidget.dopaint(const canvas: tcanvas);
 begin
  dopaintbackground(canvas);
- if not canvas.clipregionisempty then begin
-  dobeforepaintforeground(canvas);
-  dopaintforeground(canvas);
- end;
+ dobeforepaintforeground(canvas);
 end;
 
 procedure twidget.doonpaint(const canvas: tcanvas);
@@ -10540,46 +7817,9 @@ begin
 end;
 
 procedure twidget.dopaintoverlay(const canvas: tcanvas);
-var
- face1: tcustomface;
 begin
- face1:= getactface;
- if face1 <> nil then begin
-  if fao_overlay in face1.options then begin
-   if fframe <> nil then begin
-    canvas.move(fframe.fpaintrect.pos);
-    face1.paint(canvas,makerect(nullpoint,fwidgetrect.size));
-    canvas.remove(fframe.fpaintrect.pos);
-   end
-   else begin
-    face1.paint(canvas,makerect(nullpoint,fwidgetrect.size));
-   end;
-  end;
- end;
  if fframe <> nil then begin
   fframe.paintoverlay(canvas,makerect(nullpoint,fwidgetrect.size));
- end;
-end;
-
-procedure twidget.paintoverlay(const canvas: tcanvas;
-                                            const arect: rectty);
-var
- face1: tcustomface;
-begin
- canvas.restore();
- face1:= getactface;
- if face1 <> nil then begin
-  if fao_overlay in face1.options then begin
-   if fframe <> nil then begin
-    face1.paint(canvas,deflaterect(arect,fframe.paintframe));
-   end
-   else begin
-    face1.paint(canvas,arect);
-   end;
-  end;
- end;
- if fframe <> nil then begin
-  fframe.paintoverlay(canvas,arect);
  end;
 end;
 
@@ -10588,15 +7828,9 @@ begin
  result:= false;
 end;
 
-function twidget.needsfocuspaint(): boolean;
+function twidget.needsfocuspaint: boolean;
 begin
  result:= (fframe <> nil) and fframe.needsfocuspaint;
-end;
-
-function twidget.needsfocuspaintstate(): boolean;
-begin
- result:= needsfocuspaint() and (fwidgetstate * [ws_focused,ws_active] =
-                                                       [ws_focused,ws_active]);
 end;
 
 function twidget.getshowhint: boolean;
@@ -10606,55 +7840,48 @@ begin
        ((fparentwidget = nil) or fparentwidget.getshowhint);
 end;
 
-procedure twidget.showhint(const aid: int32; var info: hintinfoty);
+procedure twidget.showhint(var info: hintinfoty);
 var
  mstr1: msestring;
 begin
  if getshowhint and not(csdesigning in componentstate) then begin
-  if (aid <= hintidframe) and (fframe <> nil) then begin
-   fframe.showhint(aid,info);
-  end
-  else begin
-   mstr1:= hint;
-   if mstr1 <> '' then begin
-    info.caption:= mstr1;
-   end;
+  mstr1:= hint;
+  if mstr1 <> '' then begin
+   info.caption:= mstr1;
   end;
  end;
 end;
 
 procedure twidget.doafterpaint(const canvas: tcanvas);
 begin
- if needsfocuspaintstate() then begin
-  if fframe <> nil then begin
+ if fframe <> nil then begin
+  if needsfocuspaint and (fwidgetstate * [ws_focused,ws_active] =
+                [ws_focused,ws_active]) then begin
    fframe.dopaintfocusrect(canvas,makerect(nullpoint,fwidgetrect.size));
-  end
-  else begin
-   drawfocusrect(canvas,makerect(nullpoint,fwidgetrect.size));
   end;
  end;
 end;
 
 function twidget.needsdesignframe: boolean;
 begin
- result:=
+ result:= 
  (ws_iswidget in fwidgetstate) and
    not (ws1_nodesignframe in fwidgetstate1) and
    (owner <> nil) and //no frame for toplevel
    (
      ((fwidgetrect.cx = 0) or (fwidgetrect.cy = 0)) or
      (
-       (
-         (fcolor = cl_transparent) or
-           (fparentwidget <> nil) and
-           (colortopixel(actualopaquecolor) =
+       ( 
+         (fcolor = cl_transparent) or 
+           (fparentwidget <> nil) and 
+           (colortopixel(actualopaquecolor) = 
               colortopixel(fparentwidget.actualopaquecolor{backgroundcolor}))
        ) and
-       ((fframe = nil) or
+       ((fframe = nil) or 
           (fframe.fi.leveli = 0) and (fframe.fi.levelo = 0) and
           ((fframe.fi.framewidth = 0) or (frame.fi.colorframe = cl_transparent))
        )
-     )
+     )     
    );
 end;
 
@@ -10671,7 +7898,6 @@ var
  widget1: twidget;
  bo1,bo2: boolean;
  face1: tcustomface;
- obj1: tobject;
 begin
  bo2:= ws1_painting in fwidgetstate1;
  include(fwidgetstate1,ws1_painting);
@@ -10688,8 +7914,7 @@ begin
   actcolor:= actualcolor;
   saveindex:= canvas.save;
   dobeforepaint(canvas);
-  if (high(fwidgets) >= 0) and
-                        not (ws1_noclipchildren in fwidgetstate1) then begin
+  if (high(fwidgets) >= 0) and not (ws1_noclipchildren in fwidgetstate1) then begin
    updatewidgetregion;
    canvas.subclipregion(fwidgetregion.region);
   end;
@@ -10707,14 +7932,8 @@ begin
    {$endif}
    canvas.font:= getfont;
    canvas.color:= actcolor;
-   canvas.drawinfopo:= nil;
-   obj1:= canvas.target;
-   canvas.target:= self;
    dopaint(canvas);
-   if not canvas.clipregionisempty then begin
-    doonpaint(canvas);
-   end;
-   canvas.target:= obj1;
+   doonpaint(canvas);
   end;
   canvas.restore(saveindex);
   if bo1 then begin
@@ -10740,20 +7959,18 @@ begin
    with widget1 do begin
     if isvisible and testintersectrect(rect1,fwidgetrect) then begin
      saveindex:= canvas.save;
-     if not (ow_nochildclipsiblings in self.foptionswidget) then begin
-      for int2:= int1 + 1 to self.widgetcount - 1 do begin
-       with self.fwidgets[int2],tcanvas1(canvas) do begin
-        if visible and testintersectrect(widget1.fwidgetrect,fwidgetrect) then begin
-             //clip higher level siblings
-         if (ws_opaque in fwidgetstate) then begin
-          subcliprect(fwidgetrect);
-         end
-         else begin
-          reg1:= msegui.createregion(self.window.fgdi);
-          addopaquechildren(reg1);
-          subclipregion(reg1.region);
-          msegui.destroyregion(reg1);
-         end;
+     for int2:= int1 + 1 to self.widgetcount - 1 do begin
+      with self.fwidgets[int2],tcanvas1(canvas) do begin
+       if visible and testintersectrect(widget1.fwidgetrect,fwidgetrect) then begin
+            //clip higher level siblings
+        if (ws_opaque in fwidgetstate) then begin
+         subcliprect(fwidgetrect);
+        end
+        else begin
+         reg1:= msegui.createregion(self.window.fgdi);
+         addopaquechildren(reg1);
+         subclipregion(reg1.region);
+         msegui.destroyregion(reg1);
         end;
        end;
       end;
@@ -10768,7 +7985,6 @@ begin
   end;
  end;
  canvas.restore;
- canvas.brushorigin:= nullpoint;
  face1:= getactface;
  if (face1 <> nil) and (fao_alphafadeall in face1.fi.options) then begin
   canvas.move(paintpos);
@@ -10800,12 +8016,7 @@ var
 begin
  if not (csdestroying in componentstate) then begin
   widgetregioninvalid;
-  if sender = nil then begin
-   invalidate;
-  end
-  else begin
-   invalidaterect(sender.fwidgetrect,org_widget);
-  end;
+  invalidaterect(sender.fwidgetrect,org_widget);
   if componentstate * [csloading,csdestroying] = [] then begin
    for int1:= 0 to high(fwidgets) do begin
     fwidgets[int1].parentwidgetregionchanged(sender);
@@ -10845,7 +8056,6 @@ begin
   if widgetcount > 0 then begin
    fwidgetregion:= createregion(window.fgdi);
    addopaquechildren(fwidgetregion);
-{
    if fframe <> nil then begin
     frame.checkstate;
     regintersectrect(fwidgetregion,makerect(fframe.fpaintrect.x+frootpos.x,
@@ -10855,7 +8065,6 @@ begin
    else begin
     regintersectrect(fwidgetregion,makerect(frootpos,fwidgetrect.size));
    end;
-}
   end;
   include(fwidgetstate1,ws1_widgetregionvalid);
  end;
@@ -10886,10 +8095,6 @@ begin
     if (ws_visible in fwidgetstate) and
             (componentstate * [csloading,csinline,csdestroying] = []) then begin
      fwindow.show(false);
-     if not (ws_loadedproc in fwidgetstate) then begin
-      include(fwidgetstate1,ws1_rootvalid);
-      doshow();
-     end;
     end;
    end;
   end;
@@ -10897,19 +8102,16 @@ begin
  end;
 end;
 
-procedure twidget.rootchanged(const aflags: rootchangeflagsty);
+procedure twidget.rootchanged;
 var
  int1: integer;
 begin
  if fparentwidget <> nil then begin
   fwindow:= nil;
  end;
- fwidgetstate1:= fwidgetstate1 - [{ws1_widgetregionvalid,}ws1_rootvalid];
- if rcf_widgetregioninvalid in aflags then begin
-  exclude(fwidgetstate1,ws1_widgetregionvalid);
- end;
+ fwidgetstate1:= fwidgetstate1 - [ws1_widgetregionvalid,ws1_rootvalid];
  for int1:= 0 to high(fwidgets) do begin
-  fwidgets[int1].rootchanged(aflags);
+  fwidgets[int1].rootchanged;
  end;
 end;
 
@@ -10918,7 +8120,7 @@ var
  int1: integer;
 begin
  if not (ws_loadedproc in fwidgetstate) then begin
-  updateopaque(false,false);
+  updateopaque(false);
   parentfontchanged;
   for int1:= 0 to high(fwidgets) do begin
    with fwidgets[int1] do begin
@@ -10930,20 +8132,19 @@ end;
 
 function twidget.ownswindow1: boolean;
 begin
- result:= (fwindow <> nil) and (fwindow.fownerwidget = self);
+ result:= (fwindow <> nil) and (fwindow.fowner = self);
 end;
 
 function twidget.windowallocated: boolean;
 begin
- result:= (fwindow <> nil) and fwindow.haswinid and
+ result:= (fwindow <> nil) and fwindow.haswinid and 
          (componentstate * [csloading,csdestroying] = []);
-
+ 
 end;
 
 function twidget.ownswindow: boolean;
 begin
- result:= (fwindow <> nil) and (fwindow.fownerwidget = self) and
-                                                (fwindow.fwindow.id <> 0);
+ result:= (fwindow <> nil) and (fwindow.fowner = self) and (fwindow.fwindow.id <> 0);
 end;
 
 function twidget.updaterect: rectty; //invalidated area, origin = clientpos
@@ -10964,12 +8165,6 @@ begin
  result:= frootpos;
 end;
 
-function twidget.rootwidgetrect: rectty;
-begin
- updateroot;
- result.pos:= frootpos;
- result.size:= fwidgetrect.size;
-end;
 function twidget.getscreenpos: pointty;
 begin
  updateroot;
@@ -11041,7 +8236,7 @@ begin
  end;
 end;
 
-function twidget.framedim: sizety;
+function twidget.framewidth: sizety;    
                              //widgetrect.size - paintrect.size
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
@@ -11049,15 +8244,7 @@ begin
  {$ifdef FPC} {$checkpointer default} {$endif}
 end;
 
-function twidget.framedimnoscrollbar: sizety;
-begin
- result:= framedim();
- if fframe <> nil then begin
-  fframe.addscrollbarwidth(result);
- end;
-end;
-
-function twidget.clientframewidth: sizety;
+function twidget.clientframewidth: sizety;  
                              //widgetrect.size - clientrect.size
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
@@ -11065,7 +8252,7 @@ begin
  {$ifdef FPC} {$checkpointer default} {$endif}
 end;
 
-function twidget.innerclientframewidth: sizety;
+function twidget.innerclientframewidth: sizety;   
                              //widgetrect.size - innerclientrect.size
 begin
  {$ifdef FPC} {$checkpointer off} {$endif}
@@ -11073,7 +8260,7 @@ begin
  {$ifdef FPC} {$checkpointer default} {$endif}
 end;
 
-function twidget.innerframewidth: sizety;
+function twidget.innerframewidth: sizety;  
 begin
  if frame <> nil then begin
   fframe.checkstate;
@@ -11109,15 +8296,17 @@ begin
  end;
 end;
 
-function twidget.frameinnerrect: rectty;
+function twidget.framesize: sizety;
 begin
  if fframe <> nil then begin
   fframe.checkstate;
-  result:= inflaterect(fframe.fpaintrect,fframe.fpaintframedelta);
+  with fframe.fouterframe do begin
+   result.cx:= fwidgetrect.cx - left - right;
+   result.cy:= fwidgetrect.cy - top - bottom;
+  end;
  end
  else begin
-  result.pos:= nullpoint;
-  result.size:= fwidgetrect.size;
+  result:= fwidgetrect.size;
  end;
 end;
 
@@ -11137,8 +8326,7 @@ function twidget.paintclientrect: rectty;         //origin = clientrect
 begin
  if fframe <> nil then begin
   fframe.checkstate;
-  result.x:= -fframe.fclientrect.x;
-  result.y:= -fframe.fclientrect.y;
+  result.pos:= fframe.fclientrect.pos;
   result.size:= fframe.fpaintrect.size;
  end
  else begin
@@ -11269,12 +8457,6 @@ begin
  end;
 end;
 
-function twidget.innerparentrect: rectty;         //origin = parentwidget.pos
-begin
- result:= innerwidgetrect;
- addpoint1(result.pos,fwidgetrect.pos);
-end;
-
 function twidget.innerwidgetrect: rectty;
 begin
  if fframe <> nil then begin
@@ -11336,13 +8518,6 @@ begin
   rect2.size:= fwidgetrect.size;
   po1:= @rect2;
   case org of
-   org_paint: begin
-    if fframe <> nil then begin
-     inc(rect1.x,fframe.fpaintrect.pos.x);
-     inc(rect1.y,fframe.fpaintrect.pos.y);
-     po1:= @fframe.fpaintrect;
-    end;
-   end;
    org_client: begin
     if fframe <> nil then begin
      inc(rect1.x,fframe.fclientrect.pos.x);
@@ -11361,7 +8536,6 @@ begin
      po1:= @fframe.fpaintrect;
     end;
    end;
-   else;
   end;
   if not noclip then begin
    msegraphutils.intersectrect(rect1,po1^,rect1);
@@ -11384,14 +8558,13 @@ begin
  end;
 end;
 
-procedure twidget.invalidateframestate();
+procedure twidget.invalidateframestate;
 begin
- if (fframe = nil) or ((fframe.fi.frameimage_list = nil) and
-                    (fframe.fi.colorframedefault = cl_default)) then begin
-  invalidate();
+ if (fframe = nil) or (fframe.fi.frameimage_list = nil) then begin
+  invalidate;
  end
  else begin
-  invalidatewidget();
+  invalidatewidget;
  end;
 end;
 
@@ -11401,7 +8574,7 @@ var
  widget1: twidget;
 begin
  result:= false;
- if (fparentwidget <> nil) and showing then begin
+ if fparentwidget <> nil then begin
   updateroot;
   addpoint1(arect.pos,fwidgetrect.pos);
   for int1:= high(fparentwidget.fwidgets) downto 0 do begin
@@ -11409,11 +8582,10 @@ begin
    if widget1 = self then begin
     break;
    end;
-   if intersectrect(widget1.fwidgetrect,arect,arect) and
-                                        widget1.showing then begin
+   if intersectrect(widget1.fwidgetrect,arect,arect) then begin
     result:= true;
     exit;
-   end;
+   end; 
   end;
   result:= fparentwidget.hasoverlappingsiblings(arect);
  end;
@@ -11438,7 +8610,7 @@ begin
   end
   else begin
    if info.mouseeventinfopo = nil then begin
-    fillchar(ainfo,sizeof(ainfo),0);
+    fillchar(ainfo,0,sizeof(ainfo));
     ainfo.pos:= info.pos;
     updatemousestate(ainfo);
    end
@@ -11456,7 +8628,7 @@ begin
     exit;
    end;
   end;
-  if (frame = nil) or (ow_nochildpaintclip in foptionswidget) or
+  if (frame = nil) or (ow_nochildpaintclip in foptionswidget) or 
                                  pointinrect(pos,fframe.fpaintrect) then begin
    for int1:= widgetcount - 1 downto 0 do begin
     with widgets[int1] do begin
@@ -11583,7 +8755,7 @@ function twidget.getlogicalchildren: widgetarty; //children of container
 var
  int1,int2: integer;
 begin
- with container do begin
+ with container do begin 
   setlength(result,length(fwidgets));
   int2:= 0;
   for int1:= 0 to high(result) do begin
@@ -11606,21 +8778,6 @@ begin
  result:= dofindwidget(getlogicalchildren,aname);
 end;
 
-function twidget.enteredchild(): twidget;
-var
- i1: int32;
-begin
- result:= nil;
- with container do begin
-  for i1:= 0 to high(fwidgets) do begin
-   if ws_entered in fwidgets[i1].fwidgetstate then begin
-    result:= fwidgets[i1];
-    break;
-   end;
-  end;
- end;
-end;
-
 function twidget.mouseeventwidget(const info: mouseeventinfoty): twidget;
 var
  findinfo: widgetatposinfoty;
@@ -11640,7 +8797,6 @@ begin
    ek_mousewheel: begin
     childstate:= [ws_enabled,ws_isvisible{,ws_wantmousewheel}];
    end;
-   else;
   end;
  end;
  result:= widgetatpos(findinfo);
@@ -11648,18 +8804,19 @@ end;
 
 procedure twidget.updatemousestate(const info: mouseeventinfoty);
 begin
- fwidgetstate:= fwidgetstate -
-      [ws_mouseinclient,ws_wantmousebutton,ws_wantmousemove,ws_wantmousefocus];
  if fframe <> nil then begin
   fframe.updatemousestate(self,info);
  end
  else begin
-  if not (ow_mousetransparent in foptionswidget) then begin
-   if (info.pos.x >= 0) and (info.pos.x < fwidgetrect.cx) and
-            (info.pos.y >= 0) and (info.pos.y < fwidgetrect.cy) then begin
-    fwidgetstate:= fwidgetstate +
-       [ws_mouseinclient,ws_wantmousebutton,ws_wantmousemove,ws_wantmousefocus];
-   end;
+  if (info.pos.x >= 0) and (info.pos.x < fwidgetrect.cx) and
+           (info.pos.y >= 0) and (info.pos.y < fwidgetrect.cy) and
+            not (ow_mousetransparent in foptionswidget) then begin
+   fwidgetstate:= fwidgetstate +
+      [ws_mouseinclient,ws_wantmousebutton,ws_wantmousemove,ws_wantmousefocus];
+  end
+  else begin
+   fwidgetstate:= fwidgetstate -
+      [ws_mouseinclient,ws_wantmousebutton,ws_wantmousemove,ws_wantmousefocus];
   end;
  end;
 end;
@@ -11680,8 +8837,7 @@ end;
 function twidget.isclientmouseevent(var info: mouseeventinfoty): boolean;
 begin
  with info do begin
-  if not (es_processed in eventstate) or
-                                 (info.eventkind = ek_mousemove) then begin
+  if not (es_processed in eventstate) or (info.eventkind = ek_mousemove) then begin
    updatemousestate(info);
    if [ws_mouseinclient,ws_clientmousecaptured] * fwidgetstate <> [] then begin
     if (appinst.fclientmousewidget <> self) and not (es_child in eventstate) then begin
@@ -11706,17 +8862,11 @@ end;
 
 function twidget.wantmousefocus(const info: mouseeventinfoty): boolean;
 begin
- result:= not (es_nofocus in info.eventstate) and {not focused and}
+ result:= not (es_nofocus in info.eventstate) and not focused and
                       (ws_wantmousefocus in fwidgetstate)and
-       (ow_mousefocus in foptionswidget) and canfocus;
-{
- if result and focused then begin
-  activate;
-  result:= false;
- end;
-}
+       (ow_mousefocus in foptionswidget) and canfocus
 end;
-
+       
 procedure twidget.mouseevent(var info: mouseeventinfoty);
 
  procedure doclientmouseevent;
@@ -11724,17 +8874,13 @@ procedure twidget.mouseevent(var info: mouseeventinfoty);
   include(info.eventstate,es_client);
   try
    clientmouseevent(info);
-   if canassistive() {and (ws_iswidget in widgetstate)} then begin
-    assistiveserver.doclientmouseevent(getiassistiveclient(),info);
-   end;
   finally
    exclude(info.eventstate,es_client);
-  end;
+  end;    
  end; //doclientmouseevent
-
+ 
 var
  clientoffset: pointty;
- wi1: twidget;
 begin
  exclude(fwidgetstate,ws_newmousecapture);
  if info.eventstate * [es_child,es_processed] = [] then begin
@@ -11775,8 +8921,17 @@ begin
      end;
     end;
     ek_clientmouseleave: begin
-     if (fframe <> nil) and frame.needsmouseenterinvalidate() then begin
-      invalidatewidget;
+     if (fframe <> nil) then begin
+      with fframe.fi do begin
+       if ((frameimage_list <> nil) and 
+               ((frameimage_offsets.mouse <> 0) or 
+                (frameimage_offsets.activemouse <> 0))) or 
+          ((frameface_list <> nil) and 
+               ((frameface_offsets.mouse <> 0) or 
+                (frameface_offsets.activemouse <> 0))) then begin
+        invalidatewidget;
+       end;
+      end;
      end;
      if appinst.fmousewidget = self then begin
       if fparentwidget <> nil then begin
@@ -11790,8 +8945,17 @@ begin
      doclientmouseevent;
     end;
     ek_clientmouseenter: begin
-     if (fframe <> nil) and fframe.needsmouseenterinvalidate() then begin
-      invalidatewidget;
+     if (fframe <> nil) then begin
+      with fframe.fi do begin
+       if ((frameimage_list <> nil) and 
+               ((frameimage_offsets.mouse <> 0) or 
+                (frameimage_offsets.activemouse <> 0))) or
+          ((frameface_list <> nil) and 
+               ((frameface_offsets.mouse <> 0) or 
+                (frameface_offsets.activemouse <> 0))) then begin
+        invalidatewidget;
+       end;
+      end;
      end;
      updatecursorshape(info.pos){(true)};
      doclientmouseevent;
@@ -11799,8 +8963,17 @@ begin
     ek_buttonpress: begin
      if button = mb_left then begin
       include(fwidgetstate,ws_lclicked);
-      if (fframe <> nil) and fframe.needsclickinvalidate() then begin
-       invalidatewidget;
+      if (fframe <> nil) then begin
+       with fframe.fi do begin
+        if ((frameimage_list <> nil) and 
+                ((frameimage_offsets.clicked <> 0) or 
+                 (frameimage_offsets.activeclicked <> 0)) or
+           (frameface_list <> nil) and 
+                ((frameface_offsets.clicked <> 0) or 
+                 (frameface_offsets.activeclicked <> 0))) then begin
+         invalidatewidget;
+        end;
+       end;
       end;
      end;
      if button = mb_middle then begin
@@ -11818,103 +8991,55 @@ begin
       doclientmouseevent;
       clientoffset:= getclientoffset;
      end;
-    {
-     wi1:= self;
-     repeat
-      with wi1 do begin
-       if wantmousefocus(info) then begin
-        if focused then begin
-         activate;
-        end
-        else begin
-         setfocus;
-        end;
-        break;
-       end;
-      end;
-      wi1:= wi1.parentwidget;
-     until wi1 = nil;
-    }
+     if wantmousefocus(info) then begin
+      setfocus;
+     end;
     end;
     ek_buttonrelease: begin
-     if (button = mb_left) and (fframe <> nil) and
-                                fframe.needsclickinvalidate() then begin
-      invalidatewidget;
+     if (button = mb_left) and (fframe <> nil) then begin
+      with fframe.fi do begin
+       if (frameimage_list <> nil) and 
+               ((frameimage_offsets.clicked <> 0) or 
+                (frameimage_offsets.activeclicked <> 0)) or
+          (frameface_list <> nil) and 
+               ((frameface_offsets.clicked <> 0) or 
+                (frameface_offsets.activeclicked <> 0)) then begin
+        invalidatewidget;
+       end;
+      end;
      end;
      if isclientmouseevent(info) then begin
       doclientmouseevent;
       clientoffset:= getclientoffset;
      end;
     end;
-    else;
    end;
    addpoint1(pos,clientoffset);
   end;
-  case eventkind of
-   ek_buttonpress: begin
-    wi1:= self;
-    repeat
-     with wi1 do begin
-      if wantmousefocus(info) then begin
-       if focused then begin
-        activate;
-       end
-       else begin
-        setfocus;
-       end;
-       break;
-      end;
-     end;
-     wi1:= wi1.parentwidget;
-    until wi1 = nil;
+  if eventkind = ek_buttonrelease then begin
+   if button = mb_left then begin
+    exclude(fwidgetstate,ws_lclicked);
    end;
-   ek_buttonrelease: begin
-    if button = mb_left then begin
-     exclude(fwidgetstate,ws_lclicked);
-    end;
-    if button = mb_middle then begin
-     exclude(fwidgetstate,ws_mclicked);
-    end;
-    if button = mb_right then begin
-     exclude(fwidgetstate,ws_rclicked);
-    end;
-    if (appinst <> nil) and ((shiftstate - mousebuttontoshiftstate(button)) *
-                             mousebuttons = []) and
-                            (appinst.fmousecapturewidget = self) then begin
-     if not (ws_mousecaptured in fwidgetstate) then begin
-      appinst.capturemouse(nil,false);
-     end
-     else begin
-      fwidgetstate:= fwidgetstate - [ws_clientmousecaptured];
- //     appinst.ungrabpointer; ????
-     end;
+   if button = mb_middle then begin
+    exclude(fwidgetstate,ws_mclicked);
+   end;
+   if button = mb_right then begin
+    exclude(fwidgetstate,ws_rclicked);
+   end;
+   if (appinst <> nil) and ((shiftstate - mousebuttontoshiftstate(button)) *
+                            mousebuttons = []) and
+                           (appinst.fmousecapturewidget = self) then begin
+    if not (ws_mousecaptured in fwidgetstate) then begin
+     appinst.capturemouse(nil,false);
+    end
+    else begin
+     fwidgetstate:= fwidgetstate - [ws_clientmousecaptured];
+//     appinst.ungrabpointer; ????
     end;
    end;
-   else; // Added to make compiler happy
   end;
  end;
 end;
-
-procedure twidget.mousepreview(const sender: twidget;
-               var info: mouseeventinfoty);
-begin
- if not (es_processed in info.eventstate) then begin
-  if (fparentwidget <> nil) and (self <> window.fmodalwidget) then begin
-   fparentwidget.mousepreview(sender,info);
-  end;
- end;
-end;
-
-procedure twidget.childmouseevent(const sender: twidget;
-                    var info: mouseeventinfoty);
-begin
- if not (es_processed in info.eventstate) then begin
-  if (fparentwidget <> nil) and (self <> window.fmodalwidget) then begin
-   fparentwidget.childmouseevent(sender,info);
-  end;
- end;
-end;
-
 
 procedure twidget.domousewheelevent(var info: mousewheeleventinfoty);
 begin
@@ -11944,7 +9069,7 @@ begin
      if not bo1 then begin
       exclude(eventstate,es_child);
      end;
-    end;
+    end;   
    end;
   end;
  end;
@@ -11956,16 +9081,19 @@ begin
  fwidgetstate:= fwidgetstate + [ws_lclicked,ws_clientmousecaptured];
 end;
 
-procedure twidget.releasebuttonpressgrab();
-begin
- if appinst.fmousecapturewidget = self then begin
-  appinst.ungrabpointer();
- end;
-end;
-
 procedure twidget.clientmouseevent(var info: mouseeventinfoty);
 begin
  //dummy
+end;
+
+procedure twidget.childmouseevent(const sender: twidget;
+                    var info: mouseeventinfoty);
+begin
+ if not (es_processed in info.eventstate) then begin
+  if (fparentwidget <> nil) and (self <> window.fmodalwidget) then begin
+   fparentwidget.childmouseevent(sender,info);
+  end;
+ end;
 end;
 
 function twidget.getclientpos: pointty;
@@ -12052,71 +9180,7 @@ end;
 
 procedure twidget.setpaintsize(const avalue: sizety);
 begin
- setanchordwidgetsize(addsize(avalue,framedim));
-end;
-
-function twidget.getframesize: sizety;
-begin
- if fframe <> nil then begin
-  fframe.checkstate;
-  with fframe.fouterframe do begin
-   result.cx:= fwidgetrect.cx - left - right;
-   result.cy:= fwidgetrect.cy - top - bottom;
-  end;
- end
- else begin
-  result:= fwidgetrect.size;
- end;
-end;
-
-procedure twidget.setframesize(const avalue: sizety);
-var
- si1: sizety;
-begin
- si1:= avalue;
- if fframe <> nil then begin
-//  fframe.checkstate;
-  with fframe.fouterframe do begin
-   si1.cx:= si1.cx + left + right;
-   si1.cy:= si1.cy + top + bottom;
-  end;
- end;
- setanchordwidgetsize(si1);
-end;
-
-procedure twidget.setframewidth(const avalue: integer);
-begin
- setframesize(ms(avalue,getframesize.cy));
-end;
-
-procedure twidget.setframeheight(const avalue: integer);
-begin
- setframesize(ms(getframesize.cx,avalue));
-end;
-
-procedure twidget.setpaintwidth(const avalue: integer);
-begin
- setpaintsize(ms(avalue,getpaintsize.cy));
-end;
-
-procedure twidget.setpaintheight(const avalue: integer);
-begin
- setpaintsize(ms(getpaintsize.cx,avalue));
-end;
-
-function twidget.getframeheight: integer;
-begin
- result:= getframesize.cy;
-end;
-
-function twidget.getpaintwidth: integer;
-begin
- result:= getpaintsize.cx;
-end;
-
-function twidget.getpaintheight: integer;
-begin
- result:= getpaintsize.cy;
+ setanchordwidgetsize(addsize(avalue,framewidth));
 end;
 
 function twidget.clientwidgetrect: rectty;        //origin = pos
@@ -12134,27 +9198,6 @@ begin
  end;
 end;
 
-function twidget.widgetclientrect: rectty;        //origin = clientrect.pos
-begin
- result.size:= fwidgetrect.size;
- if fframe <> nil then begin
-  with frame do begin
-   checkstate;
-   result.x:= fpaintrect.x-fclientrect.x;
-   result.y:= fpaintrect.y-fclientrect.y;
-  end
- end
- else begin
-  result.pos:= nullpoint;
- end;
-end;
-
-function twidget.widgetscreenrect: rectty;        //screen origin
-begin
- result.size:= fwidgetrect.size;
- result.pos:= screenpos;
-end;
-
 function twidget.clientwidgetpos: pointty;
 begin
  if fframe <> nil then begin
@@ -12162,19 +9205,6 @@ begin
    checkstate;
    result:= addpoint(fpaintrect.pos,fclientrect.pos);
   end
- end
- else begin
-  result:= nullpoint;
- end;
-end;
-
-function twidget.innerclientpaintpos: pointty;    //origin = paintpos
-begin
- if fframe <> nil then begin
-  with frame do begin
-   checkstate;
-   result:= fframe.finnerclientrect.pos;
-  end;
  end
  else begin
   result:= nullpoint;
@@ -12201,17 +9231,7 @@ begin
    asize.cx:= asize.cx + framei_left + framei_right;
    asize.cy:= asize.cy + framei_top + framei_bottom;
   end;
- end;
-end;
-
-procedure twidget.outertopaintsize(var asize: sizety);
-begin
- if fframe <> nil then begin
-  with fframe do begin
-   asize.cx:= asize.cx + frameo_left + frameo_right;
-   asize.cy:= asize.cy + frameo_top + frameo_bottom;
-  end;
- end;
+ end; 
 end;
 
 procedure twidget.painttowidgetsize(var asize: sizety);
@@ -12222,18 +9242,7 @@ begin
    asize.cx:= asize.cx + fpaintframe.left + fpaintframe.right;
    asize.cy:= asize.cy + fpaintframe.top + fpaintframe.bottom;
   end;
- end;
-end;
-
-procedure twidget.widgettopaintsize(var asize: sizety);
-begin
- if fframe <> nil then begin
-  with fframe do begin
-   checkstate;
-   asize.cx:= asize.cx - (fpaintframe.left + fpaintframe.right);
-   asize.cy:= asize.cy - (fpaintframe.top + fpaintframe.bottom);
-  end;
- end;
+ end; 
 end;
 
 function twidget.clientparentpos: pointty;
@@ -12257,16 +9266,7 @@ begin
   org_inner: begin
    result:= addpoint(parentclientpos,innerclientpos);
   end;
-  else begin
-   result:= nullpoint;
-  end;
  end;
-end;
-
-function twidget.paintparentrect: rectty;         //origin = parentwidget.pos
-begin
- result:= paintrect;
- addpoint1(result.pos,fwidgetrect.pos);
 end;
 
 function twidget.paintparentpos: pointty;       //origin = parentwidget.pos
@@ -12378,7 +9378,7 @@ begin
   if (widget1 = nil) or (not widget1.canfocus) then begin
    widget1:= defaultfocuschild;
   end;
-  if (widget1 <> nil) and widget1.canfocus then begin
+  if widget1 <> nil then begin
    widget1.setfocus(aactivate);
    result:= checkdescendent(window.ffocusedwidget);
   end;
@@ -12424,7 +9424,7 @@ begin
  if result and (ow_subfocus in foptionswidget) then begin
   for int1:= 0 to high(fwidgets) do begin
    if fwidgets[int1].cantabfocus then begin
-    exit;
+    exit; 
    end;
   end;
   result:= false;
@@ -12476,24 +9476,14 @@ begin
  end;
 end;
 
-function twidget.nexttaborderoverride(const sender: twidget;
-                               const down: boolean = false): twidget;
-begin
- result:= nil;
- if fparentwidget <> nil then begin
-  result:= fparentwidget.nexttaborderoverride(sender,down);
- end;
-end;
-
-function twidget.nexttaborder(const down: boolean = false;
-                                        nowrap: boolean = false): twidget;
+function twidget.nexttaborder(const down: boolean = false): twidget;
 label
  doreturn;
 var
  int1: integer;
 begin
- result:= nexttaborderoverride(self,down);
- if (result = nil) and (fparentwidget <> nil) and
+ result:= nil;
+ if (fparentwidget <> nil) and 
            not (csdestroying in fparentwidget.componentstate) then begin
   int1:= ftaborder;
   if down then begin
@@ -12501,15 +9491,12 @@ begin
     dec(int1);
     with fparentwidget do begin
      if int1 < 0 then begin
-      if (ow_parenttabfocus in foptionswidget) and
+      if (ow_parenttabfocus in foptionswidget) and 
                          (fparentwidget <> nil) then begin
        result:= nexttaborder(down);
        if result <> nil then begin
         goto doreturn;
        end;
-      end;
-      if nowrap then begin
-       exit;
       end;
       int1:= high(fwidgets);
      end;
@@ -12522,15 +9509,12 @@ begin
     inc(int1);
     with fparentwidget do begin
      if int1 >= widgetcount then begin
-      if (ow_parenttabfocus in foptionswidget) and
+      if (ow_parenttabfocus in foptionswidget) and 
                          (fparentwidget <> nil) then begin
-       result:= nexttaborder(down,nowrap);
+       result:= nexttaborder(down);
        if result <> nil then begin
         goto doreturn;
        end;
-      end;
-      if nowrap then begin
-       exit;
       end;
       int1:= 0;
      end;
@@ -12558,14 +9542,6 @@ end;
 
 procedure twidget.internaldoenter;
 begin
-{$ifdef mse_debugwidgetfocus}
- if not (ws_entered in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!*+internaldoenter new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'**+internaldoenter '));
- end;
-{$endif}
  if not (ws_entered in fwidgetstate) then begin
   include(fwidgetstate,ws_entering);
   try
@@ -12578,9 +9554,6 @@ begin
     end;
    end;
    include(fwidgetstate,ws_entered);
-   if (canassistive()) and (ws_iswidget in widgetstate) then begin
-    assistiveserver.doenter(getiassistiveclient());
-   end;
    doenter;
    if needsfocuspaint then begin
     invalidatewidget;
@@ -12598,14 +9571,6 @@ end;
 
 procedure twidget.internaldoexit;
 begin
-{$ifdef mse_debugwidgetfocus}
- if (ws_entered in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!*-internaldoexit new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'**-internaldoexit '));
- end;
-{$endif}
  if ws_entered in fwidgetstate then begin
   include(fwidgetstate,ws_exiting);
   try
@@ -12623,7 +9588,7 @@ begin
    doexit;
   finally
    exclude(fwidgetstate,ws_exiting);
-  end;
+  end;   
  end;
 end;
 
@@ -12633,35 +9598,12 @@ begin
 end;
 
 procedure twidget.internaldofocus;
- {$ifdef mse_with_ifi}
-var
- lwo1: longword;
- {$endif}
 begin
-{$ifdef mse_debugwidgetfocus}
- if not (ws_focused in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!***+internaldofocus new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'****+internaldofocus '));
- end;
-{$endif}
  if not (ws_focused in fwidgetstate) then begin
   include(fwidgetstate,ws_focused);
- {$ifdef mse_with_ifi}
-  lwo1:= window.focuscount;
- {$endif}
   dofocus;
- {$ifdef mse_with_ifi}
-  if lwo1 = window.focuscount then begin
-   ifiwidgetstatechanged;
-  end;
- {$endif}
   if fparentwidget <> nil then begin
    fparentwidget.dochildfocused(self);
-  end;
-  if fframe <> nil then begin
-   fframe.focusedchanged();
   end;
  end;
 end;
@@ -12686,33 +9628,10 @@ begin
 end;
 
 procedure twidget.internaldodefocus;
- {$ifdef mse_with_ifi}
-var
- lwo1: longword;
- {$endif}
 begin
-{$ifdef mse_debugwidgetfocus}
- if (ws_focused in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!***-internaldodefocus new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'****-internaldodefocus'));
- end;
-{$endif}
  if ws_focused in fwidgetstate then begin
   exclude(fwidgetstate,ws_focused);
- {$ifdef mse_with_ifi}
-  lwo1:= window.focuscount;
- {$endif}
   dodefocus;
- {$ifdef mse_with_ifi}
-  if lwo1 = window.focuscount then begin
-   ifiwidgetstatechanged;
-  end;
- {$endif}
-  if fframe <> nil then begin
-   fframe.focusedchanged();
-  end;
  end;
 end;
 
@@ -12720,7 +9639,7 @@ function twidget.focusback(const aactivate: boolean = true): boolean;
 begin
  if fparentwidget <> nil then begin
   with fparentwidget do begin
-   if (ffocusedchildbefore <> nil) and (ffocusedchildbefore <> self) and
+   if (ffocusedchildbefore <> nil) and (ffocusedchildbefore <> self) and 
                  (ffocusedchildbefore.canfocus) then begin
     ffocusedchildbefore.setfocus(aactivate);
     result:= true;
@@ -12737,40 +9656,17 @@ end;
 
 procedure twidget.internaldoactivate;
 begin
-{$ifdef mse_debugwidgetfocus}
- if not (ws_active in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!**+internaldoactivate new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'***+internaldoactivate '));
- end;
-{$endif}
  if not (ws_active in fwidgetstate) then begin
   include(fwidgetstate,ws_active);
   doactivate;
-  if canassistive() then begin
-   assistiveserver.doactivate(getiassistiveclient());
-  end;
-  doafteractivate();
  end;
 end;
 
 procedure twidget.internaldodeactivate;
 begin
-{$ifdef mse_debugwidgetfocus}
- if (ws_active in fwidgetstate) then begin
-  debugwriteln(debugwidgetname(self,'!**-internaldodeactivate new '));
- end
- else begin
-  debugwriteln(debugwidgetname(self,'***-internaldodeactivate '));
- end;
-{$endif}
  if ws_active in fwidgetstate then begin
   exclude(fwidgetstate,ws_active);
   dodeactivate;
-  if canassistive() then begin
-   assistiveserver.dodeactivate(getiassistiveclient());
-  end;
  end;
 end;
 
@@ -12794,7 +9690,7 @@ begin
   appinst.hidehint;
  end;
  {
- if (window.focusedwidget = self) and
+ if (window.focusedwidget = self) and 
        (fparentwidget <> nil) and fparentwidget.visible then begin
 //       (fwindow.visible or not (ws_visible in fwidgetstate)) then begin
   nextfocus;
@@ -12816,7 +9712,7 @@ begin
  bo1:= ws_visible in fwidgetstate;
  bo2:= false;
  if showing then begin
-  if bo1 and not (csdestroying in componentstate) then begin
+  if bo1 and not (csdestroying in componentstate) then begin 
    updateroot;
    window.invalidaterect(makerect(frootpos,fwidgetrect.size),self);
            //invalidate old position and size
@@ -12826,22 +9722,19 @@ begin
  end
  else begin
   exclude(fwidgetstate,ws_visible);
-  bo2:= updateopaque(false,true);
+  bo2:= updateopaque(false);
  end;
  if ws_visible in fwidgetstate then begin
   exit; //show called
  end;
  if bo1 then begin
-  if not bo2 and (fparentwidget <> nil) and
-              not (csdestroying in fparentwidget.componentstate) and
-                                    not fparentwidget.isloading then begin
+  if not bo2 and (fparentwidget <> nil) then begin
    fparentwidget.widgetregionchanged(self);
   end;
   if ownswindow1 then begin
    fwindow.hide(windowevent);
   end;
-  if (fwindow <> nil) and (fparentwidget<> nil) and
-    not (csdestroying in fparentwidget.componentstate) and
+  if (fwindow <> nil) and (fparentwidget<> nil) and 
                             checkdescendent(fwindow.focusedwidget) then begin
    nextfocus;
    if (fwindow <> nil) and checkdescendent(fwindow.focusedwidget) then begin
@@ -12864,9 +9757,8 @@ begin
   visiblechanged;
   for int1:= 0 to widgetcount - 1 do begin
    with widgets[int1] do begin
-    if not (csloading in componentstate) and //doshow from loaded pending
-           (fwidgetstate * [ws_visible,ws_showproc] = [ws_visible]) then begin
-     doshow();
+    if fwidgetstate * [ws_visible,ws_showproc] = [ws_visible] then begin
+     doshow;
     end;
    end;
   end;
@@ -12908,10 +9800,8 @@ begin
     window.settransientfor(nil,false);
    end;
   finally
-   if info.widget <> nil then begin //else self is destroyed
-    setlinkedvar(nil,tlinkedobject(info.transientfor));
-    setlinkedvar(nil,tmsecomponent(info.widget));
-   end;
+   setlinkedvar(nil,tlinkedobject(info.transientfor));
+   setlinkedvar(nil,tmsecomponent(info.widget));
   end;
  end
  else begin
@@ -12929,7 +9819,7 @@ begin
   end;
   include(fwidgetstate,ws_visible);
   if bo1 then begin
-   if not updateopaque(false,true) and (fparentwidget <> nil) then begin
+   if not updateopaque(false) and (fparentwidget <> nil) then begin
     fparentwidget.widgetregionchanged(self);
    end;
   end;
@@ -12955,7 +9845,7 @@ begin
    end;
    if (modallevel = ml_window) and (fwindow.modalfor) and
                  fwindow.ftransientfor.active then begin
-    fwindow.activate;
+    fwindow.activate;             
    end;
   end
   else begin
@@ -12987,7 +9877,7 @@ begin
    result:= event.fmodalresult;
   finally
    event.free;
-  end;
+  end;  
  end
  else begin
   result:= internalshow(modallevel,@transientfor,false,false);
@@ -13024,22 +9914,15 @@ begin
 end;
 
 procedure twidget.clampinview(const arect: rectty; const bottomright: boolean);
-var
- rect1: rectty;
 begin
- if fparentwidget <> nil then begin
-  rect1:= arect;
-  addpoint1(rect1.pos,subpoint(paintparentpos,fparentwidget.paintpos));
-  fparentwidget.clampinview(rect1,bottomright);
- end;
+ //dummy
 end;
 
 procedure twidget.doactivate;
 var
  rect1: rectty;
 begin
- if (fparentwidget <> nil) and
-                      not (ow1_noclampinview in foptionswidget1) then begin
+ if fparentwidget <> nil then begin
   rect1:= getdisprect;
   if rect1.x < 0 then begin
    rect1.cx:= rect1.cx + rect1.x;
@@ -13062,103 +9945,91 @@ begin
  activechanged;
 end;
 
-procedure twidget.doafteractivate();
-begin
- //dummy
-end;
-
 procedure twidget.dodeactivate;
 begin
  activechanged;
 end;
 
-function twidget.navigdistance(var info: naviginfoty;
-                             const nowrap: boolean = false): integer;
+function twidget.navigdistance(var info: naviginfoty): integer;
 const
- distweighting = 10;
- wrapweighting = 1;
- orthoweightingwrap = 10;
- orthoweighting = 300;
- orthoweightingoverlap = 1;
+ matchweighting = 1;
+ dirweightings = 20*matchweighting;
+ dirweightingg = 30*matchweighting;
 var
+ rect1,rect2: rectty;
  dist: integer;
- srect,drect: rectty;
- sstart,send,dstart,dend: integer;
- i1: int32;
-
+ widget1: twidget;
+ dwp,dwm: integer;
+// int1: integer;
 begin
  with info do begin
-  drect:= navigrect;
-  addpoint1(drect.pos,rootpos);
-  srect:= startingrect;
-  if direction in [gd_right,gd_left] then begin
-   sstart:= srect.y;
-   dstart:= drect.y;
-   send:= srect.y + srect.cy;
-   dend:= drect.y + drect.cy;
-   result:= (drect.y + dend - srect.y - send) div 2;
-   dist:= drect.x - srect.x;
-   if direction = gd_right then begin
-    if dist > 0 then begin
-     i1:= dist - srect.cx;
-     if (i1 > 0) and (i1 < dist) then begin
-      dist:= i1;
-     end;
-    end;
-   end
-   else begin //gd_left
-    if dist < 0 then begin
-     i1:= dist + drect.cx;
-     if (i1 < 0) and (i1 > dist) then begin
-      dist:= i1;
-     end;
-    end;
-   end;
+  rect1:= navigrect;
+  rect2:= startingrect;
+  translateclientpoint1(rect2.pos,nil,self);
+  if direction in [gd_right,gd_down] then begin
+   dwp:= dirweightings;
+   dwm:= -dirweightingg;
   end
   else begin
-   sstart:= srect.x;
-   send:= srect.x + srect.cx;
-   dstart:= drect.x;
-   dend:= drect.x + drect.cx;
-   result:= drect.x - srect.x;
-   dist:= (drect.y + drect.cy div 2) - (srect.y + srect.cy div 2);
+   dwp:= dirweightingg;
+   dwm:= -dirweightings;
   end;
-  result:= abs(result);
+  if direction in [gd_right,gd_left] then begin
+   result:= rect1.y + rect1.cy div 2 - (rect2.y + rect2.cy div 2);
+   if (rect2.y >= rect1.y) and (rect2.y < rect1.y + rect1.cy) or
+        (rect1.y >= rect2.y) and (rect1.y < rect2.y + rect2.cy) then begin
+    if rect1.cy >= rect2.cy then begin
+     result:= 0;
+    end;
+   end
+   else begin
+    result:= result*matchweighting;
+//    result:= rect1.y + rect1.cy div 2 - (rect2.y + rect2.cy div 2);
+   end;
+   dist:= rect1.x - rect2.x;
+//   dist:= (rect1.x + rect1.cx div 2) - (rect2.x + rect2.cx div 2);
+  end
+  else begin
+   result:= rect1.x - rect2.x;
+   if (rect2.x >= rect1.x) and (rect2.x < rect1.x + rect1.cx) or
+        (rect1.x >= rect2.x) and (rect1.x < rect2.x + rect2.cx) then begin
+    if rect1.cx >= rect2.cx then begin
+     result:= 0;
+    end;
+   end
+   else begin
+    result:= result*matchweighting;
+//    result:= rect1.x + rect1.cx div 2 - (rect2.x + rect2.cx div 2);
+   end;
+   dist:= (rect1.y + rect1.cy div 2) - (rect2.y + rect2.cy div 2);
+  end;
+  if result < 0 then begin
+   result:= result * dwm;
+  end
+  else begin
+   result:= result * dwp;
+  end;
   if direction in [gd_left,gd_up] then begin
    dist:= -dist;
   end;
-  if dist <= 0 then begin
-   if nowrap then begin
-    result:= bigint;
-    exit;
+  if dist < 0 then begin
+   widget1:= sender.fparentwidget;
+   while (ow_arrowfocusout in widget1.foptionswidget) and 
+                        (widget1.fparentwidget <> nil) do begin
+    widget1:= widget1.fparentwidget;
    end;
-   result:= result div orthoweightingwrap;
-   if direction in [gd_right,gd_left] then begin
-    dist:= dist + wraprect.cx;
-    if direction = gd_left then begin
-     dist:= dist-drect.cx
+   if widget1 <> nil then begin
+    with widget1 do begin
+     if direction in [gd_right,gd_left] then begin
+      dist:= dist + clientwidth + framewidth.cx;
+     end
+     else begin
+      dist:= dist + clientheight + framewidth.cy;
+     end;
     end;
-   end
-   else begin
-    dist:= dist + wraprect.cy;
-   end;
-   dist:= dist * wrapweighting;
-   result:= result*orthoweightingwrap;
-  end
-  else begin
-//   if (dstart >= sstart) and (dend <= send) or
-//                     (sstart >= dstart) and (send <= dend) then begin
-   if (dstart >= sstart) and (dstart < send) or
-             (dend > sstart) and (dend <= send) or
-      (sstart >= dstart) and (sstart < dend) or
-             (send > dstart) and (send <= dend) then begin
-    result:= result * orthoweightingoverlap;
-   end
-   else begin
-    result:= result * orthoweighting;
    end;
   end;
-  dist:= dist * distweighting;
+  dist:= dist * matchweighting;
   if dist < 0 then begin
    dist:= bigint div 2;
   end;
@@ -13166,44 +10037,23 @@ begin
  end;
 end;
 
-function twidget.navigrect: rectty;
+function twidget.navigrect: rectty;        //org = clientpos
 begin
- result:= paintrect;
- if fframe <> nil then begin
-  inflaterect1(result,fframe.paintframedelta);
- end;
+ result:= clientrect;
 end;
 
-function twidget.navigstartrect: rectty;
+function twidget.navigstartrect: rectty;        //org = clientpos
 begin
  result:= navigrect;
 end;
 
-{$ifdef mse_debugnavigdistance}
-var
- navigrequestlevel: int32;
-{$endif}
-
-procedure twidget.navigrequest(var info: naviginfoty;
-                                           const nowrap: boolean = false);
+procedure twidget.navigrequest(var info: naviginfoty);
 var
  int1,int2: integer;
- widget1,widget2,wi3: twidget;
- bo1: boolean;
- rect1,rect2: rectty;
-{$ifdef mse_debugnavigdistance}
- wi1: twidget;
-{$endif}
+ widget1,widget2: twidget;
 begin
-{$ifdef mse_debugnavigdistance}
- inc(navigrequestlevel);
- debugwriteln(
-             debugwidgetname(self,charstring(' ',navigrequestlevel-1)+
-             inttostr(navigrequestlevel)+
-            '**navigrequest:')+ debugwidgetname(info.sender,' sender '));
-{$endif}
  with info do begin
-  if not down and (ow_arrowfocusout in foptionswidget) and
+  if not down and (ow_arrowfocusout in foptionswidget) and 
                                       (fparentwidget <> nil) then begin
    widget1:= sender;
    sender:= self;
@@ -13211,81 +10061,27 @@ begin
    sender:= widget1;
   end;
   down:= true;
-  wi3:= nearest;
- {$ifdef mse_debugnavigdistance}
-  wi1:= nearest;
- {$endif}
   for int1:= 0 to widgetcount - 1 do begin
    widget1:= twidget(fwidgets[int1]);
    if (widget1 <> info.sender) and (ow_arrowfocus in widget1.foptionswidget)
          and widget1.canfocus then begin
     widget2:= nearest;
-    bo1:= hastarget;
-    hastarget:= false;
     if ow_arrowfocusin in widget1.foptionswidget then begin
      widget1.navigrequest(info);
     end;
-    if (nearest = widget2) and not hastarget then begin
-     hastarget:= true;
-     int2:= widget1.navigdistance(info,nowrap);
+    if (nearest = widget2) then begin
+     int2:= widget1.navigdistance(info);
      if int2 < distance then begin
       nearest:= widget1;
       distance:= int2;
      end;
-    {$ifdef mse_debugnavigdistance}
-     if nearest <> wi1 then begin
-      debugwrite(' *');
-      wi1:= nearest;
-     end
-     else begin
-      debugwrite('  ');
-     end;
-     debugwriteln(inttostr(int1)+charstring(' ',navigrequestlevel-1)+
-       'navigdistance '+
-       inttostr(int2)+' '+inttostr(distance)+' '+
-       debugwidgetname(widget1,' ')+' '+
-       debugwidgetname(nearest,'nearest'));
-    {$endif}
     end;
-    hastarget:= hastarget or bo1;
-   end;
-  end;
-  if (nearest <> wi3) and (nearest <> nil) then begin
-   rect1:= nearest.navigrect();
-   translatewidgetpoint1(rect1.pos,nearest,nil);
-   rect2:= sender.navigrect();
-   translatewidgetpoint1(rect2.pos,sender,nil);
-   case direction of
-    gd_up: begin
-     if rect1.y = rect2.y then begin
-      nearest:= wi3; //restore
-     end;
-    end;
-    gd_down: begin
-     if rect1.y + rect1.cy = rect2.y + rect2.cy then begin
-      nearest:= wi3; //restore
-     end;
-    end;
-    gd_right: begin
-     if rect1.x = rect2.x then begin
-      nearest:= wi3; //restore
-     end;
-    end;
-    gd_left: begin
-     if rect1.x + rect1.cx = rect2.x + rect2.cx then begin
-      nearest:= wi3; //restore
-     end;
-    end;
-    else;
    end;
   end;
  end;
  if canevent(tmethod(fonnavigrequest)) then begin
   fonnavigrequest(self,info);
  end;
-{$ifdef mse_debugnavigdistance}
- dec(navigrequestlevel);
-{$endif}
 end;
 
 procedure twidget.dokeydown(var info: keyeventinfoty);
@@ -13304,7 +10100,7 @@ begin
     end;
    end;
    if not (es_processed in eventstate) then  begin
-    if (fparentwidget <> nil) and
+    if (fparentwidget <> nil) and 
                         (self <> window.fmodalwidget) then begin
      bo1:= es_child in eventstate;
      include(eventstate,es_child);
@@ -13318,42 +10114,21 @@ begin
  end;
 end;
 
-procedure twidget.handlenavigkeys(var info: keyeventinfoty;
-                                     const nowrap: boolean = false);
-
- procedure expandwraprect(var wraprect: rectty; const awidget: twidget);
- var
-  i1: int32;
-  widget1: twidget;
- begin
-  for i1:= 0 to high(awidget.fwidgets) do begin
-   widget1:= awidget.fwidgets[i1];
-   with widget1 do begin
-    if (ow_arrowfocus in widget1.foptionswidget) and visible then begin
-     combinerect1(wraprect,rootwidgetrect);
-     if ow_arrowfocusin in widget1.foptionswidget then begin
-      expandwraprect(wraprect,widget1);
-     end;
-    end;
-   end;
-  end;
- end;
-
+procedure twidget.dokeydownaftershortcut(var info: keyeventinfoty);
 var
  naviginfo: naviginfoty;
  widget1: twidget;
+ bo1: boolean;
  shiftstate1: shiftstatesty;
- b1: boolean;
- pt1,pt2: pointty;
 begin
  with info do begin
   shiftstate1:= shiftstate * shiftstatesmask;
   if not (es_processed in eventstate) then begin
-   if (ow_keyreturntaborder in foptionswidget) and
-      ({(key = key_enter) or} (key = key_return)) and
+   if (ow_keyreturntaborder in foptionswidget) and 
+      ({(key = key_enter) or} (key = key_return)) and 
       (shiftstate1 - [ss_shift] =  []) then begin
     include(eventstate,es_processed);
-    widget1:= nexttaborder(ss_shift in shiftstate1,nowrap);
+    widget1:= nexttaborder(ss_shift in shiftstate1);
     if widget1 <> nil then begin
      widget1.setfocus;
     end;
@@ -13366,16 +10141,9 @@ begin
       direction:= gd_none;
       case key of
        key_tab,key_backtab: begin
-        widget1:= nexttaborder(key = key_backtab,nowrap or
-                                    (aso_tabnavig in assistiveoptions));
+        widget1:= nexttaborder(key = key_backtab);
         if widget1 <> nil then begin
          widget1.setfocus;
-        end
-        else begin
-         if canassistive() then begin
-          assistiveserver.dotabordertouched(getiassistiveclient(),
-                                                   key = key_backtab);
-         end;
         end;
        end;
        key_right: direction:= gd_right;
@@ -13393,53 +10161,10 @@ begin
         sender:= self;
         down:= false;
         startingrect:= navigstartrect;
-        addpoint1(startingrect.pos,rootpos);
-        widget1:= fparentwidget;
-        wraprect:= widget1.rootwidgetrect;
-        while (ow_arrowfocusout in widget1.foptionswidget) and
-                             (widget1.fparentwidget <> nil) do begin
-         widget1:= widget1.fparentwidget;    //todo: position shift
-         combinerect1(wraprect,widget1.rootwidgetrect);
-        end;
-        expandwraprect(wraprect,widget1);
-        fparentwidget.navigrequest(naviginfo,
-         nowrap or
-          (assistiveoptions*[aso_widgetnavig,aso_nearestortho] =
-                                [aso_widgetnavig,aso_nearestortho]));
+        translateclientpoint1(startingrect.pos,self,nil);
+        fparentwidget.navigrequest(naviginfo);
         if nearest <> nil then begin
-         b1:= false;
-         if assistiveoptions*[aso_widgetnavig,aso_nearestortho] =
-                                                   [aso_widgetnavig] then begin
-          pt1:= rootpos;
-          pt2:= nearest.rootpos;
-          case direction of
-           gd_left: begin
-            b1:= pt1.x <= pt2.x;
-           end;
-           gd_up: begin
-            b1:= pt1.y <= pt2.y;
-           end;
-           gd_right: begin
-            b1:= pt1.x >= pt2.x;
-           end;
-           gd_down: begin
-            b1:= pt1.y >= pt2.y;
-           end;
-           else;
-          end;
-          if b1 and (canassistive()) then begin
-           assistiveserver.donavigbordertouched(getiassistiveclient(),
-                                                                  direction);
-          end;
-         end;
-         if not b1 then begin
-          nearest.setfocus();
-         end;
-        end
-        else begin
-         if canassistive() then begin
-          assistiveserver.donavigbordertouched(getiassistiveclient(),direction);
-         end;
+         nearest.setfocus;
         end;
        end;
       end;
@@ -13447,15 +10172,6 @@ begin
     end;
    end;
   end;
- end;
-end;
-
-procedure twidget.dokeydownaftershortcut(var info: keyeventinfoty);
-var
- bo1: boolean;
-begin
- with info do begin
-  handlenavigkeys(info);
   if not (es_processed in info.eventstate) and (fparentwidget <> nil) and
                              (self <> window.fmodalwidget) then begin
    bo1:= es_child in eventstate;
@@ -13469,26 +10185,9 @@ begin
 end;
 
 procedure twidget.dokeydown1(var info: keyeventinfoty);
-var
- b1: boolean;
- w1: twidget;
 begin
- b1:= canassistive() {and (ws_iswidget in widgetstate)};
- if b1 then begin
-  w1:= nil;
-  setlinkedvar(self,tmsecomponent(w1)); //destroy check
- end;
- try
-  exclude(fwidgetstate1,ws1_onkeydowncalled);
-  dokeydown(info);
-  if b1 and (w1 <> nil) then begin
-   assistiveserver.dokeydown(getiassistiveclient(),info);
-  end;
- finally
-  if b1 and (w1 <> nil) then begin //destroy check
-   setlinkedvar(nil,tmsecomponent(w1));
-  end;
- end;
+ exclude(fwidgetstate1,ws1_onkeydowncalled);
+ dokeydown(info);
 end;
 
 procedure twidget.internalkeydown(var info: keyeventinfoty);
@@ -13557,7 +10256,7 @@ end;
 
 procedure twidget.cursorchanged;
 begin
- if not (csloading in componentstate) and (appinst <> nil) and
+ if not (csloading in componentstate) and (appinst <> nil) and 
         checkdescendent(appinst.fclientmousewidget) then begin
   appinst.fclientmousewidget.updatecursorshape(appinst.fmousewidgetpos);
  end;
@@ -13593,9 +10292,8 @@ end;
 
 function twidget.iswidgetclick(const info: mouseeventinfoty;
                      const caption: boolean = false): boolean;
-   //true if eventtype = et_butonrelease, button is mb_left,
-   // clicked and pos in clientrect or in frame.caption if caption = true,
-   // origin = pos
+   //true if eventtype = et_butonrelease, button is mb_left, clicked and pos in clientrect
+   //or in frame.caption if caption = true
 begin
  with info do begin
   result:= (button = mb_left) and (ws_lclicked in fwidgetstate) and
@@ -13605,42 +10303,8 @@ begin
  end;
 end;
 
-function twidget.iswidgetdblclick(const info: mouseeventinfoty;
-               const caption: boolean = false): boolean;
-   //true if eventtype = et_butonrelease, button is mb_left,
-   // clicked and pos in clientrect or in frame.caption if caption = true,
-   // and timedlay to last buttonpress is short
-   // origin = pos
-begin
- with info do begin
-  result:= (button = mb_left) and
-       (eventkind = ek_buttonpress) and (ss_double in shiftstate) and
-        (appinst.fbuttonpresswidgetbefore = self) and
-      (pointinrect(pos,paintrect) or
-           caption and (fframe <> nil) and fframe.pointincaption(info.pos))
- end;
-end;
-
-function twidget.iswidgetdblclicked(const info: mouseeventinfoty;
-               const caption: boolean = false): boolean;
-   //true if eventkind = ek_buttonrelease, button is mb_left,
-   // and pos in clientrect or in frame.caption if caption = true
-   // and timedelay to last buttonrelease is short
-   // origin = pos
-begin
- with info do begin
-  result:= (button = mb_left) and (ss_double in shiftstate) and
-    ({(eventkind = ek_buttonpress) and (appinst.fbuttonpresswidgetbefore = self) or}
-    (eventkind = ek_buttonrelease) and
-                 (appinst.fbuttonreleasewidgetbefore = self)) and
-           (pointinrect(pos,paintrect) or
-           caption and (fframe <> nil) and fframe.pointincaption(info.pos));
- end;
-end;
-
 function twidget.isclick(const info: mouseeventinfoty): boolean;
-   //true if eventkind = ek_buttonrelease, button is mb_left,
-   // clicked and pos in clientrect
+   //true if eventtype = et_butonrelease, button is mb_left, clicked and pos in clientrect
 begin
  with info do begin
   result:= (ws_lclicked in fwidgetstate) and (eventkind = ek_buttonrelease) and
@@ -13649,23 +10313,22 @@ begin
 end;
 
 function twidget.isdblclick(const info: mouseeventinfoty): boolean;
-   //true if eventtype = ek_buttonpress, button is mb_left, pos in clientrect
-   // and timedelay to last buttonpress is short
-   // origin = paintrect.pos
+   //true if eventtype = et_butonpress, button is mb_left, pos in clientrect
+   // and timedlay to last buttonpress is short
 begin
  with info do begin
   result:= (button = mb_left) and pointinrect(pos,clientrect) and
-       (eventkind = ek_buttonpress) and (ss_double in shiftstate) and
+       (eventkind = ek_buttonpress) and (ss_double in shiftstate) and 
         (appinst.fbuttonpresswidgetbefore = self);
  end;
 end;
 
 function twidget.isdblclicked(const info: mouseeventinfoty): boolean;
-   //true if eventkind in [ek_buttonpress,ek_buttonrelease], button is mb_left,
-   // and timedelay to last same buttonevent is short
+   //true if eventtype in [et_buttonpress,et_butonrelease], button is mb_left,
+   // and timedlay to last same buttonevent is short
 begin
  with info do begin
-  result:= (button = mb_left) and (ss_double in shiftstate) and
+  result:= (button = mb_left) and (ss_double in shiftstate) and 
     ((eventkind = ek_buttonpress) and (appinst.fbuttonpresswidgetbefore = self) or
      (eventkind = ek_buttonrelease) and (appinst.fbuttonreleasewidgetbefore = self));
  end;
@@ -13688,57 +10351,7 @@ begin
               shiftstate*keyshiftstatesmask = akeyshiftstate);
  end;
 end;
-{
-function twidget.eatwidgetclick(var info: mouseeventinfoty;
-                                  const caption: boolean = false): boolean;
-begin
- result:= iswidgetclick(info,caption);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
 
-function twidget.eatclick(var info: mouseeventinfoty): boolean;
-begin
- result:= isclick(info);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
-
-function twidget.eatdblclick(var info: mouseeventinfoty): boolean;
-begin
- result:= isdblclick(info);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
-
-function twidget.eatdblclicked(var info: mouseeventinfoty): boolean;
-begin
- result:= isdblclicked(info);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
-
-function twidget.eatleftbuttondown(var info: mouseeventinfoty): boolean;
-begin
- result:= isleftbuttondown(info);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
-
-function twidget.eatleftbuttondown(var info: mouseeventinfoty;
-                   const akeyshiftstate: shiftstatesty): boolean;
-begin
- result:= isleftbuttondown(info,akeyshiftstate);
- if result then begin
-  include(info.eventstate,es_processed);
- end;
-end;
-}
 function twidget.widgetmousepos(const ainfo: mouseeventinfoty): pointty;
                                   //transaltes to widgetpos if necessary
 begin
@@ -13770,7 +10383,7 @@ end;
 function twidget.checkfocusshortcut(var info: keyeventinfoty): boolean;
 begin
  if (fframe <> nil) then begin
-  result:= fframe.checkfocusshortcut(info) and canfocus;
+  result:= fframe.checkshortcut(info) and canfocus;
  end
  else begin
   result:= false;
@@ -13783,31 +10396,23 @@ var
  int1,int2: integer;
  caller1: twidget;
 begin
- if not (es_processed in info.eventstate) and
-            (fwidgetstate * [ws_visible, ws_enabled] =
+ if not (es_processed in info.eventstate) and 
+            (fwidgetstate * [ws_visible, ws_enabled] = 
                              [ws_visible,ws_enabled]) then begin
   if (sender <> nil) and (sender.fparentwidget = self) then begin
      //neighbors first
    int2:= indexofwidget(sender);
    for int1:= int2 + 1 to widgetcount - 1 do begin
-    with widgets[int1] do begin
-     if not (ow_nosiblingshortcut in foptionswidget) then begin
-      doshortcut(info,nil);
-      if es_processed in info.eventstate then begin
-       break;
-      end;
-     end;
+    widgets[int1].doshortcut(info,nil);
+    if es_processed in info.eventstate then begin
+     break;
     end;
    end;
    if not (es_processed in info.eventstate) then begin
     for int1:= 0 to int2 - 1 do begin
-     with widgets[int1] do begin
-      if not (ow_nosiblingshortcut in foptionswidget) then begin
-       doshortcut(info,nil);
-       if es_processed in info.eventstate then begin
-        break;
-       end;
-      end;
+     widgets[int1].doshortcut(info,nil);
+     if es_processed in info.eventstate then begin
+      break;
      end;
     end;
    end;
@@ -13830,7 +10435,7 @@ begin
   end;
   if not (es_processed in info.eventstate) and (sender <> nil) then begin
     //parent
-   if (fparentwidget <> nil) and not (ow_nochildshortcut in foptionswidget) and
+   if (fparentwidget <> nil) and not (ow_nochildshortcut in foptionswidget) and 
                     (self <> fwindow.fmodalwidget) then begin
     fwindow.fcaller:= self;
     fparentwidget.doshortcut(info,sender);
@@ -13839,7 +10444,7 @@ begin
     window.doshortcut(info,sender)
    end;
   end;
-  if not (es_processed in info.eventstate) and canfocus and
+  if not (es_processed in info.eventstate) and canfocus and 
                                          checkfocusshortcut(info)then begin
    setfocus;
    include(info.eventstate,es_processed);
@@ -13851,7 +10456,7 @@ function twidget.showing: boolean;
 begin
  result:= isvisible and
   (
-   (fparentwidget = nil) and ((fwindow <> nil) and
+   (fparentwidget = nil) and ((fwindow <> nil) and 
                                    (tws_windowvisible in fwindow.fstate)) or
    (fparentwidget <> nil) and fparentwidget.showing
   );
@@ -13880,13 +10485,8 @@ end;
 
 function twidget.activeentered: boolean;
 begin
- result:= entered and ((appinst.regularactivewindow = window) or
+ result:= entered and ((appinst.regularactivewindow = window) or 
                 (appinst.finactivewindow = window));
-end;
-
-function twidget.activefocused: boolean;
-begin
- result:= (ws_active in fwidgetstate) and (window.focusedwidget = self);
 end;
 
 function twidget.focused: boolean;
@@ -13901,10 +10501,9 @@ end;
 
 function twidget.isvisible: boolean;
 begin
- result:= ((ws_visible in fwidgetstate) or
-           ((csdesigning in componentstate) and
-                    not (ws1_nodesignvisible in fwidgetstate1))) and
-          not (csdestroying in componentstate);
+ result:= (ws_visible in fwidgetstate) or
+         ((csdesigning in componentstate) and 
+                    not (ws1_nodesignvisible in fwidgetstate1));
 end;
 
 function twidget.parentisvisible: boolean; //checks visible flags of ancestors
@@ -13944,16 +10543,10 @@ end;
 
 procedure twidget.setvisible(const avalue: boolean);
 begin
- if (not (csloading in componentstate) or not avalue) and
-                                        (avalue <> getvisible) then begin
+ if not (csloading in componentstate) and (avalue <> getvisible) then begin
   if avalue then begin
    if parentisvisible then begin
-    if window.modalfor then begin
-     show(ml_window,fwindow.ftransientfor);
-    end
-    else begin
-     show(ml_none,fwindow.ftransientfor);
-    end;
+    show(false,window.ftransientfor);
    end
    else begin
     include(fwidgetstate,ws_visible);
@@ -13963,13 +10556,11 @@ begin
    hide;
   end;
   if (ws1_fakevisible in fwidgetstate1) then begin
-   if not updateopaque(false,true) and (fparentwidget <> nil) then begin
+   if not updateopaque(false) and (fparentwidget <> nil) then begin
     fparentwidget.widgetregionchanged(self);
    end;
   end;
-  if not (csdestroying in componentstate) then begin
-   visiblepropchanged;
-  end;
+  visiblepropchanged;
  end
  else begin
   if avalue then begin
@@ -13977,8 +10568,8 @@ begin
   end
   else begin
    exclude(fwidgetstate,ws_visible);
-   if not (csloading in componentstate) and ownswindow and
-                    (tws_windowvisible in fwindow.fstate) then begin
+   if not (csloading in componentstate) and ownswindow and 
+                    (tws_windowvisible in fwindow.fstate) then begin    
     gui_hidewindow(fwindow.fwindow.id);
    end;
   end;
@@ -13998,8 +10589,7 @@ begin
   end
   else begin
    exclude(fwidgetstate,ws_enabled);
-//   if window.focusedwidget = self then begin
-   if checkdescendent(window.focusedwidget) then begin
+   if window.focusedwidget = self then begin
     nextfocus;
    end;
   end;
@@ -14026,7 +10616,7 @@ end;
 
 function twidget.actualopaquecolor: colorty;
 begin
- if (fcolor <> cl_parent) and (fcolor <> cl_default) and
+ if (fcolor <> cl_parent) and (fcolor <> cl_default) and 
                                        (fcolor <> cl_transparent)then begin
   result:= fcolor;
  end
@@ -14057,12 +10647,12 @@ end;
 
 function twidget.backgroundcolor: colorty;
 begin
- if (fframe = nil) or (fframe.actualcolorclient = cl_transparent) then begin
+ if (fframe = nil) or (fframe.fi.colorclient = cl_transparent) then begin
   if fparentwidget = nil then begin
    result:= actualopaquecolor;
   end
   else begin
-   if (fcolor <> cl_parent) and (fcolor <> cl_default) and
+   if (fcolor <> cl_parent) and (fcolor <> cl_default) and 
                                        (fcolor <> cl_transparent) then begin
     result:= fcolor;
    end
@@ -14072,10 +10662,10 @@ begin
   end;
  end
  else begin
-  result:= fframe.actualcolorclient();
+  result:= fframe.fi.colorclient;
  end;
 end;
-
+ 
 function twidget.translatecolor(const acolor: colorty): colorty;
 begin
  if acolor = cl_default then begin
@@ -14126,10 +10716,10 @@ begin
  result:= (appinst <> nil) and checkdescendent(appinst.fcaretwidget)
 end;
 
-function twidget.canwindow: boolean;
+function twidget.canwindow: boolean; 
 begin
- result:= (fwindow <> nil) and
-           not (csdestroying in fwindow.fownerwidget.componentstate) or
+ result:= (fwindow <> nil) and 
+           not (csdestroying in fwindow.fowner.componentstate) or 
        (fwindow = nil) and not (csdestroying in rootwidget.componentstate);
 end;
 
@@ -14146,7 +10736,7 @@ function twidget.mousecaptured: boolean;
 begin
  result:= application.mousecapturewidget = self;
 end;
-
+                     
 function twidget.capturemouse(grab: boolean = true): boolean;
 begin
  result:= false;
@@ -14160,8 +10750,8 @@ end;
 procedure twidget.releasemouse(const grab: boolean = false);
 begin
  if (appinst <> nil) and (appinst.fmousecapturewidget = self) then begin
-  exclude(fwidgetstate,ws_mousecaptured);
   appinst.capturemouse(nil,grab);
+  exclude(fwidgetstate,ws_mousecaptured);
  end;
 end;
 
@@ -14198,52 +10788,24 @@ begin
  //dummy
 end;
 
-procedure twidget.doscrolled(const dist: pointty);
-begin
- //dummy
-end;
-
 procedure twidget.scrollwidgets(const dist: pointty);
- procedure movereg(const awidget: twidget);
- var
-  int1: integer;
- begin
-  with awidget do begin
-   if ws1_widgetregionvalid in fwidgetstate1 then begin
-    regmove(fwidgetregion,dist);
-   end;
-   for int1:= 0 to high(fwidgets) do begin
-    movereg(fwidgets[int1]);
-   end;
-  end;
- end;
 var
  int1: integer;
  widget1: twidget;
 begin
  if (dist.x <> 0) or (dist.y <> 0) then begin
-  if ws1_widgetregionvalid in fwidgetstate1 then begin
-   regmove(fwidgetregion,dist);
-  end;
-  widget1:= self;
-  while not (ws_opaque in widget1.fwidgetstate) and
-                                    (widget1.parentwidget <> nil) do begin
-   widget1:= widget1.parentwidget;
-   exclude(widget1.fwidgetstate1,ws1_widgetregionvalid);
-  end;
   for int1:= 0 to widgetcount - 1 do begin
    widget1:= fwidgets[int1];
-   movereg(widget1);
    with widget1 do begin
     addpoint1(fwidgetrect.pos,dist);
     addpoint1(frootpos,dist);
-    rootchanged([]);
+    rootchanged;
    end;
    if appinst.fcaretwidget = widget1 then begin
     widget1.reclipcaret;
    end;
   end;
-//  widgetregioninvalid;
+  widgetregioninvalid;
   if fwindow <> nil then begin
    fwindow.fscrollnotifylist.notify(self);
   end;
@@ -14258,11 +10820,6 @@ begin
  end;
 end;
 
-function twidget.getnoscroll(): boolean;
-begin
- result:= ow_noscroll in foptionswidget;
-end;
-
 procedure twidget.scrollrect(const dist: pointty; const rect: rectty;
                 scrollcaret: boolean);
            //origin = paintrect.pos
@@ -14274,7 +10831,7 @@ var
  begin
   fwindow.invalidaterect(intersectrect(rect1,rect2));
  end;
-
+ 
 begin
  if (dist.x = 0) and (dist.y = 0) or not showing then begin
   exit;
@@ -14289,8 +10846,7 @@ begin
    inc(rect1.x,fframe.fpaintrect.x);
    inc(rect1.y,fframe.fpaintrect.y); //widget origin
   end;
-  if getnoscroll() or{and not}
-     (csdesigning in componentstate) or //restore grid
+  if (ow_noscroll in foptionswidget) and not (csdesigning in componentstate) or
      (tws_painting in fwindow.fstate) or
      (abs(dist.x) >= rect.cx) or (abs(dist.y) > rect1.cy) then begin
    invalidaterect(rect1,org_widget);
@@ -14374,7 +10930,6 @@ begin
  end;
  scrollrect(dist,rect1,true);
  scrollwidgets(dist);
- doscrolled(dist);
 end;
 
 procedure twidget.update;
@@ -14420,84 +10975,6 @@ begin
  setlength(result,int2);
 end;
 
-function twidget.getcornerwidget(const side: graphicdirectionty;
-                                     const visibleonly: boolean): twidget;
-var
- i1,i2: int32;
- po1,pe: pwidget;
-begin
- result:= nil;
- case side of
-  gd_left: begin
-   i1:= maxint;
-   po1:= pointer(fwidgets);
-   pe:= po1 + length(fwidgets);
-   while po1 < pe do begin
-    with po1^ do begin
-     if not visibleonly or visible then begin
-      if fwidgetrect.x < i1 then begin
-       result:= po1^;
-       i1:= fwidgetrect.x;
-      end;
-     end;
-    end;
-    inc(po1);
-   end;
-  end;
-  gd_up: begin
-   i1:= maxint;
-   po1:= pointer(fwidgets);
-   pe:= po1 + length(fwidgets);
-   while po1 < pe do begin
-    with po1^ do begin
-     if not visibleonly or visible then begin
-      if fwidgetrect.y < i1 then begin
-       result:= po1^;
-       i1:= fwidgetrect.y;
-      end;
-     end;
-    end;
-    inc(po1);
-   end;
-  end;
-  gd_right: begin
-   i1:= minint;
-   po1:= pointer(fwidgets);
-   pe:= po1 + length(fwidgets);
-   while po1 < pe do begin
-    with po1^ do begin
-     if not visibleonly or visible then begin
-      i2:= fwidgetrect.x + fwidgetrect.cx;
-      if i2 > i1 then begin
-       result:= po1^;
-       i1:= i2;
-      end;
-     end;
-    end;
-    inc(po1);
-   end;
-  end;
-  gd_down: begin
-   i1:= minint;
-   po1:= pointer(fwidgets);
-   pe:= po1 + length(fwidgets);
-   while po1 < pe do begin
-    with po1^ do begin
-     if not visibleonly or visible then begin
-      i2:= fwidgetrect.y + fwidgetrect.cy;
-      if i2 > i1 then begin
-       result:= po1^;
-       i1:= i2;
-      end;
-     end;
-    end;
-    inc(po1);
-   end;
-  end;
-  else;
- end;
-end;
-
 procedure twidget.updatetaborder(awidget: twidget);
 var
  int1: integer;
@@ -14532,7 +11009,7 @@ begin
 //  result:= owner;
  end
  else begin
-  if (csdesigning in componentstate) and
+  if (csdesigning in componentstate) and 
          not(csdesigning in result.componentstate) then begin
    result:= nil; //parentwidget is designer
   end;
@@ -14580,11 +11057,16 @@ procedure twidget.getchildren(proc: tgetchildproc; root: tcomponent);
 var
  int1: integer;
  widget: twidget;
+// ev1: getchildreneventty; 
 begin
  for int1:= 0 to high(fwidgets) do begin
   widget:= fwidgets[int1];
   if (ws_iswidget in widget.fwidgetstate) and
-     (widget.owner = root) then begin
+     //(
+     (widget.owner = root){ or 
+         bo1 and (widget.owner <> nil) and 
+           (issubcomponent(widget.owner,root) or //common owner
+               issubcomponent(root,widget.owner)))} then begin
    proc(widget);
   end;
  end;
@@ -14606,7 +11088,7 @@ begin
    save;
   end;
   font:= getfont;
-  origin:= rootpos;
+  origin:= frootpos;
   case aorigin of
    org_widget,org_screen: begin
     clipregion:= createregion(makerect(nullpoint,fwidgetrect.size));
@@ -14663,6 +11145,26 @@ begin
    opt1:= optionswidget1;
    if ow_noautosizing in avalue then begin  //don't use deprecated flags
     opt1:= opt1 + [ow1_noautosizing];
+   end;
+   if [ow_fontglyphheight,ow_fontlineheight,ow_autoscale] * avalue <> 
+                                                              [] then begin
+    updatebit1({$ifdef FPC}longword{$else}word{$endif}(opt1),
+                                                   ord(ow1_fontglyphheight),
+                                         ow_fontglyphheight in avalue);
+    updatebit1({$ifdef FPC}longword{$else}word{$endif}(opt1),
+                     ord(ow1_fontlineheight),
+                                         ow_fontlineheight in avalue);
+    updatebit1({$ifdef FPC}longword{$else}word{$endif}(opt1),
+                 ord(ow1_autoscale),ow_autoscale in avalue);
+   end;
+   if ow_autosize in avalue then begin
+    opt1:= opt1 + [ow1_autowidth,ow1_autoheight];
+   end;
+   if ow_autosizeanright in avalue then begin
+    include(opt1,ow1_autosizeanright);
+   end;
+   if ow_autosizeanbottom in avalue then begin
+    include(opt1,ow1_autosizeanbottom);
    end;
    if ow_canclosenil in avalue then begin
     include(opt1,ow1_canclosenil);
@@ -14727,15 +11229,6 @@ begin
   if delta * avalue * [ow1_autowidth,ow1_autoheight] <> [] then begin
    checkautosize;
   end;
-  if (delta * [ow1_clientcxmin,ow1_clientcxmax,
-              ow1_clientcymin,ow1_clientcymax] <> []) and
-                             not (csloading in componentstate) then begin
-   exclude(fwidgetstate,ws_minclientsizevalid);
-   if ownswindow1 then begin
-    fwindow.sizeconstraintschanged();
-   end;
-   internalsetwidgetrect(fwidgetrect,false);
-  end;
  end;
 end;
 
@@ -14771,7 +11264,6 @@ begin
   ek_resize: begin
    clientsize:= addsize(clientsize,tresizeevent(event).size);
   end;
-  else;
  end;
 end;
 
@@ -14797,33 +11289,13 @@ end;
 function twidget.canparentclose(const newfocus: twidget): boolean;
                    //window.focusedwidget is first checked
 begin
- try
-  if checkdescendent(window.focusedwidget) then begin
-   result:= window.focusedwidget.canclose(newfocus);
-   if not result then begin
-    exit;
-   end;
-  end;
-  result:= canclose(newfocus);
- except
-  result:= false;
-  application.handleexception;
- end;
-end;
-
-function twidget.forceclose: boolean;
-var
- bo1: boolean;
-begin
- bo1:= ws1_forceclose in fwidgetstate1;
- include(fwidgetstate1,ws1_forceclose);
- try
-  result:= canparentclose(nil);
- finally
-  if not bo1 then begin
-   exclude(fwidgetstate1,ws1_forceclose);
+ if checkdescendent(window.focusedwidget) then begin
+  result:= window.focusedwidget.canclose(newfocus);
+  if not result then begin
+   exit;
   end;
  end;
+ result:= canclose(newfocus);
 end;
 
 function twidget.canparentclose: boolean;
@@ -14907,8 +11379,7 @@ begin
  if not (ws1_childscaled in fwidgetstate1) then begin
   include(fwidgetstate1,ws1_childscaled);
   if not (csloading in componentstate) then begin
-   appinst.postevent(tobjectevent.create(
-                                    ek_childscaled,ievent(self)),[peo_local]);
+   appinst.postevent(tobjectevent.create(ek_childscaled,ievent(self)),true);
   end;
  end;
 end;
@@ -14917,7 +11388,7 @@ procedure twidget.updatefontheight;
 var
  int1: integer;
 begin
- if not (csloading in componentstate) and
+ if not (csloading in componentstate) and 
       (foptionswidget1 * [ow1_fontglyphheight,ow1_fontlineheight] <> []) then begin
   int1:= ffontheight;
   if ow1_fontglyphheight in foptionswidget1 then begin
@@ -14925,7 +11396,7 @@ begin
   end
   else begin
    ffontheight:= getfont.lineheight;
-  end;
+  end; 
   if (int1 <> 0) and not (ws1_scaling in fwidgetstate1) then begin
    int1:= ffontheight - int1;
    if int1 <> 0 then begin
@@ -14965,11 +11436,11 @@ end;
 
 procedure twidget.parentfontchanged;
 begin
- if ffont = nil then begin
-  fontchanged;
- end;
  if fframe <> nil then begin
   fframe.parentfontchanged;
+ end;
+ if ffont = nil then begin
+  fontchanged;
  end;
 end;
 
@@ -14986,7 +11457,7 @@ begin
    if (id = 0) or not appinst.findwindow(id,window1) then begin
     window1:= fwindow;
    end;
-   subpoint1(po1,window1.fownerwidget.fwidgetrect.pos);
+   subpoint1(po1,window1.fowner.fwidgetrect.pos);
    appinst.eventlist.insert(0,tmouseevent.create(window1.winid,
      eventkind = ek_buttonrelease,button,mw_none,po1,shiftstate,info.timestamp,
      true));
@@ -15038,7 +11509,7 @@ begin
  window.setfocusedwidget(getnextfocus);
 end;
 
-function twidget.getdisprect: rectty;     //origin parentwidget.pos,
+function twidget.getdisprect: rectty;     //origin parentwidget.pos, 
                                           //clamped in view by activate
 begin
  result.pos:= nullpoint;
@@ -15070,12 +11541,6 @@ begin
     end;
    end;
   end;
-  if result = nil then begin
-   result:= container;
-   if result = self then begin
-    result:= nil;
-   end;
-  end;
  end;
 end;
 
@@ -15087,7 +11552,7 @@ end;
 function twidget.trycancelmodal(const newactive: twindow): boolean;
               //called by twindow.internalactivate, true if accepted
 begin
- result:= false;
+ result:= false; 
 end;
 
 function twidget.parentwidgetindex: integer;
@@ -15177,7 +11642,7 @@ begin
    bounds_cx:= bounds_cx + int1 + space - paintsize.cx
   end
   else begin
-   bounds_cx:= bounds_cx + int1 + fframe.framei_left +
+   bounds_cx:= bounds_cx + int1 + fframe.framei_left + 
               fframe.framei_right - paintsize.cx;
   end;
  end
@@ -15186,7 +11651,7 @@ begin
    bounds_cy:= bounds_cy + int1 + space - paintsize.cy
   end
   else begin
-   bounds_cy:= bounds_cy + int1 + fframe.framei_top +
+   bounds_cy:= bounds_cy + int1 + fframe.framei_top + 
               fframe.framei_bottom - paintsize.cy;
   end;
  end;
@@ -15259,10 +11724,7 @@ begin
   widget1:= widget1.fparentwidget;
  until widget1 = nil;
 {$warnings off}
- {$push}
-    {$objectChecks off}          
  result:= twidgetfontempty(stockobjects.fonts[stf_empty]);
- {$pop}
 {$warnings on}
 end;
 
@@ -15296,9 +11758,6 @@ begin
  end
  else begin
   setoptionalobject(avalue,fframe,{$ifdef FPC}@{$endif}internalcreateframe);
-  if (componentstate*[csloading,csdestroying] = []) then begin
-   clientrectchanged;
-  end;
  end;
 end;
 
@@ -15328,8 +11787,7 @@ end;
 
 function twidget.getframestateflags: framestateflagsty;
 begin
- result:= combineframestateflags(not isenabled,ws_focused in fwidgetstate,
-             ws_active in fwidgetstate,
+ result:= combineframestateflags(not isenabled,ws_active in fwidgetstate,
              appinst.clientmousewidget = self,ws_lclicked in fwidgetstate);
 end;
 
@@ -15355,7 +11813,7 @@ end;
 
 function twidget.isloading: boolean;
 begin
- result:= ([csloading,csdestroying] * componentstate <> []) or
+ result:= ([csloading,csdestroying] * componentstate <> []) or 
                                (ws_loadlock in fwidgetstate);
 end;
 
@@ -15468,25 +11926,6 @@ begin
  end;
 end;
 
-procedure twidget.setchildorder(const achildren: widgetarty); //last is top
-var
- int1,int2,int3: integer;
-begin
- int2:= high(fwidgets);
- for int1:= high(achildren) downto 0 do begin
-  if achildren[int1] <> nil then begin
-   for int3:= int2 downto 0 do begin
-    if fwidgets[int3] = achildren[int1] then begin
-     moveitem(pointerarty(fwidgets),int3,int2);
-     dec(int2);
-     break;
-    end;
-   end;
-  end;
- end;
- sortzorder;
-end;
-
 function twidget.gethint: msestring;
 begin
  result:= fhint;
@@ -15502,14 +11941,14 @@ begin
  result:= fhint <> '';
 end;
 
-function twidget.findtagchild(const atag: integer;
+function twidget.findtagwidget(const atag: integer;
                const aclass: widgetclassty): twidget;
 var
  int1: integer;
 begin
  result:= nil;
  for int1:= 0 to high(fwidgets) do begin
-  if (fwidgets[int1].tag = atag) and
+  if (fwidgets[int1].tag = atag) and 
          ((aclass = nil) or (fwidgets[int1] is aclass)) then begin
    result:= fwidgets[int1];
    exit;
@@ -15517,7 +11956,7 @@ begin
  end;
  if result = nil then begin
   for int1:= 0 to high(fwidgets) do begin
-   result:= fwidgets[int1].findtagchild(atag,aclass);
+   result:= fwidgets[int1].findtagwidget(atag,aclass);
    if result <> nil then begin
     exit;
    end;
@@ -15525,7 +11964,7 @@ begin
  end;
 end;
 
-function twidget.dofindwidget(const awidgets: widgetarty;
+function twidget.dofindwidget(const awidgets: widgetarty; 
                                            aname: ansistring): twidget;
 var
  int1: integer;
@@ -15540,9 +11979,9 @@ begin
  end;
 end;
 
-function twidget.findchild(const aname: ansistring): twidget;
+function twidget.findwidget(const aname: ansistring): twidget;
 begin
- result:= dofindwidget(container.fwidgets,aname);
+ result:= dofindwidget(container.fwidgets,aname); 
 end;
 
 function twidget.gethelpcontext: msestring;
@@ -15572,9 +12011,7 @@ end;
 
 procedure twidget.getautopaintsize(var asize: sizety);
 begin
- painttowidgetsize(asize);
- checkwidgetsize(asize);
- widgettopaintsize(asize);
+ //default
 end;
 
 procedure twidget.getautocellsize(const acanvas: tcanvas;
@@ -15584,30 +12021,17 @@ begin
  painttowidgetsize(asize);
 end;
 
-procedure twidget.checkautosize();
+procedure twidget.checkautosize;
 begin
- if ([csloading,csdestroying] * componentstate = []) and
-                       not (ws1_autosizing in fwidgetstate1)then begin
-  include(fwidgetstate1,ws1_autosizing);
-  try
-   if ([ow1_autowidth,ow1_autoheight]*foptionswidget1 <> []) then begin
-    internalsetwidgetrect(fwidgetrect,false);
-   end
-   else begin
-    if fparentwidget <> nil then begin
-     fparentwidget.childautosizechanged(self);
-    end;
+ if [csloading,csdestroying] * componentstate = [] then begin
+  if ([ow1_autowidth,ow1_autoheight]*foptionswidget1 <> []) then begin
+   internalsetwidgetrect(fwidgetrect,false);
+  end
+  else begin
+   if fparentwidget <> nil then begin
+    fparentwidget.childautosizechanged(self);
    end;
-  finally
-   exclude(fwidgetstate1,ws1_autosizing);
   end;
- end;
-end;
-
-procedure twidget.updatehotkeys();
-begin
- if fframe <> nil then begin
-  fframe.updatehotkeys();
  end;
 end;
 
@@ -15638,7 +12062,7 @@ begin
    y:= round(y*ascale);
    cx:= round(cx*ascale);
    cy:= round(cy*ascale);
-  end;
+  end;  
   with fminsize do begin
    cx:= round(cx*ascale);
    cy:= round(cy*ascale);
@@ -15653,28 +12077,12 @@ begin
  end;
 end;
 
-function twidget.widgetminsize: sizety;
+function twidget.widgetminsize: sizety; 
 begin
  result:= nullsize;
  checkwidgetsize(result);
  if fframe <> nil then begin
   fframe.checkwidgetsize(result);
- end;
-end;
-
-function twidget.widgetmaxsize: sizety;
-begin
- result.cx:= bigint;
- result.cy:= bigint;
- checkwidgetsize(result);
- if fframe <> nil then begin
-  fframe.checkwidgetsize(result);
- end;
- if result.cx = bigint then begin
-  result.cx:= 0;
- end;
- if result.cy = bigint then begin
-  result.cy:= 0;
  end;
 end;
 
@@ -15742,7 +12150,7 @@ begin
                   [word(mask1),word(mask2)]));
 {$endif}
  if (optionsskinty({$ifdef FPC}longword{$else}word{$endif}(valuebefore) xor
-                   {$ifdef FPC}longword{$else}word{$endif}(avalue)) *
+                   {$ifdef FPC}longword{$else}word{$endif}(avalue)) * 
     [osk_nopropwidth,osk_nopropheight] <> []) and (fparentwidget <> nil) then begin
   fparentwidget.scalebasechanged(self); //for tlayouter
  end;
@@ -15802,7 +12210,7 @@ var
 begin
  if parentwidget = nil then begin
   rect1:= application.workarea(window);
-  if not rectinrect(inflaterect(arect,2),rect1) then begin
+  if not rectinrect(inflaterect(arect,2),rect1) then begin 
    clipinrect1(arect,rect1);
    gui_setdecoratedwindowrect(window.winid,arect,rect1);
    widgetrect:= rect1;
@@ -15828,151 +12236,13 @@ end;
 
 function twidget.canmouseinteract: boolean;
 begin
- result:= not (csdesigning in componentstate) or
+ result:= not (csdesigning in componentstate) or 
                                     (cssubcomponent in componentstyle);
 end;
 
 function twidget.canclose1: boolean;
 begin
  result:= canclose;
-end;
-
-function twidget.getiassistiveclient(): iassistiveclient;
-begin
- result:= iassistiveclient(self);
-end;
-
-function twidget.canassistive(): boolean;
-begin
- result:= (assistiveserver <> nil) and
-              not (ow1_noassistive in foptionswidget1) and
-                                    not (csdesigning in componentstate);
-end;
-
-function twidget.getassistiveparent(): iassistiveclient;
-begin
- result:= nil;
- if fparentwidget <> nil then begin
-  result:= fparentwidget.getiassistiveclient();
- end;
-end;
-
-function twidget.getassistivewidget: tobject;
-begin
- result:= self;
-end;
-
-procedure twidget.beginupdate;
-begin
- if fwidgetupdating = 0 then begin
-  include(fwidgetstate,ws_loadlock);
-  inc(fnoinvalidate);
- end;
- inc(fwidgetupdating);
-end;
-
-procedure twidget.endupdate;
-begin
- dec(fwidgetupdating);
- if fwidgetupdating = 0 then begin
-  exclude(fwidgetstate,ws_loadlock);
-  dec(fnoinvalidate);
-  widgetregionchanged(nil);
- end;
-end;
-
-function twidget.getzoomrefframe: framety;
-begin
- result:= innerclientframe;
-end;
-
-procedure twidget.designmouseevent(var info: moeventinfoty; capture: twidget);
-begin
- if fparentwidget <> nil then begin
-  fparentwidget.designmouseevent(info,capture);
- end;
-end;
-
-procedure twidget.designkeyevent(const eventkind: eventkindty;
-               var info: keyeventinfoty);
-begin
- if fparentwidget <> nil then begin
-  fparentwidget.designkeyevent(eventkind,info);
- end;
-end;
-
-function twidget.isdesignwidget: boolean;
-begin
- result:= (csdesigning in componentstate) or
-                               (ws1_designwidget in fwidgetstate1);
-end;
-
-procedure twidget.setdesignwidget();
-var
- i1: int32;
-begin
- include(fwidgetstate1,ws1_designwidget);
- for i1:= 0 to high(fwidgets) do begin
-  fwidgets[i1].setdesignwidget();
- end;
-end;
-
-function twidget.getassistivename: msestring;
-begin
- result:= msestring(name);
-end;
-
-function twidget.getassistivecaption(): msestring;
-begin
- if fframe <> nil then begin
-  result:= fframe.getassistivecaption();
- end
- else begin
-  result:= '';
- end;
-end;
-
-function twidget.getassistivetext(): msestring;
-begin
- result:= '';
-end;
-
-function twidget.getassistivecaretindex(): int32;
-begin
- result:= -1;
-end;
-
-function twidget.getassistivehint(): msestring;
-begin
- result:= hint;
-end;
-
-function twidget.getassistiveflags(): assistiveflagsty;
-begin
- result:= [];
- if not (ws_iswidget in fwidgetstate) then begin
-  include(result,asf_embedded);
- end;
- if osk_container in foptionsskin then begin
-  include(result,asf_container);
- end;
- if focused then begin
-  include(result,asf_focused);
- end;
- if not isenabled then begin
-  include(result,asf_disabled);
- end;
- if ownswindow then begin
-  include(result,asf_toplevel);
- end;
- if window = application.mainwindow then begin
-  include(result,asf_mainwindow);
- end;
-end;
-
-function twidget.getifidatalinkintf(): iifidatalink;
-begin
- result:= nil;
 end;
 
 { twindow }
@@ -15983,31 +12253,27 @@ begin
  if fgdi = nil then begin
   fgdi:= getdefaultgdifuncs;
  end;
- fownerwidget:= aowner;
- fownerwidget.fwindow:= self;
- fcanvas:= creategdicanvas(fgdi,bmk_rgb,self,icanvas(self));
+ fowner:= aowner;
+ fowner.fwindow:= self;
+ fcanvas:= creategdicanvas(fgdi,false,self,icanvas(self));
  {$ifndef use_singlecanvas}
- fasynccanvas:= creategdicanvas(fgdi,bmk_rgb,self,icanvas(self));
-  {$endif}
+ fasynccanvas:= creategdicanvas(fgdi,false,self,icanvas(self));
+ {$endif}
  fscrollnotifylist:= tnotifylist.create;
- fopacity:= emptyreal;
  inherited create;
- fownerwidget.rootchanged([rcf_windowset]); //nil all references
+ fowner.rootchanged; //nil all references
 end;
 
 destructor twindow.destroy;
 begin
  include(fstate,tws_destroying);
- {$ifndef usesdl}
- freeandnil(fsysdragobject);
- {$endif}
  container:= 0;
  appinst.twindowdestroyed(self);
  if ftransientfor <> nil then begin
   dec(ftransientfor.ftransientforcount);
  end;
- if fownerwidget <> nil then begin
-  fownerwidget.rootchanged([rcf_windowremove]);
+ if fowner <> nil then begin
+  fowner.rootchanged;
  end;
  destroywindow;
  fcanvas.free;
@@ -16025,7 +12291,7 @@ begin
  {$ifndef use_singlecanvas}
  acanvas.initflags(fasynccanvas);
  {$endif}
- fownerwidget.fontcanvaschanged;
+ fowner.fontcanvaschanged;
 end;
 
 procedure twindow.releaseasynccanvas;
@@ -16038,18 +12304,11 @@ begin
  end;
 end;
 
-procedure twindow.setsizeconstraints(const amin,amax: sizety);
-begin
- if fwindow.id <> 0 then begin
-  guierror(gui_setsizeconstraints(
-                    fwindow.id,amin,amax));
- end;
-end;
-
 procedure twindow.sizeconstraintschanged;
 begin
- setsizeconstraints(fownerwidget.widgetminsize1(),
-                                   fownerwidget.widgetmaxsize1());
+ if fwindow.id <> 0 then begin
+  guierror(gui_setsizeconstraints(fwindow.id,fowner.fminsize,fowner.fmaxsize));
+ end;
 end;
 
 function twindow.haswinid: boolean;
@@ -16065,13 +12324,13 @@ var
  event: tcreatewindowevent;
 begin
  if fwindow.id = 0 then begin
-  fnormalwindowrect:= fownerwidget.fwidgetrect;
+  fnormalwindowrect:= fowner.fwidgetrect;
   fillchar(aoptions,sizeof(aoptions),0);
   fillchar(aoptions1,sizeof(aoptions1),0);
   aoptions.groupleader:= application.mainwindow;
   aoptions.initialwindowpos:= fwindowpos;
   aoptions.transientfor:= ftransientfor;
-  fownerwidget.updatewindowinfo(aoptions);
+  fowner.updatewindowinfo(aoptions);
   foptions:= aoptions.options;
   fwindowpos:= aoptions.initialwindowpos;
   fwindowposbefore:= fwindowpos;
@@ -16093,7 +12352,7 @@ begin
    aoptions1.iconmask:= iconmask;
   end;
   if (aoptions.groupleader <> nil) and
-          aoptions.groupleader.fownerwidget.isgroupleader then begin
+          aoptions.groupleader.fowner.isgroupleader then begin
    aoptions1.setgroup:= true;
    if aoptions.groupleader <> self then begin
     aoptions1.groupleader:= aoptions.groupleader.fwindow.id;
@@ -16102,13 +12361,13 @@ begin
   end;
   if application.ismainthread then begin
    fcanvas.updatewindowoptions(aoptions1);
-   guierror(gui_createwindow(fownerwidget.fwidgetrect,aoptions1,fwindow),self);
+   guierror(gui_createwindow(fowner.fwidgetrect,aoptions1,fwindow),self);
   end
   else begin //needed for win32
    event:= tcreatewindowevent.create(false);
    with event do begin
     fsender:= self;
-    frect:= fownerwidget.widgetrect;
+    frect:= fowner.widgetrect;
     foptionspo:= @aoptions1;
     fwindowpo:= @self.fwindow;
     synchronizeevent(event);
@@ -16121,10 +12380,9 @@ begin
   sizeconstraintschanged;
   fstate:= fstate - [tws_posvalid,tws_sizevalid];
   fillchar(gc,sizeof(gcty),0);
-  gc.paintdevicesize:= fownerwidget.fwidgetrect.size;
-  gc.kind:= bmk_rgb; //todo: what about depht 8?
+  gc.paintdevicesize:= fowner.fwidgetrect.size;
   gdierror(fcanvas.creategc(fwindow.id,gck_screen,gc),self);
-  gc.paintdevicesize:= fownerwidget.fwidgetrect.size;
+  gc.paintdevicesize:= fowner.fwidgetrect.size;
   fcanvas.linktopaintdevice(fwindow.id,gc{,fowner.fwidgetrect.size},nullpoint);
   {$ifndef use_singlecanvas}
   gdierror(fasynccanvas.creategc(fwindow.id,gck_screen,gc),self);
@@ -16136,12 +12394,7 @@ begin
   if fcaption <> '' then begin
    gui_setwindowcaption(fwindow.id,fcaption);
   end;
-  {$ifndef usesdl}
-  if fopacity <> emptyreal then begin
-   gui_setwindowopacity(fwindow.id,fopacity);
-  end;
-  {$endif}
-  fownerwidget.windowcreated;
+  fowner.windowcreated;
  end
  else begin
   guierror(gue_illegalstate,self);
@@ -16182,18 +12435,6 @@ begin
  exclude(fstate,tws_windowvisible);
 end;
 
-procedure twindow.recreatewindow();
-var
- b1: boolean;
-begin
- b1:= visible;
- destroywindow();
- createwindow();
- if b1 then begin
-  show(false);
- end;
-end;
-
 procedure twindow.windowdestroyed;
 begin
  fwindow.id:= 0;
@@ -16215,26 +12456,24 @@ begin
    if fstate * [tws_posvalid,tws_sizevalid] <>
            [tws_posvalid,tws_sizevalid] then begin
     if not windowevent and not (tws_needsdefaultpos in fstate) and
-        (fmoving <= 0) and (windowpos in [wp_normal,wp_default]) then begin
-     if not (wo_embedded in foptions) then begin
-      fnormalwindowrect:= fownerwidget.fwidgetrect;
-     {$ifdef mse_debugconfigure}
-      with fnormalwindowrect do begin
-       if visible then begin
-        debugwindow('*checkwin visible '+
-         inttostr(x)+' '+inttostr(y)+' '+inttostr(cx)+' '+inttostr(cy)+' ',
-                                                                   fwindow.id);
-       end
-       else begin
-        debugwindow('*checkw. invis.   '+
+        (fmoving <= 0) and (windowpos <> wp_maximized) then begin
+     fnormalwindowrect:= fowner.fwidgetrect;
+    {$ifdef mse_debugconfigure}
+     with fnormalwindowrect do begin
+      if visible then begin
+       debugwindow('*checkwin visible '+
         inttostr(x)+' '+inttostr(y)+' '+inttostr(cx)+' '+inttostr(cy)+' ',
                                                                   fwindow.id);
-       end;
+      end
+      else begin
+       debugwindow('*checkw. invis.   '+
+       inttostr(x)+' '+inttostr(y)+' '+inttostr(cx)+' '+inttostr(cy)+' ',
+                                                                 fwindow.id);
       end;
-     {$endif}
-      appinst.removewindowevents(fwindow.id,ek_configure);
-      guierror(gui_reposwindow(fwindow.id,fnormalwindowrect),self);
      end;
+    {$endif}
+     appinst.removewindowevents(fwindow.id,ek_configure);
+     guierror(gui_reposwindow(fwindow.id,fnormalwindowrect),self);
      fstate:= fstate + [tws_posvalid,tws_sizevalid];
     end;
    end;
@@ -16256,7 +12495,7 @@ procedure twindow.internalactivate(const windowevent: boolean;
   focustransientforbefore: twindow;
  begin
   focustransientforbefore:= appinst.ffocuslocktransientfor;
-  if (ftransientfor <> nil) and (force or (appinst.ffocuslockwindow = nil)) and
+  if (ftransientfor <> nil) and (force or (appinst.ffocuslockwindow = nil)) and 
                                 (wo_popup in foptions) then begin
    appinst.ffocuslockwindow:= self;
    window1:= ftransientfor;
@@ -16278,7 +12517,7 @@ procedure twindow.internalactivate(const windowevent: boolean;
     appinst.ffocuslocktransientfor:= nil;
    end;
   end;
-  if (appinst.ffocuslockwindow <> nil) and
+  if (appinst.ffocuslockwindow <> nil) and 
                           (appinst.ffocuslocktransientfor <> nil) then begin
    if (focustransientforbefore <> appinst.ffocuslocktransientfor) or
           (aps_restorelocktransientfor in appinst.fstate) then begin
@@ -16287,22 +12526,21 @@ procedure twindow.internalactivate(const windowevent: boolean;
    end;
   end
   else begin
-   if (appinst.ffocuslockwindow = nil) or
+   if (appinst.ffocuslockwindow = nil) or 
                          (appinst.ffocuslockwindow = self) then begin
     guierror(gui_setwindowfocus(fwindow.id),self);
    end;
   end;
  end;
-
+ 
 var
  activecountbefore: longword;
  activewindowbefore: twindow;
  widgetar: widgetarty;
  int1: integer;
- b1,b2: boolean;
+ bo1: boolean;
  window1: twindow;
- widget1: twidget;
-
+ 
 begin
 {$ifdef mse_debugwindowfocus}
  debugwindow('*internalactivate ',fwindow.id);
@@ -16311,7 +12549,7 @@ begin
   debugwriteln(' NIL');
  end
  else begin
-  debugwriteln(appinst.fmodalwindow.fownerwidget.name);
+  debugwriteln(appinst.fmodalwindow.fowner.name);
  end;
 {$endif}
  inc(factivating);
@@ -16319,52 +12557,39 @@ begin
   if appinst.finactivewindow = self then begin
    appinst.finactivewindow:= nil;
   end;
-  activewindowbefore:= nil;
-  setlinkedvar(appinst.factivewindow,tlinkedobject(activewindowbefore));
+  activewindowbefore:= appinst.factivewindow;
   show(windowevent);
   widgetar:= nil; //compilerwarning
   if activewindowbefore <> self then begin
-   b1:= force or (appinst.fmodalwindow = nil) or (appinst.fmodalwindow = self) or
+   bo1:= force or (appinst.fmodalwindow = nil) or (appinst.fmodalwindow = self) or 
                          (ftransientfor = appinst.fmodalwindow);
-   if b1 then begin
+   if bo1 then begin
     if hastransientfor then begin
      window1:= topmodaltransientfor;
      if window1 <> nil then begin
+//      if not window1.fowner.visible then begin
+//       window1.fowner.internalshow(ml_none,nil,false,true);
+//      end;
       window1.internalactivate(false,force);
       exit;
      end;
     end;
-    if (ffocusedwidget = nil) and fownerwidget.canfocus and (ffocusing = 0) then begin
-     fownerwidget.setfocus(true);
+    if (ffocusedwidget = nil) and fowner.canfocus and (ffocusing = 0) then begin
+     fowner.setfocus(true);
      if windowevent and force and not active then begin
       internalactivate(true,true); //call by setfocus was without force
      end;
      exit;
     end;
-    b2:= activewindowbefore <> nil;
-    if b2 then begin
-     b1:= tws_activating in activewindowbefore.fstate;
-     include(fstate,tws_activating);
-     try
-      activewindowbefore.deactivate;
-     finally
-      if not b1 and (activewindowbefore <> nil) then begin
-       exclude(activewindowbefore.fstate,tws_activating);
-      end;
-     end;
+    if activewindowbefore <> nil then begin
+     activewindowbefore.deactivate;
     end;
     if appinst.factivewindow = nil then begin
-     if not (ws_active in fownerwidget.fwidgetstate) then begin
+     if not (ws_active in fowner.fwidgetstate) then begin
       inc(factivecount);
       activecountbefore:= factivecount;
       appinst.factivewindow:= self;
-      appinst.flastactivewindow:= self;
-      appinst.checkapplicationactive();
       if not (tws_activatelocked in fstate) then begin
-       if fownerwidget.canassistive() then begin
-        assistiveserver.dowindowactivated(
-                     self.fownerwidget.getiassistiveclient());
-       end;
        if ffocusedwidget <> nil then begin
         widgetar:= ffocusedwidget.getrootwidgetpath;
         for int1:= high(widgetar) downto 0 do begin
@@ -16375,6 +12600,7 @@ begin
         end;
        end;
       end;
+//      appinst.factivewindow:= self;
       gui_setimefocus(fwindow);
       if not windowevent then begin
        setwinfoc;
@@ -16392,17 +12618,7 @@ begin
       end;
      end;
     end;
-    appinst.fonwindowactivechangelist.dowindowchange(activewindowbefore,self);
-    if activecountbefore = factivecount then begin
-     if activewindowbefore = nil then begin
-      widget1:= nil;
-     end
-     else begin
-      widget1:= activewindowbefore.focusedwidget;
-     end;
-     appinst.fonwidgetactivechangelist.dowidgetchange(widget1,
-                                                           self.focusedwidget);
-    end;
+    appinst.fonactivechangelist.doactivechange(activewindowbefore,self);
    end
    else begin
     appinst.fwantedactivewindow:= self;
@@ -16413,7 +12629,6 @@ begin
   end;
  finally
   dec(factivating);
-  setlinkedvar(nil,tlinkedobject(activewindowbefore));
  end;
 {$ifdef mse_debugwindowfocus}
  debugwindow('-internalactivate ',fwindow.id);
@@ -16438,7 +12653,7 @@ begin
   end;
  end
  else begin
-  fownerwidget.internaldodeactivate;
+  fowner.internaldodeactivate;
  end;
 end;
 
@@ -16456,37 +12671,19 @@ end;
 procedure twindow.deactivate;
 var
  activecountbefore: longword;
- widget1: twidget;
 begin
  if appinst.ffocuslockwindow = self then begin
   appinst.ffocuslockwindow:= nil;
  end;
- if ws_active in fownerwidget.fwidgetstate then begin
+ if ws_active in fowner.fwidgetstate then begin
   noactivewidget;
   if appinst.factivewindow = self then begin
    inc(factivecount);
    activecountbefore:= factivecount;
-   if not (tws_activating in fstate) then begin
-    appinst.fonwindowactivechangelist.dowindowchange(appinst.factivewindow,nil);
-   end;
+   appinst.fonactivechangelist.doactivechange(appinst.factivewindow,nil);
    if factivecount = activecountbefore then begin
-    if fownerwidget.canassistive() then begin
-     assistiveserver.dowindowdeactivated(self.fownerwidget.getiassistiveclient());
-    end;
-    widget1:= nil;
-    if appinst.factivewindow <> nil then begin
-     widget1:= appinst.factivewindow.focusedwidget;
-    end;
-    try
-     if not (tws_activating in fstate) then begin
-      appinst.fonwidgetactivechangelist.dowidgetchange(widget1,nil);
-     end;
-    finally
-     if factivecount = activecountbefore then begin
-      appinst.factivewindow:= nil;
-      gui_unsetimefocus(fwindow);
-     end;
-    end;
+    appinst.factivewindow:= nil;
+    gui_unsetimefocus(fwindow);
    end;
   end;
  end
@@ -16519,7 +12716,6 @@ procedure twindow.reactivate(const force: boolean = false); //clears appinst.fin
 begin
  appinst.finactivewindow:= nil;
  activate(force);
- include(appinst.fstate,aps_needsupdatewindowstack);
 end;
 
 procedure twindow.hide(windowevent: boolean);
@@ -16540,7 +12736,7 @@ begin
   debugwindow('*hide no windowevent ',fwindow.id);
  end;
 {$endif}
- if not(ws_visible in fownerwidget.fwidgetstate) then begin
+ if not(ws_visible in fowner.fwidgetstate) then begin
   mini1:= windowpos = wp_minimized;
   if not mini1 then begin
    exclude(fstate,tws_modalfor);
@@ -16587,14 +12783,14 @@ begin
         setlength(fgroupzorder,int2);
        end;
       end;
-
+      
       fstate:= fstate - [tws_windowvisible,tws_groupmaximized];
       include(fstate,tws_grouphidden);
       include(fstate,tws_groupminimized);
       if fwindowposbefore = wp_maximized then begin
        include(fstate,tws_groupmaximized);
       end;
-      appinst.flockupdatewindowstack:= self;
+      appinst.flockupdatewindowstack:= self; 
              //lock z-order manipulation until show
 
       for int1:= 0 to high(appinst.fwindows) do begin
@@ -16608,8 +12804,8 @@ begin
         debugwindow('groupminimized ',window1.fwindow.id);
        end;
       {$endif}
-       if (window1 <> self) and (window1.fwindow.id <> 0) and
-              gui_windowvisible(window1.fwindow.id) and
+       if (window1 <> self) and (window1.fwindow.id <> 0) and 
+              gui_windowvisible(window1.fwindow.id) and 
               (gui_getwindowdesktop(window1.fwindow.id) = mydesktop) then begin
         with window1 do begin
          include(fstate,tws_grouphidden);
@@ -16631,7 +12827,7 @@ begin
       end;
      {$ifdef mse_debugwindowfocus}
       for int1:= 0 to high(appinst.fgroupzorder) do begin
-       debugwriteln(' groupzorder '+appinst.fgroupzorder[int1].fownerwidget.name);
+       debugwriteln(' groupzorder '+appinst.fgroupzorder[int1].fowner.name);
       end;
      {$endif}
       if bo1 then begin
@@ -16644,7 +12840,7 @@ begin
                ftransientfor.visible then begin
        ftransientfor.windowpos:= wp_minimized;
        include(fstate,tws_transientforminimized);
-      end;
+      end;      
      end;
      if not windowevent then begin
       exclude(fstate,tws_grouphidden);
@@ -16652,9 +12848,6 @@ begin
      end;
     end;
    end;
-  end;
-  if not fownerwidget.visible and (fownerwidget.canassistive()) then begin
-   assistiveserver.dowindowdeactivated(self.fownerwidget.getiassistiveclient());
   end;
  end;
 end;
@@ -16667,12 +12860,6 @@ var
  {bo1,}bo2: boolean;
  mydesktop: integer;
 begin
- if (ow_transientformain in fownerwidget.foptionswidget) and
-       (ftransientfor = nil) and (application.mainwindow <> nil) and
-       (application.mainwindow <> self) then begin
-  checkwindowid();
-  settransientfor(application.mainwindow,false);
- end;
  if windowevent then begin
   {$ifdef mse_debugconfigure}
    debugwindow('*show windowevent ',fwindow.id);
@@ -16680,7 +12867,7 @@ begin
   exclude(fstate,tws_windowshowpending);
   checkwindowid; //check position
  end;
- if (ws_visible in fownerwidget.fwidgetstate) then begin
+ if (ws_visible in fowner.fwidgetstate) then begin
   if not visible then begin
    if not windowevent then begin
     include(fstate,tws_windowshowpending);
@@ -16693,18 +12880,18 @@ begin
    with appinst do begin
     if flockupdatewindowstack = self then begin
      flockupdatewindowstack:= nil; //enable z-order handling
-     fwindowstack:= nil; //remove pending
+     fwindowstack:= nil; //remove pending    
     end;
    end;
-   if (fstate * [tws_transientforminimized,tws_modalfor] =
+   if (fstate * [tws_transientforminimized,tws_modalfor] = 
             [tws_transientforminimized,tws_modalfor]) and
                                      (ftransientfor <> nil) then begin
 //    ftransientfor.fowner.internalshow(ml_none,nil,false,true);
-    ftransientfor.fownerwidget.internalshow(ml_none,
+    ftransientfor.fowner.internalshow(ml_none,
                                     @ftransientfor.ftransientfor,false,true);
-   end;
+   end;    
    exclude(fstate,tws_transientforminimized);
-   if not (csdesigning in fownerwidget.ComponentState) then begin
+   if not (csdesigning in fowner.ComponentState) then begin
     if (fsyscontainer <> sywi_none) or (fcontainer <> 0) then begin
      if not windowevent then begin
       if (fsyscontainer <> sywi_none) then begin
@@ -16733,11 +12920,11 @@ begin
        end;
       end;
       gui_setwindowstate(winid,size1,true);
-      if (fwindowpos = wp_normal) and not (tws_needsdefaultpos in fstate) and
+      if (fwindowpos = wp_normal) and not (tws_needsdefaultpos in fstate) and 
                                 not (wo_embedded in foptions) then begin
        gui_reposwindow(fwindow.id,fnormalwindowrect);
       end;
-      fstate:= fstate-[tws_posvalid,tws_sizevalid];
+      fstate:= fstate-[tws_posvalid,tws_sizevalid]; 
               //possibly wrong window pos because of KDE bug with staticgravity
      end;
      exclude(fstate,tws_grouphidden);
@@ -16751,7 +12938,7 @@ begin
        window1:= appinst.fwindows[int1];
        if window1 <> self then begin
         with window1 do begin
-         if (tws_grouphidden in fstate) and (fwindow.id <> 0) and
+         if (tws_grouphidden in fstate) and (fwindow.id <> 0) and 
                        (gui_getwindowdesktop(fwindow.id) = mydesktop) then begin
           size1:= wsi_minimized;
           if tws_groupminimized in fstate then begin
@@ -16775,7 +12962,7 @@ begin
        end;
       end;
      end;
-     if (fwindowposbefore = wp_maximized) and
+     if (fwindowposbefore = wp_maximized) and 
                   (windowpos <> wp_maximized) then begin
                    //necessary for win32 show desktop
       gui_setwindowstate(winid,wsi_maximized,true);
@@ -16831,15 +13018,26 @@ var
  win1: winidty;
  focusedwidgetbefore: twidget;
  window1: twindow;
+// widget1: twidget;
 begin
  fmodalresult:= mr_none;
  with appinst do begin
   deactivatehint;
-  if (fmousecapturewidget <> nil) and
-                not ((showinfo <> nil) and
-                         (fmousecapturewidget = showinfo^.widget)) then begin
+  if (fmousecapturewidget <> nil) then begin
    fmousecapturewidget.releasemouse;
    releasemouse;
+  {
+   if showinfo = nil then begin
+    widget1:= fowner;
+   end
+   else begin
+    widget1:= showinfo^.widget;
+   end;
+   if not widget1.checkdescendent(fmousecapturewidget) then begin
+    fmousecapturewidget.releasemouse;
+    releasemouse;
+   end;
+   }
   end;
   if fmodalwindow = nil then begin
    fwantedactivewindow:= nil; //init for lowest level
@@ -16855,7 +13053,7 @@ begin
    if (fmodalwindow = nil) then begin
     if not (aps_cancelloop in appinst.fstate) then begin
      window1:= fwantedactivewindow;
-     if (window1 = self) or (window1 = nil) and
+     if (window1 = self) or (window1 = nil) and 
                       (focusedwidgetbefore <> nil) then begin
       focusedwidgetbefore.parentfocus;
      end;
@@ -16874,21 +13072,20 @@ begin
     if appinst.active and not (aps_cancelloop in appinst.fstate) then begin
      fmodalwindow.activate;
     end;
-    exclude(fmodalwindow.fstate,tws_focusoutpending);
    end;
   finally
    setlinkedvar(nil,tmsecomponent(focusedwidgetbefore));
   end;
-  if appinst.modallevel = 1 then begin
+  if appinst.modallevel = 0 then begin
    exclude(appinst.fstate,aps_cancelloop);
   end;
-  if (factivewindow <> nil) and not factivewindow.fownerwidget.releasing then begin
+  if (factivewindow <> nil) and not factivewindow.fowner.releasing then begin
    pt1:= mouse.pos;
-   if pointinrect(pt1,factivewindow.fownerwidget.fwidgetrect) then begin
+   if pointinrect(pt1,factivewindow.fowner.fwidgetrect) then begin
     event1:= tmouseevent.create(factivewindow.winid,false,mb_none,mw_none,
-        subpoint(pt1,factivewindow.fownerwidget.fwidgetrect.pos),
+        subpoint(pt1,factivewindow.fowner.fwidgetrect.pos),
         appinst.lastshiftstate,0,false);
-    try
+    try 
      appinst.processmouseevent(event1); //simulate mousemove
     finally
      event1.free1;
@@ -16919,9 +13116,9 @@ end;
 procedure twindow.sizechanged;
 begin
  exclude(fstate,tws_sizevalid);
- tcanvas1(fcanvas).updatesize(fownerwidget.fwidgetrect.size);
+ tcanvas1(fcanvas).updatesize(fowner.fwidgetrect.size);
  {$ifndef use_singlecanvas}
- tcanvas1(fasynccanvas).updatesize(fownerwidget.fwidgetrect.size);
+ tcanvas1(fasynccanvas).updatesize(fowner.fwidgetrect.size);
  {$endif}
  if fobjectlinker <> nil then begin
   fobjectlinker.sendevent(oe_changed);
@@ -16949,16 +13146,15 @@ begin
  if not (wo_embedded in foptions) then begin
   addpoint1(rect1.pos,aorigin);
  end;
- if not (wo_embedded in foptions) and (not visible or
-                           (tws_windowshowpending in fstate)) then begin
+ if not visible or (tws_windowshowpending in fstate) then begin 
                         //do not accept changes by hiding window (kwin bugs)
-  if not rectisequal(fownerwidget.fwidgetrect,rect1) then begin
+  if not rectisequal(fowner.fwidgetrect,rect1) then begin
    fstate:= fstate - [tws_posvalid,tws_sizevalid];
   end;
  end
  else begin
-  if (fstate*[tws_posvalid,tws_sizevalid] <> [tws_posvalid,tws_sizevalid]) and
-       (windowpos <> wp_maximized) and not (wo_embedded in foptions) then begin
+  if (fstate*[tws_posvalid,tws_sizevalid] <> [tws_posvalid,tws_sizevalid]) and 
+                                     (windowpos <> wp_maximized) then begin
    checkwindow(false);
   end
   else begin
@@ -16966,15 +13162,15 @@ begin
  //   fnormalwindowrect:= fowner.fwidgetrect;
  //  end;
    fstate:= (fstate + [tws_posvalid,tws_sizevalid]) - [tws_needsdefaultpos];
-   if not rectisequal(rect1,fownerwidget.fwidgetrect) then begin
+   if not rectisequal(rect1,fowner.fwidgetrect) then begin
     if fsizeerrorcount < maxsizeerrorcount then begin
-     fownerwidget.checkwidgetsize(rect1.size);
+     fowner.checkwidgetsize(rect1.size);
     end;
-    fownerwidget.internalsetwidgetrect(rect1,true);
-    if pointisequal(rect1.pos,fownerwidget.fwidgetrect.pos) then begin
+    fowner.internalsetwidgetrect(rect1,true);
+    if pointisequal(rect1.pos,fowner.fwidgetrect.pos) then begin
      include(fstate,tws_posvalid);
     end;
-    if sizeisequal(arect.size,fownerwidget.fwidgetrect.size) then begin
+    if sizeisequal(arect.size,fowner.fwidgetrect.size) then begin
      include(fstate,tws_sizevalid);
      fsizeerrorcount:= 0;
     end
@@ -16986,8 +13182,9 @@ begin
     end;
    end;
    fwindowposbefore:= windowpos;
-   if not (fwindowposbefore in [wp_minimized]+windowmaximizedstates) then begin
-    fnormalwindowrect:= fownerwidget.fwidgetrect;
+   if not (fwindowposbefore in [wp_minimized,wp_maximized,
+                                wp_fullscreen,wp_fullscreenvirt]) then begin
+    fnormalwindowrect:= fowner.fwidgetrect;
    end;
   end;
  end;
@@ -16999,34 +13196,23 @@ var
  bmp: tbitmap;
  rect1: rectty;
  po1: pointty;
- reg1: regionty;
 begin
  result:= false;
- if (ws_visible in fownerwidget.fwidgetstate) and (fupdateregion.region <> 0) then begin
+ if (ws_visible in fowner.fwidgetstate) and (fupdateregion.region <> 0) then begin
   checkwindow(false); //ev. reposition window
   fcanvas.reset;
   fcanvas.clipregion:= fupdateregion.region; //canvas owns the region
-  {
   bo1:= appinst.caret.islinkedto(fcanvas) and
    testintersectrect(fcanvas.clipbox,appinst.caret.rootcliprect);
-  }
-  bo1:= false;
-  if appinst.caret.islinkedto(fcanvas) and appinst.fcaret.active and
-      testintersectrect(fcanvas.clipbox,appinst.caret.rootcliprect) then begin
-   reg1:= fcanvas.copyclipregion;
-   fcanvas.regintersectrect(reg1,appinst.caret.rootcliprect);
-   bo1:= not fcanvas.regionisempty(reg1);
-   fcanvas.destroyregion(reg1);
-   if bo1 then begin
-    tcaret1(appinst.fcaret).remove;
-   end;
+  if bo1 then begin
+   tcaret1(appinst.fcaret).remove;
   end;
   include(fstate,tws_painting);
   if flushgdi then begin
    try
     fupdateregion.region:= 0;
     result:= true;
-    fownerwidget.paint(fcanvas);
+    fowner.paint(fcanvas);
    finally
     if bo1 then begin
      tcaret1(appinst.fcaret).restore;
@@ -17035,10 +13221,10 @@ begin
    end;
   end
   else begin
-   bmp:= tbitmap.create(bmk_rgb,fgdi);
+   bmp:= tbitmap.create(false,fgdi);
    try
     if intersectrect(fcanvas.clipbox,
-            makerect(nullpoint,fownerwidget.widgetrect.size),rect1) then begin
+            makerect(nullpoint,fowner.widgetrect.size),rect1) then begin
      bmp.size:= rect1.size;
      bmp.canvas.clipregion:= bmp.canvas.createregion(fupdateregion.region);
      po1.x:= -rect1.x;
@@ -17047,7 +13233,7 @@ begin
      bmp.canvas.origin:= nullpoint;
      fupdateregion.region:= 0;
      result:= true;
-     fownerwidget.paint(bmp.canvas);
+     fowner.paint(bmp.canvas);
      bmp.paint(fcanvas,rect1);
     end
     else begin
@@ -17078,61 +13264,47 @@ procedure twindow.checkmousewidget(const info: mouseeventinfoty;
                                                     var capture: twidget);
 begin
  if capture = nil then begin
-  capture:= fownerwidget.mouseeventwidget(info);
-  if (fmodalwidget <> nil) and
+  capture:= fowner.mouseeventwidget(info);
+  if (fmodalwidget <> nil) and 
           not fmodalwidget.checkdescendent(capture) then begin
    capture:= fmodalwidget;
   end;
   if (capture = nil) and (tws_grab in fstate) then begin
    capture:= fmodalwidget;
    if capture = nil then begin
-    capture:= fownerwidget;
+    capture:= fowner;
    end;
   end;
  end;
  appinst.setmousewidget(capture);
 end;
 
-procedure twindow.dispatchmouseevent(var info: moeventinfoty; capture: twidget);
+procedure twindow.dispatchmouseevent(var info: moeventinfoty;
+                           capture: twidget);
 var
  posbefore: pointty;
- mousecapturewidgetbefore: twidget;
  int1: integer;
  po1: peventaty;
- self1: tlinkedobject;
 begin
- if not (es_designcall in info.mouse.eventstate) then begin
-                       //no "inherited" call from designmouseevent
-  if info.mouse.eventkind = ek_mousewheel then begin
-   capture:= fownerwidget.mouseeventwidget(info.mouse);
-   if (capture = nil) and (ftransientfor <> nil) then begin
-    include(info.mouse.eventstate,es_transientfor);
-    subpoint1(info.mouse.pos,subpoint(
-                             ftransientfor.fownerwidget.pos,fownerwidget.pos));
-    ftransientfor.dispatchmouseevent(info,capture);
-    exit;
-   end;
-  end
-  else begin
-   checkmousewidget(info.mouse,capture);
+ if info.mouse.eventkind = ek_mousewheel then begin
+  capture:= fowner.mouseeventwidget(info.mouse);
+  if (capture = nil) and (ftransientfor <> nil) then begin
+   include(info.mouse.eventstate,es_transientfor);
+   subpoint1(info.mouse.pos,subpoint(ftransientfor.fowner.pos,fowner.pos));
+   ftransientfor.dispatchmouseevent(info,capture);
+   exit;
   end;
+ end
+ else begin
+  checkmousewidget(info.mouse,capture);
  end;
  if capture <> nil then begin
-  if not (es_designcall in info.mouse.eventstate) and
-                                    capture.isdesignwidget() then begin
-   include(info.mouse.eventstate,es_designcall);
-   capture.designmouseevent(info,capture);
-   exclude(info.mouse.eventstate,es_designcall);
-   if es_processed in info.mouse.eventstate then begin
-    exit;
-   end;
-  end;
-  mousecapturewidgetbefore:= appinst.fmousecapturewidget;
-  self1:= nil;
-  setlinkedvar(self,self1); //for destroy check
-  try
+  if (info.mouse.eventkind = ek_buttonpress) and 
+         (tws_buttonendmodal in fstate) and (fmodalwidget = capture) then begin
+   endmodal;
+  end
+  else begin
    with capture do begin
-//     absposbefore:= info.mouse.pos;
     subpoint1(info.mouse.pos,rootpos);
     posbefore:= info.mouse.pos;
     appinst.fmousewidgetpos:= posbefore;
@@ -17141,32 +13313,11 @@ begin
      mousewheelevent(info.wheel);
     end
     else begin
-     mousepreview(capture,info.mouse);
-     if self1 = nil then begin
-      exit;
-     end;
-     if not (es_processed in info.mouse.eventstate) then begin
-      if (info.mouse.eventkind = ek_buttonpress) and
-             (tws_buttonendmodal in fstate) and
-                              (fmodalwidget = capture) then begin
-       endmodal;
-       exit;
-      end;
-      mouseevent(info.mouse);
-      if self1 = nil then begin
-       exit;
-      end;
-     end;
+     mouseevent(info.mouse);
      if (info.mouse.eventkind = ek_buttonpress) and ispopup and
-         self.fownerwidget.visible and
-              (ow_mousefocus in self.fownerwidget.foptionswidget) and
-            not (csdestroying in self.fownerwidget.componentstate) and
-                 not (acs_releasing in self.fownerwidget.factstate) then begin
+      (ow_mousefocus in fowner.foptionswidget) then begin
       activate; //possibly not done by windowmanager
      end;
-    end;
-    if self1 = nil then begin
-     exit;
     end;
     posbefore:= subpoint(info.mouse.pos,posbefore);
     addpoint1(posbefore,appinst.fdelayedmouseshift);
@@ -17184,23 +13335,15 @@ begin
      end;
     end;
    end;
-   with info.mouse do begin
-    if (eventkind = ek_buttonrelease) and
-      (appinst.fmousecapturewidget = nil) and
-                     (mousecapturewidgetbefore <> nil) then begin
-     exclude(eventstate,es_processed);
-     eventkind:= ek_mousemove;
-     pos:= translatewidgetpoint(application.mouse.pos,nil,fownerwidget);
-//      pos:= addpoint(absposbefore,posbefore);
-     dispatchmouseevent(info,nil);  //immediate mouseenter
-     eventkind:= ek_buttonrelease;
-    end;
-   end;
-  finally
-   if self1 <> nil then begin
-    setlinkedvar(nil,self1);
-   end;
   end;
+  {
+ end
+ else begin
+  if (info.mouse.eventkind = ek_buttonpress) and 
+                            (tws_buttonendmodal in fstate) then begin
+   endmodal;
+  end;
+  }
  end;
 end;
 
@@ -17216,27 +13359,20 @@ begin
   widget1:= ffocusedwidget;
  end;
  if widget1 <> nil then begin
-  if widget1.isdesignwidget() then begin
-   widget1.designkeyevent(eventkind,info);
-   if es_processed in info.eventstate then begin
-    exit;
-   end;
-  end;
   case eventkind of
    ek_keypress: widget1.internalkeydown(info);
    ek_keyrelease: widget1.dokeyup(info);
-   else;
   end;
  end
  else begin
   if eventkind = ek_keypress then begin
    include(info.eventstate,es_preview);
    try
-    doshortcut(info,fownerwidget);
+    doshortcut(info,fowner);
    finally
     exclude(info.eventstate,es_preview);
    end;
-   doshortcut(info,fownerwidget);
+   doshortcut(info,fowner);
   end;
  end;
 end;
@@ -17247,9 +13383,8 @@ var
  focusedwidgetbefore: twidget;
  widget1: twidget;
  widgetar: widgetarty;
- int1,int2,int3: integer;
+ int1,int2: integer;
  bo1: boolean;
- ass1,ass2: iassistiveclient;
 begin
  widgetar:= nil; //compiler warning
  if (ffocusedwidget <> widget) and ((fmodalwidget = nil) or (widget = nil) or
@@ -17260,21 +13395,12 @@ begin
   try
    inc(ffocuscount);
    focuscountbefore:= ffocuscount;
-   focusedwidgetbefore:= nil;
-   setlinkedvar(ffocusedwidget,tmsecomponent(focusedwidgetbefore));
+   focusedwidgetbefore:= ffocusedwidget;
    widget1:= ffocusedwidget;
    if widget1 <> nil then begin
     if not (csdestroying in widget1.componentstate) then begin
-     bo1:= tws_candefocus in fstate;
-     try
-      include(fstate,tws_candefocus);
-      if not widget1.canclose(widget) then begin
-       exit;
-      end;
-     finally
-      if not bo1 then begin
-       exclude(fstate,tws_candefocus);
-      end;
+     if not widget1.canclose(widget) then begin
+      exit;
      end;
      if (ffocuscount <> focuscountbefore) then begin
       exit;
@@ -17288,7 +13414,7 @@ begin
     else begin
      ffocusedwidget:= nil;
     end;
-    while (widget1 <> nil) and (widget1 <> widget) and
+    while (widget1 <> nil) and (widget1 <> widget) and 
                 not widget1.checkdescendent(widget) do begin
      fenteredwidget:= widget1.fparentwidget;
      if not (csdestroying in widget1.componentstate) then begin
@@ -17311,8 +13437,6 @@ begin
    if widget <> nil then begin
     widgetar:= widget.getrootwidgetpath; //new focus
     int2:= length(widgetar);
-    int3:= int2;
-    bo1:= appinst.factivewindow = self;
     if widget1 <> nil then begin
      if widget1.checkancestor(fenteredwidget) then begin
       widget1:= fenteredwidget;
@@ -17323,85 +13447,50 @@ begin
        break;
       end;
      end;
-     if bo1 then begin
-      int3:= length(widgetar);
-      for int1:= int2 to high(widgetar) do begin
-       if widgetar[int1].active then begin
-        int3:= int1;
-        break;
-       end;
-      end;
-     end;
     end;
-    for int1:= int3-1 downto 0 do begin
-     if int1 < int2 then begin
-      fenteredwidget:= widgetar[int1];
-      fenteredwidget.internaldoenter;
-      if ffocuscount <> focuscountbefore then begin
-       exit;
-      end;
-      if int1 = 0 then begin
-       widgetar[int1].internaldofocus();
-       if ffocuscount <> focuscountbefore then begin
-        exit;
-       end;
-      end;
+    bo1:= appinst.factivewindow = self;
+    for int1:= int2-1 downto 0 do begin
+     fenteredwidget:= widgetar[int1];
+     fenteredwidget.internaldoenter;
+     if ffocuscount <> focuscountbefore then begin
+      exit;
      end;
      if bo1 then begin
-      widgetar[int1].internaldoactivate();
+      widgetar[int1].internaldoactivate;
      end;
      if ffocuscount <> focuscountbefore then begin
       exit;
      end;
     end;
-//    ffocusedwidget.internaldofocus;
+    ffocusedwidget.internaldofocus;
    end
    else begin
     fenteredwidget:= nil;
    end;
-   if fownerwidget.canassistive() then begin
-    ass1:= nil;
-    if focusedwidgetbefore <> nil then begin
-     ass1:= focusedwidgetbefore.getiassistiveclient();
-    end;
-    ass2:= nil;
-    if focusedwidget <> nil then begin
-     ass2:= focusedwidget.getiassistiveclient();
-    end;
-    assistiveserver.dofocuschanged(fownerwidget.getiassistiveclient(),
-                                                                ass1,ass2);
-   end;
-   fownerwidget.dofocuschanged(focusedwidgetbefore,ffocusedwidget);
-   if (appinst.factivewindow = self) and
-                              (focuscount = focuscountbefore) then begin
-    appinst.fonwidgetactivechangelist.dowidgetchange(
-                                focusedwidgetbefore,ffocusedwidget);
-   end;
+   fowner.dofocuschanged(focusedwidgetbefore,ffocusedwidget);
   finally
    if widget <> nil then begin
     dec(ffocusing);
    end;
-   setlinkedvar(nil,tmsecomponent(focusedwidgetbefore));
   end;
  end;
 end;
 
-procedure twindow.invalidaterect(const arect: rectty;
-                                         const sender: twidget = nil);
+procedure twindow.invalidaterect(const rect: rectty; const sender: twidget = nil);
 var
- rect1: rectty;
+ arect: rectty;
 begin
- if (arect.cx > 0) or (arect.cy > 0) then begin
-  rect1:= intersectrect(arect,mr(nullpoint,fownerwidget.fwidgetrect.size));
+ if (rect.cx > 0) or (rect.cy > 0) then begin
+  arect:= intersectrect(rect,makerect(nullpoint,fowner.fwidgetrect.size));
   if (sender <> nil) and (sender.fparentwidget <> nil) then begin
-   rect1:= intersectrect(rect1,moverect(sender.fparentwidget.paintrect,
+   arect:= intersectrect(arect,moverect(sender.fparentwidget.paintrect,
                                         sender.fparentwidget.rootpos));
   end;
   if fupdateregion.region = 0 then begin
-   fupdateregion:= createregion(rect1,fgdi);
+   fupdateregion:= createregion(arect,fgdi);
   end
   else begin
-   regaddrect(fupdateregion,rect1);
+   regaddrect(fupdateregion,arect);
   end;
   if appinst <> nil then begin
    appinst.invalidated;
@@ -17423,7 +13512,7 @@ begin
     finally
      exclude(info.eventstate,es_local);
     end;
-    if not (es_processed in info.eventstate) and
+    if not (es_processed in info.eventstate) and 
                                 not (tws_localshortcuts in fstate) then begin
      appinst.checkshortcut(self,sender,info);
     end;
@@ -17435,7 +13524,7 @@ begin
  else begin
   if tws_globalshortcuts in fstate then begin
    fcaller:= nil;
-   fownerwidget.doshortcut(info,nil);
+   fowner.doshortcut(info,nil);
   end;
  end;
 end;
@@ -17444,15 +13533,10 @@ procedure twindow.gcneeded(const sender: tcanvas);
 begin
  createwindow;
 end;
-{
+
 function twindow.getmonochrome: boolean;
 begin
  result:= false;
-end;
-}
-function twindow.getkind: bitmapkindty;
-begin
- result:= bmk_rgb;
 end;
 
 procedure twindow.update;
@@ -17461,17 +13545,15 @@ var
  event: twindowrectevent;
 begin
  if appinst <> nil then begin
-  if appinst.ismainthread() then begin //avoid possible deadlock in getevents()
-   gui_flushgdi;
-   appinst.getevents;
-   for int1:= 0 to appinst.eventlist.count - 1 do begin
-    event:= twindowrectevent(appinst.eventlist[int1]);
-    if (event <> nil) and (event.kind = ek_expose) and
-              (event.fwinid = fwindow.id) then begin
-     invalidaterect(event.frect);
-     appinst.eventlist[int1]:= nil;
-     event.free1;
-    end;
+  gui_flushgdi;
+  appinst.getevents;
+  for int1:= 0 to appinst.eventlist.count - 1 do begin
+   event:= twindowrectevent(appinst.eventlist[int1]);
+   if (event <> nil) and (event.kind = ek_expose) and
+             (event.fwinid = fwindow.id) then begin
+    invalidaterect(event.frect);
+    appinst.eventlist[int1]:= nil;
+    event.free1;
    end;
   end;
   internalupdate;
@@ -17487,7 +13569,7 @@ end;
 
 function twindow.getsize: sizety;
 begin
- result:= fownerwidget.getsize;
+ result:= fowner.getsize;
 end;
 
 function twindow.close: boolean;
@@ -17495,11 +13577,11 @@ begin
  if fmodalresult = mr_none then begin
   fmodalresult:= mr_windowclosed;
  end;
- fownerwidget.beforeclosequery(fmodalresult);
- result:= (fmodalresult <> mr_none) and fownerwidget.canparentclose(nil);
+ fowner.beforeclosequery(fmodalresult);
+ result:= (fmodalresult <> mr_none) and fowner.canparentclose(nil);
  if result then begin
   deactivate;
-  fownerwidget.hide;
+  fowner.hide;
   destroywindow;
  end
  else begin
@@ -17507,61 +13589,42 @@ begin
  end;
 end;
 
-procedure twindow.bringtofront();
-var
- int1: integer;
+procedure twindow.bringtofront;
 begin
+ gui_raisewindow(winid);
+ include(appinst.fstate,aps_needsupdatewindowstack);
 {$ifdef mse_debugzorder}
- debugwriteln('****bringtofront**** "'+fownerwidget.name+'"');
+ debugwriteln('****bringtofront**** "'+fowner.name+'"');
 {$endif}
- with appinst do begin
-  for int1:= high(fwindowstack) downto 0 do begin
-   if fwindowstack[int1].lower = self then begin
-    deleteitem(fwindowstack,typeinfo(windowstackinfoarty),int1);
-   end;
-  end;
-//  gui_raisewindow(winid,wo_popup in self.foptions);
-  gui_raisewindow(winid);
-  include(fstate,aps_needsupdatewindowstack);
- end;
 end;
 
-procedure twindow.sendtoback();
-var
- int1: integer;
+procedure twindow.sendtoback;
 begin
+ gui_lowerwindow(winid);
+ include(appinst.fstate,aps_needsupdatewindowstack);
 {$ifdef mse_debugzorder}
- debugwriteln('****sendtoback**** "'+fownerwidget.name+'"');
+ debugwriteln('****sendtoback**** "'+fowner.name+'"');
 {$endif}
- with appinst do begin
-  for int1:= high(fwindowstack) downto 0 do begin
-   if fwindowstack[int1].upper = self then begin
-    deleteitem(fwindowstack,typeinfo(windowstackinfoarty),int1);
-   end;
-  end;
-  gui_lowerwindow(winid);
-  include(fstate,aps_needsupdatewindowstack);
- end;
 end;
 
 procedure twindow.bringtofrontlocal;
 begin
-{$ifdef mse_debugzorder}
- debugwriteln('****bringtofrontlocal**** "'+fownerwidget.name+'"');
-{$endif}
  include(fstate,tws_raise);
  exclude(fstate,tws_lower);
  include(appinst.fstate,aps_needsupdatewindowstack);
+{$ifdef mse_debugzorder}
+ debugwriteln('****bringtofrontlocal**** "'+fowner.name+'"');
+{$endif}
 end;
 
 procedure twindow.sendtobacklocal;
 begin
-{$ifdef mse_debugzorder}
- debugwriteln('****sendtobacklocal**** "'+fownerwidget.name+'"');
-{$endif}
  include(fstate,tws_lower);
  exclude(fstate,tws_raise);
  include(appinst.fstate,aps_needsupdatewindowstack);
+{$ifdef mse_debugzorder}
+ debugwriteln('****sendtobacklocal**** "'+fowner.name+'"');
+{$endif}
 end;
 
 procedure twindow.stackunder(const predecessor: twindow);
@@ -17657,24 +13720,17 @@ function twindow.hastransientfor: boolean;
 begin
  result:= ftransientforcount > 0;
 end;
-
-function twindow.istransientfor(const base: twindow): boolean;
-var
- w1: twindow;
+{
+procedure twindow.removefocuslock;
 begin
- result:= ftransientfor <> nil;
- if result and (base <> nil) then begin
-  w1:= ftransientfor;
-  while w1 <> nil do begin
-   if w1 = base then begin
-    exit;
-   end;
-   w1:= w1.ftransientfor;
+ with appinst do begin
+  if ffocuslockwindow = self then begin
+   ffocuslockwindow:= nil;
+   ffocuslocktransientfor:= nil;
   end;
-  result:= false;
  end;
 end;
-
+}
 function twindow.capturemouse: boolean;
 begin
  result:= not (tws_grab in fstate);
@@ -17709,8 +13765,7 @@ begin
  end;
 end;
 
-procedure twindow.settransientfor(const Value: twindow;
-                                                 const windowevent: boolean);
+procedure twindow.settransientfor(const Value: twindow; const windowevent: boolean);
 begin
  if not windowevent then begin
   if value = nil then begin
@@ -17725,7 +13780,7 @@ begin
    if ftransientfor <> nil then begin
     inc(ftransientfor.ftransientforcount);
    end;
-   include(appinst.fstate,aps_needsupdatewindowstack);
+//   getobjectlinker.setlinkedvar(iobjectlink(self),value,tlinkedobject(ftransientfor));
    if fwindow.id <> 0 then begin
     if value <> nil then begin
      gui_settransientfor(fwindow,value.winid);
@@ -17747,7 +13802,7 @@ end;
 procedure twindow.hidden;
 begin
  if tws_windowvisible in fstate then begin
-  fownerwidget.internalhide(true);
+  fowner.internalhide(true);
  end;
 end;
 
@@ -17758,7 +13813,7 @@ begin
  exclude(fstate,tws_windowshowpending);
  if not (tws_windowvisible in fstate) then begin
   wi1:= nil;
-  fownerwidget.internalshow(ml_none,@wi1,true,true);
+  fowner.internalshow(ml_none,@wi1,true,true);
  end;
 end;
 
@@ -17774,14 +13829,13 @@ end;
 
 function twindow.canactivate: boolean;
 begin
- result:= (appinst <> nil) and (appinst.fmodalwindow = nil) or
+ result:= (appinst <> nil) and (appinst.fmodalwindow = nil) or 
                                              (appinst.fmodalwindow = self);
 end;
 
 procedure twindow.activate(const force: boolean = false);
 begin
- if fownerwidget.visible and (force or not active) and
-                           not (tws_focusoutpending in fstate)then begin
+ if fowner.visible and (force or not active) then begin
   internalactivate(false);
  end;
 end;
@@ -17800,18 +13854,12 @@ begin
 end;
 
 procedure twindow.widgetdestroyed(widget: twidget);
-var
- widget1: twidget;
 begin
  if fmodalwidget = widget then begin
   fmodalwidget:= nil;
  end;
  if ffocusedwidget = widget then begin
-  widget1:= widget;
-  repeat
-   widget1:= widget1.parentwidget;
-  until (widget1 = nil) or widget1.canfocus;
-  setfocusedwidget(widget1);
+  setfocusedwidget(nil);
  end;
 end;
 
@@ -17832,7 +13880,7 @@ begin
  end;
 end;
 
-function twindow.close(const amodalresult: modalresultty): boolean;
+function twindow.close(const amodalresult: modalresultty): boolean; 
                             //true if ok
 begin
  fmodalresult:= amodalresult;
@@ -17851,18 +13899,8 @@ begin
 end;
 
 function twindow.candefocus: boolean;
-var
- b1: boolean;
 begin
- b1:= tws_candefocus in fstate;
- include(fstate,tws_candefocus);
- try
-  result:= (ffocusedwidget = nil) or ffocusedwidget.canclose(nil);
- finally;
-  if not b1 then begin
-   exclude(fstate,tws_candefocus);
-  end;
- end;
+ result:= (ffocusedwidget = nil) or ffocusedwidget.canclose(nil);
 end;
 
 procedure twindow.nofocus;
@@ -17883,7 +13921,7 @@ end;
 
 function twindow.getlocalshortcuts: boolean;
 begin
- result:= tws_localshortcuts in fstate;
+ result:= tws_globalshortcuts in fstate;
 end;
 
 procedure twindow.setlocalshortcuts(const Value: boolean);
@@ -17894,7 +13932,7 @@ end;
 
 function twindow.visible: boolean;
 begin
- result:= fownerwidget.visible and (tws_windowvisible in fstate) and
+ result:= fowner.visible and (tws_windowvisible in fstate) and
       (fwindow.id <> 0) and (gui_getwindowsize(fwindow.id) <> wsi_minimized);
 end;
 
@@ -17963,9 +14001,7 @@ begin
     result:= wp_fullscreenvirt;
    end;
    else begin //wsi_normal
-    if fwindowpos in [wp_minimized,wp_screencentered,
-                         wp_transientforcentered,wp_mainwindowcentered] +
-                                           windowmaximizedstates then begin
+    if fwindowpos in [wp_minimized,wp_maximized,wp_fullscreen,wp_screencentered] then begin
      result:= wp_normal;
     end
     else begin
@@ -17985,42 +14021,29 @@ var
 begin
  wpo1:= getwindowpos;
  if wpo1 <> value then begin
-  bo1:= (tws_windowvisible in fstate) or (wpo1 = wp_minimized);
+  bo1:= (tws_windowvisible in fstate) {or (wpo1 = wp_minimized)};
   window1:= nil;
-  if value in [wp_screencentered,
-                     wp_transientforcentered,wp_mainwindowcentered] then begin
-   window1:= nil;
-   if value = wp_mainwindowcentered then begin
-    window1:= application.mainwindow;
-   end;
+  if value in [wp_screencentered] then begin
+   window1:= transientfor;
    if window1 = nil then begin
-    window1:= transientfor;
+    window1:= appinst.activewindow;
     if window1 = nil then begin
-     window1:= appinst.activewindow;
-     if window1 = nil then begin
-      window1:= self;
-     end;
+     window1:= self;
     end;
    end;
   end;
   case value of
-   wp_screencentered,wp_screencenteredvirt,
-                   wp_transientforcentered,wp_mainwindowcentered: begin
-    checkwindowid();
+   wp_screencentered,wp_screencenteredvirt: begin
+    checkwindowid;
     rect1:= fnormalwindowrect;
     gui_setwindowstate(winid,wsi_normal,bo1);
-    case value of
-     wp_screencenteredvirt: begin
-      rect2:= appinst.screenrect(nil);
-     end;
-     wp_screencentered: begin
-      rect2:= appinst.workarea(window1);
-     end;
-     else begin
-      rect2:= window1.fownerwidget.widgetrect;
-     end;
+    if value = wp_screencenteredvirt then begin
+     rect2:= appinst.screenrect(nil);
+    end
+    else begin
+     rect2:= appinst.workarea(window1);
     end;
-    with fownerwidget do begin
+    with fowner do begin
      rect1.x:= rect2.x + (rect2.cx - rect1.cx) div 2;
      rect1.y:= rect2.y + (rect2.cy - rect1.cy) div 2;
      widgetrect:= rect1;
@@ -18045,7 +14068,7 @@ begin
  end;
  fwindowpos:= value;
  fwindowposbefore:= fwindowpos;
- if (wpo1 in [wp_fullscreen,wp_fullscreenvirt]) and
+ if (wpo1 in [wp_fullscreen,wp_fullscreenvirt]) and 
                                 (value = wp_normal) then begin
   gui_reposwindow(fwindow.id,fnormalwindowrect);
        //needed for win32
@@ -18081,62 +14104,12 @@ begin
  result:= wo_popup in foptions;
 end;
 
-function twindow.firstfocuswidget(): twidget;
-var
- w1,w2: twidget;
- i1,i2: int32;
-begin
- result:= fownerwidget;
- if result.canfocus then begin
-  while ow_subfocus in result.optionswidget do begin
-   w2:= nil;
-   i2:= bigint;
-   for i1:= 0 to high(result.fwidgets) do begin
-    w1:= result.fwidgets[i1];
-    if (w1.ftaborder < i2) and w1.canfocus then begin
-     w2:= w1;
-     i2:= w1.ftaborder;
-    end;
-   end;
-   if w2 = nil then begin
-    break;
-   end;
-   result:= w2;
-  end;
- end;
-end;
-
-function twindow.lastfocuswidget(): twidget;
-var
- w1,w2: twidget;
- i1,i2: int32;
-begin
- result:= fownerwidget;
- if result.canfocus then begin
-  while ow_subfocus in result.optionswidget do begin
-   w2:= nil;
-   i2:= -1;
-   for i1:= high(result.fwidgets) downto 0 do begin
-    w1:= result.fwidgets[i1];
-    if (w1.ftaborder > i2) and w1.canfocus then begin
-     w2:= w1;
-     i2:= w1.ftaborder;
-    end;
-   end;
-   if w2 = nil then begin
-    break;
-   end;
-   result:= w2;
-  end;
- end;
-end;
-
-procedure twindow.postkeyevent(const akey: keyty;
+procedure twindow.postkeyevent(const akey: keyty; 
        const ashiftstate: shiftstatesty = []; const release: boolean = false;
        const achars: msestring = '');
 begin
  application.postevent(tkeyevent.create(winid,release,akey,akey,
-             ashiftstate,achars,timestamp,true));
+             ashiftstate,achars,timestamp));
 end;
 
 procedure twindow.beginmoving;
@@ -18269,7 +14242,7 @@ begin
   application.registeronwiniddestroyed({$ifdef FPC}@{$endif}containerwindestroyed);
   try
    include(foptions,wo_embedded);
-   guierror(gui_reparentwindow(winid,fcontainer,fownerwidget.pos));
+   guierror(gui_reparentwindow(winid,fcontainer,fowner.pos));
   except
    container:= 0;
    raise;
@@ -18278,7 +14251,7 @@ begin
  else begin
   exclude(foptions,wo_embedded);
   if (fwindow.id <> 0) and not (tws_destroying in fstate) then begin
-   guierror(gui_reparentwindow(winid,0,fownerwidget.pos));
+   guierror(gui_reparentwindow(winid,0,fowner.pos));
   end;
  end;
 end;
@@ -18294,29 +14267,15 @@ procedure twindow.setsyscontainer(const avalue: syswindowty);
 begin
  if avalue <> fsyscontainer then begin
   if (fsyscontainer <> sywi_none) and (fwindow.id <> 0) then begin
-  {$ifdef mswindows}
    gui_docktosyswindow(fwindow,sywi_none);
-  {$else}
-   destroywindow(); //above code does not work with newer wm's
-  {$endif}
    fsyscontainer:= sywi_none;
    container:= 0;
-   if not (tws_destroying in fstate) then begin
-  {$ifndef mswindows}
-    createwindow();
-  {$endif}
-    if avalue = sywi_none then begin
-     if fownerwidget.visible then begin
-      gui_showwindow(winid);
-     end;
-    end;
-   end;
   end;
   if avalue <> sywi_none then begin
    if fwindow.id = 0 then begin
     createwindow;
    end;
-   include(foptions,wo_embedded);
+   include(foptions,wo_embedded); 
    guierror(gui_docktosyswindow(fwindow,avalue));
    fsyscontainer:= avalue;
   end;
@@ -18328,7 +14287,7 @@ var
  rect1: rectty;
 begin
  if not (wo_embedded in foptions) then begin
-  result:= fownerwidget.pos;
+  result:= fowner.pos;
  end
  else begin
   guierror(gui_getwindowrect(winid,rect1));
@@ -18341,13 +14300,13 @@ var
  pt1: pointty;
 begin
  if not (wo_embedded in foptions) then begin
-  fownerwidget.pos:= avalue;
+  fowner.pos:= avalue;
  end
  else begin
   pt1:= screenpos;
-  pt1.x:= avalue.x - pt1.x + fownerwidget.bounds_x;
-  pt1.y:= avalue.y - pt1.y + fownerwidget.bounds_y;
-  fownerwidget.pos:= pt1;
+  pt1.x:= avalue.x - pt1.x + fowner.bounds_x;
+  pt1.y:= avalue.y - pt1.y + fowner.bounds_y;
+  fowner.pos:= pt1;
  end;
 end;
 
@@ -18367,16 +14326,6 @@ end;
 function twindow.getmodalfor: boolean;
 begin
  result:= tws_modalfor in fstate;
-end;
-
-procedure twindow.setopacity(const avalue: realty);
-begin
- if fopacity <> avalue then begin
-  fopacity:= avalue;
-  if fwindow.id <> 0 then begin
- //  gui_setwindowopacity(fwindow.id,fopacity);
-  end;
- end;
 end;
 
 function twindow.topmodaltransientfor: twindow;
@@ -18408,102 +14357,22 @@ end;
 
 function twindow.transientforstackactive: boolean;
 var
- window1,window2: twindow;
+ window1: twindow;
 begin
  result:= false;
  window1:= appinst.activewindow;
- window2:= window1;
- if (window1 <> nil) and (window1.ftransientfor <> nil) then begin
-  while window1 <> nil do begin
-   if window1 = self then begin
-    result:= true;
-    break;
-   end;
-   window1:= window1.ftransientfor;
+ while window1 <> nil do begin
+  if window1 = self then begin
+   result:= true;
+   break;
   end;
- end;
- if ftransientfor <> nil then begin
-  window1:= self;
-  while window1 <> nil do begin
-   if window1 = window2 then begin
-    result:= true;
-    break;
-   end;
-   window1:= window1.ftransientfor;
-  end;
+  window1:= window1.ftransientfor;
  end;
 end;
 
 procedure twindow.getcanvasimage(const bgr: boolean; var aimage: maskedimagety);
 begin
  //dummy
-end;
-
-procedure twindow.processsysdnd(const event: twindowevent);
-var
- wi1: twidget;
-// obj1: tsysmimedragobject;
- info: draginfoty;
- bo1: boolean;
-begin
- if wo_sysdnd in foptions then begin
-  with tsysdndevent(event) do begin
-   if fdndkind = dek_leavesysdnd then begin
-    freeandnil(fsysdragobject);
-   end
-   else begin
-    subpoint1(fpos,fownerwidget.pos);
-    wi1:= fownerwidget.widgetatpos(fpos,[ws_visible,ws_enabled]);
-    if (wi1 = nil) and
-         (fownerwidget.fwidgetstate*[ws_visible,ws_enabled] =
-                                        [ws_visible,ws_enabled]) then begin
-     wi1:= fownerwidget;
-    end;
-    if wi1 <> nil then begin
-     if fsysdragobject = nil then begin
-      tsysmimedragobject.create(nil,tdragobject(fsysdragobject),nullpoint,
-                                      fformats,fformatistext,factions);
-     end;
-     with tsysmimedragobject1(fsysdragobject) do begin
-      if (fformats <> tsysdndevent(event).fformats) or
-         (fformatistext <> tsysdndevent(event).fformatistext) or
-                                (fformatindex > high(fformats)) then begin
-                                //missed dek_leave
-       fformats:= tsysdndevent(event).fformats;
-       fformatistext:= tsysdndevent(event).fformatistext;
-       fformatindex:= -1;
-      end;
-      factions:= tsysdndevent(event).factions;
-     end;
-     fillchar(info,sizeof(info),0);
-     with info do begin
-      eventkind:= fdndkind;
-      pos:= translateclientpoint(fpos,owner,wi1);
-      dragobjectpo:= @fsysdragobject;
-     end;
-     try
-      wi1.dragevent(info);
-     finally
-      if fdndkind = dek_drop then begin
-      // gui_sysdnd(sdnda_finished,isysdnd(tsysmimedragobject(fsysdragobject)),
-        //                                                           nullrect,bo1);
-      end
-      else begin
-       if info.accept then begin
-       // gui_sysdnd(sdnda_accept,isysdnd(tsysmimedragobject(fsysdragobject))
-         //                                                        ,nullrect,bo1);
-       end
-       else begin
-       // gui_sysdnd(sdnda_reject,isysdnd(tsysmimedragobject(fsysdragobject)),
-         //                                                          nullrect,bo1);
-       end;
-      end;
- //     obj1.free;
-     end;
-    end;
-   end;
-  end;
- end;
 end;
 
 { tonkeyeventlist}
@@ -18520,24 +14389,13 @@ begin
  end;
 end;
 
-{ tonwidgetchangelist}
+{ tonactivechangelist}
 
-procedure tonwidgetchangelist.dowidgetchange(const oldwidget,newwidget: twidget);
+procedure tonactivechangelist.doactivechange(const oldwindow,newwindow: twindow);
 begin
  factitem:= 0;
  while factitem < fcount do begin
-  widgetchangeeventty(getitempo(factitem)^)(oldwidget,newwidget);
-  inc(factitem);
- end;
-end;
-
-{ tonwindowchangelist}
-
-procedure tonwindowchangelist.dowindowchange(const oldwindow,newwindow: twindow);
-begin
- factitem:= 0;
- while factitem < fcount do begin
-  windowchangeeventty(getitempo(factitem)^)(oldwindow,newwindow);
+  activechangeeventty(getitempo(factitem)^)(oldwindow,newwindow);
   inc(factitem);
  end;
 end;
@@ -18591,7 +14449,7 @@ end;
 
 { tonsyseventlist }
 
-procedure tonsyseventlist.doevent(const awindow: winidty;
+procedure tonsyseventlist.doevent(const awindow: winidty; 
                                var aevent: syseventty; var handled: boolean);
 //var
 // bo1: boolean;
@@ -18662,8 +14520,7 @@ end;
 
 constructor tkeyevent.create(const winid: winidty; const release: boolean;
                   const key,keynomod: keyty; const shiftstate: shiftstatesty;
-                  const chars: msestring; const atimestamp: longword;
-                  const posted: boolean = false);
+                  const chars: msestring; const atimestamp: longword);
 var
  eventkind1: eventkindty;
 begin
@@ -18679,7 +14536,6 @@ begin
  fchars:= chars;
  fshiftstate:= shiftstate;
  ftimestamp:= atimestamp;
- fposted:= posted;
 end;
 
 { tinternalapplication }
@@ -18692,8 +14548,7 @@ begin
 // inherited;
  fonkeypresslist:= tonkeyeventlist.create;
  fonshortcutlist:= tonkeyeventlist.create;
- fonwidgetactivechangelist:= tonwidgetchangelist.create;
- fonwindowactivechangelist:= tonwindowchangelist.create;
+ fonactivechangelist:= tonactivechangelist.create;
  fonwindowdestroyedlist:= tonwindoweventlist.create;
  fonwiniddestroyedlist:= tonwinideventlist.create;
  fonapplicationactivechangedlist:= tonapplicationactivechangedlist.create;
@@ -18723,8 +14578,7 @@ begin
 // fwindows.free;
  fonkeypresslist.free;
  fonshortcutlist.free;
- fonwidgetactivechangelist.free;
- fonwindowactivechangelist.free;
+ fonactivechangelist.free;
  fonwindowdestroyedlist.free;
  fonwiniddestroyedlist.free;
  fonapplicationactivechangedlist.free;
@@ -18753,9 +14607,6 @@ begin
  if factivewindow = sender then begin
   factivewindow:= nil;
  end;
- if flastactivewindow = sender then begin
-  flastactivewindow:= nil;
- end;
  if finactivewindow = sender then begin
   finactivewindow:= nil;
  end;
@@ -18782,23 +14633,8 @@ end;
 function tinternalapplication.getmousewinid: winidty;
 begin
  result:= fmousewinid;
- if (result <> 0) then begin
-  exit;
- end;
- if  fmousecapturewidget <> nil then begin
-//  result:= fmousecapturewidget.window.winid;
-  result:= fmousecapturewidget.window.fwindow.id;
-               //do not trigger checkwindow, there could be a pending
-               //configure event
-  exit;
- end;
- if activewindow <> nil then begin
-  result:= activewindow.fwindow.id;
-  exit;
- end;
- if (mainwindow <> nil) and (mainwindow.visible) then begin
-  result:= mainwindow.fwindow.id;
-  exit;
+ if (result = 0) and (fmousecapturewidget <> nil) then begin
+  result:= fmousecapturewidget.window.winid;
  end;
 end;
 
@@ -18814,9 +14650,9 @@ begin
   end
   else begin
    if not winiddestroyed(fwinid) then begin
-    parentid:= gui_getparentwindow(fwinid); //embedded or destroyed window
+    parentid:= gui_getparentwindow(fwinid); //embedded or destroyed window 
     if parentid <> 0 then begin
-     if findwindow(parentid,window) and
+     if findwindow(parentid,window) and 
                    (gui_getwindowpos(fwinid,pt1) = gue_ok) then begin
       addpoint1(frect.pos,pt1);
       window.invalidaterect(frect);
@@ -18833,10 +14669,6 @@ var
 begin
  if findwindow(event.fwinid,window) then begin
   if event.kind = ek_show then begin
-   if window.windowpos in windowmaximizedstates then begin
-    window.fstate:= window.fstate + [tws_posvalid,tws_sizevalid];
-            //do not override changing to normal state by window manager
-   end;
    window.showed;
   end
   else begin
@@ -18892,7 +14724,7 @@ end;
 
 procedure tinternalapplication.mouseparktimer(const sender: tobject);
 begin
- if (factmousewindow <> nil) and ((fmodalwindow = nil) or
+ if (factmousewindow <> nil) and ((fmodalwindow = nil) or 
                             (fmodalwindow = factmousewindow)) then begin
   factmousewindow.mouseparked;
  end;
@@ -18908,7 +14740,6 @@ var
  bo1: boolean;
  widget1: twidget;
  pt1: pointty;
- hintid1: int32;
 begin
  try
   with event do begin
@@ -18916,17 +14747,14 @@ begin
     if window.hastransientfor then begin
      window1:= window.topmodaltransientfor;
      if window1 <> nil then begin
-      fpos.x:= fpos.x + window.fownerwidget.bounds_x -
-                                        window1.fownerwidget.bounds_x;
-      fpos.y:= fpos.y + window.fownerwidget.bounds_y -
-                                        window1.fownerwidget.bounds_y;
+      fpos.x:= fpos.x + window.fowner.bounds_x - window1.fowner.bounds_x;
+      fpos.y:= fpos.y + window.fowner.bounds_y - window1.fowner.bounds_y;
       window:= window1;
      end;
     end;
     fillchar(info,sizeof(info),0);
     with info.mouse do begin
      timestamp:= ftimestamp;
-     serial:= application.getserial();
      if freflected then begin
       include(eventstate,es_reflected);
      end;
@@ -18954,7 +14782,6 @@ begin
        mb_left: shift:= [ss_left];
        mb_middle: shift:= [ss_middle];
        mb_right: shift:= [ss_right];
-       else;
       end;
      end;
      if eventkind = ek_buttonpress then begin
@@ -18964,20 +14791,18 @@ begin
       shiftstate:= fshiftstate - shift;
      end;
      pos:= fpos;
-     abspos:= addpoint(window.fownerwidget.screenpos,pos);
- //    abspos:= addpoint(window.fownerwidget.fwidgetrect.pos,pos);
+     abspos:= addpoint(window.fowner.fwidgetrect.pos,pos);
     end;
-
-    if (fmodalwindow <> nil) and (window <> fmodalwindow) and
-                          not window.istransientfor(fmodalwindow) then begin
-     addpoint1(info.mouse.pos,
-                        subpoint(window.screenpos,fmodalwindow.screenpos));
+    
+    if (fmodalwindow <> nil) and (window <> fmodalwindow) then begin
+     addpoint1(info.mouse.pos,subpoint(window.fowner.fwidgetrect.pos,
+         fmodalwindow.fowner.fwidgetrect.pos));
      window:= fmodalwindow;
     end;
-    if (fmousecapturewidget <> nil) and
+    if (fmousecapturewidget <> nil) and 
                     (fmousecapturewidget.window <> window) then begin
-     addpoint1(info.mouse.pos,subpoint(window.fownerwidget.fwidgetrect.pos,
-         fmousecapturewidget.fwindow.fownerwidget.fwidgetrect.pos));
+     addpoint1(info.mouse.pos,subpoint(window.fowner.fwidgetrect.pos,
+         fmousecapturewidget.fwindow.fowner.fwidgetrect.pos));
      window:= fmousecapturewidget.fwindow;
     end;
     if (fmousecapturewidget = nil) and (aps_mousecaptured in fstate) and
@@ -19078,9 +14903,8 @@ begin
       widget1:= widget1.widgetatpos(info.mouse.pos);
               //search diabled child
      end;
-     hintid1:= hintidwidget;
-     while (widget1 <> nil) and
-       ((ow_mousetransparent in widget1.foptionswidget) or
+     while (widget1 <> nil) and 
+       ((ow_mousetransparent in widget1.foptionswidget) or 
          not widget1.isvisible or
          not (widget1.enabled or (ow_disabledhint in widget1.foptionswidget))
        ) do begin
@@ -19091,7 +14915,8 @@ begin
        with widget1.fframe do begin
         checkstate;
         pt1:= translatewidgetpoint(abspos,nil,widget1);
-        if not ishintarea(pt1,hintid1) then begin
+        if not (pointinrect(pt1,fpaintrect) or 
+            (fs_captionhint in fstate) and pointincaption(pt1)) then begin
          widget1:= nil;
         end;
        end;
@@ -19100,20 +14925,19 @@ begin
      if kind in [ek_buttonpress,ek_buttonrelease] then begin
       deactivatehint; //cancel possible hint
      end;
-     if (widget1 <> fhintedwidget) or (hintid1 <> fhintedid) then begin
+     if (widget1 <> fhintedwidget) then begin
       if (widget1 <> fhintwidget) and
                 (fhintedwidget <> nil) or (fhintwidget = nil) then begin
        deactivatehint;
        fhintedwidget:= widget1;
        if fhintedwidget <> nil then begin
-        fhintedid:= hintid1;
         fhinttimer.interval:= hintdelaytime;
         fhinttimer.enabled:= true;
        end;
       end;
      end
      else begin
-      if (fhintedwidget <> nil) and (fhintwidget = nil) and
+      if (fhintedwidget <> nil) and (fhintwidget = nil) and 
                                    (kind = ek_mousemove) then begin
        fhinttimer.interval:= hintdelaytime;
        if (ow_multiplehint in fhintedwidget.foptionswidget) and
@@ -19146,9 +14970,9 @@ var
 begin
 {$ifdef mse_debugkey}
  debugwriteln('*'+getenumname(typeinfo(eventkindty),ord(event.kind))+
-       ' "'+ansistring(event.fchars)+'" '+inttostr(ord(event.fkey)));
+       ' "'+event.fchars+'" '+inttostr(ord(event.fkey)));
 {$endif}
- try
+ try 
   fkeyeventinfo:= @info;
   exclude(fstate,aps_clearkeyhistory);
   with event do begin
@@ -19157,7 +14981,6 @@ begin
     with info do begin
      eventkind:= fkind;
      timestamp:= event.timestamp;
-     serial:= application.getserial();
      key:= fkey;
      keynomod:= fkeynomod;
      case key of
@@ -19202,8 +15025,7 @@ begin
        if kind = ek_keypress then begin
         fonkeypresslist.dokeyevent(widget1,info);
        end;
-       if not (es_processed in eventstate) and
-               (not fposted or (fwinid = window1.winid)) then begin
+       if not (es_processed in eventstate) then begin
         window1.dispatchkeyevent(kind,info);
        end;
       end;
@@ -19243,12 +15065,10 @@ var
  ev1: tmseevent;
 begin
  gdi_lock;
- if ismainthread then begin   //otherwise events of gui_getevent() of mainthread
-  while gui_hasevent do begin //could be eaten
-   ev1:= gui_getevent;
-   if ev1 <> nil then begin
-    eventlist.add(ev1);
-   end;
+ while gui_hasevent do begin
+  ev1:= gui_getevent;
+  if ev1 <> nil then begin
+   eventlist.add(ev1);
   end;
  end;
  result:= eventlist.count;
@@ -19321,36 +15141,23 @@ begin
  if findwindow(winid,window) and (window.fstate*[tws_grouphidden] = []) then begin
   try
 {$ifdef mse_debugwindowfocus}
-   debugwriteln('setwindowfocus '+window.fownerwidget.name+' '+hextostr(winid,8));
+   debugwriteln('setwindowfocus '+window.fowner.name+' '+hextostr(winid,8));
 {$endif}
-   exclude(window.fstate,tws_focusoutpending);
    if (fmodalwindow = nil) or (fmodalwindow = window) then begin
-    if wo_noactivate in window.options then begin
-     if window.transientfor <> nil then begin
-      gui_setwindowfocus(window.transientfor.winid);
-     end
-     else begin
-      if activewindow <> nil then begin
-       gui_setwindowfocus(activewindow.winid);
-      end;
-     end;
-    end
-    else begin
-     window.activated;
-    end;
+    window.activated;
    end
    else begin
     if fmodalwindow.fwindow.id <> 0 then begin
 {$ifdef mse_debugwindowfocus}
-     debugwriteln('call trycancelmodal '+window.fownerwidget.name+' '+hextostr(winid,8));
+     debugwriteln('call trycancelmodal '+window.fowner.name+' '+hextostr(winid,8));
 {$endif}
 {$warnings on}
      if {$ifdef mswindows}false{$else}
-         fmodalwindow.fownerwidget.trycancelmodal(window)
+         fmodalwindow.fowner.trycancelmodal(window)
          {$endif} then begin
 {$warnings off}
  {$ifdef mse_debugwindowfocus}
-      debugwriteln('trycancelmodal true '+window.fownerwidget.name+' '+hextostr(winid,8));
+      debugwriteln('trycancelmodal true '+window.fowner.name+' '+hextostr(winid,8));
  {$endif}
       include(appinst.fstate,aps_cancelloop);
       appinst.ffocuslockwindow:= nil;
@@ -19386,7 +15193,7 @@ begin
    debugwriteln('setwindowfocus '+hextostr(winid,8)+' not found');
   end
   else begin
-   debugwriteln('setwindowfocus '+window.fownerwidget.name+' '+
+   debugwriteln('setwindowfocus '+window.fowner.name+' '+
        hextostr(winid,8)+' grouphidden');
   end;
  end;
@@ -19404,11 +15211,9 @@ begin
  end;
  if findwindow(winid,window) then begin
 {$ifdef mse_debugwindowfocus}
-  debugwriteln('unsetwindowfocus '+window.fownerwidget.name+' '+
-                                                            hextostr(winid,8));
+  debugwriteln('unsetwindowfocus '+window.fowner.name+' '+hextostr(winid,8));
 {$endif}
-  exclude(window.fstate,tws_focusoutpending);
-  if (ffocuslockwindow <> nil) and (factivewindow <> nil) and
+  if (ffocuslockwindow <> nil) and (factivewindow <> nil) and 
          (window = ffocuslocktransientfor) then begin
    ffocuslockwindow:= nil;
    factivewindow.deactivated;
@@ -19419,37 +15224,31 @@ begin
  end;
 end;
 
-procedure tinternalapplication.registerwindow(awindow: twindow);
+procedure tinternalapplication.registerwindow(window: twindow);
 begin
  lock;
  try
-  if finditem(pointerarty(fwindows),awindow) >= 0 then begin
-   guierror(gue_alreadyregistered,awindow.fownerwidget.name);
+  if finditem(pointerarty(fwindows),window) >= 0 then begin
+   guierror(gue_alreadyregistered,window.fowner.name);
   end;
-  additem(pointerarty(fwindows),awindow);
-  zorderinvalid();
- {$ifdef mse_debugzorder}
-  debugwindow('**registerwindow**',awindow);
- {$endif}
+  additem(pointerarty(fwindows),window);
+  exclude(fstate,aps_zordervalid);
  finally
   unlock;
  end;
 end;
 
-procedure tinternalapplication.unregisterwindow(awindow: twindow);
+procedure tinternalapplication.unregisterwindow(window: twindow);
 var
  int1: integer;
 begin
  lock;
  try
- {$ifdef mse_debugzorder}
-  debugwindow('**unregisterwindow**',awindow);
- {$endif}
-  int1:= removeitem(pointerarty(fwindows),awindow);
+  int1:= removeitem(pointerarty(fwindows),window);
   if (int1 >= 0) and (int1 <= fwindowupdateindex) then begin
    dec(fwindowupdateindex);
   end;
-  if awindow.fwindow.id = fmousewinid then begin
+  if window.fwindow.id = fmousewinid then begin
    fmousewinid:= 0;
   end;
  finally
@@ -19503,11 +15302,11 @@ var
 begin
  if factivewindow = nil then begin
   if (fmainwindow <> nil) then begin
-   fmainwindow.fownerwidget.activate;
+   fmainwindow.fowner.activate;
   end
   else begin
    for int1:= 0 to high(fwindows) do begin
-    with fwindows[int1].fownerwidget do begin
+    with fwindows[int1].fowner do begin
      if visible then begin
       activate;
       break;
@@ -19515,7 +15314,7 @@ begin
     end;
    end;
    if (factivewindow = nil) and (high(fwindows) >= 0) then begin
-    fwindows[0].fownerwidget.activate;
+    fwindows[0].fowner.activate;
    end;
   end;
  end;
@@ -19539,19 +15338,11 @@ begin
  end;
 end;
 
-procedure tinternalapplication.checkapplicationactive();
+procedure tinternalapplication.checkapplicationactive;
 var
  bo1: boolean;
 begin
  bo1:= (activewindow <> nil) or focusinpending;
-{$ifdef mse_debugwindowfocus}
- if bo1 then begin
-  debugwriteln('checkapplicationactive true');
- end
- else begin
-  debugwriteln('checkapplicationactive false');
- end;
-{$endif}
  if  bo1 xor (aps_active in fstate) then begin
   if bo1 then begin
    include(fstate,aps_active);
@@ -19561,14 +15352,6 @@ begin
    hidehint;
   end;
   fonapplicationactivechangedlist.doevent(bo1);
-  if assistiveserver <> nil then begin
-   if aps_active in fstate then begin
-    assistiveserver.doapplicationactivated();
-   end
-   else begin
-    assistiveserver.doapplicationdeactivated();
-   end;
-  end;
  end;
 end;
 
@@ -19596,36 +15379,19 @@ begin
 end;
 
 {$ifdef mse_debug}
-procedure debugwindow(const atext: string; const awindow: twindow);
+procedure debugwindow(const atext: string; const aid: winidty);
 var
  str1: string;
+ window1: twindow;
 begin
- if awindow <> nil then begin
-  str1:= atext+hextostr(awindow.fwindow.id)+' ';
-  str1:= str1+awindow.owner.name;
+ str1:= atext+hextostr(aid)+' ';
+ if appinst.findwindow(aid,window1) then begin
+  str1:= str1+window1.owner.name;
  end
  else begin
   str1:= str1+'NIL';
  end;
  debugwriteln(str1);
-end;
-
-function debugwindow1(const atext: string; const aid: winidty): string;
-var
- window1: twindow;
-begin
- result:= atext+hextostr(aid)+' ';
- if appinst.findwindow(aid,window1) then begin
-  result:= result+window1.owner.name;
- end
- else begin
-  result:= result+'NIL';
- end;
-end;
-
-procedure debugwindow(const atext: string; const aid: winidty);
-begin
- debugwriteln(debugwindow1(atext,aid));
 end;
 
 procedure debugwindow(const atext: string; const aid1,aid2: winidty);
@@ -19647,6 +15413,7 @@ begin
  else begin
   str1:= str1+'NIL';
  end;
+ 
  debugwriteln(str1);
 end;
 
@@ -19655,21 +15422,7 @@ var
  window1: twindow;
 begin
  result:= appinst.findwindow(aid,window1) and
-              (window1.fownerwidget.name = aname);
-end;
-
-function debugwidgetname(const awidget: twidget; const atext: string): string;
-begin
- result:= '';
- if atext <> '' then begin
-  result:= atext+' ';
- end;
- if awidget <> nil then begin
-  result:= result + awidget.name;
- end
- else begin
-  result:= result + 'NIL';
- end;
+              (window1.fowner.name = aname);
 end;
 
 {$endif}
@@ -19695,8 +15448,10 @@ begin
  end;
 end;
 
-procedure tinternalapplication.eventloop(const once: boolean = false);
-
+procedure tinternalapplication.eventloop({const amodalwindow: twindow;}
+                                    const once: boolean = false);
+                   //true if actual modalwindow destroyed
+                   
  function checkiflast(const akind: eventkindty): boolean;
  var
   po1,po2: ^twindowevent;
@@ -19729,11 +15484,13 @@ procedure tinternalapplication.eventloop(const once: boolean = false);
    setmousewidget(nil);
   end;
  end; //canuievent
-
+ 
 var
+// modalinfo: modalinfoty;
+// modalinfobefore: pmodalinfoty;
  event: tmseevent;
  int1: integer;
- bo1,bo2,bo3: boolean;
+ bo1,bo2: boolean;
  window: twindow;
  id1: winidty;
  po1: ^twindowevent;
@@ -19741,9 +15498,9 @@ var
  waitcountbefore: integer;
  ar1: integerarty;
  ar2: eventarty;
- modalinfo: modalinfoty;
-
+ 
 begin       //eventloop
+// result:= false;
  if aps_looplocked in fstate then begin
   exit;
  end;
@@ -19751,411 +15508,409 @@ begin       //eventloop
   raise exception.create('Eventloop must be in main thread.');
  end;
 
- inc(flooplevel);
- if fcurrmodalinfo = nil then begin
-  fillchar(modalinfo,sizeof(modalinfo),0);
-  fcurrmodalinfo:= @modalinfo;
+ ftimertick:= false;
+// fillchar(modalinfo,sizeof(modalinfo),0);
+// if fcurrmodalinfo <> nil then begin
+//  modalinfo.parent:= fcurrmodalinfo;
+//  modalinfo.level:= fcurrmodalinfo^.level+1;
+// end;
+// fcurrmodalinfo:= @modalinfo;
+ waitcountbefore:= fwaitcount;
+ if not once then begin
+  fwaitcount:= 0;
  end;
- try
-  ftimertick:= false;
-  waitcountbefore:= fwaitcount;
-  if not once then begin
-   fwaitcount:= 0;
+ checkcursorshape;
+ {
+ if amodalwindow <> nil then begin
+  if fmodalwindow <> nil then begin
+   setlinkedvar(fmodalwindow,tlinkedobject(modalinfo.modalwindowbefore));
   end;
-  checkcursorshape;
-  while not ((fcurrmodalinfo <> nil) and fcurrmodalinfo^.modalend) and
-       not terminated and (fstate * [aps_exitloop,aps_cancelloop] = []) do begin
-                                                  //main eventloop
-   try
-    if ((fcurrmodalinfo = nil) or (high(fcurrmodalinfo^.events) < 0)) and
-                                                     (getevents = 0) then begin
-     checkwindowstack;
-     int1:= 0;
-     repeat
-      bo1:= false;
-      fwindowupdateindex:= 0;
-      while fwindowupdateindex <= high(fwindows) do begin
-       try
-        bo1:= fwindows[fwindowupdateindex].internalupdate or bo1;
-       except
-        handleexception(self);
-       end;
-       inc(fwindowupdateindex);
-      end;
-      inc(int1);
-     until not bo1 and not terminated or (int1 > 8); //no more to paint
-     exclude(fstate,aps_invalidated);
-     if terminated or (aps_exitloop in fstate) then begin
-      break;
-     end;
-     if not gui_hasevent then begin
+  modalinfobefore:= amodalwindow.fmodalinfopo;
+  amodalwindow.fmodalinfopo:= @modalinfo;
+  setlinkedvar(amodalwindow,tlinkedobject(fmodalwindow));
+  amodalwindow.internalactivate(false,true);
+ end;
+ }
+ while not ((fcurrmodalinfo <> nil) and fcurrmodalinfo^.modalend) and 
+      not terminated and (fstate * [aps_exitloop,aps_cancelloop] = []) do begin 
+                                                 //main eventloop
+  try
+   if ((fcurrmodalinfo = nil) or (high(fcurrmodalinfo^.events) < 0)) and 
+                                                    (getevents = 0) then begin
+    checkwindowstack;
+    repeat
+     bo1:= false;
+     fwindowupdateindex:= 0;
+     while fwindowupdateindex <= high(fwindows) do begin
       try
-//       if (fcurrmodalinfo{amodalwindow} = nil) and
-       if (fcurrmodalinfo^.level = 0) and
-                          not (aps_activewindowchecked in fstate) then begin
-        include(fstate,aps_activewindowchecked);
-        checkactivewindow;
-       end;
-       ftimertick:= false;
-       msetimer.tick(self);    //tick called in every idle
+       bo1:= fwindows[fwindowupdateindex].internalupdate or bo1;
       except
        handleexception(self);
       end;
-      if not gui_hasevent then begin
-       try
-        doidle;
-       except
-        handleexception(self);
-       end;
-      end;
-      if terminated then begin
-       break;
-      end;
-      if (aps_needsupdatewindowstack in fstate) and
-                                  application.active then begin
-       updatewindowstack;
-       exclude(fstate,aps_needsupdatewindowstack);
-      end
-      else begin
-       checkwindowstack;
-      end;
-      checkcursorshape;
-      if once then begin
-       break;
-      end;
-      if gui_hasevent or not (aps_invalidated in fstate) then begin
-       waitevent;
-      end;
+      inc(fwindowupdateindex);
      end;
-    end;
-    if terminated then begin
+    until not bo1 and not terminated; //no more to paint
+    exclude(fstate,aps_invalidated);
+    if terminated or (aps_exitloop in fstate) then begin
      break;
     end;
-    getevents;
-    if {(fcurrmodalinfo <> nil) and} (high(fcurrmodalinfo^.events) >= 0) then begin
-     event:= fcurrmodalinfo^.events[0];
-     tobjectevent1(event).fmodallevel:= -1;
-     deleteitem(pointerarty(fcurrmodalinfo^.events),0);
-    end
-    else begin
-     event:= tmseevent(eventlist.getfirst);
-    end;
-    if event <> nil then begin
+    if not gui_hasevent then begin
      try
+      if (fcurrmodalinfo{amodalwindow} = nil) and 
+                         not (aps_activewindowchecked in fstate) then begin
+       include(fstate,aps_activewindowchecked);
+       checkactivewindow;
+      end;
+      ftimertick:= false;
+      msetimer.tick(self);    //tick called in every idle
+     except
+      handleexception(self);
+     end;
+     if not gui_hasevent then begin
       try
-       bo1:= false;
-       fonapplicationeventlist.doevent(event,bo1);
-       if not bo1 then begin
-        case event.kind of
-         ek_timer: begin
-          ftimertick:= true;
+       doidle;
+      except
+       handleexception(self);
+      end;
+     end;
+     if terminated then begin
+      break;
+     end;
+     if (aps_needsupdatewindowstack in fstate) then begin
+      updatewindowstack;
+      exclude(fstate,aps_needsupdatewindowstack);
+     end
+     else begin
+      checkwindowstack;
+     end;
+     checkcursorshape;
+     if once then begin
+      break;
+     end;
+     if gui_hasevent or not (aps_invalidated in fstate) then begin
+      waitevent;
+     end;
+    end;
+   end;
+   if terminated then begin
+    break;
+   end;
+   getevents;
+   if (fcurrmodalinfo <> nil) and (high(fcurrmodalinfo^.events) >= 0) then begin
+    event:= fcurrmodalinfo^.events[0];
+    tobjectevent1(event).fmodallevel:= -1;
+    deleteitem(pointerarty(fcurrmodalinfo^.events),0);
+   end
+   else begin
+    event:= tmseevent(eventlist.getfirst);
+   end;
+   if event <> nil then begin
+    try
+     try
+      case event.kind of
+       ek_timer: begin
+        ftimertick:= true;
+       end;
+       ek_show,ek_hide: begin
+       {$ifdef mse_debugwindowfocus}
+        if event.kind = ek_show then begin
+         debugwindow('ek_show ',twindowevent(event).fwinid);
+        end
+        else begin
+         debugwindow('ek_hide ',twindowevent(event).fwinid);
+        end;
+       {$endif}
+        processshowingevent(twindowevent(event));
+       end;
+       ek_close: begin
+        if findwindow(twindowevent(event).fwinid,window) then begin
+         if (fmodalwindow = nil) or (fmodalwindow = window) then begin
+          window.close;
+         end
+         else begin
+          fmodalwindow.fowner.canclose(nil);
          end;
-         ek_show,ek_hide: begin
-         {$ifdef mse_debugwindowfocus}
-          if event.kind = ek_show then begin
-           debugwindow('ek_show ',twindowevent(event).fwinid);
-          end
-          else begin
-           debugwindow('ek_hide ',twindowevent(event).fwinid);
+        end;
+       end;
+       ek_destroy: begin
+        if findwindow(twindowevent(event).fwinid,window) then begin
+         window.windowdestroyed;
+        end;
+        windowdestroyed(twindowevent(event).fwinid);
+       end;
+       ek_terminate: begin
+        doterminate(true);
+       end;
+       ek_focusin: begin
+       {$ifdef mse_debugwindowfocus}
+        debugwindow('ek_focusin ',twindowevent(event).fwinid);
+       {$endif}
+        getevents;
+        bo1:= true;
+        id1:= twindowevent(event).fwinid;
+        po1:= pointer(eventlist.datapo);
+        for int1:= 0 to eventlist.count - 1 do begin
+         if po1^ <> nil then begin //find last focusin
+          with po1^ do begin
+           case kind of
+            ek_focusin: begin
+             id1:= fwinid;
+            end;
+            ek_focusout: begin
+             if fwinid = twindowevent(event).fwinid then begin
+              id1:= 0;
+             end;
+            end;
+           end; 
           end;
-         {$endif}
-          processshowingevent(twindowevent(event));
          end;
-         ek_close: begin
-          if findwindow(twindowevent(event).fwinid,window) then begin
-           if (fmodalwindow = nil) or (fmodalwindow = window) then begin
-            window.close;
+         inc(po1);
+        end;
+        bo2:= id1 = twindowevent(event).fwinid; //last focus is current window
+        po1:= pointer(eventlist.datapo);
+        for int1:= 0 to eventlist.count - 1 do begin
+         if po1^ <> nil then begin
+          with po1^ do begin
+           if (kind = ek_destroy) and 
+                           (fwinid = twindowevent(event).fwinid) then begin
+            bo1:= false;
+           end;
+           if bo2 then begin //last focus is current window
+            if kind in [ek_focusin,ek_focusout] then begin
+            {$ifdef mse_debugwindowfocus}
+             debugwindow(' '+getenumname(typeinfo(eventkindty),ord(kind))+
+                          ' deleted',twindowevent(event).fwinid);
+            {$endif}
+             freeandnil(po1^); //ignore
+            end;
            end
            else begin
-            fmodalwindow.fownerwidget.canclose(nil);
-           end;
-          end;
-         end;
-         ek_destroy: begin
-          if findwindow(twindowevent(event).fwinid,window) then begin
-           window.windowdestroyed;
-          end;
-          windowdestroyed(twindowevent(event).fwinid);
-         end;
-         ek_terminate: begin
-          doterminate(true);
-         end;
-         ek_focusin: begin
-         {$ifdef mse_debugwindowfocus}
-          debugwindow('ek_focusin ',twindowevent(event).fwinid);
-         {$endif}
-          getevents;
-          bo1:= true;
-          id1:= twindowevent(event).fwinid;
-          po1:= pointer(eventlist.datapo);
-          bo3:= false;
-          for int1:= 0 to eventlist.count - 1 do begin
-           if po1^ <> nil then begin //find last focusin
-            with po1^ do begin
-             case kind of
-              ek_focusin: begin
-               bo3:= false;
-               id1:= fwinid;
-              end;
-              ek_focusout: begin
-               bo3:= true;
-               if fwinid = twindowevent(event).fwinid then begin
-                id1:= 0;
-               end;
-              end;
-             end;
-            end;
-           end;
-           inc(po1);
-          end;
-          bo2:= id1 = twindowevent(event).fwinid; //last focus is current window
-          po1:= pointer(eventlist.datapo);
-          for int1:= 0 to eventlist.count - 1 do begin
-           if po1^ <> nil then begin
-            with po1^ do begin
-             if (kind = ek_destroy) and
-                             (fwinid = twindowevent(event).fwinid) then begin
-              bo1:= false;
-             end;
-             if bo2 then begin //last focus is current window
-              if kind in [ek_focusin,ek_focusout] then begin
-              {$ifdef mse_debugwindowfocus}
-               debugwindow(' '+getenumname(typeinfo(eventkindty),ord(kind))+
-                            ' deleted',twindowevent(event).fwinid);
-              {$endif}
-               freeandnil(po1^); //ignore
-              end;
-             end
-             else begin
-              if (kind = ek_focusout) and
-                                (fwinid = twindowevent(event).fwinid) then begin
-              {$ifdef mse_debugwindowfocus}
-               debugwindow(' spurious ek_focusout deleted ',
-                                                  twindowevent(event).fwinid);
-              {$endif}
-               bo1:= false;
-               freeandnil(po1^);
-                 //spurious focus, for instance minimize window group on windows
-               if bo3 and (factivewindow <> nil) then begin
-                unsetwindowfocus(factivewindow.fwindow.id);
-                postevent(tmseevent.create(ek_checkapplicationactive));
-               end;
-               break;
-              end;
-             end;
-            end;
-           end;
-           inc(po1);
-          end;
-          include(fstate,aps_needsupdatewindowstack);
-          if bo1 then begin
-           setwindowfocus(twindowevent(event).fwinid);
-           checkapplicationactive;
-          end;
-         {$ifdef mse_debugwindowfocus}
-          if not bo1 then begin
-           debugwriteln(' ek_focusin ignored');
-          end;
-         {$endif}
-         end;
-         ek_focusout: begin
-         {$ifdef mse_debugwindowfocus}
-          debugwindow('ek_focusout '+hextostr(event)+' ',
-                                              twindowevent(event).fwinid);
-         {$endif}
-          getevents;
-          po1:= pointer(@eventlist.datapo^[eventlist.count-1]);
-          bo1:= true;
-          for int1:= 0 to eventlist.count - 1 do begin
-           if po1^ <> nil then begin
-            with po1^ do begin
-             case kind of
-              ek_focusin: begin
-              {$ifdef mse_debugwindowfocus}
-               debugwindow(' ek_focusout ignored ',twindowevent(event).fwinid);
-              {$endif}
-               bo1:= false; //ignore the event
-               break;
-              end;
-              ek_focusout: begin
-               break;
-              end;
-             end;
-            end;
-           end;
-           dec(po1);
-          end;
-          if bo1 then begin
-           unsetwindowfocus(twindowevent(event).fwinid);
-           postevent(tmseevent.create(ek_checkapplicationactive));
-          end
-          else begin
-           include(fstate,aps_restorelocktransientfor);
-          end;
-         end;
-         ek_checkapplicationactive: begin
-          if checkiflast(ek_checkapplicationactive) then begin
-           checkapplicationactive;
-          end;
-         end;
-         ek_expose: begin
-          zorderinvalid();
-          processexposeevent(twindowrectevent(event));
-         end;
-         ek_configure: begin
-          zorderinvalid();
-          id1:= twindowrectevent(event).fwinid;
-          getevents;
-          po1:= pointer(eventlist.datapo);
-          for int1:= 0 to eventlist.count - 1 do begin
-           if po1^ <> nil then begin
-                           //use last configure event for the window
-            with twindowrectevent(po1^) do begin
-             if (kind = ek_configure) and (fwinid = id1) then begin
-              event.free;
-              event:= po1^;
-              po1^:= nil;
-             end;
+            if (kind = ek_focusout) and 
+                              (fwinid = twindowevent(event).fwinid) then begin
+            {$ifdef mse_debugwindowfocus}
+             debugwindow(' spurious ek_focusout deleted ',twindowevent(event).fwinid);
+            {$endif}
+             bo1:= false;
+             freeandnil(po1^); 
+                //spurious focus, for instance minimize window group on windows
+             break;
             end;
            end;
           end;
-          processconfigureevent(twindowrectevent(event));
          end;
-         ek_enterwindow: begin
-          if fmousewinid <> twindowevent(event).fwinid then begin
-                    //there can be an additional enterwindow by mouse click
-           processwindowcrossingevent(twindowevent(event));
-           if canuievent and (event is tmouseenterevent) then begin
-            processmouseevent(tmouseenterevent(event));
+         inc(po1);
+        end;
+        include(fstate,aps_needsupdatewindowstack);
+        if bo1 then begin
+         setwindowfocus(twindowevent(event).fwinid);
+         checkapplicationactive;
+        end;
+       {$ifdef mse_debugwindowfocus}
+        if not bo1 then begin
+         debugwriteln(' ek_focusin ignored');
+        end;
+       {$endif}
+       end;
+       ek_focusout: begin
+       {$ifdef mse_debugwindowfocus}
+        debugwindow('ek_focusout ',twindowevent(event).fwinid);
+       {$endif}
+        getevents;
+        po1:= pointer(eventlist.datapo);
+        bo1:= true; 
+        for int1:= 0 to eventlist.count - 1 do begin
+         if po1^ <> nil then begin
+          with po1^ do begin
+           if (kind = ek_focusin) then begin
+           {$ifdef mse_debugwindowfocus}
+            debugwindow(' ek_focusout ignored ',twindowevent(event).fwinid);
+           {$endif}
+            bo1:= false; //ignore the event
+            break;
            end;
           end;
          end;
-         ek_leavewindow: begin
-          getevents;
-          ar1:= nil;
-          po1:= pointer(eventlist.datapo);
-          bo1:= true;
-          for int1:= 0 to eventlist.count - 1 do begin
-           if po1^ <> nil then begin
-            with po1^ do begin
-             if kind in [ek_enterwindow,ek_leavewindow] then begin
-              additem(ar1,int1);
-             end;
-             if (kind = ek_enterwindow) and (fwinid = twindowevent(event).fwinid) then begin
-              bo1:= false;
-                 //spurious leavewindow
-              break;
-             end;
-            end;
-           end;
-           inc(po1);
-          end;
-          if bo1 then begin
-           processwindowcrossingevent(twindowevent(event))
-          end
-          else begin
-           po1:= pointer(eventlist.datapo);
-           for int1:= 0 to high(ar1) do begin
-            freeandnil(pobjectaty(po1)^[ar1[int1]]);
-           end;
-          end;
-         end;
-         ek_mousemove: begin
-          if checkiflast(ek_mousemove) and canuievent then begin
-           processmouseevent(tmouseevent(event));
-          end;
-         end;
-         ek_buttonpress,ek_buttonrelease,ek_mousewheel: begin
-          if canuievent then begin
-           processmouseevent(tmouseevent(event));
-          end;
-         end;
-         ek_keypress,ek_keyrelease: begin
-          if canuievent then begin
-           processkeyevent(tkeyevent(event));
-          end;
-         end;
-         ek_asyncexec: begin
-          texecuteevent(event).deliver;
-         end;
-         ek_sysdnd: begin
-          if findwindow(tsysdndevent(event).fwinid,window) then begin
-           window.processsysdnd(tsysdndevent(event));
-          end;
-         end;
-         else begin
-          if event is tobjectevent then begin
-           with tobjectevent(event) do begin
- //           if fcurrmodalinfo = nil then begin
- //            int1:= -modallevel;
- //           end
- //           else begin
-             int1:= fcurrmodalinfo^.level-modallevel;
- //           end;
-            if (int1 > 0) and (modallevel >= 0) then begin
-             po2:= fcurrmodalinfo^.parent;
-             for int1:= int1 - 2 downto 0 do begin
-              po2:= po2^.parent;
-             end;
-             additem(pointerarty(po2^.events),event);
-             event:= nil;
-            end
-            else begin
-             deliver;
-            end;
+         inc(po1);
+        end;
+        if bo1 then begin
+         unsetwindowfocus(twindowevent(event).fwinid);
+         postevent(tmseevent.create(ek_checkapplicationactive));
+        end
+        else begin
+         include(fstate,aps_restorelocktransientfor);
+        end;
+       end;
+       ek_checkapplicationactive: begin
+        if checkiflast(ek_checkapplicationactive) then begin
+         checkapplicationactive;
+        end;
+       end;
+       ek_expose: begin
+        exclude(fstate,aps_zordervalid);
+        processexposeevent(twindowrectevent(event));
+       end;
+       ek_configure: begin
+        exclude(fstate,aps_zordervalid);
+        id1:= twindowrectevent(event).fwinid;
+        getevents;
+        po1:= pointer(eventlist.datapo);
+        for int1:= 0 to eventlist.count - 1 do begin
+         if po1^ <> nil then begin   //use last configure event for the window
+          with twindowrectevent(po1^) do begin
+           if (kind = ek_configure) and (fwinid = id1) then begin
+            event.free;
+            event:= po1^;
+            po1^:= nil;
            end;
           end;
          end;
         end;
+        processconfigureevent(twindowrectevent(event));
        end;
-      finally
-       event.free1;
+       ek_enterwindow: begin
+        if fmousewinid <> twindowevent(event).fwinid then begin
+                  //there can be an additional enterwindow by mouse click
+         processwindowcrossingevent(twindowevent(event));
+         if canuievent and (event is tmouseenterevent) then begin
+          processmouseevent(tmouseenterevent(event));
+         end;
+        end;
+       end;
+       ek_leavewindow: begin
+        getevents;
+        ar1:= nil;
+        po1:= pointer(eventlist.datapo);
+        bo1:= true;
+        for int1:= 0 to eventlist.count - 1 do begin
+         if po1^ <> nil then begin
+          with po1^ do begin
+           if kind in [ek_enterwindow,ek_leavewindow] then begin
+            additem(ar1,int1);
+           end;
+           if (kind = ek_enterwindow) and (fwinid = twindowevent(event).fwinid) then begin
+            bo1:= false;
+               //spurious leavewindow
+            break;
+           end;
+          end;
+         end;
+         inc(po1);
+        end;
+        if bo1 then begin
+         processwindowcrossingevent(twindowevent(event))
+        end
+        else begin
+         po1:= pointer(eventlist.datapo);
+         for int1:= 0 to high(ar1) do begin
+          freeandnil(pobjectaty(po1)^[ar1[int1]]);
+         end;
+        end;
+       end;
+       ek_mousemove: begin
+        if checkiflast(ek_mousemove) and canuievent then begin
+         processmouseevent(tmouseevent(event));
+        end;
+       end;
+       ek_buttonpress,ek_buttonrelease,ek_mousewheel: begin
+        if canuievent then begin
+         processmouseevent(tmouseevent(event));
+        end;
+       end;
+       ek_keypress,ek_keyrelease: begin
+        if canuievent then begin
+         processkeyevent(tkeyevent(event));
+        end;
+       end;
+       ek_synchronize: begin
+        tsynchronizeevent(event).deliver;
+       end;
+       else begin
+        if event is tobjectevent then begin
+         with tobjectevent(event) do begin
+          if fcurrmodalinfo = nil then begin
+           int1:= -modallevel;
+          end
+          else begin
+           int1:= fcurrmodalinfo^.level-modallevel;
+          end;
+          if (int1 > 0) and (modallevel >= 0) then begin
+           po2:= fcurrmodalinfo^.parent;
+           for int1:= int1 - 2 downto 0 do begin
+            po2:= po2^.parent;
+           end;
+           additem(pointerarty(po2^.events),event);
+           event:= nil;
+          end
+          else begin
+           deliver;
+          end;
+         end;
+        end;
+       end;
       end;
-     except
-      handleexception(self);
+     finally
+      event.free1;
      end;
-     checkcursorshape;
+    except
+     handleexception(self);
     end;
-   except
+    checkcursorshape;
    end;
-  end;
-  exclude(fstate,aps_exitloop);
-  fwaitcount:= waitcountbefore;
-  if fwaitcount > 0 then begin
-   mouse.shape:= cr_wait;
-  end;
-  checkcursorshape;
-
-  if {(fcurrmodalinfo <> nil) and} (fcurrmodalinfo^.parent <> nil) then begin
-   stackarray(pointer(fcurrmodalinfo^.events),
-                         pointerarty(fcurrmodalinfo^.parent^.events));
-  end
-  else begin
-//   if fcurrmodalinfo <> nil then begin
-    ar2:= fcurrmodalinfo^.events;
-    fcurrmodalinfo^.events:= nil;
-//   end
-//   else begin
-//    ar2:= nil;
-//   end;
-   for int1:= 0 to high(ar2) do begin
-    if ar2[int1] is tobjectevent then begin
-     with tobjectevent1(ar2[int1]) do begin
-      fmodallevel:= -1;
-      free1;
-     end;
-    end
-    else begin
-     ar2[int1].free;
-    end;
-   end;
-  end;
- finally
-  dec(flooplevel);
-  if fcurrmodalinfo = @modalinfo then begin
-   fcurrmodalinfo:= nil;
+  except
   end;
  end;
+ exclude(fstate,aps_exitloop);
+// result:= false;
+ (*
+ if amodalwindow <> nil then begin
+  if fmodalwindow <> nil then begin
+   fmodalwindow.fmodalinfopo:= modalinfobefore{nil};
+  end
+  else begin
+   result:= true;
+  end; 
+  if modalinfo.modalwindowbefore <> nil then begin
+   setlinkedvar(modalinfo.modalwindowbefore,tlinkedobject(fmodalwindow));
+   setlinkedvar(nil,tlinkedobject(modalinfo.modalwindowbefore));
+  end
+  else begin
+   if fmodalwindow <> nil then begin
+    setlinkedvar(nil,tlinkedobject(fmodalwindow));
+    //no lower modalwindow alive
+   end;
+  end;
+ end;
+ *)
+ fwaitcount:= waitcountbefore;
+ if fwaitcount > 0 then begin
+  mouse.shape:= cr_wait;
+ end;
+ checkcursorshape;
+ if (fcurrmodalinfo <> nil) and (fcurrmodalinfo^.parent <> nil) then begin
+  stackarray(pointer(fcurrmodalinfo^.events),
+                        pointerarty(fcurrmodalinfo^.parent^.events));
+ end
+ else begin
+  if fcurrmodalinfo <> nil then begin
+   ar2:= fcurrmodalinfo^.events;
+   fcurrmodalinfo^.events:= nil;
+  end
+  else begin
+   ar2:= nil;
+  end;
+  for int1:= 0 to high(ar2) do begin
+   if ar2[int1] is tobjectevent then begin
+    with tobjectevent1(ar2[int1]) do begin
+     fmodallevel:= -1;
+     free1;
+    end;
+   end
+   else begin
+    ar2[int1].free;
+   end;
+  end;
+ end;
+// fcurrmodalinfo:= modalinfo.parent;
 end;
 
 function tinternalapplication.beginmodal(const sender: twindow;
@@ -20167,7 +15922,6 @@ var
  modalwidgetbefore,focusedwidgetbefore: twidget;
  modalinfo: modalinfoty;
  modalinfobefore: pmodalinfoty;
- p1,pe: ^tmseevent;
 begin
  result:= false;
  exclude(fstate,aps_cancelloop);
@@ -20183,9 +15937,6 @@ begin
  if fcurrmodalinfo <> nil then begin
   modalinfo.parent:= fcurrmodalinfo;
   modalinfo.level:= fcurrmodalinfo^.level+1;
- end
- else begin
-  modalinfo.level:= 1;
  end;
  fcurrmodalinfo:= @modalinfo;
  if fmodalwindow <> nil then begin
@@ -20202,7 +15953,7 @@ begin
   if showinfo <> nil then begin
    with showinfo^ do begin
     setlinkedvar(widget.window.fmodalwidget,tmsecomponent(modalwidgetbefore));
-    if (factivewindow = sender) and (sender.ffocusedwidget <> nil) and
+    if (factivewindow = sender) and (sender.ffocusedwidget <> nil) and 
             not widget.checkdescendent(sender.ffocusedwidget) then begin
      setlinkedvar(sender.ffocusedwidget,
                      tmsecomponent(focusedwidgetbefore));
@@ -20216,7 +15967,7 @@ begin
     sender.fmodalwidget:= widget;
    end;
   end;
-  sender.activate;
+  sender.activate;  
   if fstate * [aps_cancelloop,aps_exitloop] = [] then begin
    try
     eventloop;
@@ -20232,25 +15983,8 @@ begin
        if (focusedwidgetbefore <> nil) then begin
         focusedwidgetbefore.activate(true,false);
        end;
-       if appinst.active and (appinst.fwantedactivewindow = nil) then begin
-        p1:= pointer(eventlist.datapo);
-        pe:= p1 + eventlist.count;
-        while p1 < pe do begin
-         if p1^ <> nil then begin
-          with p1^ do begin
-           if (kind = ek_focusout) and
-                  (window1.fwindow.id = twindowevent(p1^).fwinid) then begin
-            include(window1.fstate,tws_focusoutpending);
-           {$ifdef mse_debugwindowfocus}
-            debugwindow('focusoutpending ',window1);
-           {$endif}
-            break;
-           end;
-          end;
-         end;
-         inc(p1);
-        end;
-        window1.activate();
+       if appinst.active then begin
+        window1.activate;
        end;
       end;
      finally
@@ -20271,7 +16005,7 @@ begin
   end
   else begin
    result:= true;
-  end;
+  end; 
   if modalinfo.modalwindowbefore <> nil then begin
    setlinkedvar(modalinfo.modalwindowbefore,tlinkedobject(fmodalwindow));
    setlinkedvar(nil,tlinkedobject(modalinfo.modalwindowbefore));
@@ -20298,62 +16032,9 @@ begin
  end;
 end;
 
-{$ifdef mse_debugzorder}
-function debugwindowinfo(const awindow: twindow): string;
-begin
- if awindow = nil then begin
-  result:= 'nil';
- end
- else begin
-  if awindow = application.activewindow then begin
-   result:= 'A';
-   if awindow.modal then begin
-    result:= result+'M';
-   end;
-  end
-  else begin
-   result:= '';
-  end;
-  result:= result+'"'+awindow.fownerwidget.name+':'+
-                               awindow.fownerwidget.classname+'"';
- end;
-end;
-
-procedure printwindowstackinfo(const ar3: windowarty); overload;
-var
- int1: integer;
-begin
- for int1:= 0 to high(ar3) do begin
-  if ar3[int1].fownerwidget.visible then begin
-   debugwrite(inttostr(int1)+'+ ');
-  end
-  else begin
-   debugwrite(inttostr(int1)+'- ');
-  end;
-  debugwriteln(debugwindowinfo(ar3[int1])+' transientfor:'+
-                 debugwindowinfo(ar3[int1].ftransientfor));
- end;
-end;
-
-procedure printwindowstackinfo(const ar3: windowstackinfoarty); overload;
-var
- int1: integer;
-begin
- for int1:= 0 to high(ar3) do begin
-  debugwriteln(debugwindowinfo(ar3[int1].lower)+' '+
-                    debugwindowinfo(ar3[int1].upper));
- end;
-end;
-
-{$endif}
-
-procedure tinternalapplication.stackunder(const sender: twindow;
+procedure tinternalapplication.stackunder(const sender: twindow; 
                                               const predecessor: twindow);
 begin
-{$ifdef mse_debugzorder}
- debugwriteln('****stackunder**** '+debugwindowinfo(sender)+' '+
-                                          debugwindowinfo(predecessor));
-{$endif}
  setlength(fwindowstack,high(fwindowstack)+2);
  with fwindowstack[high(fwindowstack)] do begin
   lower:= sender;
@@ -20364,16 +16045,51 @@ end;
 procedure tinternalapplication.stackover(const sender: twindow;
                                              const predecessor: twindow);
 begin
-{$ifdef mse_debugzorder}
- debugwriteln('****stackover**** '+debugwindowinfo(sender)+' '+
-                                          debugwindowinfo(predecessor));
-{$endif}
  setlength(fwindowstack,high(fwindowstack)+2);
  with fwindowstack[high(fwindowstack)] do begin
   lower:= predecessor;
   upper:= sender;
  end;
 end;
+
+{$ifdef mse_debugzorder}
+function debugwindowinfo(const awindow: twindow): string;
+begin
+ if awindow = nil then begin
+  result:= 'nil';
+ end
+ else begin
+  result:= '"'+awindow.fowner.name+'"';
+ end;
+end;
+
+procedure printwindowstackinfo(const ar3: windowarty); overload;
+var
+ int1: integer;
+begin
+ for int1:= 0 to high(ar3) do begin
+  if ar3[int1].fowner.visible then begin
+   debugwrite('+ ');
+  end
+  else begin
+   debugwrite('- ');
+  end;
+  debugwriteln(debugwindowinfo(ar3[int1])+' '+
+                 debugwindowinfo(ar3[int1].ftransientfor));
+ end;
+end;
+
+procedure printwindowstackinfo(const ar3: windowstackinfoarty); overload;
+var
+ int1: integer;
+begin 
+ for int1:= 0 to high(ar3) do begin
+  debugwriteln(debugwindowinfo(ar3[int1].lower)+' '+
+                    debugwindowinfo(ar3[int1].upper));
+ end;
+end;
+
+{$endif}
 
 function cmpwindowstack(const l,r): integer;
 begin
@@ -20441,7 +16157,7 @@ begin
         end
         else begin
  //        if int1 = 0 then begin
- //         gui_raisewindow(upper.winid);
+ //         gui_raisewindow(upper.winid); 
  //        end;
          gui_stackunderwindow(lower.winid,upper.winid);
         end;
@@ -20468,7 +16184,7 @@ begin
       end;
      end;
     end;
-    zorderinvalid();
+    exclude(fstate,aps_zordervalid);
    end;
    fwindowstack:= nil;
   finally
@@ -20479,50 +16195,33 @@ end;
 
 function compwindowzorder(const l,r): integer;
 const
- raiseweight =              1 shl 1;
- lowerweight =              raiseweight;
+ raiseweight =              1;
+ lowerweight =              1;
  backgroundweight =         1 shl 2;
- topweight =                backgroundweight;
+ topweight =                1 shl 2;
 // popupweight =              1 shl 4;
  modalweight =              1 shl 5;
-// transientforcountweight =  1 shl 6;
-// transientfornotnilweight = 1 shl 7;
- transientforactiveweight =       1 shl 8;
- transientforweight = 1 shl 9;
- invisibleweight =          1 shl 10;
- popupweight =              1 shl 11;
- ultratopweight =           1 shl 12;
+ transientforcountweight =  1 shl 6;
+ transientfornotnilweight = 1 shl 7;
+ transientforweight =       1 shl 8;
+ invisibleweight =          1 shl 9;
+ popupweight =              1 shl 10;
 var
  window1: twindow;
-{$ifdef mse_debugzorder}
- ch1: char;
-{$endif}
-label
- endlab;
 begin
  result:= 0;
- if (tws_windowvisible in twindow(l).fstate) and
-                    (twindow(l).syscontainer = sywi_none) then begin
-  if not (tws_windowvisible in twindow(r).fstate) or
-                       (twindow(r).syscontainer <> sywi_none) then begin
+ if (tws_windowvisible in twindow(l).fstate) then begin
+  if not (tws_windowvisible in twindow(r).fstate) then begin
    inc(result,invisibleweight);
   end
  end
  else begin
-  if (tws_windowvisible in twindow(r).fstate) and
-                    (twindow(r).syscontainer = sywi_none)then begin
+  if (tws_windowvisible in twindow(r).fstate) then begin
    dec(result,invisibleweight);
   end
   else begin
-   goto endlab; //both invisible -> no change in order
+   exit; //both invisible -> no change in order
   end;
- end;
- if (result = 0) and
-      ((twindow(l).syscontainer <> sywi_none) or
-       (twindow(r).syscontainer <> sywi_none) or
-       (twindow(l).fcontainer <> 0) or
-       (twindow(r).fcontainer <> 0)) then begin
-  goto endlab; //don't change order of embedded windows
  end;
  if tws_raise in  twindow(l).fstate then begin
   inc(result,raiseweight);
@@ -20536,23 +16235,17 @@ begin
  if tws_lower in  twindow(r).fstate then begin
   inc(result,lowerweight);
  end;
- if ow_background in twindow(l).fownerwidget.foptionswidget then begin
+ if ow_background in twindow(l).fowner.foptionswidget then begin
   dec(result,backgroundweight);
  end;
- if ow_top in twindow(l).fownerwidget.foptionswidget then begin
+ if ow_top in twindow(l).fowner.foptionswidget then begin
   inc(result,topweight);
  end;
- if ow_ultratop in twindow(l).fownerwidget.foptionswidget then begin
-  inc(result,ultratopweight);
- end;
- if ow_background in twindow(r).fownerwidget.foptionswidget then begin
+ if ow_background in twindow(r).fowner.foptionswidget then begin
   inc(result,backgroundweight);
  end;
- if ow_top in twindow(r).fownerwidget.foptionswidget then begin
+ if ow_top in twindow(r).fowner.foptionswidget then begin
   dec(result,topweight);
- end;
- if ow_ultratop in twindow(r).fownerwidget.foptionswidget then begin
-  dec(result,ultratopweight);
  end;
  if twindow(l).ispopup then begin
   inc(result,popupweight);
@@ -20567,34 +16260,26 @@ begin
   dec(result,modalweight);
  end;
  if twindow(l).transientforstackactive then begin
-  inc(result,transientforactiveweight);
- end;
- if twindow(r).transientforstackactive then begin
-  dec(result,transientforactiveweight);
- end;
- {
-// if twindow(l).transientforstackactive then begin
   if twindow(l).ftransientfor <> nil then begin
    inc(result,transientfornotnilweight);
   end;
   if twindow(l).ftransientforcount > 0 then begin
    inc(result,transientforcountweight);
   end;
-// end;
-// if twindow(r).transientforstackactive then begin
+ end; 
+ if twindow(r).transientforstackactive then begin
   if twindow(r).ftransientfor <> nil then begin
    dec(result,transientfornotnilweight);
   end;
   if twindow(r).ftransientforcount > 0 then begin
    dec(result,transientforcountweight);
   end;
-// end;
-}
+ end;
  window1:= twindow(l);
  while window1.ftransientfor <> nil do begin
   if window1.ftransientfor = twindow(r) then begin
    inc(result,transientforweight);
-   goto endlab;
+   exit;
   end;
   window1:= window1.ftransientfor;
  end;
@@ -20602,26 +16287,10 @@ begin
  while window1.ftransientfor <> nil do begin
   if window1.ftransientfor = twindow(l) then begin
    dec(result,transientforweight);
-   goto endlab;
+   exit;
   end;
   window1:= window1.ftransientfor;
- end;
-endlab:
-{$ifdef mse_debugzorder}
- if result < 0 then begin
-  ch1:= '-';
- end
- else begin
-  ch1:= ' ';
- end;
- debugwindow('.'+ch1+hextostr(longword(abs(result)),4)+
-  ' tract:'+bintostr(ord(twindow(l).transientforstackactive),1)+':'+
-              bintostr(ord(twindow(r).transientforstackactive),1)+
-  ' trforco:'+inttostr(twindow(l).ftransientforcount)+':'+
-                inttostr(twindow(r).ftransientforcount)+
- ' l:',twindow(l).winid,
-                                                     twindow(r).winid);
-{$endif}
+ end;  
 end;
 
 procedure tinternalapplication.updatewindowstack;
@@ -20631,7 +16300,6 @@ var
  bo1: boolean;
 begin
  if flockupdatewindowstack = nil then begin
-  exclude(fstate,aps_zordervalid); //possible missing configure events
   checkwindowstack;
   sortzorder;
   ar3:= windowar; //refcount 1
@@ -20643,7 +16311,7 @@ begin
   sortarray(ar3,sizeof(ar3[0]),{$ifdef FPC}@{$endif}compwindowzorder);
   for int1:= 0 to high(ar3) do begin
    with ar3[int1] do begin
-    fstate:= fstate - [tws_raise,tws_lower];
+    fstate:= fstate - [tws_raise,tws_lower]; 
             //reset bringtofrontlocal/sendtobacklocal
    end;
   end;
@@ -20659,10 +16327,6 @@ begin
    end;
   end;
   if int2 >= 0 then begin
-  {$ifdef mse_debugzorder}
-   debugwriteln('++++ invalid stackorder ' + inttostr(int2) +
-                                     ' high(ar3) ' + inttostr(high(ar3)));
-  {$endif}
    if gui_canstackunder then begin
     bo1:= true;
     for int1:= int2+1 to high(ar3) do begin
@@ -20672,12 +16336,8 @@ begin
      end;
     end;
     if bo1 then begin //single local raise
-    {$ifdef mse_debugzorder}
-     debugwriteln('++++ single local raise');
-    {$endif}
      gui_stackoverwindow(ar4[int2].winid,ar4[high(ar4)].winid);
      fwindowstack:= nil;
-     zorderinvalid();
      exit;
     end;
    end;
@@ -20693,36 +16353,13 @@ begin
  end;
 end;
 
-procedure tinternalapplication.internalpackwindowzorder();
-var
- int1: integer;
-begin
- updatewindowstack(); //handle pending;
- sortzorder();
- if high(fwindows) > 1 then begin
-  setlength(fwindowstack,length(fwindows));
-  for int1:= 0 to high(fwindowstack) - 1 do begin
-   with fwindowstack[int1] do begin
-    lower:= fwindows[int1];
-    upper:= fwindows[int1+1];
-   end;
-  end;
- {
-  with fwindowstack[high(fwindowstack)] do begin
-   lower:= fwindows[high(fwindowstack)];
-   upper:= nil;
-  end;
- }
- end;
-end;
-
 procedure tinternalapplication.widgetdestroyed(const widget: twidget);
 begin
  if fmousecapturewidget = widget then begin
   capturemouse(nil,false);
  end;
  if fkeyboardcapturewidget = widget then begin
-  fkeyboardcapturewidget:= nil;
+  fkeyboardcapturewidget:= nil; 
  end;
  if fcaretwidget = widget then begin
   caret.hide;
@@ -20739,9 +16376,6 @@ begin
  end;
  if fhintedwidget = widget then begin
   fhintedwidget:= nil;
- end;
- if flastshowmenuwidget = widget then begin
-  flastshowmenuwidget:= nil;
  end;
  if fclientmousewidget = widget then begin
   fclientmousewidget:= nil;
@@ -20784,120 +16418,28 @@ begin
  eventloop(once);
 end;
 
+
 { tguiapplication }
 
 constructor tguiapplication.create(aowner: tcomponent);
 begin
  fwidgetcursorshape:= cr_default;
- fmousewheelsensitivity:= 1;
  fmousewheelfrequmin:= 1;
  fmousewheelfrequmax:= 100;
  fmousewheeldeltamin:= 0.05;
  fmousewheeldeltamax:= 30;
  fmousewheelaccelerationmax:= 30;
- fhintwidgetclass:= thintwidget;
  gui_registergdi;
  inherited;
-end;
-
-procedure getmseguiarguments();
-var
- ar1: msestringarty;
- int1,int2: integer;
-
- procedure deleteitem();
- begin
-  deletecommandlineargument(int1-int2);
-  inc(int2);
- end; //deleteitem
-
-begin
- ar1:= getcommandlinearguments;
- int2:= 0;
- for int1:= 1 to high(ar1) do begin
-  if ar1[int1] = '--TOPLEVELRAISE' then begin
-   toplevelraise:= true;
-   deleteitem();
-   noreconfigurewmwindow:= true;
-   norestackwindow:= true;
-   continue;
-  end;
-  if ar1[int1] = '--NOZEROLINES' then begin
-   zerolineworkaround:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--NOZORDERHANDLING' then begin
-   nozorderhandling:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--NORESTACKWINDOW' then begin
-   norestackwindow:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--RESTACKWINDOW' then begin
-   norestackwindow:= false;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--NORECONFIGUREWMWINDOW' then begin
-   noreconfigurewmwindow:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--RECONFIGUREWMWINDOW' then begin
-   noreconfigurewmwindow:= false;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--STACKMODEBELOWWORKAROUND' then begin
-   stackmodebelowworkaround:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--NOSTACKMODEBELOWWORKAROUND' then begin
-   stackmodebelowworkaround:= false;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--NOSTATICGRAVITY' then begin
-   nostaticgravity:= true;
-   deleteitem();
-   continue;
-  end;
- {
-  if ar1[int1] = '--EXABUG' then begin
-            //workaround for radeon EXA pixmap bug, slows down drawing!
-   exabug:= true;
-   deleteitem();
-   continue;
-  end;
- }
- {
-  if ar1[int1] = '--NOCREATESTATICGRAVITY' then begin
-   nocreatestaticgravity:= true;
-   deleteitem();
-   continue;
-  end;
-  if ar1[int1] = '--CREATESTATICGRAVITY' then begin
-   nocreatestaticgravity:= false;
-   deleteitem();
-   continue;
-  end;
- }
- end;
 end;
 
 procedure tguiapplication.internalinitialize;
 begin
  with tinternalapplication(self) do begin
   fdesigning:= false;
-  getmseguiarguments();
   guierror(gui_init,self);
-  msetimer.init();
-  msegraphics.init();
+  msetimer.init;
+  msegraphics.init;
  end;
 end;
 
@@ -20907,15 +16449,15 @@ begin
   if fcaret <> nil then begin
    fcaret.link(nil,nullpoint,nullrect);
   end;
-  msegraphics.deinit();
-  lock();
-  gui_flushgdi();
-  flusheventbuffer();
-  getevents();
-  eventlist.clear();
-  unlock();
-  gui_deinit();
-  msetimer.deinit();
+  msegraphics.deinit;
+  lock;
+  gui_flushgdi;
+  flusheventbuffer;
+  getevents;
+  eventlist.clear;
+  unlock;
+  gui_deinit;
+  msetimer.deinit;
  end;
  inherited;
 end;
@@ -20926,7 +16468,7 @@ begin
   components[componentcount-1].free;  //destroy loaded forms
  end;
  while high(fwindows) >= 0 do begin
-  fwindows[high(fwindows)].fownerwidget.free;
+  fwindows[high(fwindows)].fowner.free;
  end;
 end;
 
@@ -20935,7 +16477,7 @@ var
  window: twindow;
 begin
  if findwindow(winid,window) then begin
-  window.fownerwidget.checkwidgetsize(rect.size);
+  window.fowner.checkwidgetsize(rect.size);
  end;
 end;
 
@@ -21033,8 +16575,7 @@ var
  info: mouseeventinfoty;
 begin
  if fmousecapturewidget <> sender then begin
-  if (fmousecapturewidget <> nil) and
-            not (csdestroying in fmousecapturewidget.componentstate) then begin
+  if fmousecapturewidget <> nil then begin
    widget:= fmousecapturewidget;
    fmousecapturewidget:= sender;
    fillchar(info,sizeof(info),0);
@@ -21067,10 +16608,10 @@ begin
  end;
 end;
 
-function tguiapplication.createform(instanceclass: widgetclassty;
-                                               var reference): twidget;
+procedure tguiapplication.createform(
+                                  instanceclass: widgetclassty; var reference);
 begin
- result:= twidget(mseclasses.createmodule(self,instanceclass,reference));
+ mseclasses.createmodule(self,instanceclass,reference);
 end;
 
 procedure tguiapplication.eventloop(const once: boolean = false);
@@ -21104,7 +16645,7 @@ begin
 // end;
 end;
 
-procedure tguiapplication.showasyncexception(e: exception;
+procedure tguiapplication.showasyncexception(e: exception; 
                                   const leadingtext: msestring = '');
 var
  mstr1: msestring;
@@ -21113,23 +16654,19 @@ begin
  postevent(tasyncmessageevent.create(mstr1,'Exception'));
 end;
 
-procedure tguiapplication.showexception(e: exception;
+procedure tguiapplication.showexception(e: exception; 
                                   const leadingtext: msestring = '');
 var
  mstr1: msestring;
 begin
- if not (e is eabort) then begin
-  if not ismainthread then begin
-   showasyncexception(e,leadingtext);
-  end
-  else begin
-   mstr1:= leadingtext + e.Message;
-
- showmessage(mstr1,sc(sc_exception) {$ifdef FPC},0,lineend+
-               getexceptiontext(exceptobject,
-                             exceptaddr,exceptframecount,exceptframes){$endif});
-
-  end;
+ if not ismainthread then begin
+  showasyncexception(e,leadingtext);
+ end
+ else begin
+  mstr1:= leadingtext + e.Message;
+  showmessage(mstr1,'Exception'{$ifdef FPC},0,lineend+
+              getexceptiontext(exceptobject,
+                            exceptaddr,exceptframecount,exceptframes){$endif});
  end;
 end;
 
@@ -21141,23 +16678,6 @@ end;
 function tguiapplication.active: boolean;
 begin
  result:= aps_active in fstate;
-end;
-
-procedure tguiapplication.activate();
-begin
- if flastactivewindow <> nil then begin
-  flastactivewindow.activate();
- end
- else begin
-  if fmainwindow <> nil then begin
-   fmainwindow.activate();
-  end
-  else begin
-   if fwindows <> nil then begin
-    fwindows[0].activate();
-   end;
-  end;
- end;
 end;
 
 function tguiapplication.findwindow(aid: winidty; out window: twindow): boolean;
@@ -21180,9 +16700,6 @@ var
  id: winidty;
 begin
  id:= 0;
- if awindow <> nil then begin
-  id:= awindow.winid;
- end;
  result:= gui_getscreenrect(id);
 end;
 
@@ -21193,29 +16710,13 @@ begin
  id:= 0;
  if awindow = nil then begin
   if factivewindow <> nil then begin
-   id:= factivewindow.winid;
+   id:= factivewindow.fwindow.id;
   end;
  end
  else begin
-  id:= awindow.winid;
+  id:= awindow.fwindow.id;
  end;
  result:= gui_getworkarea(id);
-end;
-
-function tguiapplication.ppmm(const awindow: twindow = nil): complexty;
-var
- id: winidty;
-begin
- id:= 0;
- if awindow = nil then begin
-  if factivewindow <> nil then begin
-   id:= factivewindow.winid;
-  end;
- end
- else begin
-  id:= awindow.winid;
- end;
- //gui_getppmm(id,result.re,result.im);
 end;
 
 function tguiapplication.normalactivewindow: twindow;
@@ -21237,8 +16738,8 @@ end;
 function tguiapplication.unreleasedactivewindow: twindow;
 begin
  result:= factivewindow;
- while (result <> nil) and (result.fownerwidget.releasing or
-                                 not result.fownerwidget.visible) do begin
+ while (result <> nil) and 
+            (result.fowner.releasing or not result.fowner.visible) do begin
   result:= result.ftransientfor;
  end;
 end;
@@ -21256,7 +16757,7 @@ end;
 function tguiapplication.activerootwidget: twidget;
 begin
  if factivewindow <> nil then begin
-  result:= factivewindow.fownerwidget;
+  result:= factivewindow.fowner;
  end
  else begin
   result:= nil;
@@ -21276,8 +16777,7 @@ begin
  end;
 end;
 
-function tguiapplication.findwidget(const namepath: string;
-                                               out awidget: twidget): boolean;
+function tguiapplication.findwidget(const namepath: string; out awidget: twidget): boolean;
                 //false if invalid namepath, '' -> nil and true
                 //last name = '' -> widget.container
 var
@@ -21340,10 +16840,8 @@ end;
 
 function cmpwindowvisibility(const l,r): integer;
 begin
- if (tws_windowvisible in twindow(l).fstate) and
-                 (twindow(l).syscontainer = sywi_none) then begin
-  if (tws_windowvisible in twindow(r).fstate) and
-                 (twindow(r).syscontainer = sywi_none) then begin
+ if tws_windowvisible in twindow(l).fstate then begin
+  if tws_windowvisible in twindow(r).fstate then begin
    result:= 0;
   end
   else begin
@@ -21351,8 +16849,7 @@ begin
   end;
  end
  else begin
-  if (tws_windowvisible in twindow(r).fstate) and
-                    (twindow(r).syscontainer = sywi_none) then begin
+  if tws_windowvisible in twindow(r).fstate then begin
    result:= -1;
   end
   else begin
@@ -21361,26 +16858,14 @@ begin
  end;
 end;
 
-procedure tguiapplication.sortzorder();
-                  //top is last, invisibles and sycontainer windows first
+procedure tguiapplication.sortzorder; //top is last, invisibles first
 var
  ar1: winidarty;
  ar2,ar3: integerarty;
 begin
  ar1:= nil; //compiler warning
-{$ifdef mse_debugzorder}
- if aps_zordervalid in fstate then begin
-  debugwriteln('* sortzorder valid');
- end
- else begin
-  debugwrite('* sortzorder');
- end;
-{$endif}
  if not (aps_zordervalid in fstate) then begin
   ar1:= winidar;
- {$ifdef mse_debugzorder}
-  debugwriteln(' n='+inttostr(length(ar1)));
- {$endif}
   if high(ar1) >= 0 then begin
    gui_getzorder(ar1,ar2);
    sortarray(ar2,ar3);
@@ -21390,12 +16875,6 @@ begin
   include(fstate,aps_zordervalid);
  end;
 end;
-
-procedure tguiapplication.packwindowzorder();
-begin
- internalpackwindowzorder();
-end;
-
 
 function tguiapplication.bottomwindow: twindow;
     //lowest visible window in stackorder, calls sortzorder
@@ -21427,42 +16906,22 @@ begin
  end;
 end;
 
-procedure tguiapplication.internalshowhint(const sender: twidget;
-                            const ahintwidget: twidget);
+procedure tguiapplication.internalshowhint(const sender: twidget);
 var
  window1: twindow;
- widgetclass1: widgetclassty;
 begin
  fhintforwidget:= sender;
  with tinternalapplication(self),fhintinfo do begin
   window1:= nil;
-  if (sender <> nil) and ((activewindow = nil) or
+  if (sender <> nil) and ((activewindow = nil) or 
               (activewindow = sender.window) and activewindow.modal) then begin
    window1:= sender.window;
   end;
-  if ahintwidget = nil then begin
-   if hintwidgetclass <> nil then begin
-    widgetclass1:= hintwidgetclass;
-   end
-   else begin
-    widgetclass1:= fhintwidgetclass;
-   end;
-   if widgetclass1.inheritsfrom(tcustomhintwidget) then begin
-    fhintwidget:= hintwidgetclassty(widgetclass1).create(
-                                               nil,window1,fhintinfo,sender);
-   end
-   else begin
-    fhintwidget:= widgetclass1.create(nil);
-   end;
-  end
-  else begin
-   fhintwidget:= ahintwidget;
-  end;
+  fhintwidget:= thintwidget.create(nil,window1,fhintinfo);
  {$ifdef mse_debugzorder}
-  debugwriteln('** showhint '+tinternalapplication(self).fhintinfo.caption+' '+
-                  debugwindowinfo(fhintedwidget.window));
+  debugwriteln('** showhint '+tinternalapplication(self).fhintinfo.caption);
  {$endif}
-  fhintwidget.show(ml_none,window1);
+  fhintwidget.show;
   if showtime <> 0 then begin
    fhinttimer.interval:= showtime;
    fhinttimer.enabled:= true;
@@ -21477,38 +16936,22 @@ begin
  fillchar(info,sizeof(info),0);
  with info do begin
   flags:= defaulthintflags;
-  if (ahintedwidget <> nil) and
-                    (ow_timedhint in ahintedwidget.foptionswidget) then begin
+  if ow_timedhint in ahintedwidget.foptionswidget then begin
    showtime:= defaulthintshowtime;
   end
   else begin
    showtime:= 0;
   end;
   mouserefpos:= fmouse.pos;
-  if ahintedwidget <> nil then begin
-   posrect.pos:= translateclientpoint(mouserefpos,nil,ahintedwidget);
-  end
-  else begin
-   posrect.pos:= mouserefpos
-  end;;
+  posrect.pos:= translateclientpoint(mouserefpos,nil,ahintedwidget);
   posrect.cx:= 24;
   posrect.cy:= 24;
   placement:= cp_bottomleft;
  end;
 end;
 
-procedure tguiapplication.initwidgethintinfo(var info: hintinfoty;
-                                                 const ahintedwidget: twidget);
-begin
- inithintinfo(info,ahintedwidget);
- if ahintedwidget <> nil then begin
-  info.posrect:= ahintedwidget.widgetrect;
-  translatewidgetpoint1(info.posrect.pos,ahintedwidget.parentwidget,nil);
- end;
-end;
-
 procedure tguiapplication.showhint(const sender: twidget; const hint: msestring;
-         const aposrect: rectty; const aplacement: captionposty = cp_bottomleft;
+              const aposrect: rectty; const aplacement: captionposty = cp_bottomleft;
               const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
                  // -1 defaultshowtime if ow_timedhint in sender.optionswidget
               const aflags: hintflagsty = defaulthintflags
@@ -21537,7 +16980,7 @@ begin
   end;
   placement:= aplacement;
  end;
- internalshowhint(sender,nil);
+ internalshowhint(sender);
 end;
 
 procedure tguiapplication.showhint(const sender: twidget; const hint: msestring;
@@ -21568,24 +17011,6 @@ begin
  inithintinfo(info,sender);
  info.caption:= hint;
  showhint(sender,info);
-end;
-
-procedure tguiapplication.showhint(const sender: twidget;
-             const hintwidget: twidget;
-             const ashowtime: integer = defaulthintshowtime; //0 -> inifinite,
-                 // -1 defaultshowtime if ow_timedhint in sender.optionswidget
-              const aflags: hintflagsty = defaulthintflags);
-begin
- deactivatehint;
- fhintedwidget:= sender;
- inithintinfo(fhintinfo,sender);
- with fhintinfo do begin
-  flags:= aflags;
-  if ashowtime >= 0 then begin
-   showtime:= ashowtime;
-  end;
- end;
- internalshowhint(sender,hintwidget);
 end;
 
 procedure tguiapplication.hidehint;
@@ -21648,16 +17073,13 @@ end;
 procedure tguiapplication.activatehint;
 begin
  deactivatehint;
- if (fhintedwidget <> nil) and
-              ((factivewindow <> nil) or
-               (ow_appinactivehint in fhintedwidget.optionswidget) and
-                   (fhintedwidget.window.syscontainer <> sywi_none)) then begin
+ if (fhintedwidget <> nil) and (factivewindow <> nil) then begin
   inithintinfo(fhintinfo,fhintedwidget);
-  fhintedwidget.showhint(fhintedid,fhintinfo);
+  fhintedwidget.showhint(fhintinfo);
   with fhintinfo do begin
    if (hfl_show in flags) or (caption <> '') then begin
     translateclientpoint1(posrect.pos,fhintedwidget,nil);
-    internalshowhint(fhintedwidget,nil);
+    internalshowhint(fhintedwidget);
    end;
   end;
  end;
@@ -21693,7 +17115,7 @@ var
 begin
  fmainwindow:= value;
  if value <> nil then begin
-  if value.fownerwidget.isgroupleader and value.haswinid then begin
+  if value.fowner.isgroupleader and value.haswinid then begin
    id:= value.winid;
    for int1:= 0 to high(fwindows) do begin
     with fwindows[int1] do begin
@@ -21711,7 +17133,7 @@ var
  int1: integer;
 begin
  for int1:= 0 to high(fwindows) do begin
-  fwindows[int1].fownerwidget.dragstarted;
+  fwindows[int1].fowner.dragstarted;
  end;
 end;
 
@@ -21742,28 +17164,16 @@ begin
  tinternalapplication(self).fonshortcutlist.remove(tmethod(method));
 end;
 
-procedure tguiapplication.registeronwidgetactivechanged(
-                                           const method: widgetchangeeventty);
+procedure tguiapplication.registeronactivechanged(
+                                           const method: activechangeeventty);
 begin
- tinternalapplication(self).fonwidgetactivechangelist.add(tmethod(method));
+ tinternalapplication(self).fonactivechangelist.add(tmethod(method));
 end;
 
-procedure tguiapplication.unregisteronwidgetactivechanged(
-                                            const method: widgetchangeeventty);
+procedure tguiapplication.unregisteronactivechanged(
+                                            const method: activechangeeventty);
 begin
- tinternalapplication(self).fonwidgetactivechangelist.remove(tmethod(method));
-end;
-
-procedure tguiapplication.registeronwindowactivechanged(
-                                           const method: windowchangeeventty);
-begin
- tinternalapplication(self).fonwindowactivechangelist.add(tmethod(method));
-end;
-
-procedure tguiapplication.unregisteronwindowactivechanged(
-                                            const method: windowchangeeventty);
-begin
- tinternalapplication(self).fonwindowactivechangelist.remove(tmethod(method));
+ tinternalapplication(self).fonactivechangelist.remove(tmethod(method));
 end;
 
 procedure tguiapplication.registeronwindowdestroyed(
@@ -21806,13 +17216,13 @@ end;
 procedure tguiapplication.registersyseventhandler(
                                       const method: syseventhandlereventty);
 begin
- tinternalapplication(self).fonsyseventlist.add(tmethod(method));
+ tinternalapplication(self).fonsyseventlist.add(tmethod(method)); 
 end;
 
 procedure tguiapplication.unregistersyseventhandler(
                                       const method: syseventhandlereventty);
 begin
- tinternalapplication(self).fonsyseventlist.remove(tmethod(method));
+ tinternalapplication(self).fonsyseventlist.remove(tmethod(method)); 
 end;
 
 procedure tguiapplication.updatecursorshape;
@@ -21904,14 +17314,14 @@ end;
 function tguiapplication.waitescaped: boolean;
 begin
  lock;
- result:= waiting;
- if result then begin
+ result:= waiting and gui_escapepressed;
+ if not result then begin
+  tinternalapplication(self).getevents;
   result:= gui_escapepressed;
-  if not result then begin
-   tinternalapplication(self).getevents;
-   result:= gui_escapepressed;
-  end;
  end;
+// if result then begin
+//  gui_resetescapepressed;
+// end;
  unlock;
 end;
 
@@ -21921,13 +17331,13 @@ begin
  invalidate;
 end;
 
-function tguiapplication.candefocus(const caller: tobject = nil): boolean;
+function tguiapplication.candefocus: boolean;
 var
  int1: integer;
 begin
  result:= true;
  for int1:= 0 to high(fwindows) do begin
-  if (fwindows[int1] <> caller) and not fwindows[int1].candefocus then begin
+  if not fwindows[int1].candefocus then begin
    result:= false;
    break;
   end;
@@ -21948,17 +17358,16 @@ function tguiapplication.terminate(const sender: twindow = nil): boolean;
 var
  int1: integer;
 begin
- result:= false;
  include(fstate,aps_terminating);
  try
   int1:= 0;
   while int1 <= high(fwindows) do begin
-   if (fwindows[int1] <> sender) and
-                not fwindows[int1].fownerwidget.canparentclose(nil) then begin
+   if (fwindows[int1] <> sender) and 
+                not fwindows[int1].fowner.canparentclose(nil) then begin
     exit;
    end;
    inc(int1);
-  end;
+  end; 
   tinternalapplication(self).doterminate(false);
  finally
   exclude(fstate,aps_terminating);
@@ -21972,11 +17381,11 @@ begin
 end;
 
 procedure tguiapplication.calcmousewheeldelta(var info: mousewheeleventinfoty;
-               const fmin,fmax,deltamin,deltamax: real);
+               const fmin,fmax,deltamin,deltamax: real);  
 var
  frequ: real;
 begin
- if (flastmousewheeltimestamp <> 0) and
+ if (flastmousewheeltimestamp <> 0) and 
                   (flastmousewheeltimestamp <> info.timestamp) then begin
   frequ:= 1000000/(info.timestamp-flastmousewheeltimestamp); //Hz
   if frequ > fmax then begin
@@ -21994,7 +17403,6 @@ begin
  if info.wheel = mw_down then begin
   info.delta:= - info.delta;
  end;
- info.delta:= info.delta * fmousewheelsensitivity;
 end;
 
 function tguiapplication.mousewheelacceleration(const avalue: real): real;
@@ -22024,7 +17432,7 @@ var
  int1: integer;
 begin
  for int1:= 0 to high(fwindows) do begin
-  fwindows[int1].fownerwidget.invalidate;
+  fwindows[int1].fowner.invalidate;
  end;
 end;
 
@@ -22050,7 +17458,7 @@ begin
     else begin
      if event is tasyncmessageevent then begin
       with tasyncmessageevent(event) do begin
-       showmessage(fmessage,fcaption);
+       showmessage(fmessage,fcaption);   
       end;
      end;
     end;
@@ -22062,13 +17470,9 @@ end;
 
 procedure tguiapplication.dowaitidle(var again: boolean);
 begin
- with tinternalapplication(self) do begin
-  if fmodalwindow <> fmodalwindowbeforewaitdialog then begin //wait for message window
-   unregisteronidle({$ifdef FPC}@{$endif}dowaitidle);
-   processmessages;
-   fexecuteaction(self);
-  end;
- end;
+ unregisteronidle({$ifdef FPC}@{$endif}dowaitidle);
+ processmessages;
+ fexecuteaction(self);
 end;
 
 procedure tguiapplication.dowaitidle1(var again: boolean);
@@ -22089,8 +17493,7 @@ function tguiapplication.waitdialog(const athread: tthreadcomp = nil;
                const caption: msestring = '';
                const acancelaction: notifyeventty = nil;
                const aexecuteaction: notifyeventty = nil;
-               const aidleaction: waitidleeventty = nil;
-               const acontinueaction: notifyeventty = nil): boolean;
+               const aidleaction: waitidleeventty = nil): boolean;
 var
 // res1: modalresultty;
  wo1: longword;
@@ -22119,16 +17522,9 @@ begin
      athread.onterminate:= {$ifdef FPC}@{$endif}dothreadterminated;
      athread.run;
     end;
-    if assigned(acontinueaction) then begin
-     repeat
-     until showmessage(atext,caption,[mr_continue,mr_cancel],mr_continue,[],0,
-                   [acontinueaction,acancelaction]) in [mr_cancel,mr_continue];
-    end
-    else begin
-     repeat
-     until showmessage(atext,caption,[mr_cancel],mr_cancel,[],0,
+    repeat
+    until showmessage(atext,caption,[mr_cancel],mr_cancel,[],0,
                                               [acancelaction]) = mr_cancel;
-    end;
     if wo1 <> exceptioncount then begin
      sysutils.abort;
     end;
@@ -22217,7 +17613,7 @@ begin
  end;
 end;
 
-procedure tguiapplication.sysevent(const awindow: winidty;
+procedure tguiapplication.sysevent(const awindow: winidty; 
                             var aevent: syseventty; var handled: boolean);
 begin
  tinternalapplication(self).fonsyseventlist.doevent(awindow,aevent,handled);
@@ -22250,10 +17646,8 @@ end;
 
 procedure tguiapplication.doafterrun;
 begin
- if not (apo_noautodestroymodules in foptions) then begin
-  destroyforms(); //zeos lib unloads libraries ->
+ destroyforms; //zeos lib unloads libraries -> 
                //forms must be destroyed before unit finalization
- end;
 end;
 
 function tguiapplication.idle: boolean;
@@ -22269,27 +17663,9 @@ end;
 function tguiapplication.modallevel: integer;
 begin
  result:= -1;
- if flooplevel > 0 then begin
-  result:= 0;
-  if fcurrmodalinfo <> nil then begin
-   result:= fcurrmodalinfo^.level;
-  end;
+ if fcurrmodalinfo <> nil then begin
+  result:= fcurrmodalinfo^.level;
  end;
-end;
-
-threadvar
- gdilocks: int32;
-
-function tguiapplication.unlockall: integer;
-begin
- gdilocks:= gdilocks + gdi_unlockall();
- inherited;
-end;
-
-procedure tguiapplication.relockall(count: integer);
-begin
- inherited;
- gdi_relockall(gdilocks);
 end;
 
 procedure tguiapplication.objecteventdestroyed(const sender: tobjectevent);
@@ -22307,7 +17683,7 @@ begin
     end;
    end;
    po1:= po1^.parent;
-  end;
+  end; 
   unlock;
  end;
 end;
@@ -22320,37 +17696,6 @@ end;
 procedure tguiapplication.endnoignorewaitevents;
 begin
  interlockeddecrement(fnoignorewaitevents);
-end;
-
-procedure tguiapplication.internalpackwindowzorder;
-begin
- //dummy
-end;
-
-procedure tguiapplication.zorderinvalid();
-begin
- exclude(fstate,aps_zordervalid);
- if gao_forcezorder in foptionsgui then begin
- {$ifdef mse_debugzorder}
-  debugwriteln('*needsupdatewindowstack');
- {$endif}
-  include(fstate,aps_needsupdatewindowstack);
- end;
-end;
-
-function tguiapplication.getforcezorder: boolean;
-begin
- result:= gao_forcezorder in foptionsgui;
-end;
-
-procedure tguiapplication.setforcezorder(const avalue: boolean);
-begin
- if avalue then begin
-  optionsgui:= optionsgui + [gao_forcezorder];
- end
- else begin
-  optionsgui:= optionsgui - [gao_forcezorder];
- end;
 end;
 
 { tasyncmessageevent }
@@ -22402,23 +17747,6 @@ constructor tfadecolorarrayprop.create;
 begin
  inherited;
  fvaluedefault:= defaultfadecolor;
-end;
-
-{ tfadeopacolorarrayprop }
-
-constructor tfadeopacolorarrayprop.create;
-begin
- inherited;
- fvaluedefault:= defaultfadeopacolor;
-end;
-
-{ treparentevent }
-
-constructor treparentevent.create(akind: eventkindty; winid: winidty;
-               aparent: winidty);
-begin
- fparent:= aparent;
- inherited create(ek_reparent,winid);
 end;
 
 initialization

@@ -519,8 +519,8 @@ type
 // thread
  function SDL_CreateMutex: mutexty; cdecl; external SDLLibName;
  procedure SDL_DestroyMutex(varmutex: mutexty); cdecl; external SDLLibName;
- function SDL_LockMutex(mutex: mutexty): integer; cdecl; external SDLLibName;
- function SDL_UnlockMutex(mutex: mutexty): integer; cdecl; external SDLLibName;
+ function SDL_mutexP(mutex: mutexty): integer; cdecl; external SDLLibName;
+ function SDL_mutexV(mutex: mutexty): integer; cdecl; external SDLLibName;
  function SDL_CreateSemaphore(initial_value: cardinal): semty; cdecl; external SDLLibName;
  function SDL_SemPost(sem: semty): integer; cdecl; external SDLLibName;
  procedure SDL_DestroySemaphore(sem: semty); cdecl; external SDLLibName;

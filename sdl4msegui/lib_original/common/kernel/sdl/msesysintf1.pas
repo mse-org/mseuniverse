@@ -61,8 +61,7 @@ end;
 
 function sys_mutexlock(var mutex: mutexty): syserrorty;
 begin
-
- if SDL_LockMutex(mutex)=0 then begin
+ if SDL_mutexP(mutex)=0 then begin
   result:= sye_ok;
  end else begin
   result:= sye_busy;
@@ -76,7 +75,7 @@ end;
 
 function sys_mutexunlock(var mutex: mutexty): syserrorty;
 begin
- if SDL_UnlockMutex(mutex)=0 then begin
+ if SDL_mutexV(mutex)=0 then begin
   result:= sye_ok;
  end else begin
   result:= sye_busy;

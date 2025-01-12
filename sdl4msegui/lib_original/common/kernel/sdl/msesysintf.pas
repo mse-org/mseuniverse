@@ -13,8 +13,8 @@ unit msesysintf;
 
 interface
 uses
- msesys,msetypes,msesystypes, msestrings{$ifdef windows},windows{$endif},sdl4msegui, mseguiglob,
- {$ifdef unix}cthreads,cwstring,{$endif}mselibc, msectypes,msestream, classes;
+ msesys,msetypes,msesystypes,msestrings{$ifdef windows},windows{$endif},sdl4msegui,
+ {$ifdef unix}msesetlocale,cthreads,cwstring,{$endif}mselibc,msestream;
  
 {$include ..\msesysintf.inc}
 {$ifdef windows}
@@ -27,8 +27,7 @@ uses
 
 implementation
 uses
- baseunix,
- sysutils,msebits,msesysutils,msefileutils{$ifdef FPC},dateutils{$else},DateUtils{$endif},
+ sysutils,msebits,msefileutils{$ifdef FPC},dateutils{$else},DateUtils{$endif},
  msearrayutils,msesysintf1,msedynload,msedate{$ifdef mse_debugmutex},mseapplication{$endif};
 
 //todo: correct unicode implementation, long filepaths, stubs for win95
