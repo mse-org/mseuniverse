@@ -36,13 +36,13 @@ uses
 procedure tmainfo.mainfo_onmouseevent(const sender: twidget;
                var ainfo: mouseeventinfoty);
 begin
- //debugwriteln('mouse move '+inttostr(ainfo.pos.x)+'; '+inttostr(ainfo.pos.y));
+ debugwriteln('mouse move '+inttostr(ainfo.pos.x)+'; '+inttostr(ainfo.pos.y));
 end;
 
 procedure tmainfo.mainfo_onkeydown(const sender: twidget;
                var ainfo: keyeventinfoty);
 begin
- //debugwriteln(ainfo.chars);
+ debugwriteln(ainfo.chars);
 end;
 
 procedure tmainfo.mainfo_onkeyup(const sender: twidget;
@@ -54,7 +54,7 @@ end;
 procedure tmainfo.timage1_onmouseevent(const sender: twidget;
                var ainfo: mouseeventinfoty);
 begin
- //debugwriteln('mouse move (timage1) '+inttostr(ainfo.pos.x)+'; '+inttostr(ainfo.pos.y));
+ debugwriteln('mouse move (timage1) '+inttostr(ainfo.pos.x)+'; '+inttostr(ainfo.pos.y));
 end;
 
 procedure tmainfo.tstockglyphbutton1_onexecute(const sender: TObject);
@@ -65,7 +65,7 @@ end;
 procedure tmainfo.tpaintbox1_onpaint(const sender: twidget;
                const acanvas: tcanvas);
 begin
- //acanvas.fillellipse(makerect(0,0,100,100),cl_blue, cl_red);
+ acanvas.fillellipse(makerect(0,0,100,100),cl_blue, cl_red);
 end;
 
 procedure tmainfo.tpaintbox1_onmouseevent(const sender: twidget;

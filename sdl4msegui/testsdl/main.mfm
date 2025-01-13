@@ -1,11 +1,11 @@
 object mainfo: tmainfo
   color = -1610612729
-  bounds_x = 46
-  bounds_y = 147
+  bounds_x = 720
+  bounds_y = 182
   bounds_cx = 621
   bounds_cy = 319
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -15,6 +15,7 @@ object mainfo: tmainfo
   caption = 'test pakai SDL'
   icon.transparentcolor = -2147483642
   icon.options = [bmo_masked]
+  windowopacity = -Inf
   onmouseevent = mainfo_onmouseevent
   onkeydown = mainfo_onkeydown
   onkeyup = mainfo_onkeyup
@@ -28,8 +29,8 @@ object mainfo: tmainfo
     state = [as_localcolor]
   end
   object timage1: timage
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 1
     bounds_x = 168
     bounds_y = 56
@@ -1250,15 +1251,15 @@ object mainfo: tmainfo
     }
   end
   object tpolygon1: tpolygon
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
     color = -1610612712
+    frame.localprops = []
+    frame.localprops1 = []
     taborder = 2
     bounds_x = 464
     bounds_y = 48
     bounds_cx = 130
     bounds_cy = 138
-    poly_edgeradiusmm = 0
-    poly_rotation = 0
-    poly_linewidthmm = 0
     poly_brushoffset_x = 0
     poly_brushoffset_y = 0
   end
