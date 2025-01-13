@@ -340,6 +340,10 @@ begin
  result:= 0; //todo
 end;
 
+function procidfromprochandle(const ahandle: prochandlety): procidty;
+begin
+end;
+
 function iswindowvisible(id: winidty): boolean;
 var
  aflag: SDL_WindowFlags;

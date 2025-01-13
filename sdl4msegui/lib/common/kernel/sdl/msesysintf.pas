@@ -25,6 +25,10 @@ uses
  {$include msesysintfhlinux.inc}
 {$endif}
 
+{$ifdef windows}
+function procidfromprochandle(const ahandle: prochandlety): procidty;
+{$endif}
+
 implementation
 uses
  sysutils,msebits,msesysutils,msefileutils{$ifdef FPC},dateutils{$else},DateUtils{$endif},

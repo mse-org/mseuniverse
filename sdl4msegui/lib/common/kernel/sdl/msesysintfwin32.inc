@@ -97,7 +97,7 @@ function Process32First(hSnapshot: thandle; lppe: PPROCESSENTRY32): BOOL;
               stdcall; external kernel32 name 'Process32First';
 function Process32Next(hSnapshot: thandle; lppe: PPROCESSENTRY32): BOOL;
               stdcall; external kernel32 name 'Process32Next';
-
+              
 var
  GetLongPathNameW: function(lpszShortPath: LPCWSTR; lpszLongPath: LPCWSTR;
                                            cchBuffer: DWORD):DWORD; stdcall;              
@@ -1351,6 +1351,11 @@ begin
 end;
 
 function sys_deletedir(const filename: filenamety): syserrorty;
+begin
+// todo
+end;
+
+function procidfromprochandle(const ahandle: prochandlety): procidty;
 begin
 // todo
 end;
