@@ -59,22 +59,22 @@ type
 function unblocksignal(const signum: integer): boolean;
               //true if blocked before
 var
- set1,set2: __sigset_t;
+ set1,set2: tsigset;
 begin
  sigemptyset(set1);
  sigaddset(set1,signum);
- pthread_sigmask(sig_unblock,@set1,@set2);
+ pthread_sigmask(sig_unblock,set1,set2);
  result:= sigismember(set2,signum) <> 0;
 end;
 
 function blocksignal(const signum: integer): boolean;
               //true if blocked before
 var
- set1,set2: __sigset_t;
+ set1,set2: tsigset;
 begin
  sigemptyset(set1);
  sigaddset(set1,signum);
- pthread_sigmask(sig_block,@set1,@set2);
+ pthread_sigmask(sig_block,set1,set2);
  result:= sigismember(set2,signum) <> 0;
 end;
 
@@ -126,187 +126,6 @@ begin
  end;
 end;
 
-procedure sys_getenvvars(out names: msestringarty; out values: msestringarty);
-var
- str1: string;
- po1: ppchar;
- po2,po3,po4: pchar;
-begin
- po1:= environ;
- if po1 <> nil then begin
-  while true do begin
-   po2:= po1^;
-   if po2 = nil then begin
-    break;
-   end;
-   po3:= po2;
-   while po3^ <> #0 do begin
-    inc(po3);
-   end;
-   po4:= po2;
-   while (po4^ <> '=') and (po4 < po3) do begin
-    inc(po4);
-   end;
-   str1:= psubstr(po2,po4);
-   additem(names,msestring(str1));
-   str1:= psubstr(po4+1,po3);
-   additem(values,msestring(str1));
-   inc(po1);
-  end;
- end;
-end;
-
-var
- connectmutex1: mutexty;
- connectmutex2: mutexty;
- 
-var
- mainthreadid: threadty;
- connectpipe: tpipedescriptors;
- dummybyte: byte; 
- 
-procedure gui_connectmaineventqueue();     //called by gdi_unlock()
-begin
- sys_mutexunlock(connectmutex1);
- sys_mutexunlock(connectmutex2);
-end; 
-
-function gui_raisewindow(id: winidty;
-                             const topmost: boolean = false): guierrorty;
-begin
-{
- gdi_lock;
-{$ifdef mse_debugzorder}
- debugwindow('* gui_raisewindow ',id);
-{$endif}
- if toplevelraise then begin
-//  waitfordecoration(id);
-  xraisewindow(appdisp,toplevelwindow(id));
- end
- else begin
-  xraisewindow(appdisp,id);
- end;
- result:= gue_ok;
- gdi_unlock;
- }
- result:= gue_ok;
-end;
-
-function gui_lowerwindow(id: winidty;
-                             const topmost: boolean = false): guierrorty;
-begin
-{
- gdi_lock;
-{$ifdef mse_debugzorder}
- debugwindow('* gui_lowerwindow ',id);
-{$endif}
- xlowerwindow(appdisp,id);
- result:= gue_ok;
- gdi_unlock;
-} 
-result:= gue_ok;
-end;
-
-procedure gui_disconnectmaineventqueue(); //called by gdi_lock()
-begin
- sys_mutexlock(connectmutex2);
- if sys_mutextrylock(connectmutex1) <> sye_ok then begin
-  sys_write(connectpipe.writedes,@dummybyte,1);
-  sys_mutexlock(connectmutex1);
- end;
-end;
-
-type
- pollinfoarty = array of pollfd;
- pollinfoty = record
-  callback: pollcallbackty;
-  data: pointer;
- end;
- pollinfodestarty = array of pollinfoty;
- pollinfty = record
-  pollinfo: pollinfoarty;
-  pollinfodest: pollinfodestarty;
- end;
- ppollinfty = ^pollinfty;
-
-var
-// pollinfo: array[0..2] of pollfd;
-             //0 connection, 1 sessionmanagement
- pollinf: ppollinfty;
-
-function gui_addpollfd(var id: int32; const afd: int32;
-                           const aflags: pollflagsty;
-                                const acallback: pollcallbackty = nil;
-                                      const adata: pointer = nil): guierrorty;
-begin
- result:= gue_ok;
- with pollinf^ do begin
-  setlength(pollinfo,high(pollinfo)+2);
-  setlength(pollinfodest,length(pollinfo));
-  id:= high(pollinfo);
-  with pollinfo[id] do begin
-   fd:= afd;
-   events:= int32(aflags * [pf_in,pf_pri,pf_out]);
-   with pollinfodest[id] do begin
-    callback:= acallback;
-    data:= adata;
-   end;
-  end;
- end;
-end;
-
-function gui_removepollfd(const id: int32): guierrorty;
-begin
- with pollinf^ do begin
-  if (id < 0) or (id > high(pollinfo)) then begin
-   result:= gue_index;
-  end
-  else begin
-   deleteitem(pollinfo,typeinfo(pollinfo),id);
-   deleteitem(pollinfodest,typeinfo(pollinfodest),id);
-   result:= gue_ok;
-  end;
- end;
-end;
-
-function gui_setpollfdactive(const id: int32;
-                       const aactive: boolean): guierrorty;
-begin
- with pollinf^ do begin
-  if (id < 0) or (id > high(pollinfo)) then begin
-   result:= gue_index;
-  end
-  else begin
-   with pollinfo[id] do begin
-    if (fd >= 0) xor aactive then begin
-     if fd = 0 then begin
-      fd:= minint;
-     end
-     else begin
-      if fd = minint then begin
-       fd:= 0;
-      end
-      else begin
-       fd:= -fd;
-      end;
-     end;
-    end;
-   end;
-   result:= gue_ok;
-  end;
- end;
-end;
-
-function sys_truncatefile(const handle: integer; const size: int64): syserrorty;
-begin
- result:= sye_ok;
- while mselibc.ftruncate64(handle,size) <> 0 do begin
-  if sys_getlasterror <> eintr then begin
-   result:= syelasterror;
-   break;
-  end;
- end;
-end;
 function sys_getprocesses: procitemarty;
 var
  filelist: tfiledatalist;
@@ -414,7 +233,7 @@ function timestampms: longword;
 var
  t1: timeval;
 begin
- gettimeofday(@t1,mselibc.ptimezone(nil));
+ gettimeofday(@t1,ptimezone(nil));
  result:= t1.tv_sec * 1000 + t1.tv_usec div 1000;
 end;
 
@@ -565,7 +384,6 @@ begin
   result:= syelasterror;
  end;
 end;
-
 
 function sys_flushfile(const handle: integer): syserrorty;
 begin
@@ -918,13 +736,9 @@ var
  str1: string;
 begin
  checkdirstreamdata(stream);
- str1:= tosysfilepath(stream.dirinfo.dirname);
+ str1:= stream.dirinfo.dirname;
  with stream,dirinfo,dirstreamlinuxty(platformdata) do begin
-{$ifdef FPC}
-  d.dir:= pdirectorystream(opendir(pchar(str1)));
-{$else}
-  pointer(d.dir):= pdir(opendir(pchar(str1)));
-{$endif}
+  d.dir:= pdir(opendir(pchar(str1)));
   if d.dir = nil then begin
    result:= syelasterror;
   end
@@ -933,10 +747,10 @@ begin
     str1:= str1 + '/';
    end;
    string(d.dirpath):= str1; //for stat
-   d.needsstat:= (infolevel >= fil_ext1) or
+   d.needsstat:= (infolevel >= fil_ext1) or 
               not (fa_all in include) and (include-typeattributes <> []) or
                                                  (exclude-typeattributes <> []);
-   d.needstype:= not d.needsstat and
+   d.needstype:= not d.needsstat and 
        ((infolevel >= fil_type) or
              not (fa_all in include) and (include-nameattributes <> []) or
                                                  (exclude-nameattributes <> []));
@@ -958,208 +772,6 @@ begin
  end;
 end;
 
-function sys_deletedir(const filename: filenamety): syserrorty;
-var
- str1: string;
-begin
-  str1:= tosysfilepath(filename);
- if mselibc.rmdir(pchar(str1)) = -1 then begin
-  result:= syelasterror;
- end
- else begin
-  result:= sye_ok;
- end;
-end;
-
-function getmodebits(const value: fileattributesty): __mode_t;
-begin
- result:= 0;
-
- if fa_rusr in value then result:= result or s_irusr;
- if fa_wusr in value then result:= result or s_iwusr;
- if fa_xusr in value then result:= result or s_ixusr;
-
- if fa_rgrp in value then result:= result or s_irgrp;
- if fa_wgrp in value then result:= result or s_iwgrp;
- if fa_xgrp in value then result:= result or s_ixgrp;
-
- if fa_roth in value then result:= result or s_iroth;
- if fa_woth in value then result:= result or s_iwoth;
- if fa_xoth in value then result:= result or s_ixoth;
-
- if fa_suid in value then result:= result or s_isuid;
- if fa_sgid in value then result:= result or s_isgid;
- if fa_svtx in value then result:= result or s_isvtx;
-
-end;
-
-function sys_getcommandlinearguments: msestringarty;
-var
- av: pcharpoaty;
- ac: pinteger;
- int1: integer;
-begin
- ac:= {$ifdef FPC}@argc{$else}@argcount{$endif};
- av:= pcharpoaty({$ifdef FPC}argv{$else}argvalues{$endif});
- setlength(result,ac^);
- for int1:= 0 to ac^-1 do begin
-  result[int1]:= av^[int1];
- end;
-end;
-
-function sys_getprintcommand: msestring;
-begin
- result:= defaultprintcommand;
- if result = '' then begin
-  result:= 'lp -';
- end;
-end;
-
-procedure fpstattofileinfo(statbuffer: stat; var info: fileinfoty);
-begin
- with info,extinfo1,extinfo2,statbuffer do begin
-  filetype:= getfiletype(st_mode);
-  attributes:= getfileattributes(st_mode);
-  if (length(name) > 0) and (info.name[1] = '.') then begin
-   system.include(attributes,fa_hidden);
-  end;
-  if filetype = ft_dir then begin
-   system.include(attributes,fa_dir);
-  end;
-  state:= state + [fis_typevalid,fis_extinfo1valid,fis_extinfo2valid];
-  size:= st_size;
-  modtime:= filetimetodatetime(st_mtime,st_mtime_nsec);
-  accesstime:= filetimetodatetime(st_atime,st_atime_nsec);
-  {$if fpc_fullversion >= 030100}
-  ctime:= filetimetodatetime(st_ctime,st_ctime_nsec);
-  {$else} 
-  ctime:= st_ctime;
-  {$endif}
-  id:= st_ino;
-  owner:= st_uid;
-  group:= st_gid;
- end;
-end;
-
-function sys_getfdinfo(const fd: longint; var info: fileinfoty): boolean;
-var
- {$ifdef linux}
-  fpstatbuffer : baseunix.stat;
- {$else} // for bsd
-  statbuffer: _stat64;
-  {$endif}
-begin
- clearfileinfo(info);
-
- {$ifdef linux}
- fillchar(fpstatbuffer,sizeof(fpstatbuffer),0);
- result := fpfstat(fd,fpstatbuffer) = 0;
- {$else}
- fillchar(statbuffer,sizeof(statbuffer),0);
- result:= fstat64(fd,@statbuffer) = 0;
- {$endif}
-
- if result then begin
-   {$ifdef linux}
-   fpstattofileinfo(fpstatbuffer,info);
-   {$else}
-   stattofileinfo(statbuffer,info);
-   {$endif}
- end;
-end;
-
-
-function sys_setfilerights(const path: filenamety;
-                                      const rights: filerightsty): syserrorty;
-var
- str1: filenamety;
-begin
- str1:= tosysfilepath(path);
- if chmod(pchar((str1)),
-               getmodebits(fileattributesty(rights))) = 0 then begin
-  result:= sye_ok;
- end
- else begin
-  result:= syelasterror();
- end;
-end;
-
-function sys_setfdrights(const fd: longint;
-                         const rights: filerightsty;
-                         const filename: filenamety = ''): syserrorty;
-begin
- if fchmod(fd,getmodebits(fileattributesty(rights))) = 0 then begin
-  result:= sye_ok;
- end
- else begin
-  result:= syelasterror();
- end;
-end;
-
-function getaccessbits(const value: accessmodesty): integer;
-begin
- result:= 0;
- if am_read in value then result:= result or r_ok;
- if am_write in value then result:= result or w_ok;
- if am_execute in value then result:= result or x_ok;
- if am_exist in value then result:= result or f_ok;
-end;
-
-function sys_access(const path: filenamety;
-                               const accessmodes: accessmodesty): syserrorty;
-var
- str1: filenamety;
-begin
- str1:= tosysfilepath(path);
- if mselibc.access(pchar(string(str1)),
-                                  getaccessbits(accessmodes)) = 0 then begin
-  result:= sye_ok;
- end
- else begin
-  result:= syelasterror();
- end;
-end;
-
-function sys_getusername: msestring;
-var
- po1: pchar;
- s1: string;
- pwd: passwd;
- res: ppasswd;
- i1: integer;
-begin
- result:= '';
- if getpwuid_r <> nil then begin
-  setlength(s1,10000);
-  while true do begin
-   i1:= getpwuid_r(getuid(),@pwd,pointer(s1),length(s1),@res);
-   case i1 of
-    0: begin
-     if res <> nil then begin
-      result:= msestring(ansistring(pwd.pw_name));
-     end;
-     break;
-    end;
-    eintr: begin
-     //try again
-    end;
-    erange: begin
-     setlength(s1,length(s1)*2);
-    end;
-    else begin
-     break; //error
-    end;
-   end;
-  end;
- end
- else begin
-  if cuserid <> nil then begin
-   po1:= cuserid(nil);
-   result:= msestring(ansistring(po1));
-  end;
- end;
-end;
-
 function sys_readdirstream(var stream: dirstreamty; var info: fileinfoty): boolean;
  //true if valid
 var
@@ -1174,8 +786,7 @@ begin
  with stream,dirinfo,dirstreamlinuxty(platformdata) do begin
   if not ((include <> []) and (fa_all in exclude)) then begin
    while true do begin
-  //    if (readdir64_r(d.dir,@dirent,@po1) = 0) and
-      if (readdir64_r(d.dir) <> nil) and
+    if (readdir64_r(d.dir,@dirent,@po1) = 0) and
           (po1 <> nil) then begin
      with info do begin
       str1:= dirent.d_name;

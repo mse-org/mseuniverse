@@ -1,4 +1,4 @@
-{ MSEgui Copyright (c) 1999-2013 by Martin Schreiber
+{ MSEgui Copyright (c) 1999-2007 by Martin Schreiber
 
     See the file COPYING.MSE, included in this distribution,
     for details about the copyright.
@@ -11,101 +11,118 @@ unit msesocketintf;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 
 interface
-{$ifndef mse_allwarnings}
- {$if fpc_fullversion >= 030100}
-  {$warn 5089 off}
-  {$warn 5090 off}
-  {$warn 5093 off}
-  {$warn 6058 off}
- {$endif}
-{$endif}
 uses
  msesystypes,msesys;
-{$ifdef FPC}
- {$include ../msesocketintf.inc}
-{$else}
- {$include msesocketintf.inc}
-{$endif}
+{$include ..\msesocketintf.inc}
 
 implementation
 uses
- mselibc,msefileutils,msesysintf1,msesysintf,msesysutils,sysutils;
-{$ifndef mse_allwarnings}
- {$if fpc_fullversion >= 030100}
-  {$warn 5089 off}
-  {$warn 5090 off}
-  {$warn 5093 off}
-  {$warn 6058 off}
- {$endif}
-{$endif}
-
+ {$ifdef FPC}winsock2{$else}winsock2_del{$endif},sysutils,msestrings,msetypes;
 type
+ paddrinfo = ^addrinfo;
+ addrinfo = record
+  ai_flags: longint;
+  ai_family: longint;
+  ai_socktype: longint;
+  ai_protocol: longint;
+  ai_addrlen: size_t;
+  ai_addr: psockaddr;
+  ai_canonname: pchar;
+  ai_next: paddrinfo;
+ end;
+ ppaddrinfo= ^paddrinfo;
+
  datarecty = record
   //dummy
  end;
-
- locsockaddrty = record
-                  sa_family: sa_family_t;
-                  sa_data: datarecty;
-                 end;
- plocsockaddrty = ^locsockaddrty;
-
- linuxsockadty = record
+ 
+ win32sockadty = record
   case integer of
    0: (addr: sockaddr_in);
    1: (addr6: sockaddr_in6);
  end;
-
- linuxsockaddrty = record
-  ad: linuxsockadty;
+ 
+ win32sockaddrty = record
+  ad: win32sockadty;
   platformdata: array[7..32] of longword;
  end;
 
-function soc_getaddrerrortext(aerror: integer): string;
+//function getaddrinfo(__name:Pchar; __service:Pchar; __req:Paddrinfo;
+//          __pai:PPaddrinfo):longint; stdcall;external WINSOCK2_DLL name 'getaddrinfo';
+//procedure freeaddrinfo(__ai:Paddrinfo); stdcall;external WINSOCK2_DLL name 'freeaddrinfo';
+
+function setsocketerror: syserrorty;
 begin
- result:= strpas(gai_strerror(aerror));
+ result:= sye_socket;
+ mselasterror:= wsagetlasterror;
+end;
+
+function checkerror(const aerror: integer): syserrorty;
+begin
+ if aerror = 0 then begin
+  result:= sye_ok;
+ end
+ else begin
+  result:= setsocketerror;
+ end;
+end;
+
+function sa_len(const family: integer): integer;
+begin
+ case family of
+  af_inet: begin
+   result:= sizeof(tsockaddrin);
+//   result:= sizeof(tsockaddrin.sin_family) + sizeof(tsockaddrin.sin_port) +
+//                        sizeof(tinaddr);
+  end;
+  af_inet6: begin
+   result:= sizeof(tsockaddrin6);
+//   result:= sizeof(tsockaddrin6.sin6_family) + sizeof(tsockaddrin6.sin6_port) +
+//                   sizeof(tsockaddrin6.sin6_flowinfo) +
+//                        sizeof(tin6addr);
+  end;
+  else begin
+   result:= 0;
+  end;
+ end;
 end;
 
 function soc_geterrortext(aerror: integer): string;
 begin
  result:= inttostr(aerror);
 end;
-
-function soc_setnonblock(const handle: integer; const nonblock: boolean): syserrorty;
-var
- int1: integer;
+  
+function soc_getaddrerrortext(aerror: integer): string;
 begin
- result:= sye_ok;
- int1:= fcntl(handle,f_getfl,[0]);
- if int1 = -1 then begin
-  result:= syelasterror
- end
- else begin
-  if nonblock then begin
-   int1:= int1 or o_nonblock;
-  end
-  else begin
-   int1:= int1 and not o_nonblock;
-  end;
-  if fcntl(handle,f_setfl,[int1]) = -1 then begin
-   result:= sye_lasterror;
-  end;
- end;
+ result:= inttostr(aerror);
 end;
 
 function soc_open(const kind: socketkindty; const nonblock: boolean;
-                                 out handle: integer): syserrorty;
+                          out handle: integer): syserrorty;
 var
- int1: integer;
+ af1: integer;
+ type1: integer;
+// protocol1: integer;
+ 
 begin
- case kind of
-  sok_inet: int1:= pf_inet;
-  sok_inet6: int1:= pf_inet6;
-  else int1:= pf_local; //sok_local
+ result:= sye_ok;
+ type1:= sock_stream;
+ case kind of 
+  sok_inet: begin
+   af1:= af_inet;
+  end;
+  sok_inet6: begin
+   af1:= af_inet6;
+  end;
+  else begin
+   result:= sye_notimplemented;
+   exit;
+  end;
  end;
- handle:= socket(int1,sock_stream,0);
- if handle = -1 then begin
-  result:= syelasterror;
+ handle:= socket(af1,type1,ipproto_tcp);
+ if handle = integer(invalid_socket) then begin
+  handle:= invalidfilehandle;
+  result:= setsocketerror;
  end
  else begin
   result:= soc_setnonblock(handle,nonblock);
@@ -113,83 +130,59 @@ begin
 end;
 
 function soc_shutdown(const handle: integer;
-                           const kind: socketshutdownkindty): syserrorty;
+                            const kind: socketshutdownkindty): syserrorty;
 begin
- if mselibc.shutdown(handle,ord(kind)) <> 0 then begin
-  result:= syelasterror;
+ result:= checkerror(shutdown(handle,ord(kind)));
+end;
+
+function soc_close(const handle: integer): syserrorty;
+begin
+ if closesocket(handle) <> 0 then begin
+  result:= setsocketerror;
  end
  else begin
   result:= sye_ok;
  end;
 end;
 
-function soc_close(const handle: integer): syserrorty;
+function soc_bind(const handle: integer;
+                                  const addr: socketaddrty): syserrorty;
 begin
- if mselibc.__close(handle) = 0 then begin
-  result:= sye_ok;
+ if addr.kind in [sok_inet,sok_inet6] then begin
+  with win32sockaddrty(addr.platformdata) do begin
+   result:= checkerror(bind(handle,@ad,sa_len(ad.addr.sin_family)));
+  end;
  end
  else begin
-  result:= syelasterror;
+  result:= sye_notimplemented;
  end;
 end;
 
 function soc_connect(const handle: integer; const addr: socketaddrty;
                                const timeoutms: integer): syserrorty;
 var
- str1: string;
- po1: plocsockaddrty;
+// str1: string;
  int1{,int2}: integer;
  pollres: pollkindsty;
 begin
  result:= sye_ok;
  with addr do begin
   if kind = sok_local then begin
-   str1:= ansistring(tosysfilepath(url));
-   int1:= sizeof(locsockaddrty)+length(str1)+1;
-   getmem(po1,int1);
-   po1^.sa_family:= af_local;
-   move(str1[1],po1^.sa_data,length(str1));
-   pchar(@po1^.sa_data)[length(str1)]:= #0;
-   {$ifdef FPC}
-   if connect(handle,pointer(po1),int1) <> 0 then begin
-   {$else}
-   if connect(handle,psockaddr(po1)^,int1) <> 0 then begin
-   {$endif}
-    result:= soc_poll(handle,[poka_write],timeoutms,pollres);
-    if result = sye_ok then begin
-    {$ifdef FPC}
-     if connect(handle,pointer(po1),int1) <> 0 then begin
-    {$else}
-     if connect(handle,psockaddr(po1)^,int1) <> 0 then begin
-    {$endif}
-      result:= syelasterror;
-     end;
-    end;
-   end;
-   freemem(po1);
+   result:= sye_notimplemented;
   end
   else begin
-   with linuxsockaddrty(platformdata) do begin
-   {$ifdef linux}
-    int1:= __libc_sa_len(ad.addr.sa_family);
-   {$else}
-    int1:= ad.addr.sa_len;
-   {$endif}
-    po1:= @ad.addr;
-    {$ifdef FPC}
-    if connect(handle,pointer(po1),int1) <> 0 then begin
-    {$else}
-    if connect(handle,psockaddr(po1)^,int1) <> 0 then begin
-    {$endif};
-     result:= soc_poll(handle,[poka_write],timeoutms,pollres);
-     if result = sye_ok then begin
-      {$ifdef FPC}
-      if connect(handle,pointer(po1),int1) <> 0 then begin
-      {$else}
-      if connect(handle,psockaddr(po1)^,int1) <> 0 then begin
-      {$endif}
-       result:= syelasterror;
+   with win32sockaddrty(platformdata) do begin
+    int1:= sa_len(ad.addr.sa_family);
+    if connect(handle,ad.addr,int1) <> 0 then begin
+     if wsagetlasterror = wsaewouldblock then begin
+      result:= soc_poll(handle,[poka_write,poka_except],timeoutms,pollres);
+      if (result = sye_ok) and (poka_except in pollres) then begin
+//       connect(handle,ad.addr,int1);
+       result:= setsocketerror;
       end;
+     end
+     else begin
+      result:= setsocketerror;
      end;
     end;
    end;
@@ -198,31 +191,20 @@ begin
 end;
 
 function soc_read(const fd: longint; const buf: pointer;
-                    const nbytes: longword; out readbytes: integer;
-                    const timeoutms: integer): syserrorty;
-                    //atimeoutms < 0 -> nonblocked
+            const nbytes: longword; out readbytes: integer;
+            const timeoutms: integer): syserrorty;
 var
  pollres: pollkindsty;
+// err: integer;
 begin
  result:= sye_ok;
  if timeoutms >= 0 then begin
   result:= soc_poll(fd,[poka_read],timeoutms,pollres);
  end;
  if result = sye_ok then begin
-  readbytes:= __read(fd,buf^,nbytes);
-  if readbytes <= 0 then begin
-   if (timeoutms < 0) then begin
-    if not ((sys_getlasterror = ewouldblock) or
-             (sys_getlasterror = eagain)) then begin
-     result:= syelasterror;
-    end
-    else begin
-     readbytes:= 0;
-    end;
-   end
-   else begin
-    result:= syelasterror;
-   end;
+  readbytes:= recv(fd,buf^,nbytes,0);
+  if readbytes < 0 then begin
+   result:= setsocketerror;
   end;
  end
  else begin
@@ -233,74 +215,49 @@ end;
 function soc_write(const fd: longint; buf: pointer;
                         nbytes: longword; out writebytes: integer;
                         const timeoutms: integer): syserrorty;
+var        //todo: correct timeout value for multiple runs
+ int1,int2: integer;
+ pollres: pollkindsty;
 begin
- writebytes:= sys_write(fd,buf,nbytes);
- if writebytes > 0 then begin
+ writebytes:= -1;
+ int2:= 0;
+ repeat
+  result:= soc_poll(fd,[poka_write],timeoutms,pollres);  
+  if result <> sye_ok then begin
+   exit;
+  end;
+  int1:= send(fd,buf,nbytes,0);
+  if int1 <= 0 then begin
+   writebytes:= int1;
+   break;
+  end;
+  inc(int2,int1);
+  inc(pchar(buf),int1);
+  dec(nbytes,int1);
+ until integer(nbytes) <= 0;
+ if nbytes = 0 then begin
   result:= sye_ok;
+  writebytes:= int2;
  end
  else begin
-  result:= syelasterror;
- end;
-end;
-
-function soc_bind(const handle: integer;
-                                     const addr: socketaddrty): syserrorty;
-var
- str1: string;
- po1: plocsockaddrty;
- int1,int2: integer;
-begin
- result:= sye_ok;
- with addr do begin
-  if kind = sok_local then begin
-   str1:= ansistring(tosysfilepath(url));
-   int1:= sizeof(locsockaddrty)+length(str1)+1;
-   getmem(po1,int1);
-   po1^.sa_family:= af_local;
-   move(str1[1],po1^.sa_data,length(str1));
-   pchar(@po1^.sa_data)[length(str1)]:= #0;
-   int2:= bind(handle,pointer(po1),int1);
-   if (int2 <> 0) and (sys_getlasterror = EADDRINUSE) then begin
-    mselibc.unlink(pchar(str1));
-    int2:= bind(handle,pointer(po1),int1);
-   end;
-   if int2 <> 0 then begin
-    result:= syelasterror;
-   end;
-   freemem(po1);
-  end
-  else begin
-   with linuxsockaddrty(platformdata) do begin
-   {$ifdef linux}
-    if bind(handle,@ad,__libc_sa_len(ad.addr.sa_family)) <> 0 then begin
-   {$else}
-    if bind(handle,@ad,ad.addr.sa_len) <> 0 then begin
-   {$endif}
-     result:= syelasterror;
-    end;
-   end;
-  end;
+  result:= setsocketerror;
  end;
 end;
 
 function soc_listen(const handle: integer; const maxconnections: integer): syserrorty;
 begin
- if listen(handle,maxconnections) <> 0 then begin
-  result:= syelasterror;
- end
- else begin
-  result:= sye_ok;
- end;
+ result:= checkerror(listen(handle,maxconnections));
 end;
 
-function soc_accept(const handle: integer; const nonblock: boolean; out conn: integer;
-             out addr: socketaddrty; const timeoutms: integer): syserrorty;
+function soc_accept(const handle: integer;  const nonblock: boolean;                 
+                  out conn: integer; out addr: socketaddrty;
+                  const timeoutms: integer): syserrorty;
 var
  pollres: pollkindsty;
 begin
  result:= soc_poll(handle,[poka_read],timeoutms,pollres);
  if result = sye_ok then begin
-  addr.size:= sizeof(linuxsockadty);
+  addr.size:= sizeof(win32sockadty);
   conn:= accept(handle,@addr.platformdata,@addr.size);
   if conn = -1 then begin
    result:= syelasterror;
@@ -311,104 +268,84 @@ begin
  end;
 end;
 
-function setsocktimeout(const handle: integer; const ms: integer;
-      const optname: integer): syserrorty;
-var
- ti: ttimeval;
-begin
- ti.tv_sec:= ms div 1000;
- ti.tv_usec:= (ms mod 1000) * 1000;
- if setsockopt(handle,sol_socket,optname,@ti,sizeof(ti)) <> 0 then begin
-  result:= syelasterror;
- end
- else begin
-  result:= sye_ok;
- end;
-end;
-
-function soc_setrxtimeout(const handle: integer; const ms: integer): syserrorty;
-begin
- result:= setsocktimeout(handle,ms,so_rcvtimeo);
-end;
-
-function soc_settxtimeout(const handle: integer; const ms: integer): syserrorty;
-begin
- result:= setsocktimeout(handle,ms,so_sndtimeo);
-end;
-
 function soc_urltoaddr(var addr: socketaddrty): syserrorty;
+//todo: name resolution, inet6
 var
  str1: string;
- int1: integer;
-// str2: string;
-// err: integer;
- info1: addrinfo;
- po1: paddrinfo;
+ int1,int2,int3: integer;
+ ar1: stringarty;
+ bo1: boolean;
 begin
- result:= sye_ok;
- with addr,linuxsockaddrty(platformdata) do begin
-  if kind = sok_local then begin
-   str1:= ansistring(tosysfilepath(url));
-  end
-  else begin
-   str1:= ansistring(url);
-  end;
-  fillchar(info1,sizeof(addrinfo),0);
-  with info1 do begin
-   ai_socktype:= ord(sock_stream);
-   case kind of
-    sok_local: begin
-     ai_family:= af_local;
-    end;
-    sok_inet: begin
-     ai_family:= af_inet;
-    end;
-    sok_inet6: begin
-     ai_family:= af_inet6;
-    end;
-   end;
-  end;
-  int1:= getaddrinfo(pchar(str1),nil,@info1,@po1);
-  if int1 <> 0 then begin
-   mselasterror:= int1;
-   result:= sye_sockaddr;
-  end
-  else begin
-   with po1^ do begin
-    move(ai_addr^,ad,ai_addrlen);
-    if port <> 0 then begin
-     case ai_family of
-      af_inet: begin
-       ad.addr.sin_port:= htons(port);
-      end;
-      af_inet6: begin
-       ad.addr6.sin6_port:= htons(port);
-      end;
+ result:= sye_sockaddr;
+ with addr,win32sockaddrty(platformdata) do begin
+  if kind = sok_inet then begin
+   str1:= url;
+   ar1:= splitstring(str1,'.');
+   if high(ar1) = 3 then begin
+    bo1:= true;
+    int2:= 0;
+    for int1:= 0 to 3 do begin
+     try
+      int3:= strtoint(ar1[int1]);
+     except
+      bo1:= false;
+      break;
      end;
+     if (int3 < 0) or (int3 > 255) then begin
+      bo1:= false;
+      break;
+     end;
+     int2:= (int2 shl 8) or int3;
+    end;
+    if bo1 then begin
+     fillchar(ad,sizeof(ad),0);
+     with ad.addr do begin
+      sin_family:= af_inet;
+      sin_port:= htons(port);
+      sin_addr.s_addr:= htonl(int2);
+     end;     
+     size:= sizeof(ad.addr);
+     result:= sye_ok;
     end;
    end;
-   freeaddrinfo(po1);
   end;
  end;
 end;
 
 function soc_getaddr(const addr: socketaddrty): string;
 begin
- with linuxsockaddrty(addr.platformdata).ad do begin
-  case addr.sa_family of
-   af_inet: begin
-    setlength(result,sizeof(addr.sin_addr));
-    move(addr.sin_addr,result[1],length(result));
-   end;
-   af_inet6: begin
-    setlength(result,sizeof(addr6.sin6_addr));
-    move(addr6.sin6_addr,result[1],length(result));
-   end;
-   else begin
-    result:= '';
-   end;
-  end;
+ result:= ''; //todo
+end;
+
+function soc_getport(const addr: socketaddrty): integer;
+begin
+ result:= 0; //todo
+end;
+
+function soc_setnonblock(const handle: integer; const nonblock: boolean): syserrorty;
+var
+ int1: u_long;
+begin
+ result:= sye_ok;
+ if nonblock then begin
+  int1:= 1;
+ end
+ else begin
+  int1:= 0;
  end;
+ if ioctlsocket(tsocket(handle),longint(fionbio),pu_long(@int1)) <> 0 then begin
+  result:= setsocketerror;
+ end;
+end;
+
+function soc_setrxtimeout(const handle: integer; const ms: integer): syserrorty;
+begin
+ result:= sye_notimplemented;
+end;
+
+function soc_settxtimeout(const handle: integer; const ms: integer): syserrorty;
+begin
+ result:= sye_notimplemented;
 end;
 
 function soc_poll(const handle: integer; const kind: pollkindsty;
@@ -417,85 +354,73 @@ function soc_poll(const handle: integer; const kind: pollkindsty;
                              //0 -> no timeout
                              //for blocking mode
 var
- int1,int2: integer;
- lwo1,lwo2: longword;
- info: pollfd;
+ rset,wset,eset: tfdset;
+ prset,pwset,peset: pfdset;
+ ti: timeval;
+ pti: ptimeval;
+ int1: integer;
 begin
- lwo1:= 0;
  pollres:= [];
- fillchar(info,sizeof(info),0);
- with info do begin
-  fd:= handle;
-  if poka_read in kind then begin
-   events:= events or pollin;
-  end;
-  if poka_write in kind then begin
-   events:= events or pollout;
-  end;
-  if poka_except in kind then begin
-   events:= events or pollpri;
-  end;
- end;
- if timeoutms > 0 then begin
-  lwo1:= timestampms + timeoutms;
-  int2:= timeoutms;
+ if timeoutms <> 0 then begin
+  ti.tv_sec:= timeoutms div 1000;
+  ti.tv_usec:= (timeoutms mod 1000) * 1000;
+  pti:= @ti;
  end
  else begin
-  int2:= -1;
+  pti:= nil;
  end;
- while true do begin
-  int1:= poll(@info,1,int2);
-  if (int1 >= 0) or (sys_getlasterror <> eintr) then begin
-   break;
-  end;
-  if timeoutms > 0 then begin
-   lwo2:= lwo1 - timestampms;
-   if integer(lwo2) <= 0 then begin
-    int1:= 0;
-    break;
-   end;
-   int2:= lwo2;
-  end;
+ if poka_read in kind then begin
+  fd_zero(rset);
+  fd_set(handle,rset);
+  prset:= @rset;
+ end
+ else begin
+  prset:= nil;
  end;
- if int1 < 0 then begin
-  result:= syelasterror;
+ if poka_write in kind then begin
+  fd_zero(wset);
+  fd_set(handle,wset);
+  pwset:= @wset;
+ end
+ else begin
+  pwset:= nil;
+ end;
+ if poka_except in kind then begin
+  fd_zero(eset);
+  fd_set(handle,eset);
+  peset:= @eset;
+ end
+ else begin
+  peset:= nil;
+ end;
+ int1:= select(0,prset,pwset,peset,pti);
+ if int1 > 0 then begin
+  if (poka_read in kind) and fd_isset(handle,rset) then begin
+   include(pollres,poka_read);
+  end;
+  if (poka_write in kind) and fd_isset(handle,wset) then begin
+   include(pollres,poka_write);
+  end;
+  if (poka_except in kind) and fd_isset(handle,eset) then begin
+   include(pollres,poka_except);
+  end;
+  result:= sye_ok;
  end
  else begin
   if int1 = 0 then begin
    result:= sye_timeout;
   end
   else begin
-   with info do begin
-    if revents and not pollin <> 0 then begin
-     include(pollres,poka_read);
-    end;
-    if revents and not pollout <> 0 then begin
-     include(pollres,poka_write);
-    end;
-    if revents and not pollpri <> 0 then begin
-     include(pollres,poka_except);
-    end;
-   end;
-   result:= sye_ok;
+   result:= setsocketerror;
   end;
  end;
 end;
 
-function soc_getport(const addr: socketaddrty): integer;
-begin
- with linuxsockaddrty(addr.platformdata).ad do begin
-  case addr.sa_family of
-   af_inet: begin
-    result:= ntohs(addr.sin_port);
-   end;
-   af_inet6: begin
-    result:= ntohs(addr6.sin6_port);
-   end;
-   else begin
-    result:= 0;
-   end;
-  end;
- end;
-end;
-
+var
+ wsadata: twsadata;
+ 
+initialization
+ wsastartup((2 shl 8) or 2,wsadata);
+finalization
+ wsacleanup;
 end.

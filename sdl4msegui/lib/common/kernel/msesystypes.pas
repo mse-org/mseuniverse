@@ -11,22 +11,12 @@ unit msesystypes;
 {$ifdef FPC}{$mode objfpc}{$h+}{$endif}
 interface
 uses
- msetypes,sysutils;
+ msetypes;
 type
  {$ifndef FPC}
  tlibhandle = thandle;
  {$endif}
-
- {$if defined(FPC) and (fpc_fullversion >= 030200)}
- {$if defined(cpu64) and defined(mswindows)}
-   threadty = Longword;
- {$else}
-   threadty = ptruint;
- {$endif}
- {$else}
-  threadty = ptruint;
- {$endif}
-
+ threadty = ptruint;
  procidty = ptrint;
  pprocidty = ^procidty;
  procidarty = array of procidty; //same item size as winidarty!
@@ -43,15 +33,11 @@ type
  condty = array[0..31] of pointer;
 
  syserrorty = (sye_ok,sye_lasterror,sye_extendederror,sye_busy,sye_dirstream,
-                sye_network,sye_write,sye_read,
+                sye_network,
                 sye_thread,sye_mutex,sye_semaphore,sye_cond,sye_timeout,
                 sye_copyfile,sye_createdir,sye_noconsole,sye_notimplemented,
                 sye_sockaddr,sye_socket,sye_isdir
                );
-
- ecrashstatfile = class(exception)
- end;
-
 const
  invalidprocid = -1;
  invalidprochandle = -1;
