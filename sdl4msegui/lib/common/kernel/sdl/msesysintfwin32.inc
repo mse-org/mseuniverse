@@ -135,7 +135,7 @@ begin
  result:= getstdhandle(std_error_handle);
 end;
 
-function sys_getprintcommand: string;
+function sys_getprintcommand: msestring;
 begin
  result:= defaultprintcommand;
  if result = '' then begin
@@ -203,7 +203,9 @@ begin
  result:= tomsefilepath(str1);
 end;
 
+
 function sys_getcommandlinearguments: stringarty;
+//function sys_getcommandlinearguments: msestringarty;
 begin
  {$ifdef FPC}{$checkpointer off}{$endif}
  result:= parsecommandline(cmdline);
@@ -1241,6 +1243,118 @@ begin
  result:= sye_ok;
 end;
 
+function sys_getfdinfo(const fd: longint; var info: fileinfoty): boolean;
+var
+ info1: windows.by_handle_file_information;
+begin
+ clearfileinfo(info);
+ result:= getfileinformationbyhandle(fd,info1);
+ if result then begin
+//  winfileinfotofileinfo(info1.winfo,info1.wsize,info);
+ end;
+end;
+
+function sys_setfdrights(const fd: longint;
+                         const rights: filerightsty;
+                         const filename: filenamety = ''): syserrorty;
+var                           //todo: use security attributes
+ info1: WINDOWS.by_handle_file_information;
+ fname: filenamety;
+ bo1: boolean;
+ {
+ fmap: thandle;
+ pmem: pointer;
+ abuf: array[0..max_path] of char;
+ wbuf: array[0..max_path] of widechar;
+ dwo1: dword;
+ }
+begin
+ {
+ if getfileinformationbyhandle(fd,info1) then begin
+  if s_iwusr in rights then begin
+   info1.winfo.dwfileattributes:= info1.winfo.dwfileattributes and
+                                                not file_attribute_readonly;
+  end
+  else begin
+   info1.winfo.dwfileattributes:= info1.winfo.dwfileattributes or
+                                                    file_attribute_readonly;
+  end;
+  {
+  fmap:= createfilemapping(fd,nil,page_readonly,0,1,nil);
+  if fmap = 0 then begin
+   result:= syelasterror();
+  end
+  else begin
+   pmem:= mapviewoffile(fmap,file_map_read,0,0,1);
+   if pmem = nil then begin
+    result:= syelasterror();
+   end
+   else begin
+    if iswin95 then begin
+     dwo1:= getmappedfilenamea(getcurrentprocess(),pmem,@abuf,max_path);
+    end
+    else begin
+     dwo1:= getmappedfilenamew(getcurrentprocess(),pmem,@wbuf,max_path);
+    end;
+    if dwo1 = 0 then begin
+     result:= syelasterror();
+    end
+    else begin
+
+    end;
+    unmapviewoffile(pmem);
+   end;
+   closehandle(fmap);
+  end;
+  //how to set file attributes from handle on pre XP?
+  }
+  fname:= tosysfilepath(filename);
+  if iswin95 then begin
+   bo1:= setfileattributesa(pchar(string(fname)),info1.winfo.dwfileattributes);
+  end
+  else begin
+   bo1:= setfileattributesw(pwidechar(fname),info1.winfo.dwfileattributes);
+  end;
+  if not bo1 then begin
+   result:= syelasterror();
+  end
+  else begin
+   result:= sye_ok;
+  end;
+ end
+ else begin
+  result:= syelasterror();
+ end;
+ }
+end;
+
+function sys_truncatefile(const handle: integer; const size: int64): syserrorty;
+begin
+// todo
+end;
+
+function sys_access(const path: filenamety;
+                                const accessmodes: accessmodesty): syserrorty;
+begin
+// todo
+end;
+                               
+function sys_setfilerights(const path: filenamety;
+                              const rights: filerightsty): syserrorty;
+begin
+// todo
+end;
+
+function sys_getusername: msestring;
+begin
+// todo
+end;
+
+function sys_deletedir(const filename: filenamety): syserrorty;
+begin
+// todo
+end;
+
 function sys_readdirstream(var stream: dirstreamty; var info: fileinfoty): boolean;
 
  procedure checkinfo;
@@ -1639,8 +1753,8 @@ begin
       ['AllowSetForegroundWindow'],
       [{$ifndef FPC}@{$endif}@AllowSetForegroundWindow]);
 {$ifdef FPC}
- widestringmanager.CompareUnicodeStringProc:=@win32CompareUnicodeString;
- widestringmanager.CompareTextUnicodeStringProc:=@win32CompareTextUnicodeString;
+// widestringmanager.CompareUnicodeStringProc:=@win32CompareUnicodeString;
+// widestringmanager.CompareTextUnicodeStringProc:=@win32CompareTextUnicodeString;
 {$endif}
 
  info.dwOSVersionInfoSize:= sizeof(info);

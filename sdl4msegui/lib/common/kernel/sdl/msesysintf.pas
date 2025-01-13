@@ -14,7 +14,7 @@ unit msesysintf;
 interface
 uses
  msesys,msetypes,msesystypes, msestrings{$ifdef windows},windows{$endif},sdl4msegui, mseguiglob,
- {$ifdef unix}cthreads,cwstring,{$endif}mselibc, msectypes,msestream, classes;
+ {$ifdef unix}cthreads,cwstring,mselibc, msectypes, baseunix,{$endif}msestream, classes;
  
 {$include ..\msesysintf.inc}
 {$ifdef windows}
@@ -27,7 +27,6 @@ uses
 
 implementation
 uses
- baseunix,
  sysutils,msebits,msesysutils,msefileutils{$ifdef FPC},dateutils{$else},DateUtils{$endif},
  msearrayutils,msesysintf1,msedynload,msedate{$ifdef mse_debugmutex},mseapplication{$endif};
 
