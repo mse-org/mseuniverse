@@ -17520,8 +17520,11 @@ begin
     deleteitem(fwindowstack,typeinfo(windowstackinfoarty),int1);
    end;
   end;
-//  gui_raisewindow(winid,wo_popup in self.foptions);
+{$ifndef usesdl}
+ gui_raisewindow(winid,wo_popup in self.foptions);
+{$else}
   gui_raisewindow(winid);
+{$endif}
   include(fstate,aps_needsupdatewindowstack);
  end;
 end;
@@ -18374,8 +18377,10 @@ begin
  if fopacity <> avalue then begin
   fopacity:= avalue;
   if fwindow.id <> 0 then begin
- //  gui_setwindowopacity(fwindow.id,fopacity);
-  end;
+ {$ifndef usesdl}
+   gui_setwindowopacity(fwindow.id,fopacity);
+ {$endif}
+ end;
  end;
 end;
 
@@ -18442,7 +18447,11 @@ end;
 procedure twindow.processsysdnd(const event: twindowevent);
 var
  wi1: twidget;
-// obj1: tsysmimedragobject;
+ 
+ {$ifndef usesdl}
+obj1: tsysmimedragobject;
+{$endif}
+ 
  info: draginfoty;
  bo1: boolean;
 begin
@@ -18485,20 +18494,25 @@ begin
       wi1.dragevent(info);
      finally
       if fdndkind = dek_drop then begin
-      // gui_sysdnd(sdnda_finished,isysdnd(tsysmimedragobject(fsysdragobject)),
-        //                                                           nullrect,bo1);
+{$ifndef usesdl}
+    gui_sysdnd(sdnda_finished,isysdnd(tsysmimedragobject(fsysdragobject)),nullrect,bo1);
+{$endif}    
       end
       else begin
        if info.accept then begin
-       // gui_sysdnd(sdnda_accept,isysdnd(tsysmimedragobject(fsysdragobject))
-         //                                                        ,nullrect,bo1);
+{$ifndef usesdl}
+   gui_sysdnd(sdnda_accept,isysdnd(tsysmimedragobject(fsysdragobject)),nullrect,bo1);
+{$endif} 
        end
        else begin
-       // gui_sysdnd(sdnda_reject,isysdnd(tsysmimedragobject(fsysdragobject)),
-         //                                                          nullrect,bo1);
+{$ifndef usesdl}
+       gui_sysdnd(sdnda_reject,isysdnd(tsysmimedragobject(fsysdragobject)),nullrect,bo1);
+{$endif}  
        end;
       end;
- //     obj1.free;
+{$ifndef usesdl}
+     obj1.free;
+{$endif}
      end;
     end;
    end;
@@ -19369,7 +19383,12 @@ begin
       else begin
        gui_setwindowfocus(fmodalwindow.fwindow.id);
       end;
-      gui_raisewindow(fmodalwindow.fwindow.id);
+        {$ifndef usesdl}
+         gui_raisewindow(fmodalwindow.fwindow.id,wo_popup in fmodalwindow.options);
+         {$else}
+         gui_raisewindow(fmodalwindow.fwindow.id);
+        {$endif}
+      
      end;
     end;
    end;
@@ -21215,7 +21234,9 @@ begin
  else begin
   id:= awindow.winid;
  end;
- //gui_getppmm(id,result.re,result.im);
+{$ifndef usesdl}
+  gui_getppmm(id,result.re,result.im);
+ {$endif}
 end;
 
 function tguiapplication.normalactivewindow: twindow;

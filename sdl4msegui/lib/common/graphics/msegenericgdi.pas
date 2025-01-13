@@ -15,7 +15,8 @@ unit msegenericgdi;
 interface
 //{$checkpointer on}
 uses
- mseguiglob,msegraphics,msetypes,msegraphutils,sdl4msegui;
+ mseguiglob,msegraphics,msetypes,msegraphutils 
+{$ifdef usesdl},sdl4msegui{$endif};
 type
  rectextentty = integer;
  prectextentty = ^rectextentty;
@@ -1087,14 +1088,16 @@ begin
    end;
    freemem(pointer(source));
   end;
-  //SDL_RenderSetViewport(drawinfo.gc.handle,nil);
+{$ifdef usesdl}//SDL_RenderSetViewport(drawinfo.gc.handle,nil);
+{$endif}
  end;
 end;
 
 procedure gdi_copyregion(var drawinfo: drawinfoty); //gdifunc
 var
 // int1: integer;
- rect1: SDL_Rect;
+ {$ifdef usesdl}rect1: SDL_Rect;{$endif}
+
 begin
  with drawinfo.regionoperation do begin
   getmem(pointer(dest),sizeof(regioninfoty));
@@ -1109,11 +1112,13 @@ begin
    end;
    buffersize:= datasize;
   end;
+ {$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+{$endif}
  end;
 end;
 
@@ -1121,7 +1126,9 @@ procedure gdi_moveregion(var drawinfo: drawinfoty); //gdifunc
 var
  int1,int2: integer;
  po1: pstripety;
+{$ifdef usesdl}
  rect1: SDL_Rect;
+{$endif}
 begin
  with drawinfo.regionoperation do begin
   with pregioninfoty(dest)^ do begin
@@ -1145,11 +1152,13 @@ begin
     end;
    end;
   end;
+{$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+{$endif}
  end;
 end;
 
@@ -1164,17 +1173,21 @@ begin
 end;
 
 procedure gdi_regionclipbox(var drawinfo: drawinfoty); //gdifunc
+{$ifdef usesdl}
 var
  rect1: SDL_Rect;
+{$endif}
 begin
  with drawinfo.regionoperation do begin
   rect:= regextents(pregioninfoty(source)^);
+{$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
- end;
+{$endif} 
+end;
 end;
 
 procedure gdi_regsubrect(var drawinfo: drawinfoty); //gdifunc
@@ -1190,16 +1203,20 @@ begin
 end;
 
 procedure gdi_regsubregion(var drawinfo: drawinfoty); //gdifunc
+{$ifdef usesdl}
 var
  rect1: SDL_Rect;
+{$endif}
 begin
  with drawinfo.regionoperation do begin
   regionop(pregioninfoty(source)^,pregioninfoty(dest)^,reop_sub);
+{$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+{$endif}
  end;
 end;
 
@@ -1216,16 +1233,21 @@ begin
 end;
 
 procedure gdi_regaddregion(var drawinfo: drawinfoty); //gdifunc
+{$ifdef usesdl}
 var
  rect1: SDL_Rect;
+{$endif}
+
 begin
  with drawinfo.regionoperation do begin
   regionop(pregioninfoty(source)^,pregioninfoty(dest)^,reop_add);
-  rect1.x:= rect.x;
+{$ifdef usesdl} 
+ rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+{$endif}
  end;
 end;
 
@@ -1233,31 +1255,39 @@ procedure gdi_regintersectrect(var drawinfo: drawinfoty); //gdifunc
 var
  stri1: regionrectstripety;
  ext1: rectextentty;
+{$ifdef usesdl}
  rect1: SDL_Rect;
+{$endif}
 begin
  with drawinfo.regionoperation do begin
   if recttostripe(rect,ext1,stri1) then begin
    stripeop(pregioninfoty(dest)^,ext1,@stri1,reop_intersect);
   end;
+{$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
- end;
+{$endif} 
+end;
 end;
 
 procedure gdi_regintersectregion(var drawinfo: drawinfoty); //gdifunc
+{$ifdef usesdl}
 var
  rect1: SDL_Rect;
+{$endif}
 begin
  with drawinfo.regionoperation do begin
   regionop(pregioninfoty(source)^,pregioninfoty(dest)^,reop_intersect);
+{$ifdef usesdl}
   rect1.x:= rect.x;
   rect1.y:= rect.y;
   rect1.w:= rect.cx;
   rect1.h:= rect.cy;
   //SDL_RenderSetViewport(drawinfo.gc.handle,@rect1);
+{$endif}
  end;
 end;
 
