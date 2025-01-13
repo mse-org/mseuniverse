@@ -13,8 +13,8 @@ unit mseguiintf;
 
 interface
 uses
- mseapplication,msetypes,msegraphutils,
- mseevent,msepointer,mseguiglob,msegraphics,
+ mseapplication,msetypes,msegraphutils, msesys, 
+  mseevent,msepointer,mseguiglob,msegraphics,
  msethread,mseformatstr,msestrings,msesystypes,
  sdl4msegui,msesdlgdi,dateutils,msegenericgdi;
 
@@ -304,7 +304,7 @@ begin
  result:= SDL_CheckError('copytoclipboard');
 end;
 
-function gui_canpastefromclipboard: boolean;
+function gui_canpastefromclipboard(): boolean;
 begin
  result:= SDL_HasClipboardText;
  SDL_CheckError('canpastefromclipboard');

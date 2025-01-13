@@ -71,7 +71,7 @@ end;
 procedure gdi_createpixmap(var drawinfo: drawinfoty); //gdifunc
 begin
  with drawinfo.createpixmap do begin
-  pixmap:= gui_createpixmap(size,0,monochrome,copyfrom);
+  pixmap:= gui_createpixmap(size,0,false,copyfrom);
  end;
 end;
 
