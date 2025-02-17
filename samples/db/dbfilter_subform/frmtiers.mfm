@@ -1,0 +1,71 @@
+inherited frmtiersfo: tfrmtiersfo
+  bounds_x = 80
+  bounds_y = 368
+  bounds_cy = 506
+  container.bounds = (
+    0
+    0
+    1164
+    506
+  )
+  options = [fo_main, fo_freeonclose, fo_screencentered, fo_createmodal, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savezorder, fo_savestate]
+  oncreated = WhenCreated
+  onloaded = Whenloaded
+  moduleclassname = 'tbasetabsfo'
+  inherited tdbnavigator1: tdbnavigator
+  end
+  inherited tlayouter1: tlayouter
+    inherited tlabel1: tlabel
+    end
+    inherited tlabel2: tlabel
+    end
+    inherited tlabel3: tlabel
+    end
+    inherited tlabel4: tlabel
+    end
+    inherited tstringdisp1: tstringdisp
+    end
+  end
+  inherited ttabwidget1: ttabwidget
+    bounds_cx = 751
+    bounds_cy = 402
+    activepageindex = 1
+    object ttabpage1: ttabpage[0]
+      color = 15790320
+      frame.framewidth = 1
+      frame.colorframe = 10855845
+      frame.hiddenedges = [edg_top]
+      frame.localprops = [frl_framewidth, frl_colorframe, frl_hiddenedges]
+      frame.localprops1 = []
+      taborder = 1
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 751
+      bounds_cy = 384
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '     1       '
+      ongetsubform = WhenGetSubForm
+      oninitsubform = WhenInitSubForm
+    end
+    object ttabpage2: ttabpage[1]
+      color = 15790320
+      frame.framewidth = 1
+      frame.colorframe = 10855845
+      frame.hiddenedges = [edg_top]
+      frame.localprops = [frl_framewidth, frl_colorframe, frl_hiddenedges]
+      frame.localprops1 = []
+      taborder = 2
+      bounds_x = 0
+      bounds_y = 18
+      bounds_cx = 751
+      bounds_cy = 384
+      anchors = [an_left, an_top, an_right, an_bottom]
+      caption = '     2      '
+      ongetsubform = WhenGetSubForm
+      oninitsubform = WhenInitSubForm
+    end
+  end
+  inherited ds: tmsedatasource
+    DataSet = DMAINmo.tmsesqlquery1
+  end
+end

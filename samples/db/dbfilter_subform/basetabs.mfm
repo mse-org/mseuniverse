@@ -1,0 +1,87 @@
+inherited basetabsfo: tbasetabsfo
+  bounds_x = 379
+  bounds_y = 403
+  bounds_cx = 1164
+  bounds_cy = 194
+  container.bounds = (
+    0
+    0
+    1164
+    194
+  )
+  onloaded = WhenCreated
+  moduleclassname = 'tfrmbasefo'
+  inherited tdbnavigator1: tdbnavigator
+  end
+  inherited tlayouter1: tlayouter
+    bounds_x = 1
+    bounds_cx = 1159
+    inherited tlabel1: tlabel
+    end
+    inherited tlabel2: tlabel
+    end
+    inherited tlabel3: tlabel
+    end
+    inherited tlabel4: tlabel
+    end
+    inherited tstringdisp1: tstringdisp
+    end
+  end
+  object ttabwidget1: ttabwidget[2]
+    bounds_x = 5
+    bounds_y = 66
+    bounds_cx = 378
+    bounds_cy = 250
+    taborder = 2
+    tab_fontactivetab.style = [fs_bold]
+    tab_fontactivetab.name = 'stf_default'
+    tab_fontactivetab.localprops = [flp_style]
+    tab_frame.colorframe = -2147483645
+    tab_frame.optionsskin = [fso_flat]
+    tab_frame.localprops = [frl_colorframe, frl_frameimagelist, frl_frameimageleft, frl_frameimageright, frl_frameimagebottom, frl_optionsskin]
+    tab_frame.localprops1 = []
+    tab_imagepos = ip_left
+    tab_edge_colordkshadow = -2147483645
+    tab_edge_colorshadow = -2147483645
+    tab_edge_colorlight = -2147483645
+    tab_edge_colorhighlight = 10855845
+    tab_frametab.framei_top = 2
+    tab_frametab.framei_bottom = 2
+    tab_frametab.frameimage_list = DMAINmo.timagelist1
+    tab_frametab.frameimage_left = -4
+    tab_frametab.frameimage_right = -4
+    tab_frametab.frameimage_top = -4
+    tab_frametab.frameimage_bottom = -4
+    tab_frametab.optionsskin = [fso_flat, fso_noanim, fso_noclickanim, fso_nofocusanim, fso_nofocusrect, fso_nodefaultrect, fso_noinnerrect]
+    tab_frametab.hiddenedges = [edg_bottom]
+    tab_frametab.localprops = [frl_leveli, frl_framewidth, frl_colorframe, frl_hiddenedges, frl_fitop, frl_fibottom, frl_frameimagelist, frl_frameimageleft, frl_frameimagetop, frl_frameimageright, frl_frameimagebottom, frl_optionsskin]
+    tab_frametab.localprops1 = []
+    tab_facetab.fade_pos.count = 2
+    tab_facetab.fade_pos.items = (
+      0
+      1
+    )
+    tab_facetab.fade_color.count = 2
+    tab_facetab.fade_color.items = (
+      16250871
+      15263976
+    )
+    tab_facetab.fade_direction = gd_down
+    tab_facetab.localprops = []
+    tab_faceactivetab.fade_pos.count = 2
+    tab_faceactivetab.fade_pos.items = (
+      0
+      1
+    )
+    tab_faceactivetab.fade_color.count = 2
+    tab_faceactivetab.fade_color.items = (
+      -1610612730
+      15790320
+    )
+    tab_faceactivetab.fade_direction = gd_down
+    tab_faceactivetab.localprops = [fal_options, fal_framei_left, fal_framei_right, fal_framei_bottom, fal_fadirection, fal_faopacity]
+    tab_size = 18
+  end
+  inherited ds: tmsedatasource[3]
+  end
+end

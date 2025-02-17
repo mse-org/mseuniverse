@@ -1,0 +1,83 @@
+inherited tsubfo: ttsubfo
+  bounds_x = 252
+  bounds_y = 81
+  bounds_cx = 345
+  bounds_cy = 270
+  moduleclassname = 'tfrmbasePagefo'
+  object TDBgroup1: TDBgroup[0]
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    frame.framewidth = 1
+    frame.colorframeactive = -1610612729
+    frame.localprops = [frl_framewidth, frl_colorframeactive]
+    frame.localprops1 = []
+    onenter = DoenterGroup
+    onexit = DoexitGroup
+    bounds_x = 8
+    bounds_y = 8
+    bounds_cx = 326
+    bounds_cy = 250
+    DataSource = DMAINmo.tmsedatasource1
+    object tdbstringedit3: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'DEPT_NO'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        1
+        0
+      )
+      bounds_x = 25
+      bounds_y = 99
+      bounds_cx = 48
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'DEPT_NO'
+      reffontheight = 13
+    end
+    object tdbstringedit1: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'DEPARTMENT'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 22
+      bounds_y = 49
+      bounds_cx = 170
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'DEPARTMENT'
+      reffontheight = 13
+    end
+    object tdbintegeredit1: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'MNGR_NO'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 22
+      bounds_y = 9
+      bounds_cx = 55
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'MNGR_NO'
+      reffontheight = 13
+    end
+  end
+end

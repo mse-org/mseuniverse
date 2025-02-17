@@ -1,0 +1,20 @@
+object mainfo: tmainfo
+  visible = False
+  bounds_x = 11
+  bounds_y = 32
+  bounds_cx = 213
+  bounds_cy = 178
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    213
+    178
+  )
+  optionswindow = [wo_groupleader]
+  options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
+  windowopacity = -Inf
+  oncreated = WhenCreated
+  moduleclassname = 'tmseform'
+end

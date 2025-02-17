@@ -1,0 +1,178 @@
+inherited TiersPaiefo: tTiersPaiefo
+  frame = nil
+  bounds_x = 175
+  bounds_y = 410
+  bounds_cx = 632
+  bounds_cy = 263
+  align_mode = wam_none
+  align_leader = TDBgroup1
+  top = 1
+  moduleclassname = 'tfrmbasePagefo'
+  object TDBgroup1: TDBgroup[0]
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_parenttabfocus, ow_arrowfocus, ow_arrowfocusin, ow_arrowfocusout, ow_subfocus, ow_destroywidgets]
+    frame.framewidth = 1
+    frame.colorframeactive = -1610612729
+    frame.localprops = [frl_framewidth, frl_colorframeactive]
+    frame.localprops1 = []
+    onenter = DoenterGroup
+    onexit = DoexitGroup
+    bounds_x = 7
+    bounds_y = 8
+    bounds_cx = 326
+    bounds_cy = 250
+    DataSource = DMAINmo.tmsedatasource1
+    object tdbstringedit3: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'DEPT_NO'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        1
+        0
+      )
+      bounds_x = 25
+      bounds_y = 99
+      bounds_cx = 48
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'DEPT_NO'
+      reffontheight = 13
+    end
+    object tdbstringedit1: tdbstringedit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'DEPARTMENT'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 1
+      bounds_x = 22
+      bounds_y = 49
+      bounds_cx = 170
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'DEPARTMENT'
+      reffontheight = 13
+    end
+    object tdbintegeredit1: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      frame.caption = 'MNGR_NO'
+      frame.localprops = []
+      frame.localprops1 = []
+      frame.outerframe = (
+        0
+        16
+        0
+        0
+      )
+      taborder = 2
+      bounds_x = 22
+      bounds_y = 9
+      bounds_cx = 55
+      bounds_cy = 31
+      datalink.datasource = DMAINmo.tmsedatasource1
+      datalink.fieldname = 'MNGR_NO'
+      reffontheight = 13
+    end
+  end
+  object tdbwidgetgrid1: tdbwidgetgrid[1]
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+    frame.levelo = 0
+    frame.framewidth = 1
+    frame.colorframeactive = -1610612729
+    frame.sbvert.pagesize = 0
+    frame.localprops = [frl_levelo, frl_framewidth, frl_colorframeactive]
+    frame.localprops1 = []
+    taborder = 1
+    onenter = DoenterGroup
+    onexit = DoexitGroup
+    bounds_x = 338
+    bounds_y = 8
+    bounds_cx = 287
+    bounds_cy = 250
+    fixcols.count = 1
+    fixcols.items = <    
+      item
+        width = 15
+      end>
+    fixrows.count = 1
+    fixrows.items = <    
+      item
+        height = 15
+        captions.count = 3
+        captions.items = <        
+          item
+            caption = 'EMP_NO'
+          end        
+          item
+            caption = 'JOB_GRAD'
+          end        
+          item
+            caption = 'SALARY'
+          end>
+      end>
+    datacols.count = 3
+    datacols.items = <    
+      item[tdbintegeredit2]
+        widgetname = 'tdbintegeredit2'
+      end    
+      item[tdbintegeredit3]
+        width = 57
+        widgetname = 'tdbintegeredit3'
+      end    
+      item[tdbintegeredit4]
+        widgetname = 'tdbintegeredit4'
+      end>
+    datalink.datasource = DMAINmo.tmsedatasource2
+    datarowheight = 15
+    reffontheight = 13
+    object tdbintegeredit2: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 1
+      visible = False
+      bounds_x = 0
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 15
+      datalink.datasource = DMAINmo.tmsedatasource2
+      datalink.fieldname = 'EMP_NO'
+      reffontheight = 13
+    end
+    object tdbintegeredit3: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 2
+      visible = False
+      bounds_x = 51
+      bounds_y = 0
+      bounds_cx = 57
+      bounds_cy = 15
+      datalink.datasource = DMAINmo.tmsedatasource2
+      datalink.fieldname = 'JOB_GRADE'
+      reffontheight = 13
+    end
+    object tdbintegeredit4: tdbintegeredit
+      optionswidget1 = [ow1_fontglyphheight]
+      optionsskin = [osk_framebuttononly]
+      taborder = 3
+      visible = False
+      bounds_x = 109
+      bounds_y = 0
+      bounds_cx = 50
+      bounds_cy = 15
+      datalink.datasource = DMAINmo.tmsedatasource2
+      datalink.fieldname = 'SALARY'
+      reffontheight = 13
+    end
+  end
+end

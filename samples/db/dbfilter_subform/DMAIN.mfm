@@ -1,0 +1,222 @@
+object DMAINmo: tDMAINmo
+  bounds_cx = 174
+  bounds_cy = 313
+  left = 114
+  top = 306
+  moduleclassname = 'tmsedatamodule'
+  object tfb3connection1: tfb3connection
+    Connected = True
+    DatabaseName = 'EMPLOYEE.FDB'
+    Transaction = tmsesqltransaction1
+    Password = 'masterkey'
+    UserName = 'sysdba'
+    Role = '3'
+    left = 24
+    top = 8
+  end
+  object tmsesqltransaction1: tmsesqltransaction
+    Active = True
+    Database = tfb3connection1
+    left = 16
+    top = 48
+  end
+  object tmsesqlquery1: tmsesqlquery
+    beforebeginfilteredit = BeforeFilterEdit
+    afterfilterchanged = afterFilterChanged
+    Active = True
+    params = <>
+    SQL.data = (
+      'select * from department'
+    )
+    IndexDefs = <    
+      item
+        Name = 'BUDGETX'
+      end    
+      item
+        Name = 'RDB$4'
+      end    
+      item
+        Name = 'RDB$FOREIGN10'
+      end    
+      item
+        Name = 'RDB$FOREIGN6'
+      end    
+      item
+        Name = 'RDB$PRIMARY5'
+      end>
+    tablename = 'department'
+    database = tfb3connection1
+    OnFilterRecord = filterRec
+    Transaction = tmsesqltransaction1
+    FieldDefs = <    
+      item
+        Name = 'DEPT_NO'
+        DataType = ftString
+        Size = 3
+      end    
+      item
+        Name = 'DEPARTMENT'
+        DataType = ftString
+        Size = 25
+      end    
+      item
+        Name = 'HEAD_DEPT'
+        DataType = ftString
+        Size = 3
+      end    
+      item
+        Name = 'MNGR_NO'
+        DataType = ftSmallint
+      end    
+      item
+        Name = 'BUDGET'
+        DataType = ftBCD
+      end    
+      item
+        Name = 'LOCATION'
+        DataType = ftString
+        Size = 15
+      end    
+      item
+        Name = 'PHONE_NO'
+        DataType = ftString
+        Size = 20
+      end>
+    left = 24
+    top = 88
+    streamingversion = 1
+  end
+  object tmsesqlquery2: tmsesqlquery
+    beforebeginfilteredit = BeforeFilterEdit
+    afterfilterchanged = afterFilterChanged
+    Active = True
+    params = <    
+      item
+        DataType = ftUnknown
+        Name = 'n'
+        ParamType = ptInput
+      end>
+    SQL.data = (
+      'select * from employee where DEPt_no=:n'
+    )
+    IndexDefs = <    
+      item
+        Name = 'NAMEX'
+      end    
+      item
+        Name = 'RDB$FOREIGN8'
+      end    
+      item
+        Name = 'RDB$FOREIGN9'
+      end    
+      item
+        Name = 'RDB$PRIMARY7'
+      end>
+    tablename = 'employee'
+    database = tfb3connection1
+    OnFilterRecord = filterRec
+    Transaction = tmsesqltransaction1
+    FieldDefs = <    
+      item
+        Name = 'EMP_NO'
+        DataType = ftSmallint
+      end    
+      item
+        Name = 'FIRST_NAME'
+        DataType = ftString
+        Size = 15
+      end    
+      item
+        Name = 'LAST_NAME'
+        DataType = ftString
+        Size = 20
+      end    
+      item
+        Name = 'PHONE_EXT'
+        DataType = ftString
+        Size = 4
+      end    
+      item
+        Name = 'HIRE_DATE'
+        DataType = ftDateTime
+      end    
+      item
+        Name = 'DEPT_NO'
+        DataType = ftString
+        Size = 3
+      end    
+      item
+        Name = 'JOB_CODE'
+        DataType = ftString
+        Size = 5
+      end    
+      item
+        Name = 'JOB_GRADE'
+        DataType = ftSmallint
+      end    
+      item
+        Name = 'JOB_COUNTRY'
+        DataType = ftString
+        Size = 15
+      end    
+      item
+        Name = 'SALARY'
+        DataType = ftBCD
+      end    
+      item
+        Name = 'FULL_NAME'
+        DataType = ftString
+        Size = 37
+      end>
+    left = 16
+    top = 120
+    streamingversion = 1
+  end
+  object tmsedatasource1: tmsedatasource
+    DataSet = tmsesqlquery1
+    left = 16
+    top = 160
+  end
+  object tmsedatasource2: tmsedatasource
+    DataSet = tmsesqlquery2
+    left = 40
+    top = 184
+  end
+  object tfieldparamlink1: tfieldparamlink
+    fieldname = 'DEPT_NO'
+    datasource = tmsedatasource1
+    destdataset = tmsesqlquery2
+    paramname = 'n'
+    left = 48
+    top = 232
+  end
+  object tifistringlinkcomp1: tifistringlinkcomp
+    left = 24
+    top = 264
+  end
+  object timagelist1: timagelist
+    width = 4
+    height = 4
+    count = 8
+    cornermask_topleft = #2#1
+    cornermask_bottomleft = #2#1
+    cornermask_bottomright = #2#1
+    cornermask_topright = #2#1
+    left = 160
+    top = 144
+    image = {
+      00000000020000000C0000000C00000000010000000000000000000000000000
+      000000000000000000000000000000000000000000000002A5A5A50300000003
+      A5A5A5010000000486868601DCDCDC01FFFFFF01A5A5A50100000003A5A5A501
+      000000037C7C7C0100000003A5A5A50100000003A5A5A50100000003A5A5A501
+      00000003A5A5A50100000003A5A5A5010000000AA5A5A50100000003A5A5A501
+      00000006E8E8E801A5A5A50100000002E8E8E801A5A5A50100000006E5E5E501
+      A5A5A50100000002E5E5E501A5A5A50100000005DCDCDC0100000001A5A5A501
+      00000001DCDCDC0100000001A5A5A503CCCCCC0100000001A5A5A50400000004
+      FFFFFF01DCDCDC019494940100000004FFFFFF0100000005FFFFFF0100000001
+      8C8C8C010000000ADCDCDC01A5A5A501000000081CF1FFFF1EF1FFFF11F1FFFF
+      11F1FFFF80F8FFFFC0FCFFFFC0FCFFFFA0FAFFFFF7F0FFFF87F0FFFF0AF0FFFF
+      0CF0FFFF
+    }
+  end
+end
