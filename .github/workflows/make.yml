@@ -41,10 +41,14 @@ jobs:
         ' >/dev/null
         while read -r; do
           if [[ -f "${REPLY%.*}.pas" ]]; then
-            if (fpc -B -Fuuse/mseide-msegui/lib/common/* -Fuuse/mseide-msegui/lib/common/kernel/linux "${REPLY%.*}.pas"); then
-                printf '{}: \x1b[%32mSUCCESS\x1b[0m\n' "${REPLY%.*}.pas"
+            if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
+                    -Fuuse/mseide-msegui/lib/common/* \
+                    -B "${REPLY%.*}.pas"); then
+              printf '{}: \x1b[%32mSUCCESS\x1b[0m\n' "${REPLY%.*}.pas"
             else
-                printf '{}: \x1b[%32mFAIL\x1b[0m\n'    "${REPLY%.*}.pas"
-            fi | grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)' | tee >&2
+              printf '{}: \x1b[%32mFAIL\x1b[0m\n'    "${REPLY%.*}.pas"
+            fi |
+              grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)' |
+              tee >&2
           fi
-        done < <(find '.' -type 'f' -name '*.prj') >/dev/null
+        done < <(find '.' -type 'f' -name '*.prj')
