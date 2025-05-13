@@ -9,14 +9,23 @@ case ${ID:?} in
     ' >/dev/null ;;
 esac
 while read -r; do
-    if [[ -f "${REPLY%.*}.pas" ]]; then
-        if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
-                -Fuuse/mseide-msegui/lib/common/* \
-                -B "${REPLY%.*}.pas"); then
-            printf 'exitCode:\tSUCCES\t\x1b[32m%s\x1b[0m\n' "${REPLY}"
-        else
-            printf 'exitCode:\tERROR\t\x1b[31m%s\x1b[0m\n'    "${REPLY}"
-        fi |
-            grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)'
+    declare -i exitCode=0
+    mapfile -t < <(
+        if ! [[ ${REPLY} =~ /use/ ]] && [[ -f "${REPLY%.*}.pas" ]]; then
+            if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
+                    -Fuuse/mseide-msegui/lib/common/* \
+                    -B "${REPLY%.*}.pas"); then
+                printf 'SUCCES\t\x1b[32m%s\x1b[0m\n' "${REPLY}" >&2
+                printf 'exitCode:0\n'
+            else
+                printf 'ERROR\t\x1b[31m%s\x1b[0m\n'  "${REPLY}" >&2
+                printf 'exitCode:1\n'
+            fi |
+                grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)'
+        fi
+    )
+    printf '%s\n' "${MAPFILE[@]}"
+    if ((${MAPFILE[-1]##*:})); then
+        exitCode+=${MAPFILE[-1]##*:}
     fi
 done < <(find '.' -type 'f' -name '*.prj')
