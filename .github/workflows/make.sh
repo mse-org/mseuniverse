@@ -8,8 +8,8 @@ case ${ID:?} in
         apt-get update; apt-get -y install lazarus
     ' >/dev/null ;;
 esac
+declare -i exitCode=0
 while read -r; do
-    declare -i exitCode=0
     mapfile -t < <(
         if ! [[ ${REPLY} =~ /use/ ]] && [[ -f "${REPLY%.*}.pas" ]]; then
             if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
@@ -24,10 +24,9 @@ while read -r; do
                 grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)'
         fi
     )
-    if ((${MAPFILE[-1]##*:})); then
+    if ((${#MAPFILE[@]})) && ((${MAPFILE[-1]##*:})); then
         exitCode+=${MAPFILE[-1]##*:}
-        printf '%s\n' "${MAPFILE[@]}"
-    else
-        printf '%s\n' "${MAPFILE[0]}"
     fi
+    printf '%s\n' "${MAPFILE[@]}"
 done < <(find '.' -type 'f' -name '*.prj')
+exit "${exitCode}"
