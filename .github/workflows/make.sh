@@ -8,8 +8,8 @@ case ${ID:?} in
         apt-get update; apt-get -y install lazarus
     ' >/dev/null ;;
 esac
+declare -i exitCode=0
 while read -r; do
-    declare -i exitCode=0
     mapfile -t < <(
         if ! [[ ${REPLY} =~ /use/ ]] && [[ -f "${REPLY%.*}.pas" ]]; then
             if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
@@ -29,3 +29,4 @@ while read -r; do
     fi
     printf '%s\n' "${MAPFILE[@]}"
 done < <(find '.' -type 'f' -name '*.prj')
+exit "${exitCode}"
