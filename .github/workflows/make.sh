@@ -24,10 +24,8 @@ while read -r; do
                 grep --extended-regexp '(Error:|Fatal:|Linking|exitCode)'
         fi
     )
-    declare -i len="${#MAPFILE[@]}"
-    ((len-=1))
-    if ((${MAPFILE[-1]##*:})); then
-        exitCode+=${MAPFILE[${len}]##*:}
+    if ((${#MAPFILE[@]})) && ((${MAPFILE[-1]##*:})); then
+        exitCode+=${MAPFILE[-1]##*:}
         printf '%s\n' "${MAPFILE[@]}"
     else
         printf '%s\n' "${MAPFILE[0]}"
