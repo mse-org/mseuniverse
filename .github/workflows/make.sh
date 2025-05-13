@@ -27,7 +27,5 @@ while read -r; do
     if ((${MAPFILE[-1]##*:})); then
         exitCode+=${MAPFILE[-1]##*:}
         printf '%s\n' "${MAPFILE[@]}"
-    else
-        printf '%s\n' "${MAPFILE[0]}"
     fi
 done < <(find '.' -type 'f' -name '*.prj')
