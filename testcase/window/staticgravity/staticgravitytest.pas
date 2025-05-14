@@ -5,7 +5,7 @@ program staticgravitytest;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- x,xlib,xutil,msetypes,mseguiintf;
+ mx,mxlib,mxutil,msetypes,mseguiintf;
 
 const
  xpos1 = 100;
@@ -25,7 +25,7 @@ begin
   win_gravity:= staticgravity;
   background_pixel:= 0;
  end;
- id:= xcreatewindow(msedisplay,mserootwindow,xpos1,ypos1,width1,height1,0,
+ id:= xcreatewindow(msedisplay,gui_getrootwindow(),xpos1,ypos1,width1,height1,0,
             copyfromparent,copyfromparent,pvisual(copyfromparent),
             cwwingravity or cwbackpixel,@attributes);
  if id <> 0 then begin
