@@ -8,13 +8,16 @@ case ${ID:?} in
         apt-get update; apt-get -y install lazarus
     ' >/dev/null ;;
 esac
+declare -ar OPS=(
+    -Fuuse/mseide-msegui/lib/common/{*,kernel/linux}
+    -Fuuse/bgrabitmap/bgrabitmap
+    -Futools/*
+)
 declare -i exitCode=0
 while read -r; do
     mapfile -t < <(
         if ! [[ ${REPLY} =~ /use/ ]] && [[ -f "${REPLY%.*}.pas" ]]; then
-            if (fpc -Fuuse/mseide-msegui/lib/common/kernel/linux \
-                    -Fuuse/mseide-msegui/lib/common/* \
-                    -B "${REPLY%.*}.pas"); then
+            if (fpc "${OPS[@]}" -B "${REPLY%.*}.pas"); then
                 printf 'SUCCES\t\x1b[32m%s\x1b[0m\n' "${REPLY}" >&2
                 printf 'exitCode:0\n'
             else
