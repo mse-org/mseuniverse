@@ -15,7 +15,7 @@ var
  mainfo: tmainfo;
 implementation
 uses
- main_mfm,form1,form2,form3,x,xlib,xutil;
+ main_mfm,form1,form2,form3,mx,mxlib,mxutil;
  
 procedure tmainfo.exe(const sender: TObject);
 var

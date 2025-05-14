@@ -2,7 +2,7 @@ unit main;
 {$ifdef FPC}{$mode objfpc}{$h+}{$INTERFACES CORBA}{$endif}
 interface
 uses
- msegui,mseclasses,mseforms,msepqconnection,msesqldb,msedb,msedbedit,mseactions,
+ msegui,mseclasses,msetypes,mseforms,msepqconnection,msesqldb,msedb,msedbedit,mseactions,
  msesimplewidgets,msemenus,db,msegrids,planetseditform,continentseditform,
  countrieseditform,featureseditform, occupationseditform,mseglob;
  

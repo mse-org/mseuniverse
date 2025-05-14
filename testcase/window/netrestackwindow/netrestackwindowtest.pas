@@ -5,7 +5,7 @@ program netrestackwindowtest;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}
- x,xlib,xutil,msetypes,mseguiintf,msesysintf,msestream,sysutils,msegraphutils;
+ mx,mxlib,mxutil,msetypes,mseguiintf,msesysintf,msestream,sysutils,msegraphutils;
 
 function sendnetcardinalmessage(const adest: winidty; const messagetype: atom;
          const aid: winidty; const adata: array of longword;

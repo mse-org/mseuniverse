@@ -18,9 +18,10 @@ object mainfo: tmainfo
   font.localprops = [flp_shadow_color, flp_xscale]
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   caption = 'The Galaxy Data Keeper'
+  windowopacity = -Inf
   moduleclassname = 'tmseform'
   object grdPersons: tdbstringgrid
-    frame.sbvert.pagesize = 0.45
+    frame.sbvert.pagesize = 1
     frame.localprops = []
     frame.localprops1 = []
     popupmenu = pupPersons
@@ -113,7 +114,7 @@ object mainfo: tmainfo
         frame.colorclient = -1610612716
         frame.localprops = [frl_levelo, frl_leveli, frl_framewidth, frl_colorframe, frl_fitop, frl_fibottom, frl_colorclient]
         frame.localprops1 = []
-        height = 36
+        height = 39
         captions.count = 7
         captions.items = <        
           item
@@ -143,9 +144,9 @@ object mainfo: tmainfo
             caption = #8470
           end>
       end>
-    datarowheight = 16
+    datarowheight = 19
     oncellevent = personsevent
-    reffontheight = 14
+    reffontheight = 17
   end
   object btnExit: tbutton
     frame.localprops = []
@@ -207,7 +208,6 @@ object mainfo: tmainfo
     caption = '&Delete..'
   end
   object conn: tmsepqconnection
-    Connected = True
     DatabaseName = 'serious_matters'
     Params.Strings = (
       'options=''--CLIENT_ENCODING=koi8'''
@@ -221,7 +221,6 @@ object mainfo: tmainfo
     top = 328
   end
   object trans: tmsesqltransaction
-    Active = True
     Database = conn
     Params.Strings = (
       ''
@@ -230,7 +229,6 @@ object mainfo: tmainfo
     top = 352
   end
   object qryPersons: tmsesqlquery
-    Active = True
     params = <>
     SQL.data = (
       'select'
@@ -262,84 +260,58 @@ object mainfo: tmainfo
       item
         Name = 'id'
         DataType = ftInteger
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'feature_id'
         DataType = ftInteger
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'occupation_id'
         DataType = ftInteger
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'country_id'
         DataType = ftInteger
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'descr'
         DataType = ftMemo
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'sexual_potention'
         DataType = ftFloat
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'photo'
         DataType = ftBlob
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'country'
         DataType = ftMemo
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'occupation'
         DataType = ftMemo
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'feature'
         DataType = ftMemo
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'if_happy'
         DataType = ftBoolean
-        Precision = -1
-        Size = 0
       end    
       item
         Name = 'dateofbirth'
         DataType = ftDate
-        Precision = -1
-        Size = 0
       end>
-    onapplyrecupdate = personsupdate
     left = 80
     top = 328
+    streamingversion = 1
     object fldSexPotention: tmsefloatfield
       FieldName = 'sexual_potention'
       Index = 0
       DisplayFormat = '##.##'
-      MaxValue = 0
-      MinValue = 0
       left = 432
       top = 114
     end
