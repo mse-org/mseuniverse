@@ -34,7 +34,7 @@ Attid attid@yandex.ru
 interface
 
 uses
- mseglob,msegui,mseclasses,mseforms,msesimplewidgets,msemenus,msereport,
+ mseglob,mseguiglob,msegui,mseclasses,mseforms,msesimplewidgets,msemenus,msereport,
  msedbedit,msesqldb,msedb,msedbgraphics,mseevent,mseactions,msebitmap,
  mseibconnection,msefiledialog, msestrings,msesplitter,msegraphics,
  msegraphutils,msewidgets,msedataedits,mseedit,msepostscriptprinter,mseprinter,
@@ -102,7 +102,6 @@ uses
  msestream, // ttextstream
  sysutils,  // gettemp*
  mseprocutils, //execmse2 
- mseguiglob,  // bt_left
  msefileutils, // tosysfilepath 
  msepointer; // cursorshapety
 
@@ -248,7 +247,7 @@ begin
     //showmessage(tmpfilename);
     myreport.render(myps,ttextstream.create(tmpfilename,fm_create));
     myreport.waitfor; // wait while report create file
-    execwaitmse(tosysfilepath(printcmd.value)+' '+tmpfilename,false);//evince
+    execwaitmse(tosysfilepath(printcmd.value)+' '+tmpfilename);//evince
   end;  
 
 

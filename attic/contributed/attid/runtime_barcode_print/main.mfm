@@ -1,48 +1,53 @@
 object mainfo: tmainfo
-  optionswidget = [ow_arrowfocus, ow_subfocus, ow_destroywidgets, ow_hinton, ow_autoscale]
   bounds_x = 68
   bounds_y = 262
   bounds_cx = 568
   bounds_cy = 403
-  taborder = 1
-  container.optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_subfocus, ow_mousetransparent, ow_destroywidgets, ow_autoscale]
-  container.bounds_x = 0
-  container.bounds_y = 0
-  container.bounds_cx = 568
-  container.bounds_cy = 403
-  container.frame.dummy = 0
+  container.frame.localprops = []
+  container.frame.localprops1 = []
+  container.bounds = (
+    0
+    0
+    568
+    403
+  )
   optionswindow = [wo_groupleader]
   options = [fo_main, fo_terminateonclose, fo_screencentered, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
   caption = 'Testcase project for TReport'
+  windowopacity = -Inf
   oncreate = formcreate
   moduleclassname = 'tmseform'
   object r_pb: tpaintbox
+    optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_mousewheel, ow_destroywidgets]
+    frame.localprops = []
+    frame.localprops1 = []
+    taborder = 3
+    onpaint = bkpaint
+    visible = False
     bounds_x = 168
     bounds_y = 176
     bounds_cx = 178
     bounds_cy = 114
-    taborder = 3
-    visible = False
-    onpaint = bkpaint
   end
   object efon: teventwidget
     Tag = 3
+    color = -1610612730
+    taborder = 2
     bounds_x = 8
     bounds_y = 88
     bounds_cx = 186
     bounds_cy = 170
-    color = -1610612730
-    taborder = 2
     onmouseevent = onmouseevent
     object barcode: timage
       optionsskin = [osk_container, osk_nopropwidth, osk_nopropheight]
+      frame.localprops = []
+      frame.localprops1 = []
+      taborder = 3
       bounds_x = 8
       bounds_y = 24
       bounds_cx = 162
       bounds_cy = 72
-      frame.dummy = 0
-      taborder = 3
       bitmap.alignment = [al_stretchx, al_stretchy]
       bitmap.image = {
         0000000000000000BA0000006800000024A40000000000000000000000000000
@@ -1363,70 +1368,69 @@ object mainfo: tmainfo
       }
       object ebarcode: teventwidget
         Tag = 2
+        color = -2147483645
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 162
         bounds_cy = 72
-        color = -2147483645
         anchors = []
         onmouseevent = onmouseevent
       end
     end
     object bk: tstringdisp
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale, ow_autosize]
+      color = -2147483645
       bounds_x = 40
       bounds_y = 104
-      bounds_cy = 17
-      color = -2147483645
+      bounds_cy = 21
       value = 'CODE'
-      reffontheight = 13
+      reffontheight = 17
       object ebk: teventwidget
         Tag = 6
+        color = -2147483645
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 100
-        bounds_cy = 11
-        color = -2147483645
+        bounds_cy = 21
         anchors = []
         onmouseevent = onmouseevent
       end
     end
     object num: tlabel
-      bounds_x = 128
-      bounds_y = 139
-      bounds_cx = 22
-      bounds_cy = 13
       color = -2147483645
       taborder = 2
+      bounds_x = 128
+      bounds_y = 139
+      bounds_cx = 29
+      bounds_cy = 17
       caption = 'NUM'
-      reffontheight = 13
+      reffontheight = 17
       object enum: teventwidget
         Tag = 5
+        color = -2147483645
         bounds_x = 0
         bounds_y = 0
-        bounds_cx = 28
-        bounds_cy = 15
-        color = -2147483645
+        bounds_cx = 29
+        bounds_cy = 17
         anchors = []
         onmouseevent = onmouseevent
       end
     end
     object ser: tstringdisp
+      color = -2147483645
+      taborder = 1
       bounds_x = 16
       bounds_y = 136
       bounds_cx = 60
-      bounds_cy = 17
-      color = -2147483645
-      taborder = 1
+      bounds_cy = 21
       value = 'SERIA'
-      reffontheight = 13
+      reffontheight = 17
       object eser: teventwidget
         Tag = 4
+        color = -2147483645
         bounds_x = 0
         bounds_y = 0
         bounds_cx = 60
-        bounds_cy = 19
-        color = -2147483645
+        bounds_cy = 21
         anchors = []
         onmouseevent = onmouseevent
       end
@@ -1442,404 +1446,405 @@ object mainfo: tmainfo
     caption = 'print'
     font.height = 50
     font.name = 'stf_default'
-    font.xscale =  1.0000000000000000E+0000
-    font.dummy = 0
+    font.xscale = 1
+    font.localprops = [flp_xscale, flp_height]
     onexecute = create_report_with_out_hate_mouse
   end
   object myfilenameedit: tfilenameedit
-    bounds_x = 8
-    bounds_y = 8
-    bounds_cx = 404
-    bounds_cy = 35
     frame.caption = 'File to print'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
     frame.button.imagenr = 17
-    frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      20
       0
       0
     )
     taborder = 1
     hint = 'select file to print (test.csv)'
+    bounds_x = 8
+    bounds_y = 4
+    bounds_cx = 404
+    bounds_cy = 43
     statfile = tstatfile1
-    reffontheight = 13
+    reffontheight = 17
   end
   object tsimplewidget1: tsimplewidget
+    taborder = 4
+    visible = True
     bounds_x = 374
     bounds_y = 104
     bounds_cx = 194
     bounds_cy = 178
     anchors = [an_top, an_right]
-    taborder = 4
-    visible = True
     object tlabel2: tlabel
       bounds_x = 8
       bounds_y = 8
-      bounds_cx = 31
-      bounds_cy = 13
+      bounds_cx = 35
+      bounds_cy = 17
       caption = 'Seria :'
-      reffontheight = 13
+      reffontheight = 17
     end
     object sx: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 79
-      bounds_y = 8
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'X'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 1
+      bounds_x = 78
+      bounds_y = 8
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object sy: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 143
-      bounds_y = 8
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'Y'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 2
+      bounds_x = 142
+      bounds_y = 8
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object tlabel5: tlabel
+      taborder = 3
       bounds_x = 8
       bounds_y = 32
-      bounds_cx = 28
-      bounds_cy = 13
-      taborder = 3
+      bounds_cx = 33
+      bounds_cy = 17
       caption = 'Num :'
-      reffontheight = 13
+      reffontheight = 17
     end
     object nx: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 79
-      bounds_y = 32
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'X'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 4
+      bounds_x = 78
+      bounds_y = 32
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object ny: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 143
-      bounds_y = 32
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'Y'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 5
+      bounds_x = 142
+      bounds_y = 32
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object tlabel8: tlabel
+      taborder = 6
       bounds_x = 8
       bounds_y = 56
-      bounds_cx = 32
-      bounds_cy = 13
-      taborder = 6
+      bounds_cx = 35
+      bounds_cy = 17
       caption = 'Code :'
-      reffontheight = 13
+      reffontheight = 17
     end
     object cx: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 79
-      bounds_y = 56
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'X'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 7
+      bounds_x = 78
+      bounds_y = 56
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object cy: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 143
-      bounds_y = 56
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'Y'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 8
+      bounds_x = 142
+      bounds_y = 56
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object tlabel11: tlabel
+      taborder = 9
       bounds_x = 8
       bounds_y = 80
-      bounds_cx = 46
-      bounds_cy = 13
-      taborder = 9
+      bounds_cx = 53
+      bounds_cy = 17
       caption = 'Barcode :'
-      reffontheight = 13
+      reffontheight = 17
     end
     object bx: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 79
-      bounds_y = 80
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'X'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 10
+      bounds_x = 78
+      bounds_y = 80
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object by: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 143
-      bounds_y = 80
-      bounds_cx = 45
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'Y'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        9
+        10
         0
         0
         0
       )
       taborder = 11
+      bounds_x = 142
+      bounds_y = 80
+      bounds_cx = 46
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object bh: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 78
-      bounds_y = 104
-      bounds_cx = 46
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'H'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        10
+        12
         0
         0
         0
       )
       taborder = 12
+      bounds_x = 76
+      bounds_y = 104
+      bounds_cx = 48
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object bw: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 139
-      bounds_y = 104
-      bounds_cx = 49
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'W'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        13
+        14
         0
         0
         0
       )
       taborder = 13
+      bounds_x = 138
+      bounds_y = 104
+      bounds_cx = 50
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object zw: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 139
-      bounds_y = 128
-      bounds_cx = 49
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'W'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        13
+        14
         0
         0
         0
       )
       taborder = 14
+      bounds_x = 138
+      bounds_y = 128
+      bounds_cx = 50
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object zh: tintegeredit
-      optionswidget = [ow_destroywidgets, ow_fontglyphheight, ow_autoscale]
-      bounds_x = 78
-      bounds_y = 128
-      bounds_cx = 46
-      bounds_cy = 19
-      cursor = cr_default
       frame.levelo = -1
       frame.colorclient = -2147483645
       frame.caption = 'H'
       frame.captionpos = cp_left
       frame.localprops = [frl_levelo, frl_colorclient]
-      frame.dummy = 0
+      frame.localprops1 = []
       frame.outerframe = (
-        10
+        12
         0
         0
         0
       )
       taborder = 15
+      bounds_x = 76
+      bounds_y = 128
+      bounds_cx = 48
+      bounds_cy = 23
       statfile = tstatfile1
-      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_exitoncursor, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_savevalue, oe_savestate]
-      reffontheight = 13
+      optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate]
+      optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+      reffontheight = 17
     end
     object tlabel18: tlabel
+      taborder = 16
       bounds_x = 8
       bounds_y = 128
-      bounds_cx = 31
-      bounds_cy = 13
-      taborder = 16
+      bounds_cx = 34
+      bounds_cy = 17
       caption = 'Zone :'
-      reffontheight = 13
+      reffontheight = 17
     end
   end
   object printcmd: tfilenameedit
-    bounds_x = 8
-    bounds_y = 48
-    bounds_cx = 404
-    bounds_cy = 35
     frame.caption = 'command to print'
+    frame.localprops = []
+    frame.localprops1 = []
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        imagenr = 17
+      end>
     frame.button.imagenr = 17
-    frame.dummy = 0
     frame.outerframe = (
       0
-      16
+      20
       0
       0
     )
     taborder = 5
     hint = 'there can be kghostview,gnome-gv,gv,lp,evince,gsview32.exe'
+    bounds_x = 8
+    bounds_y = 44
+    bounds_cx = 404
+    bounds_cy = 43
     statfile = tstatfile1
-    reffontheight = 13
+    reffontheight = 17
   end
   object cbUsePipe: tbooleanedit
-    bounds_x = 416
-    bounds_y = 66
-    bounds_cx = 56
-    bounds_cy = 15
     frame.caption = 'use pipe'
-    frame.dummy = 0
+    frame.localprops = []
+    frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      43
-      1
+      3
+      50
+      3
     )
     taborder = 6
     hint = 'with pipe can work kghostview,gnome-gv,gv,lp'
+    bounds_x = 416
+    bounds_y = 64
+    bounds_cx = 63
+    bounds_cy = 19
     statfile = tstatfile1
   end
   object tstatfile1: tstatfile
