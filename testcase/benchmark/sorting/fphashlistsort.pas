@@ -1,6 +1,6 @@
 unit FPHashListSort;
 
-{ $mode objfpc}{$H-}
+{$mode objfpc}{$H-}
 
 interface
 uses
