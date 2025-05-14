@@ -3,7 +3,7 @@ unit main;
 interface
 uses
  mseglob,mseguiglob,mseapplication,msestat,msemenus,msegui,msegraphics,
- msegraphutils,mseevent,mseclasses,mseforms,msegrids,msestatfile,msestrings,
+ msegraphutils,mseevent,mseclasses,mseforms,msetypes,msegrids,msestatfile,msestrings,
  msesplitter;
 
 type
@@ -15,7 +15,7 @@ type
    procedure onlo(const sender: TObject);
   private
    procedure dodrawcell(const sender: tcol; const canvas: tcanvas;
-                   const cellinfo: cellinfoty);
+                   var cellinfo: cellinfoty);
  end;
 
 var
@@ -26,7 +26,7 @@ uses
  sysutils,mseeditglob,msedrawtext,main_mfm;
 
 procedure tmainfo.dodrawcell(const sender: tcol; const canvas: tcanvas;
-               const cellinfo: cellinfoty);
+               var cellinfo: cellinfoty);
 begin
  with cellinfo,cell do begin
   drawtext(canvas,'test '+inttostr(col)+','+inttostr(row),

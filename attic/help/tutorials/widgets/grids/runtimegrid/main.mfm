@@ -15,6 +15,7 @@ object mainfo: tmainfo
   options = [fo_main, fo_terminateonclose, fo_autoreadstat, fo_autowritestat, fo_savepos, fo_savestate]
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
   onloaded = onlo
   moduleclassname = 'tmseform'
   object tstringgrid1: tstringgrid
@@ -23,22 +24,22 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     bounds_x = 8
-    bounds_y = 15
+    bounds_y = 12
     bounds_cx = 200
-    bounds_cy = 259
+    bounds_cy = 262
     anchors = [an_left, an_top, an_right, an_bottom]
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
       end>
-    datarowheight = 16
-    reffontheight = 14
+    datarowheight = 19
+    reffontheight = 17
   end
   object tsplitter1: tsplitter
     color = -1879048189
@@ -59,15 +60,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 2
     bounds_x = 211
-    bounds_y = 15
+    bounds_y = 12
     bounds_cx = 183
-    bounds_cy = 259
+    bounds_cy = 262
     anchors = [an_left, an_top, an_right, an_bottom]
     datacols.count = 1
     datacols.items = <    
@@ -76,9 +77,9 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
       end>
-    reffontheight = 14
+    reffontheight = 17
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
