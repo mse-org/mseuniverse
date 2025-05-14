@@ -13,6 +13,7 @@ object mainfo: tmainfo
   )
   statfile = tstatfile1
   caption = 'MSEide+MSEgui'
+  windowopacity = -Inf
   oncreate = createexe
   ondestroy = destroyexe
   moduleclassname = 'tmainform'
@@ -35,12 +36,12 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
       end>
     rowcountmax = 10000
-    datarowheight = 16
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object tbutton1: tbutton
     hint = 'buttonihint'
@@ -67,17 +68,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 2
     hint = 'stringedit1hint'
     bounds_x = 16
-    bounds_y = 39
-    bounds_cy = 37
+    bounds_y = 36
+    bounds_cy = 43
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object tstringedit2: tstringedit
     frame.caption = 'stringedit2'
@@ -85,16 +86,16 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 3
     bounds_x = 120
-    bounds_y = 39
-    bounds_cy = 37
+    bounds_y = 36
+    bounds_cy = 43
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object tbooleanedit1: tbooleanedit
     frame.caption = 't&booleanedit1'
@@ -102,15 +103,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      91
-      2
+      3
+      80
+      3
     )
     taborder = 5
     bounds_x = 232
-    bounds_y = 19
-    bounds_cx = 104
-    bounds_cy = 16
+    bounds_y = 17
+    bounds_cx = 93
+    bounds_cy = 19
   end
   object tslider1: tslider
     frame.caption = 'tslider1'
@@ -119,17 +120,16 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 6
     bounds_x = 232
-    bounds_y = 39
+    bounds_y = 36
     bounds_cx = 137
-    bounds_cy = 37
+    bounds_cy = 40
     statfile = tstatfile1
-    value = 0
     scrollbar.face.localprops = []
   end
   object ttoolbar1: ttoolbar
@@ -142,7 +142,7 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
@@ -162,9 +162,9 @@ object mainfo: tmainfo
     face.localprops = [fal_fadirection]
     taborder = 7
     bounds_x = 672
-    bounds_y = 13
+    bounds_y = 10
     bounds_cx = 108
-    bounds_cy = 47
+    bounds_cy = 50
     buttons.count = 4
     buttons.imagelist = timagelist1
     buttons.face.fade_pos.count = 2
@@ -214,15 +214,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
-      17
+      20
+      14
       0
     )
     taborder = 8
     bounds_x = 788
-    bounds_y = 13
-    bounds_cx = 113
-    bounds_cy = 41
+    bounds_y = 10
+    bounds_cx = 103
+    bounds_cy = 47
     menu.Name = 'themenu'
     menu.itemframetemplate = tframecomp1
     menu.itemfacetemplate = tfacecomp1
@@ -303,15 +303,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 9
     bounds_x = 664
-    bounds_y = 217
+    bounds_y = 214
     bounds_cx = 226
-    bounds_cy = 270
+    bounds_cy = 273
     anchors = [an_left, an_top, an_bottom]
     datacols.count = 3
     datacols.items = <    
@@ -356,7 +356,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
         captions.count = 3
         captions.items = <        
           item
@@ -370,9 +370,9 @@ object mainfo: tmainfo
           end>
       end>
     rowcount = 5
-    datarowheight = 16
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object widgetgrid: twidgetgrid
     frame.localprops = []
@@ -386,7 +386,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
         captions.count = 3
         captions.items = <        
           item
@@ -416,9 +416,9 @@ object mainfo: tmainfo
         widgetname = 'ttextedit1'
         dataclass = tgridrichstringdatalist
       end>
-    datarowheight = 16
+    datarowheight = 19
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
     object tstringedit3: tstringedit
       optionsskin = [osk_framebuttononly]
       taborder = 1
@@ -426,8 +426,8 @@ object mainfo: tmainfo
       bounds_x = 0
       bounds_y = 0
       bounds_cx = 93
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 19
+      reffontheight = 17
     end
     object tintegeredit1: tintegeredit
       optionswidget1 = [ow1_fontglyphheight]
@@ -437,8 +437,8 @@ object mainfo: tmainfo
       bounds_x = 94
       bounds_y = 0
       bounds_cx = 91
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 19
+      reffontheight = 17
     end
     object ttextedit1: ttextedit
       optionswidget1 = [ow1_fontlineheight]
@@ -448,8 +448,8 @@ object mainfo: tmainfo
       bounds_x = 186
       bounds_y = 0
       bounds_cx = 131
-      bounds_cy = 16
-      reffontheight = 14
+      bounds_cy = 19
+      reffontheight = 17
     end
   end
   object assistivecaption: tstringdisp
@@ -458,17 +458,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 11
     bounds_x = 8
-    bounds_y = 536
+    bounds_y = 530
     bounds_cx = 196
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object assistivetext: tstringdisp
     frame.caption = 'Assistive Text'
@@ -476,17 +476,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 12
     bounds_x = 208
-    bounds_y = 536
+    bounds_y = 530
     bounds_cx = 196
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object assistivename: tstringdisp
     frame.caption = 'Assistive Name'
@@ -494,17 +494,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 13
     bounds_x = 8
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 196
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object intval: tintegerdisp
     frame.caption = 'Integervalue'
@@ -512,17 +512,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 14
     bounds_x = 312
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 92
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object stringval: tstringdisp
     frame.caption = 'Stringvalue'
@@ -530,16 +530,16 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 15
     bounds_x = 208
-    bounds_y = 496
-    bounds_cy = 35
+    bounds_y = 490
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object realval: trealdisp
     frame.caption = 'Realvalue'
@@ -547,21 +547,20 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 16
     bounds_x = 408
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 92
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
     valuerange = 1
-    valuestart = 0
     format = '0.###'
     value = -Inf
-    reffontheight = 14
+    reffontheight = 17
   end
   object datetimeval: tdatetimedisp
     frame.caption = 'Datetimevalue'
@@ -569,18 +568,18 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 17
     bounds_x = 504
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 92
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
     value = -Inf
-    reffontheight = 14
+    reffontheight = 17
   end
   object tintegeredit2: tintegeredit
     frame.caption = 'integeredit2'
@@ -588,16 +587,16 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 18
     bounds_x = 384
-    bounds_y = -1
-    bounds_cy = 37
+    bounds_y = -4
+    bounds_cy = 43
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object trealedit1: trealedit
     frame.caption = 'realedit1'
@@ -605,22 +604,21 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 19
     bounds_x = 384
-    bounds_y = 39
-    bounds_cy = 37
+    bounds_y = 36
+    bounds_cy = 43
     statfile = tstatfile1
     value = -Inf
     valuedefault = -Inf
     valuerange = 1
-    valuestart = 0
-    min = -Inf
-    max = 1E+038
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 1E+038
+    reffontheight = 17
   end
   object tdatetimeedit1: tdatetimeedit
     frame.caption = 'datetimeedit1'
@@ -628,20 +626,20 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 20
     bounds_x = 488
-    bounds_y = 39
-    bounds_cy = 37
+    bounds_y = 36
+    bounds_cy = 43
     statfile = tstatfile1
     value = -Inf
     valuedefault = -Inf
-    min = -Inf
-    max = 401768.99999
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 401768.99999
+    reffontheight = 17
   end
   object colmindi: tintegerdisp
     frame.caption = 'colmin'
@@ -649,17 +647,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 21
     bounds_x = 688
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 52
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object colmaxdi: tintegerdisp
     frame.caption = 'colmax'
@@ -667,17 +665,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 22
     bounds_x = 744
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object rowmaxdi: tintegerdisp
     frame.caption = 'rowmax'
@@ -685,17 +683,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 23
     bounds_x = 744
-    bounds_y = 536
+    bounds_y = 530
     bounds_cx = 60
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object rowmindi: tintegerdisp
     frame.caption = 'rowmin'
@@ -703,17 +701,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 24
     bounds_x = 688
-    bounds_y = 536
+    bounds_y = 530
     bounds_cx = 52
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object boolval: tbooleandisp
     frame.caption = 'Boolvalue'
@@ -721,20 +719,20 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
-      2
+      20
+      0
       0
     )
     taborder = 25
     bounds_x = 600
-    bounds_y = 496
-    bounds_cx = 62
-    bounds_cy = 35
+    bounds_y = 490
+    bounds_cx = 60
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
     textflags = [tf_ycentered]
     text_false = 'F'
     text_true = 'T'
-    reffontheight = 14
+    reffontheight = 17
   end
   object assistivehint: tstringdisp
     frame.caption = 'Assistive Hint'
@@ -742,17 +740,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 26
     bounds_x = 408
-    bounds_y = 536
+    bounds_y = 530
     bounds_cx = 188
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object assistivecaretindex: tintegerdisp
     frame.caption = 'Caretindex'
@@ -760,17 +758,17 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
-      9
+      20
+      3
       0
     )
     taborder = 27
     bounds_x = 600
-    bounds_y = 536
-    bounds_cx = 69
-    bounds_cy = 35
+    bounds_y = 530
+    bounds_cx = 63
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
-    reffontheight = 14
+    reffontheight = 17
   end
   object ttabbar1: ttabbar
     frame.localprops = []
@@ -779,7 +777,7 @@ object mainfo: tmainfo
     bounds_x = 16
     bounds_y = 96
     bounds_cx = 306
-    bounds_cy = 18
+    bounds_cy = 22
     tabs.count = 4
     tabs.hint = 'tabshint'
     tabs.items = <    
@@ -808,15 +806,15 @@ object mainfo: tmainfo
     taborder = 29
     tab_frame.localprops = []
     tab_frame.localprops1 = []
-    tab_size = 18
+    tab_size = 22
     object ttabpage1: ttabpage
       frame.localprops = []
       frame.localprops1 = []
       taborder = 1
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 22
       bounds_cx = 306
-      bounds_cy = 80
+      bounds_cy = 76
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'tabbpagea'
       tabhint = 'tabpahinta'
@@ -826,9 +824,9 @@ object mainfo: tmainfo
       frame.localprops1 = []
       taborder = 2
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 22
       bounds_cx = 306
-      bounds_cy = 80
+      bounds_cy = 76
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'tabpageb'
       tabhint = 'tabpahintb'
@@ -838,9 +836,9 @@ object mainfo: tmainfo
       frame.localprops1 = []
       taborder = 3
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 22
       bounds_cx = 306
-      bounds_cy = 80
+      bounds_cy = 76
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'tabpagec'
       tabhint = 'tabpahintc'
@@ -850,9 +848,9 @@ object mainfo: tmainfo
       frame.localprops1 = []
       taborder = 4
       bounds_x = 0
-      bounds_y = 18
+      bounds_y = 22
       bounds_cx = 306
-      bounds_cy = 80
+      bounds_cy = 76
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'tabpaged'
       tabhint = 'tabpahintd'
@@ -864,20 +862,20 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 30
     bounds_x = 808
-    bounds_y = 496
+    bounds_y = 490
     bounds_cx = 52
-    bounds_cy = 35
+    bounds_cy = 41
     anchors = [an_left, an_bottom]
     textflags = [tf_ycentered]
     text_false = 'F'
     text_true = 'T'
-    reffontheight = 14
+    reffontheight = 17
   end
   object tfacecomp1: tfacecomp
     template.fade_pos.count = 4
