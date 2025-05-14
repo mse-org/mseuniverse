@@ -12,6 +12,7 @@ object mainfo: tmainfo
     635
   )
   statfile = tstatfile1
+  windowopacity = -Inf
   oncreate = createev
   moduleclassname = 'tmainform'
   object tbooleanedit1: tbooleanedit
@@ -37,12 +38,12 @@ object mainfo: tmainfo
     datacols.count = 2
     datacols.items = <    
       item
-        width = 80
+        width = 70
         datafield = 'PK'
         textflags = [tf_right, tf_ycentered, tf_noselect]
       end    
       item
-        width = 160
+        width = 140
         datafield = 'STR1'
       end>
     datalink.datasource = dataso
@@ -55,7 +56,7 @@ object mainfo: tmainfo
     fixrows.count = 1
     fixrows.items = <    
       item
-        height = 16
+        height = 19
         captions.count = 2
         captions.items = <        
           item
@@ -65,8 +66,9 @@ object mainfo: tmainfo
             caption = 'STR1'
           end>
       end>
+    datarowheight = 23
     statfile = tstatfile1
-    reffontheight = 14
+    reffontheight = 17
   end
   object tdbnavigator1: tdbnavigator
     frame.localprops = []
@@ -87,11 +89,12 @@ object mainfo: tmainfo
     taborder = 5
     bounds_x = 336
     bounds_y = 8
+    bounds_cy = 23
     value = -Inf
     valuedefault = -Inf
-    min = -Inf
-    max = 401768.99999
-    reffontheight = 14
+    valuemin = -Inf
+    valuemax = 401768.99999
+    reffontheight = 17
   end
   object tbooleanedit2: tbooleanedit
     frame.localprops = []
@@ -114,8 +117,9 @@ object mainfo: tmainfo
     taborder = 6
     bounds_x = 8
     bounds_y = 296
+    bounds_cy = 23
     datalink.fieldname = 'bytes7'
-    reffontheight = 14
+    reffontheight = 17
   end
   object tdbstringedit2: tdbstringedit
     frame.localprops = []
@@ -123,8 +127,9 @@ object mainfo: tmainfo
     taborder = 7
     bounds_x = 112
     bounds_y = 296
+    bounds_cy = 23
     datalink.fieldname = 'varbytes10'
-    reffontheight = 14
+    reffontheight = 17
   end
   object tdbstringedit3: tdbstringedit
     frame.localprops = []
@@ -133,8 +138,9 @@ object mainfo: tmainfo
     bounds_x = 216
     bounds_y = 296
     bounds_cx = 164
+    bounds_cy = 23
     datalink.fieldname = 'guid1'
-    reffontheight = 14
+    reffontheight = 17
   end
   object bu1: tbutton
     taborder = 9
@@ -184,8 +190,8 @@ object mainfo: tmainfo
     bounds_x = 16
     bounds_y = 392
     bounds_cx = 52
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object tbutton5: tbutton
     taborder = 14
@@ -205,8 +211,8 @@ object mainfo: tmainfo
     bounds_x = 72
     bounds_y = 392
     bounds_cx = 52
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object tintegerdisp3: tintegerdisp
     Tag = 3
@@ -216,8 +222,8 @@ object mainfo: tmainfo
     bounds_x = 128
     bounds_y = 392
     bounds_cx = 52
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object tintegerdisp4: tintegerdisp
     Tag = 4
@@ -227,8 +233,8 @@ object mainfo: tmainfo
     bounds_x = 184
     bounds_y = 392
     bounds_cx = 52
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object tbooleanedit4: tbooleanedit
     Tag = 1
@@ -322,9 +328,9 @@ object mainfo: tmainfo
     taborder = 27
     bounds_x = 16
     bounds_y = 448
-    bounds_cy = 114
+    bounds_cy = 117
     textflags = [tf_ycentered, tf_wordbreak]
-    reffontheight = 14
+    reffontheight = 17
   end
   object versiondi: tstringdisp
     frame.localprops = []
@@ -333,9 +339,9 @@ object mainfo: tmainfo
     bounds_x = 120
     bounds_y = 448
     bounds_cx = 716
-    bounds_cy = 162
+    bounds_cy = 165
     textflags = [tf_wordbreak]
-    reffontheight = 14
+    reffontheight = 17
   end
   object maivers: tintegerdisp
     frame.localprops = []
@@ -344,8 +350,8 @@ object mainfo: tmainfo
     bounds_x = 280
     bounds_y = 424
     bounds_cx = 60
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object minvers: tintegerdisp
     frame.localprops = []
@@ -354,8 +360,8 @@ object mainfo: tmainfo
     bounds_x = 344
     bounds_y = 424
     bounds_cx = 52
-    bounds_cy = 18
-    reffontheight = 14
+    bounds_cy = 21
+    reffontheight = 17
   end
   object tbooleanedit8: tbooleanedit
     frame.caption = 'returning'
@@ -363,15 +369,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      1
-      61
-      2
+      3
+      55
+      3
     )
     taborder = 31
     bounds_x = 480
-    bounds_y = 7
-    bounds_cx = 74
-    bounds_cy = 16
+    bounds_y = 5
+    bounds_cx = 68
+    bounds_cy = 19
     onsetvalue = returningev
   end
   object tdbintegerdisp1: tdbintegerdisp
@@ -380,10 +386,10 @@ object mainfo: tmainfo
     taborder = 32
     bounds_x = 584
     bounds_y = 8
-    bounds_cy = 18
+    bounds_cy = 21
     datalink.datasource = datso2
     datalink.fieldname = 'pk'
-    reffontheight = 14
+    reffontheight = 17
   end
   object rowsret: tintegerdisp
     frame.caption = 'rowsreturned'
@@ -391,15 +397,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 33
     bounds_x = 464
-    bounds_y = 295
-    bounds_cy = 35
-    reffontheight = 14
+    bounds_y = 292
+    bounds_cy = 41
+    reffontheight = 17
   end
   object rowsaff: tintegerdisp
     frame.caption = 'rowsaffected'
@@ -407,15 +413,15 @@ object mainfo: tmainfo
     frame.localprops1 = []
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 34
     bounds_x = 568
-    bounds_y = 295
-    bounds_cy = 35
-    reffontheight = 14
+    bounds_y = 292
+    bounds_cy = 41
+    reffontheight = 17
   end
   object dbname: tfilenameedit
     frame.caption = 'createdatabase'
@@ -429,20 +435,20 @@ object mainfo: tmainfo
     frame.button.imagenr = 17
     frame.outerframe = (
       0
-      17
+      20
       0
       0
     )
     taborder = 35
     bounds_x = 464
-    bounds_y = 343
+    bounds_y = 340
     bounds_cx = 340
-    bounds_cy = 37
+    bounds_cy = 43
     statfile = tstatfile1
     optionsedit1 = [oe1_autopopupmenu, oe1_keyexecute, oe1_savevalue, oe1_savestate, oe1_saveoptions]
     optionsedit = [oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_forcereturncheckvalue, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_focusrectonreadonly]
     onsetvalue = createsetev
-    reffontheight = 14
+    reffontheight = 17
   end
   object conn: tmseibconnection
     DatabaseName = '/db/firebird_3_0/test.fdb'

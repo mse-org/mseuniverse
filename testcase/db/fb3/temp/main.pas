@@ -7,7 +7,7 @@ uses
  mseibconnection,sysutils,mdb,msebufdataset,msedb,mseifiglob,msesqldb,msqldb,
  msegraphedits,mseificomp,mseificompglob,msescrollbar,msedataedits,msedbedit,
  mseedit,msegrids,mselookupbuffer,msestatfile,msestream,msestrings,msesqlresult,
- msefbconnection,msesimplewidgets,msedbgraphics,msebitmap,msedatanodes,
+ msefb3connection,msesimplewidgets,msedbgraphics,msebitmap,msedatanodes,
  msefiledialog,mselistbrowser,msesys,msedbevents,msedispwidgets,mserichstring,
  msedbdispwidgets,mseact;
 //['{6C7A2561-16E6-4CAC-B4C6-16171480BE1D}']
@@ -87,7 +87,7 @@ type
    procedure createsetev(const sender: TObject; var avalue: msestring;
                    var accept: Boolean);
   public
-   db: tfbconnection;
+   db: tfb3connection;
  end;
 var
  mainfo: tmainfo;
@@ -123,7 +123,7 @@ ms.capacity:= ms.capacity+1;
 ms.free;
 }
 //exit;
- db:= tfbconnection.create(self);
+ db:= tfb3connection.create(self);
  db.options:= [fbo_sqlinfo];
  db.transaction:= trans;
  db.username:= 'SYSDBA';
@@ -233,7 +233,7 @@ end;
 procedure tmainfo.sqlresexe(const sender: TObject);
 begin
  sqlres.active:= true;
- memodi.value:= sqlres.cols.colbyname('textblob').asmsestring;
+ memodi.value:= sqlres.datacols.colbyname('textblob').asmsestring;
  sqlres.active:= false;
 end;
 
