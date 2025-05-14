@@ -173,7 +173,7 @@ options=114
  value=
  [projectoptionsfo.makegroupbox]
  firsttab=0
- index=3
+ index=2
  [projectoptionsfo.exceptionsgrid]
  propcolwidthref=761
  width0=47
@@ -524,17 +524,14 @@ settingsstorage=0
 settingsprojecttree=0
 settingsautoload=0
 settingsautosave=0
-modulenames=1
- MAINFO
-moduletypes=1
- TMAINFO
-modulefiles=1
- /home/fred/mseuniverse_fixes/attic/contributed/attid/runtime_barcode_print/main.mfm
+modulenames=0
+moduletypes=0
+modulefiles=0
 befcommandon=0
 makeoptionson=4
  63
  31
- 34
+ 38
  32
 compilerusedon=29
  4095
@@ -845,38 +842,39 @@ findhistory=11
  quotefilename
  quotedfname
 findoptions=1
-editpos=3
+editpos=4
  0,243
- 0,0
- 0,6
+ 0,-1073741823
+ 0,-1073741823
+ 0,9
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
-sourcefiles=3
+bookmarks3=0
+sourcefiles=4
  ${PROJECTDIR}/main.pas
  /home/fred/mseide-msegui/apps/ide/objectinspector.mfm
  ${PROJECTDIR}/printtest.pas
-relpaths=3
+ ${PROJECTDIR}/main.mfm
+relpaths=4
  main.pas
- ../../../../mseide-msegui/apps/ide/objectinspector.mfm
+ ../../../mseide-msegui/apps/ide/objectinspector.mfm
  printtest.pas
-ismoduletexts=3
+ main.mfm
+ismoduletexts=4
  0
  0
  0
-modules=1
- /home/fred/mseuniverse_fixes/attic/contributed/attid/runtime_barcode_print/main.mfm
-moduleoptions=1
- 0
-visiblemodules=1
  -1
-nomenumodules=1
- 0
+modules=0
+moduleoptions=0
+visiblemodules=0
+nomenumodules=0
 [sourcefo.files_tab]
 firsttab=0
-index=2
+index=0
 [layout]
-windowlayout=529
+windowlayout=530
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -920,8 +918,8 @@ windowlayout=529
  ncy=0
  x=495
  y=172
- cx=497
- cy=314
+ cx=700
+ cy=467
  rcx=0
  rcy=0
  wsize=0
@@ -1117,10 +1115,10 @@ windowlayout=529
  [breakpointsfo.bkptson]
  value=1
  [objectinspectorfo.grid]
- propcolwidthref=394
- width0=94
+ propcolwidthref=441
+ width0=105
  sortdescend0=0
- width1=294
+ width1=330
  sortdescend1=0
  [symbolfo]
  splitdir=0
@@ -1284,7 +1282,7 @@ windowlayout=529
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=findinfilefo
+ stackedunder=cpui386fo
  parent=
  mdistate=0
  nx=0
@@ -1341,8 +1339,9 @@ windowlayout=529
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/mseuniverse_fixes/attic/contributed/attid/runtime_barcode_print/main.mfm
- history=2
+ value=/home/fred/mseuniverse_fixes/attic/contributed/attid/runtime_barcode_print/main.pas
+ history=3
+  /home/fred/mseuniverse_fixes/attic/contributed/attid/runtime_barcode_print/main.mfm
   /home/fred/ideU/src/main.pas
   ${PROJECTDIR}/main.pas
  [debuggerfo.project_options]
@@ -1367,29 +1366,9 @@ windowlayout=529
  rcy=0
  [sourcefo.files_tab]
  firsttab=0
- index=3
+ index=0
  [confideufo.usedefaulteditoroptions]
  value=0
- [cpui386fo]
- irqoff=0
- splitdir=0
- useroptions=268451947
- stackedunder=stackfo
- parent=
- mdistate=3
- nx=0
- ny=0
- ncx=0
- ncy=0
- x=337
- y=295
- cx=273
- cy=207
- rcx=0
- rcy=0
- wsize=0
- active=0
- visible=0
  [mainfo.panel1]
  splitdir=1
  useroptions=302022123
@@ -1406,6 +1385,26 @@ windowlayout=529
  cy=620
  rcx=0
  rcy=0
+ [cpui386fo]
+ irqoff=0
+ splitdir=0
+ useroptions=268451947
+ stackedunder=objectinspectorfo
+ parent=
+ mdistate=3
+ nx=0
+ ny=0
+ ncx=0
+ ncy=0
+ x=337
+ y=295
+ cx=273
+ cy=207
+ rcx=0
+ rcy=0
+ wsize=0
+ active=0
+ visible=0
 [targetconsole]
 finddtext=
 findhistory=0
