@@ -3,9 +3,16 @@ program rawdemo;
 {$ifdef FPC}
  {$ifdef mswindows}{$apptype gui}{$endif}
 {$endif}
+
+ {$ifdef mswindows} // windows only
 uses
- {$ifdef FPC}{$ifdef linux}cthreads,{$endif}{$endif}msegui,mseforms,main;
+ msegui,mseforms,main;
+ {$endif}
 begin
+{$ifdef mswindows} // windows only
  application.createform(tmainfo,mainfo);
  application.run;
+{$else}
+ writeln('Windows only, sorry...');
+{$endif}
 end.
