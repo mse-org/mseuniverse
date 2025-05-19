@@ -4,3 +4,9 @@
 [submodule "use/bgrabitmap"]
 	path = use/bgrabitmap
 	url = git@github.com:bgrabitmap/bgrabitmap.git
+[submodule "apps/gorg64"]
+	path = apps/gorg64
+	url = https://codeberg.org/Alexander2024/gorg64.git
+[submodule "apps/WavvieW"]
+	path = apps/WavvieW
+	url = git@github.com:fredvs/WavvieW.git
