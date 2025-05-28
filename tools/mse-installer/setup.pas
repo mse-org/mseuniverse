@@ -5,7 +5,7 @@ program setup;
 {$endif}
 uses
  {$ifdef FPC}{$ifdef linux}cthreads,cwstring,{$endif}{$endif}msegui,mseforms,mainsetup,skinblue,
- zipper,msestrings,globmodul,msepointer,msefileutils;
+ zipper,msestrings, msetypes, globmodul,msepointer,msefileutils;
 
 {$ifdef mswindows} 
  {$R mse-installer-icon.res} 

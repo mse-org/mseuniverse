@@ -106,7 +106,7 @@ begin
    str3:= strtobytestr(str2);
    applogo.helpcontext:= str1;
    applogo.bitmap.source:= nil;
-   applogo.bitmap.loadfromstring(str3,str1);
+   applogo.bitmap.loadfromstring(str3,str1,[]);
   end else begin
    applogo.bitmap.source:= bmplogo;
   end;
@@ -115,15 +115,15 @@ begin
  mstr1:= reader.readmsestring('value','Application Name');
  appname.caption:= mstr1;
  self.caption:= mstr1+' Installation';
- fmacro.add(['APPNAME'],[mstr1]);
+ fmacro.add(['APPNAME'],[mstr1],[]);
  reader.findsection('mainfo.appversion');
  mstr1:= reader.readmsestring('value','Version');
  appversion.caption:= 'Version : ' + mstr1;
- fmacro.add(['APPVERSION'],[mstr1]);
+ fmacro.add(['APPVERSION'],[mstr1],[]);
  reader.findsection('mainfo.companyname');
  mstr1:= reader.readmsestring('value','');
  wcompanyname.caption:= mstr1;
- fmacro.add(['COMPANYNAME'],[mstr1]);
+ fmacro.add(['COMPANYNAME'],[mstr1],[]);
  reader.findsection('mainfo.copyright');
  mstr1:= reader.readmsestring('value','');
  if mstr1='' then begin
@@ -132,15 +132,15 @@ begin
   mstr1:= concatstrings(strar1,lineend);
  end;
  wcopyright.caption:= mstr1;
- fmacro.add(['COPYRIGHT'],[mstr1]);
+ fmacro.add(['COPYRIGHT'],[mstr1],[]);
  reader.findsection('mainfo.appwebsite');
  mstr1:= reader.readmsestring('value','');
  www.caption:= mstr1;
- fmacro.add(['WEBSITE'],[mstr1]);
+ fmacro.add(['WEBSITE'],[mstr1],[]);
  reader.findsection('mainfo.apptagline');
  mstr1:= reader.readmsestring('value','');
  wtagline.caption:= mstr1;
- fmacro.add(['APPTAGLINE'],[mstr1]);
+ fmacro.add(['APPTAGLINE'],[mstr1],[]);
  //file list
  reader.findsection('mainfo.wfilelist');
  strar1:= nil;
@@ -293,7 +293,7 @@ var
  strar1: msestringarty;
  mstr1: msestring;
 begin
- fmacro.add([wref.value],[removeendpath(wtargetfolder.value)]);
+ fmacro.add([wref.value],[removeendpath(wtargetfolder.value)],[]);
  strar1:= wtmp.gridvalues;
  int2:= length(strar1);
  for int1:=0 to int2-1 do begin
@@ -352,7 +352,7 @@ begin
  strar1:= reader.readarray('valuear',strar1);
  mstr1:= concatstrings(strar1,lineend);
  appdescription.value:= mstr1;
- fmacro.add(['APPDESCRIPTION'],[mstr1]);
+ fmacro.add(['APPDESCRIPTION'],[mstr1],[]);
  //forms
  reader.findsection('mainfo.wforms');
  strar1:= reader.readarray('values1',strar1);
@@ -361,7 +361,7 @@ begin
  if strar2[0]<>'' then begin
   str1:= filename(strar2[0]);
   wimgintro.bitmap.source:= nil;
-  wimgintro.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1));
+  wimgintro.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1),[]);
  end else begin
   wimgintro.bitmap.source:= bmpintro;
  end;
@@ -369,7 +369,7 @@ begin
  if strar2[1]<>'' then begin
   str1:= filename(strar2[1]);
   wimglocation.bitmap.source:= nil;
-  wimglocation.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1));
+  wimglocation.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1),[]);
  end else begin
   wimglocation.bitmap.source:= bmplocation;
  end;
@@ -377,7 +377,7 @@ begin
  if strar2[2]<>'' then begin
   str1:= filename(strar2[2]);
   wimgcopy.bitmap.source:= nil;
-  wimgcopy.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1));
+  wimgcopy.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1),[]);
  end else begin
   wimgcopy.bitmap.source:= bmpinstall;
  end;
@@ -385,7 +385,7 @@ begin
  if strar2[3]<>'' then begin
   str1:= filename(strar2[3]);
   wimgfinish.bitmap.source:= nil;
-  wimgfinish.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1));
+  wimgfinish.bitmap.loadfromfile(tmpdir+'formimages/'+str1,fileext(str1),[]);
  end else begin
   wimgfinish.bitmap.source:= bmpfinish;
  end;

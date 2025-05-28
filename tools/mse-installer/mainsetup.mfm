@@ -1,10 +1,10 @@
 object mainsetupfo: tmainsetupfo
-  bounds_x = 100
-  bounds_y = 137
+  bounds_x = 336
+  bounds_y = 246
   bounds_cx = 666
   bounds_cy = 397
-  container.frame.zoomwidthstep = 1
-  container.frame.zoomheightstep = 1
+  container.frame.localprops = []
+  container.frame.localprops1 = []
   container.bounds = (
     0
     0
@@ -129,16 +129,16 @@ object mainsetupfo: tmainsetupfo
     0000000000000000000000000000000000000000000000000000000000000000
     000000000000000000000000000000000000000000000000
   }
+  windowopacity = -Inf
   onloaded = mainsetupfo_onloaded
   onclose = mainsetupfo_onclose
   moduleclassname = 'tmainform'
   object applogo: timage
     optionsskin = [osk_noskin]
-    frame.zoomwidthstep = 1
-    frame.zoomheightstep = 1
     frame.font.xscale = 1
-    frame.font.dummy = 0
+    frame.font.localprops = [flp_xscale]
     frame.localprops = [frl_levelo, frl_leveli]
+    frame.localprops1 = []
     bounds_x = 37
     bounds_y = 6
     bounds_cx = 132
@@ -163,8 +163,7 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold, fs_italic]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
-    reffontheight = 29
+    font.localprops = [flp_color, flp_shadow_color, flp_shadow_shiftx, flp_shadow_shifty, flp_style, flp_xscale, flp_height]
   end
   object appversion: tlabel
     optionswidget1 = []
@@ -180,8 +179,7 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
-    reffontheight = 19
+    font.localprops = [flp_color, flp_shadow_color, flp_style, flp_xscale, flp_height]
   end
   object ttabwidget1: ttabwidget
     bounds_x = 175
@@ -191,150 +189,165 @@ object mainsetupfo: tmainsetupfo
     frame.levelo = -1
     frame.leveli = 3
     frame.localprops = [frl_levelo, frl_leveli]
-    frame.dummy = 0
+    frame.localprops1 = []
     anchors = [an_left, an_top, an_right, an_bottom]
     taborder = 3
     activepageindex = 0
     onactivepagechanged = ttabwidget1_onactivepagechanged
-    tab_captionframe_left = 4
-    tab_captionframe_right = 4
-    tab_size = 19
+    tab_frame.localprops = []
+    tab_frame.localprops1 = []
+    tab_frametab.framei_left = 4
+    tab_frametab.framei_right = 4
+    tab_frametab.localprops = []
+    tab_frametab.localprops1 = []
+    tab_size = 22
     object wintro: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 1
-      visible = True
       bounds_x = 4
-      bounds_y = 23
+      bounds_y = 26
       bounds_cx = 475
-      bounds_cy = 216
+      bounds_cy = 213
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Introduction'
       object wimgintro: timage
         optionsskin = [osk_noskin]
-        frame.zoomwidthstep = 1
-        frame.zoomheightstep = 1
         frame.font.xscale = 1
-        frame.font.dummy = 0
+        frame.font.localprops = [flp_xscale]
         frame.localprops = [frl_levelo, frl_leveli]
+        frame.localprops1 = []
         bounds_x = 311
         bounds_y = 0
         bounds_cx = 162
-        bounds_cy = 216
+        bounds_cy = 213
         anchors = [an_right]
         bitmap.options = [bmo_masked, bmo_colormask]
         bitmap.source = bmpintro
         bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
       end
       object introdescription: tmemoedit
-        optionswidget = [ow_mousefocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
         frame.colorclient = -2147483645
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         taborder = 1
         bounds_x = 5
         bounds_y = 6
         bounds_cx = 300
-        bounds_cy = 204
+        bounds_cy = 201
         anchors = [an_left, an_top, an_right, an_bottom]
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
+        reffontheight = 17
       end
     end
     object ttabpage2: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 2
       enabled = False
       bounds_x = 4
-      bounds_y = 23
+      bounds_y = 26
       bounds_cx = 475
-      bounds_cy = 216
+      bounds_cy = 213
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Install Location'
       object wimglocation: timage
         optionsskin = [osk_noskin]
-        frame.zoomwidthstep = 1
-        frame.zoomheightstep = 1
         frame.font.xscale = 1
-        frame.font.dummy = 0
+        frame.font.localprops = [flp_xscale]
         frame.localprops = [frl_levelo, frl_leveli]
+        frame.localprops1 = []
         bounds_x = 311
         bounds_y = 0
         bounds_cx = 162
-        bounds_cy = 216
+        bounds_cy = 213
         anchors = [an_right]
         bitmap.options = [bmo_masked, bmo_colormask]
         bitmap.source = bmplocation
         bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
       end
       object locationdescription: tmemoedit
-        optionswidget = [ow_mousefocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
         frame.colorclient = -2147483645
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         taborder = 1
         bounds_x = 5
         bounds_y = 6
         bounds_cx = 300
         bounds_cy = 85
         anchors = [an_left, an_top, an_right]
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
+        reffontheight = 17
       end
       object wlocation: twidgetgrid
         frame.caption = 'List of target folders'
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
-          18
+          20
           0
           0
         )
         taborder = 2
         bounds_x = 5
-        bounds_y = 96
+        bounds_y = 94
         bounds_cx = 300
-        bounds_cy = 114
+        bounds_cy = 113
         anchors = [an_left, an_top, an_right, an_bottom]
         optionsgrid = [og_colsizing, og_rowsizing, og_focuscellonenter, og_rowheight, og_colchangeontabkey, og_wrapcol, og_autopopup, og_mousescrollcol]
         datacols.count = 3
         datacols.items = <        
-          item
+          item[wtarget]
             width = 146
             options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
             options1 = [co1_rowfont, co1_rowcolor, co1_zebracolor, co1_autorowheight]
             widgetname = 'wtarget'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wtargetfolder]
             width = 129
             widgetname = 'wtargetfolder'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wref]
             width = 18
             options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             widgetname = 'wref'
             dataclass = tgridmsestringdatalist
           end>
-        datarowheight = 16
-        reffontheight = 15
+        datarowheight = 22
+        reffontheight = 17
         object wtarget: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 1
           visible = False
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 146
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+          bounds_cy = 22
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
           textflags = [tf_wordbreak, tf_noselect]
           textflagsactive = [tf_wordbreak]
-          reffontheight = 15
+          reffontheight = 17
         end
         object wtargetfolder: tfilenameedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           frame.levelo = 0
           frame.colorclient = -2147483645
           frame.localprops = [frl_levelo, frl_leveli, frl_colorclient]
+          frame.localprops1 = []
+          frame.buttons.count = 1
+          frame.buttons.items = <          
+            item
+              width = 15
+              color = -1879048187
+              imagenr = 17
+            end>
           frame.button.width = 15
           frame.button.color = -1879048187
           frame.button.imagenr = 17
@@ -343,238 +356,234 @@ object mainsetupfo: tmainsetupfo
           bounds_x = 147
           bounds_y = 0
           bounds_cx = 129
-          bounds_cy = 16
+          bounds_cy = 22
           textflags = [tf_noselect]
           textflagsactive = []
           ondataentered = wtargetfolder_ondataentered
           controller.options = [fdo_directory, fdo_savelastdir]
-          reffontheight = 15
+          reffontheight = 17
         end
         object wref: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 3
           visible = False
           bounds_x = 277
           bounds_y = 0
           bounds_cx = 18
-          bounds_cy = 16
-          reffontheight = 15
+          bounds_cy = 22
+          reffontheight = 17
         end
       end
     end
     object tabcopyfiles: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 3
       enabled = False
       bounds_x = 4
-      bounds_y = 23
+      bounds_y = 26
       bounds_cx = 475
-      bounds_cy = 216
+      bounds_cy = 213
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Copy Files to System'
       object wimgcopy: timage
         optionsskin = [osk_noskin]
-        frame.zoomwidthstep = 1
-        frame.zoomheightstep = 1
         frame.font.xscale = 1
-        frame.font.dummy = 0
+        frame.font.localprops = [flp_xscale]
         frame.localprops = [frl_levelo, frl_leveli]
+        frame.localprops1 = []
         bounds_x = 311
         bounds_y = 0
         bounds_cx = 162
-        bounds_cy = 216
+        bounds_cy = 213
         anchors = [an_right]
         bitmap.options = [bmo_masked, bmo_colormask]
         bitmap.source = bmpinstall
         bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
       end
       object copydescription: tmemoedit
-        optionswidget = [ow_mousefocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
         frame.colorclient = -2147483645
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         taborder = 1
         bounds_x = 5
         bounds_y = 6
         bounds_cx = 300
         bounds_cy = 45
         anchors = [an_left, an_top, an_right]
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
+        reffontheight = 17
       end
       object wfilelist: twidgetgrid
         frame.caption = 'List of target folders'
+        frame.localprops = []
+        frame.localprops1 = []
         frame.outerframe = (
           0
-          18
+          20
           0
           0
         )
         taborder = 2
         bounds_x = 5
-        bounds_y = 56
+        bounds_y = 54
         bounds_cx = 300
-        bounds_cy = 131
+        bounds_cy = 130
         anchors = [an_left, an_top, an_right, an_bottom]
         datacols.count = 8
         datacols.items = <        
-          item
+          item[wfilecopy]
             width = 202
             options = [co_readonly, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'filestore'
             widgetname = 'wfilecopy'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wcopyto]
             width = 26
             options = [co_readonly, co_fill, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'folder'
             widgetname = 'wcopyto'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wprogramgroup]
             width = 10
             options = [co_readonly, co_nofocus, co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'programgroup'
             widgetname = 'wprogramgroup'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wprogramname]
             width = 10
             options = [co_readonly, co_nofocus, co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'programname'
             widgetname = 'wprogramname'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wiconfile]
             width = 10
             options = [co_nofocus, co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'iconfile'
             widgetname = 'wiconfile'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wdesktop]
             width = 10
             options = [co_readonly, co_nofocus, co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             name = 'desktop'
             widgetname = 'wdesktop'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[wtmp]
             width = 10
             options = [co_invisible, co_savevalue, co_savestate, co_mousescrollrow]
             widgetname = 'wtmp'
             dataclass = tgridmsestringdatalist
           end        
-          item
+          item[woverwrite]
             width = 10
             widgetname = 'woverwrite'
             dataclass = tgridintegerdatalist
           end>
-        datarowheight = 16
-        reffontheight = 15
+        datarowheight = 30
+        reffontheight = 17
         object wfilecopy: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 1
           visible = False
           bounds_x = 0
           bounds_y = 0
           bounds_cx = 202
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+          bounds_cy = 30
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
           textflags = [tf_wordbreak, tf_noselect]
-          reffontheight = 15
+          reffontheight = 17
         end
         object wcopyto: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 2
           visible = False
           bounds_x = 203
           bounds_y = 0
           bounds_cx = 26
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+          bounds_cy = 30
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
           textflags = [tf_wordbreak, tf_noselect]
-          reffontheight = 15
+          reffontheight = 17
         end
         object wprogramgroup: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 3
           visible = False
           bounds_x = 230
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-          reffontheight = 15
+          bounds_cy = 30
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+          reffontheight = 17
         end
         object wprogramname: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 4
           visible = False
           bounds_x = 241
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-          reffontheight = 15
+          bounds_cy = 30
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+          reffontheight = 17
         end
         object wiconfile: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 5
           visible = False
           bounds_x = 252
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
-          reffontheight = 15
+          bounds_cy = 30
+          reffontheight = 17
         end
         object wdesktop: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 6
           visible = False
           bounds_x = 263
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
-          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
-          reffontheight = 15
+          bounds_cy = 30
+          optionsedit = [oe_readonly, oe_undoonesc, oe_closequery, oe_checkmrcancel, oe_shiftreturn, oe_eatreturn, oe_resetselectonexit, oe_exitoncursor, oe_endonenter, oe_autoselect, oe_autoselectonfirstclick]
+          reffontheight = 17
         end
         object wtmp: tstringedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets, ow_fontglyphheight]
           optionsskin = [osk_framebuttononly]
           taborder = 7
           visible = False
           bounds_x = 274
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
-          reffontheight = 15
+          bounds_cy = 30
+          reffontheight = 17
         end
         object woverwrite: tbooleanedit
-          optionswidget = [ow_mousefocus, ow_tabfocus, ow_arrowfocus, ow_destroywidgets]
           optionsskin = [osk_framebuttononly]
           taborder = 8
           bounds_x = 285
           bounds_y = 0
           bounds_cx = 10
-          bounds_cy = 16
+          bounds_cy = 30
           visible = False
           value = True
           valuedefault = True
         end
       end
       object tprogressbar1: tprogressbar
-        frame.dummy = 0
+        frame.localprops = []
+        frame.localprops1 = []
         taborder = 3
         bounds_x = 6
-        bounds_y = 191
+        bounds_y = 188
         bounds_cx = 299
         anchors = [an_left, an_right, an_bottom]
         bar_face.fade_pos.count = 3
@@ -590,53 +599,53 @@ object mainsetupfo: tmainsetupfo
           -1610612727
         )
         bar_face.fade_direction = gd_up
-        bar_face.localprops = [fal_fadirection, fal_fatransparency]
-        bar_face.dummy = 0
-        bar_frame.dummy = 0
+        bar_face.localprops = [fal_fadirection, fal_faopacity]
+        bar_frame.localprops = []
+        bar_frame.localprops1 = []
         valuerange = 100
-        valuestart = 0
-        value = 0
         format = '0%'
       end
     end
     object tabfinish: ttabpage
-      frame.zoomwidthstep = 1
-      frame.zoomheightstep = 1
+      frame.localprops = []
+      frame.localprops1 = []
       taborder = 4
       enabled = False
       bounds_x = 4
-      bounds_y = 23
+      bounds_y = 26
       bounds_cx = 475
-      bounds_cy = 216
+      bounds_cy = 213
       anchors = [an_left, an_top, an_right, an_bottom]
       caption = 'Finish'
       object wimgfinish: timage
         optionsskin = [osk_noskin]
-        frame.zoomwidthstep = 1
-        frame.zoomheightstep = 1
         frame.font.xscale = 1
-        frame.font.dummy = 0
+        frame.font.localprops = [flp_xscale]
         frame.localprops = [frl_levelo, frl_leveli]
+        frame.localprops1 = []
         bounds_x = 311
         bounds_y = 0
         bounds_cx = 162
-        bounds_cy = 216
+        bounds_cy = 213
         anchors = [an_right]
         bitmap.options = [bmo_masked, bmo_colormask]
         bitmap.source = bmpfinish
         bitmap.alignment = [al_xcentered, al_ycentered, al_fit]
       end
       object finishdescription: tmemoedit
-        optionswidget = [ow_mousefocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
         frame.colorclient = -2147483645
         frame.localprops = [frl_colorclient]
+        frame.localprops1 = []
+        frame.sbhorz.pagesize = 1
+        frame.sbvert.pagesize = 1
         taborder = 1
         bounds_x = 5
         bounds_y = 6
         bounds_cx = 300
-        bounds_cy = 204
+        bounds_cy = 201
         anchors = [an_left, an_top, an_right, an_bottom]
-        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+        optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
+        reffontheight = 17
       end
     end
   end
@@ -647,12 +656,12 @@ object mainsetupfo: tmainsetupfo
     bounds_cx = 134
     bounds_cy = 23
     anchors = [an_left, an_bottom]
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
     caption = '&Close'
     imagepos = ip_right
     imagelist = timagelist1
     imagenr = 2
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     onexecute = btnclose_onexecute
   end
   object btnnext: tbutton
@@ -662,12 +671,12 @@ object mainsetupfo: tmainsetupfo
     bounds_cx = 200
     bounds_cy = 23
     anchors = [an_right, an_bottom]
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     state = [as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
     caption = '&Next'
     imagepos = ip_right
     imagelist = timagelist1
     imagenr = 1
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     onexecute = btnnext_onexecute
   end
   object btnprev: tbutton
@@ -677,19 +686,19 @@ object mainsetupfo: tmainsetupfo
     bounds_cx = 200
     bounds_cy = 23
     anchors = [an_left, an_bottom]
+    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     state = [as_localdisabled, as_localcaption, as_localimagelist, as_localimagenr, as_localonexecute]
     caption = '&Previous'
     imagepos = ip_left
     imagelist = timagelist1
     imagenr = 0
-    options = [bo_executeonclick, bo_executeonkey, bo_executeonshortcut, bo_executedefaultonenterkey, bo_focusonshortcut, bo_shortcutcaption, bo_altshortcut]
     onexecute = btnprev_onexecute
   end
   object wcompanyname: tlabel
     optionswidget1 = []
     frame.leveli = 2
     frame.localprops = [frl_leveli]
-    frame.dummy = 0
+    frame.localprops1 = []
     face.fade_pos.count = 3
     face.fade_pos.items = (
       0
@@ -704,7 +713,6 @@ object mainsetupfo: tmainsetupfo
     )
     face.fade_direction = gd_up
     face.localprops = [fal_fadirection]
-    face.dummy = 0
     taborder = 7
     bounds_x = 3
     bounds_y = 4
@@ -719,16 +727,15 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_shadow_color, flp_gloss_color, flp_style, flp_xscale, flp_height]
     textflags = [tf_xcentered, tf_ycentered, tf_rotate90]
-    reffontheight = 29
   end
   object tsimplewidget1: tsimplewidget
     optionsskin = [osk_noskin]
     color = -1879048181
     frame.leveli = -2
     frame.localprops = [frl_leveli]
-    frame.dummy = 0
+    frame.localprops1 = []
     face.fade_pos.count = 3
     face.fade_pos.items = (
       0
@@ -742,7 +749,6 @@ object mainsetupfo: tmainsetupfo
       -1879048182
     )
     face.localprops = [fal_fadirection]
-    face.dummy = 0
     taborder = 8
     visible = True
     bounds_x = 175
@@ -765,9 +771,8 @@ object mainsetupfo: tmainsetupfo
       font.style = [fs_bold]
       font.name = 'stf_default'
       font.xscale = 1
-      font.dummy = 0
+      font.localprops = [flp_color, flp_shadow_color, flp_style, flp_xscale, flp_height]
       textflags = [tf_xcentered, tf_ycentered]
-      reffontheight = 19
     end
   end
   object tlabel2: tlabel
@@ -784,9 +789,8 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold, fs_italic]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_style, flp_xscale, flp_height]
     textflags = [tf_right, tf_ycentered]
-    reffontheight = 19
   end
   object www: tlabel
     optionswidget1 = []
@@ -802,9 +806,8 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold, fs_underline]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_style, flp_xscale, flp_height]
     textflags = [tf_xcentered, tf_ycentered]
-    reffontheight = 19
   end
   object tlabel3: tlabel
     optionswidget1 = []
@@ -819,9 +822,8 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold, fs_italic]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_style, flp_xscale, flp_height]
     textflags = [tf_xcentered, tf_ycentered]
-    reffontheight = 15
   end
   object wcopyright: tlabel
     optionswidget1 = []
@@ -837,29 +839,38 @@ object mainsetupfo: tmainsetupfo
     font.style = [fs_bold, fs_italic]
     font.name = 'stf_default'
     font.xscale = 1
-    font.dummy = 0
+    font.localprops = [flp_color, flp_style, flp_xscale, flp_height]
     textflags = [tf_xcentered, tf_ycentered, tf_wordbreak]
-    reffontheight = 15
   end
   object appdescription: tmemoedit
-    optionswidget = [ow_mousefocus, ow_mousewheel, ow_destroywidgets, ow_autoscale]
     frame.colorclient = -2147483645
     frame.localprops = [frl_colorclient]
+    frame.localprops1 = []
+    frame.sbhorz.pagesize = 1
+    frame.sbvert.pagesize = 1
     taborder = 13
     bounds_x = 36
     bounds_y = 143
     bounds_cx = 134
     bounds_cy = 147
     anchors = [an_left, an_top, an_bottom]
-    optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit, oe_autopopupmenu, oe_keyexecute, oe_checkvaluepaststatread, oe_savevalue, oe_savestate]
+    optionsedit = [oe_readonly, oe_closequery, oe_checkmrcancel, oe_linebreak, oe_eatreturn, oe_resetselectonexit]
+    reffontheight = 17
   end
   object wlang: tkeystringedit
+    frame.localprops = []
+    frame.localprops1 = []
     frame.button.color = -2147483646
+    frame.buttons.count = 1
+    frame.buttons.items = <    
+      item
+        color = -2147483646
+      end>
     taborder = 14
     bounds_x = 521
     bounds_y = 9
     bounds_cx = 140
-    bounds_cy = 21
+    bounds_cy = 23
     ondataentered = wlang_ondataentered
     dropdown.cols.count = 2
     dropdown.cols.items = <    
@@ -868,7 +879,7 @@ object mainsetupfo: tmainsetupfo
       item
         options = [co_readonly, co_invisible, co_mousemovefocus, co_focusselect, co_rowselect, co_fill]
       end>
-    reffontheight = 15
+    reffontheight = 17
   end
   object tstatfile1: tstatfile
     filename = 'status.sta'
@@ -877,7 +888,7 @@ object mainsetupfo: tmainsetupfo
     top = 184
   end
   object timagelist1: timagelist
-    colormask = True
+    options = [bmo_masked, bmo_colormask]
     count = 3
     left = 368
     top = 208

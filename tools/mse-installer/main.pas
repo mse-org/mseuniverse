@@ -311,7 +311,7 @@ begin
  if imgdialog.execute=mr_ok then begin
   str1:= fileext(imgdialog.controller.filename);
   applogo.helpcontext:= str1;
-  applogo.bitmap.loadfromfile(imgdialog.controller.filename,'');
+  applogo.bitmap.loadfromfile(imgdialog.controller.filename,'',[]);
  end;
 end;
 
@@ -332,7 +332,7 @@ begin
  if str2<>'' then begin
   str3:= strtobytestr(str2);
   applogo.helpcontext:= str1;
-  applogo.bitmap.loadfromstring(str3,str1);
+  applogo.bitmap.loadfromstring(str3,str1,[]);
  end else begin
   applogo.bitmap.clear;
  end;

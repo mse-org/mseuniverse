@@ -3,7 +3,7 @@ unit globmodul;
 interface
 uses
  msegui{$ifdef linux},baseunix{$endif},mseclasses,mseforms,msestrings,mseconsts,msei18nutils,strutils,math,dateutils,msesys,
- sysutils,msefileutils,msereal,msesysintf,msesysenv,msetypes,mseprocutils{,idea},msestream,classes
+ sysutils,msefileutils,msereal,msesysintf,msesysenv,msetypes,mseprocutils{,idea},msestream,classes, msemacros
  {$ifdef mswindows}
  ,windows,shlobj,activex,comobj
  {$endif};
@@ -151,12 +151,13 @@ var
 begin
  fmacro:= tmacrolist.create([mao_caseinsensitive]);
  {$ifdef linux}
- fmacro.add(['HOMEDIR'],[removeendpath(sys_getapphomedir)]);
+ fmacro.add(['HOMEDIR'],[removeendpath(sys_getapphomedir)] ,[]);
+ 
  str2:= splitstring(getenvironmentvariable('MANPATH'),':');
  if str2<>nil then begin
-  fmacro.add(['MANPATH'],[removeendpath(str2[0])]);
+  fmacro.add(['MANPATH'],[removeendpath(str2[0])],[]);
  end;
- fmacro.add(['TMPDIR'],[removeendpath(sys_gettempdir)]);
+ fmacro.add(['TMPDIR'],[removeendpath(sys_gettempdir)],[]);
  {$endif}
  {$ifdef mswindows}
  fmacro.add(['PROGRAMFILES'],[removeendpath(sysutils.getenvironmentvariable('ProgramFiles'),'\')]);
