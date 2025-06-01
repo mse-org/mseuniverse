@@ -1,24 +1,26 @@
 object mainfo: tmainfo
-  bounds_x = 291
-  bounds_y = 247
+  bounds_x = 495
+  bounds_y = 300
   bounds_cx = 257
-  bounds_cy = 213
+  bounds_cy = 225
   container.frame.localprops = []
   container.frame.localprops1 = []
   container.bounds = (
     0
-    0
+    19
     257
-    213
+    206
   )
+  mainmenu = tmainmenu1
+  windowopacity = -Inf
   moduleclassname = 'tmainform'
   object tbutton1: tbutton
     frame.localprops = []
     frame.localprops1 = [frl1_framefaceoffset, frl1_framefaceoffset1]
     frame.template = tframecomp1
-    bounds_x = 24
-    bounds_y = 16
-    bounds_cx = 82
+    bounds_x = 32
+    bounds_y = 48
+    bounds_cx = 194
     bounds_cy = 76
     state = [as_localcaption]
     caption = 'Button'
@@ -27,26 +29,43 @@ object mainfo: tmainfo
     list.count = 3
     list.items = <    
       item
-        frameimage_list = timagelist1
         localprops = [fal_frameimagelist]
-        template = convex
+        template = nofocus
+      end    
+      item
+        frameimage_list = timagelist1
+        localprops = [fal_frameimagelist, fal_frameimageoffset]
+        template = hoover
       end    
       item
         frameimage_list = timagelist1
         frameimage_offset = 8
         localprops = [fal_frameimagelist, fal_frameimageoffset]
-        template = convex
-      end    
-      item
-        frameimage_list = timagelist1
-        frameimage_offset = 8
-        localprops = [fal_frameimagelist, fal_frameimageoffset]
-        template = concave
+        template = butclick
       end>
     left = 24
-    top = 160
+    top = 168
   end
-  object concave: tfacecomp
+  object butclick: tfacecomp
+    template.framei_left = 2
+    template.framei_top = 2
+    template.framei_right = 2
+    template.framei_bottom = 2
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      16765136
+      16751001
+    )
+    template.fade_direction = gd_down
+    left = 160
+    top = 174
+  end
+  object nofocus: tfacecomp
     template.framei_left = 2
     template.framei_top = 2
     template.framei_right = 2
@@ -61,27 +80,9 @@ object mainfo: tmainfo
       -1610612731
       -1610612733
     )
-    template.fade_direction = gd_left
-    left = 120
-    top = 160
-  end
-  object convex: tfacecomp
-    template.framei_left = 2
-    template.framei_top = 2
-    template.framei_right = 2
-    template.framei_bottom = 2
-    template.fade_pos.count = 2
-    template.fade_pos.items = (
-      0
-      1
-    )
-    template.fade_color.count = 2
-    template.fade_color.items = (
-      -1610612731
-      -1610612733
-    )
-    left = 120
-    top = 184
+    template.fade_direction = gd_down
+    left = 136
+    top = 128
   end
   object tframecomp1: tframecomp
     template.frameface_list = tfacelist1
@@ -89,15 +90,15 @@ object mainfo: tmainfo
     template.frameface_offsetclicked = 1
     template.optionsskin = [fso_flat, fso_noanim, fso_nofocusrect, fso_nodefaultrect]
     left = 24
-    top = 128
+    top = 136
   end
   object timagelist1: timagelist
     width = 3
     height = 3
     options = [bmo_masked, bmo_graymask]
     count = 16
-    left = 144
-    top = 128
+    left = 136
+    top = 16
     image = {
       00000000120000000C0000000C00000098000000000000000000000000000000
       00000000000000000000000000000000000000000000000100C00004FFFFFF01
@@ -111,5 +112,47 @@ object mainfo: tmainfo
       FF000000FFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF00
       FFFFFFFF00FFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFF000000
     }
+  end
+  object hoover: tfacecomp
+    template.framei_left = 2
+    template.framei_top = 2
+    template.framei_right = 2
+    template.framei_bottom = 2
+    template.fade_pos.count = 2
+    template.fade_pos.items = (
+      0
+      1
+    )
+    template.fade_color.count = 2
+    template.fade_color.items = (
+      -1610612730
+      16756300
+    )
+    template.fade_direction = gd_down
+    left = 144
+    top = 152
+  end
+  object tmainmenu1: tmainmenu
+    itemfacetemplateactive = hoover
+    menu.submenu.count = 4
+    menu.submenu.items = <    
+      item
+        caption = ' One '
+        state = [as_localcaption]
+      end    
+      item
+        caption = ' Two '
+        state = [as_localcaption]
+      end    
+      item
+        caption = ' Tree '
+        state = [as_localcaption]
+      end    
+      item
+        caption = ' Four '
+        state = [as_localcaption]
+      end>
+    left = 16
+    top = 8
   end
 end

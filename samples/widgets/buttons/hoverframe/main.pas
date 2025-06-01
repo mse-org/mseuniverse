@@ -10,10 +10,12 @@ type
  tmainfo = class(tmainform)
    tbutton1: tbutton;
    tfacelist1: tfacelist;
-   concave: tfacecomp;
-   convex: tfacecomp;
+   butclick: tfacecomp;
+   nofocus: tfacecomp;
    tframecomp1: tframecomp;
    timagelist1: timagelist;
+   hoover: tfacecomp;
+   tmainmenu1: tmainmenu;
  end;
 var
  mainfo: tmainfo;
